@@ -1,4 +1,4 @@
-from functools import wraps, partial   
+from functools import wraps, partial, reduce   
 def aslist(fn=None):
     def aslist_return(fn):
         @wraps(fn)
@@ -20,6 +20,18 @@ def asgen(fn=None):
         return asgen_return
     return asgen_return(fn)
 
+def aslengen(fn=None):
+    
+    class lengen(object):
+        def __init__(self, gen, length):
+            self.gen = gen
+            self.length = length
+
+        def __len__(self): 
+            return self.length
+
+        def __iter__(self):
+            return self.gen
 
 try:
     from pathos.multiprocessing import Pool
@@ -44,3 +56,6 @@ def parallel(fn=None):
     if fn is None:
         return parallel_return
     return parallel_return(fn)
+
+def chain(*fns):
+    return functools.reduce(lambda f, g: lambda x: f(g(x)),fns)

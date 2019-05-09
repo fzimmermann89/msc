@@ -1,0 +1,66 @@
+Tais2019={
+    'alias': {
+        'pulse_energy_hutch_joule': 'bl_3_eh_5_photodiode_direct_bm_1_pulse_energy_in_joule',
+        'pulse_energy_beam_joule':'bl_3_oh_2_bm_1_pulse_energy_in_joule',
+        'pd_volts':'xfel_bl_3_st_5_pd_user_5_fitting_peak_voltage',
+        'pd_gain':'xfel_bl_3_st_5_pd_user_5_fitting_peak_gain',
+        'sampleThY':'xfel_bl_3_st_5_motor_user_5/position',
+        'sampleThZUpper':'xfel_bl_3_st_5_motor_user_3/position',
+        'sampleX':'xfel_bl_3_st_5_motor_user_1/position', 
+        'sampleZ':'xfel_bl_3_st_5_motor_user_2/position',
+        'sampleThZLower':'xfel_bl_3_st_5_motor_user_4/position',
+        'sampleThX':'xfel_bl_3_st_5_motor_user_15/position',
+        'profX2':'xfel_bl_3_st_5_motor_facility_14/position',
+        'profZ1':'xfel_bl_3_st_5_motor_user_18/position',
+        'profY':'xfel_bl_3_st_5_motor_facility_10/position',
+        'DualX':'xfel_bl_3_st_5_motor_user_11/position', 
+        'DualZ':'xfel_bl_3_st_5_motor_user_12/position', 
+        'DualThx':'xfel_bl_3_st_5_motor_user_13/position', 
+        'BeamstopX':'xfel_bl_3_st_5_motor_user_14/position', 
+        'BeamstopZ':'xfel_bl_3_st_5_motor_user_16/position', 
+        'SingleX':'xfel_bl_3_st_5_motor_user_6/position', 
+        'SingleY':'xfel_bl_3_st_5_motor_user_7/position', 
+        'SingleZ':'xfel_bl_3_st_5_motor_user_8/position', 
+        'SingleThy':'xfel_bl_3_st_5_motor_user_10/position', 
+        'SingleThz':'xfel_bl_3_st_5_motor_user_9/position',
+        'HccdX': 'xfel_bl_3_st_5_motor_facility_67/position', 
+        'HccdZ': 'xfel_bl_3_st_5_motor_facility_68/position',
+        'PDX': 'xfel_bl_3_st_5_motor_facility_69/position',
+        'xfel_pulse_selector_status':'bl_3_eh_1_xfel_pulse_selector_status',
+        'attenuator_eh_2_Al_thickness_in_meter':'bl_3_eh_2_attenuator_Al_thickness_in_meter',
+        'attenuator_eh_4_Al_thickness_in_meter':'bl_3_eh_4_attenuator_Al_thickness_in_meter',
+        'attenuator_eh_5_Si_thickness_in_meter':'bl_3_eh_5_attenuator_Si_thickness_in_meter',
+        'attenuator_oh_2_Si_thickness_in_meter': 'bl_3_oh_2_attenuator_Si_thickness_in_meter'
+     },
+    'hide': [
+      '.*camera.*',
+      '.*bl_3_.*'
+    ],
+    'calibration':{
+      'sampleThY':0.00067,
+      'sampleThZUpper':0.002,
+      'sampleX':0.5e-6,
+      'sampleZ':0.25e-6,
+      'sampleThZLower':0.002,
+      'sampleThX':0.000765,
+      #'profX2':'xfel_bl_3_st_5_motor_facility_14/position',
+      #'profZ1':'xfel_bl_3_st_5_motor_user_18/position',
+      #'profY':'xfel_bl_3_st_5_motor_facility_10/position',
+      'DualX':5e-6, 
+      'DualZ':0.1e-6,
+      'DualThx':0.000706,
+      'BeamstopX':1e-6,
+      'BeamstopZ':0.05e-6,
+      'SingleX':1e-6,
+      'SingleY':1e-6,
+      'SingleZ':0.1e-6,
+      'SingleThy':0.0011,
+      'SingleThz':0.002,
+      'HccdX': 1e-6,
+      'HccdZ': 0.1e-6,
+      'PDX': 0.5e-6
+    }
+ }
+
+
+

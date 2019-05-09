@@ -1,0 +1,102 @@
+Run start,last run,Starttime,Endtime,Sample,E_ph,Pre Comment,Pulse Energy,Detector Filter,Beamline filter,Post Comment,Single,Dual,Sx min,Sx max,Sx speed,Sz min,Sz max,Sz spacing,Single_x,Single_y,Single_z,Prof_Y,Prof_X2,Prof_Z1
+#,#,Time,Time,#/desc,keV,desc,uJ,desc,mm Silicon,desc,Photons,Photons,pulses,pulses,pulse/sec,pulses,pulses,pulses,microns,microns,microns,microns,microns,microns
+781931,,05:47:29,,1,10.4,,562,50um Zink,0.3,,,,,,,,,,,,,,,
+781932,781952,09:20:14,09:29:08,15,,background,570,,0.4,,,,-9000,9000,1200,-10000,10000,80,6182,-5897,1500,3715,-1100,
+781953,781959,09:30:16,09:31:57,,,,,,0.3,background avg. 40?,,,,,,,,,,,,,,
+781960,781965,09:35:57,,,,,,,0.4,,,,,,3600,-3000,,,,,,,,
+781966,781975,09:39:18,09:42:37,,,,,,0.5,,,,,,1200,,,,,,,,,
+781976,781985,09:50:41,,22x17 empty,,empty 22x17 window,,,0.3,"background still visible, avg 7.",,,,,,,,,,,,,,
+,,,,none,,,,,,Same Game as before. Its not the target holder,,,,,,,,,,,,,,
+,,,,,,Stephan shielded from air scattering after target interaction,,,,no change,,,,,,,,,,,,,,
+,,,,,,Tais shieded detector from upstream,,,,a little better,,,,,,,,,,,,,,
+,,,,,,some lead shielding on an empty target holder,,,,,,,,,,,,,,,,,,
+781987,781999,11:15:04,,1,,,530,,0.4,much better signal,,,,,,-3000,,,,,,,,
+782000,782007,,11:32:22,,,,,,0.3,"for crater evaluation, avg around 37",,,,,,,,,,,,,,
+782008,782017,,12:36:46,,,with 40% he,,,,avg. 38,,,,,,,,,,,,,,
+782018,782022,12:38:29,12:40:10,,,with 40% He off the sample,,,,avg 5,,,,,,,,,,,,,,
+,,14:54:19,,GaNCrystal 5,,,,,0.5,,,,-10600,9000,,-10700,11300,,,,,,,
+,,14:58:16,14:59:12,,,,,,0.4,slight sadow visible,,,,,,-9900,,,,,,,,
+,,15:02:40,,,,one line only,,,0.3,shadow sill 25pixels,,,,,,-9000,,,,,,,,
+,,,,,,moved Prof_Z1 up by 600um to -9308 to compensate for the shadow.,,,,,,,,,,,,,,,,,,
+782025,782065,15:31:01,,2,,actual Data GaN. ,,,0.3,Beam falls off Target at Sample x>9900 and x<-10500,,,-10600,10800,1200,-10700,11300,60,6182,-5897,1500,,,
+782066,782069,,,13,,GaAs for Kossel lines,,,0.5,symmetry off by about 50pxl (3.5deg),,,,,2000,,,240,,,,,,
+782070,782074,,,14,,rotated Gas for rotated Kossel lines,,,,still off by about 50 pixel sideways. Lines would need to move towards the detector downstream side.,,,,,,,,,,,,,,
+,,,,,,moving kossel lines by moving Sample Thz by 1 deg. ,,,,worked. change reversed,,,,,,,,,,,,,,
+,,,,,,Engineers Refocused.,,,,,,,,,,,,,,,,,,
+782075,782094,23:24:31,00:19:34,Ben's GaAs (#10),,detector off-centered,,,0.3,off-centered (because detector X is out by 9mm). Looks like ~3ph/pix on detector on average. PD is saturated. In the last ~30s shadow appeared. Stopped the run at ~0:19,,,-10700,10800,1800,-10600,11300,80,-3818,-5897,1500,,,
+782095,782111,12:57:47 AM,1:44:00 AM,"Ben's GaAs (#12), 45deg",,,,,0.4,"shooting off the sample on the right. Also there might be a crack on the right, see posted image in SLACK. Start to see shadow on detector image in the last few lines, might be sample holder. Stopped run before scan finishes.",,,-10700,10800,1800,-10600,11300,80,6182,-5897,1500,,,-6810
+782112,782134,01:49:06,02:52:36,same as above,,Moved Prof_Z1 to -12310um to scan on another sample area,,,0.4,there might be a crack in the middle. Seem to be seeing Kossel lines ,,,-10700,10800,1800,-10600,11300,80,6182,-5897,1500,,,-12310
+782135,782161,03:07:29,04:23:25,"GaN 500nm, #20",,,,,0.4,"between 3:20-3:35, Tais tried to adjust scan range but left the shutter open, so some data may be on damaged sample. Seeing shadow so stopped. Sample actually broke, so some datasets might not be useful--see Slack image.",,,-10700,10800,1200,-10600,11300,80,6182,-5897,1500,,,-8560
+782162,782165,04:37:49,04:46:43,#5,,,,,0.5,last shots were on the sample holder,,,-10000,11500,6000,-5640,11300,300,6182,-5897,1500,,,-8560
+782166,782166,04:49:41,04:52:16,#5,,,,,0.5,,,,-10000,11500,6000,-11000,11300,300,6182,-5897,1500,,,-8560
+782167,,,,#6,,moved Prof_Z1 to avoid shadow on top part of detector,540,,0.2+0.5,not useful,,,-10700,10800,2400,-11000,11000,100,6182,-5897,1500,,,-9560
+782168,782180,05:19:02,05:55:59,#6,,"adjusted Prof_Z1 from -9060um, no shadow",545,,0.2+0.5,"tiny kossels; start to see shadow towards the end, so stopped",,,-10700,10800,2400,-11000,11000,100,6182,-5897,1500,,,-9060
+782181,782206,06:09:23,07:23:16,"16, Bens",,,535,,0.5,"Noticed in the middle of the scan that we are going off sample quite a bit. To save time, changed scan Xmax to 6000. New range starting at Z = -1142 and run 782197. Seeing shadows around run 782204-05 (see Slack)",,,-10700,"10800, changed to 6000 mid-run (see comments)",1500,,,60,,,,,,-6810
+782207,782239,07:28:03,09:01:50,,,continue on upper part of the sample. Change photodiode sensitvity during scan at 8:32 see SLACK.,,,0.5,Scan finished successfully,,,-10700,10500,1500,-10000,11000,60,6182,-5897,1500,,,-12310
+782240,782267,09:10:49,10:28:36,22 GaN 500,,,545,,0.4,scan stopped mid-way. Changing to faster scan & bigger steps to finish faster,,,-10700,10500,1200,-10600,11000,60,6182,-5897,1500,,,-9060
+782268,782272,10:30:21,10:42:19,22,,,556,,,"continuation of the last scan, but with bigger steps and faster movement. Shadow appeared so stopped scan early.",,,,,1800,,,100,,,,,,-9060
+782273,782294,10:48:11,,"23, Ben",,,,,0.4,,,,-10700,10500,1800,-10600,11000,80,6182,-5897,1500,,,-12000
+782295,782311,11:54:50,12:41:05,,,nicely aligned and keep going on same target,533,,,,,,,,,,,,,,,,,-6600
+,,,,??,7.2,long tube,,,0.3,,5000,0.4,,,,,,,,,,,,
+,,,,,,,,,0.2,,55000,50,,,,,,,,,,,,
+,,,,,,,,,0.1,dual was entirely shadowed by tube,400000,200,,,,,,,,,,,,
+,,,,,,tube removed,,,0.3,,3000,34,,,,,,,,,,,,
+,,,,,,,,,0.2,,40000,400,,,,,,,,,,,,
+,,,,,,,,,0.1,,400000,4000,,,,,,,,,,,,
+,,,,none,,,,,0.2,,3500,5000,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+782314,782316,21:56:27,22:04:28,NP 20nm,7.2,dual is not working,465,,0.1,stopped scan when beam down. Getting the dual working,,,-10700,10500,2800,-8800,11000,60,-51434,-33866,1500,3267,-473.4,-10028.85
+782317,782317,22:07:23,22:09:28,,,continue the last scan,,,0.1,stopped scan because Mn filter in front of dual seems tilted,,,,,,,,,,,,,,
+782318,782321,22:23:31,22:34:54,"#40, 10.1",,filter in front of dual still ,,,0.1,,5000,2000,-10700,10500,2800,-10000,11000,60,,,,,,
+,,,,,,changing attn during run,,,0.2,,500,250,,,,,,,,,,,,
+,,,,,,"starting from 782321, all Si 0.1mm att",,,0.3,,73,30,,,,,,,,,,,,
+,,,,,,rotating dual filter ,,,,didnt work,,,,,,,,,,,,,,
+782322,782329,22:47:27,23:07:31,same as above,,,,,0.1,,,,,,,,,,,,,,,
+782330,782354,23:28:54,00:37:14,"50, 20nm high",,important sample,,,0.1,,50000,5000,,,2000,,,60,,,,,,-12846
+782355,782356,00:38:15,00:43:50,,,continuing the scan above,,,,,,,,,2000,,,60,,,,,,
+782357,782374,00:52:37,01:42:26,,7.2,moved Prof_Z1 to -7500um to start scanning in new sample region.,497,,0.1mm Al in EH4 + 0.1mm Si in EH5,,10000,,-10700,10500,2000,-10600,11000,60,-51434,-33866,1500,3267,-473.4,-7500
+782375,782378,01:44:16,01:54:09,,,10mins,,,0,,500000,,,,3600,4200,,80,,,,,,-7500
+,,,,,,manual focus by maximum ablation. start at Prof_y = 3267,,,,didnt change a thing. ,,,,,,,,,,,,,,
+782379,782380,02:00:40,02:06:25,background,,background run,,,0,stripe on dual disappeared,2000,20000,,,,,,,,,,,,
+782381,782381,02:06:37,02:09:27,dark,,dark run,,,,,,,,,,,,,,,,,,
+782382,782382,02:10:09,02:11:24,Fe Foil,,,,,0.1,much of the X range seems to be shooting on the holder ,,,,,1200,-9000,,60,,,,,,
+782383,782397,02:13:00,02:55:26,,,continuing the run above with new X scan range,,,0.1,stripe is back. Scan with Sample 50 was overlapping with the holder. May explain the stripe.,400000,5000,,2500,,-8800,,,,,,,,-9000
+skip,,,,,,,,,0.1Si + 0.1Al,,,,,,,,,,,,,,,
+782398,782418,03:03:51,04:03:10,"51, 10 high",,,470,,0.1,,20000,2000,,6500,2000,-10500,,,,,,,,-12500
+782419,782419,04:04:58,04:07:21,,,continuing scan with no attenuation,500,,0,last few shots were on the same spot because scan ended before ending the run,300000,,,,3000,-10500,,80,,,,,,
+782420,782423,04:10:23,04:20:13,,,start new scan after changing Prof_Z1 tp -9500,,,0,,,,,,3000,0,,80,,,,,,-9500
+skip,,,,5 high,,,,,0.1,,,,,,,,,,,,,,,
+skip,,,,,,10min,,,0,,,,,,,,,,,,,,,
+782424,782444,04:28:01,05:27:31,10 mid,,,,,0.1mm Si in EH5,forgot to open DSS for the first few shots,36000,4000,-10700,6500,2000,-10500,11000,60,-51434,-33866,1500,3267,-473.4,-12500
+782445,782448,05:30:04,05:42:06,,,no att,500,,0,,200000,25000,-10700,6500,3000,0,11000,80,,,,,,-9500
+782449,782469,05:46:51,06:46:26,5 mid,,,500,,0.1,beam down for a while before/during run 782462,40000,4000,-10700,6500,2000,-10500,11000,60,,,,,,-12500
+782470,782473,06:48:11,06:59:29,,,,,,0,,300000,,-10700,6500,3000,0,11000,80,,,,,,-9500
+782474,782494,07:01:50,08:01:24,20 mid,,,,,0.1,,40000,4000,,,2000,-10500,11000,60,,,,,,-12500
+782495,782498,08:03:16,08:13:13,,,,500,,0,,500000,,-10700,6500,3000,0,11000,80,,,,,,-9500
+782499,782514,08:15:48,09:00:04,10 low,,,,,0.1,,8000,,-10700,6500,2000,-10500,11000,60,,,,,,-12500
+782515,782518,09:01:41,09:12:04,,,,490,,0,,60000,18000,-10700,6500,3000,0,11000,80,,,,,,-9500
+782519,782519,09:14:28,,10 water B,,,,,0.1,looks like mostly air scattering and/or elastic scattering from glass/water?,3600,,,,2000,-10500,11000,60,,,,,,-12500
+,,,,10 water A,,,,,,same as above. Not recorded. See picture in Slack,,,,,,,,,,,,,,
+782520,782533,09:22:30,10:02:12,10 agar,,,472,,0.1,,50000,3500,-10700,6500,2000,-10500,11000,60,,,,,,-12500
+782534,782534,10:02:40,,dark,,darkrun without beam,,,,,,,,,,,,,,,,,,
+,,,,,,END of beamtime!,,,,,,,,,,,,,,,,,,
