@@ -353,3 +353,28 @@ def getkeys(obj, identifier="", key=""):
         return ret
     else:  # reached end
         return {identifier[1:]: key[1:]}
+    
+def qsub(command, args=[], name='script', start=0, end=0):
+    '''
+    submits a job (array) using max resources.
+    if start==end
+    use $PBS_ARRAY_INDEX as argument to get index of job in array
+    '''
+    from subprocess import run, PIPE
+
+    args = ' '.join(str(i) for i in args)
+    pbs = (
+        f'''
+    #PBS -V
+    #PBS -l nodes=1:ppn=14
+    #PBS -l walltime=24:00:00
+    #PBS -l mem=60GB
+    #PBS -N {jobname}
+    '''
+        + (f'#PBS -J {start}-{end}' if start != end else f'export PBS_ARRAY_INDEX={start}')
+        + f'''
+    {command} {args}
+    '''
+    )
+    p = run(['qsub'], stdout=PIPE, input=pbs, encoding='ascii', cwd='./logs/')
+    return (p.returncode, p.stdout)
