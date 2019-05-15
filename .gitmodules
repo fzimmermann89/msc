@@ -1,3 +1,4 @@
 [submodule "idi"]
 	path = idi
 	url = https://github.com/fzimmermann89/idi
+	branch = master
