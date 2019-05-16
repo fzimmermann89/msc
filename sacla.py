@@ -237,7 +237,8 @@ class saclarunview:
     def __init__(self, items, run):
         self._run = run
         self._items = np.atleast_1d(items)
-
+        self._detectors2d = {}
+        self._detectors2d = {k: sacla2d(k,self) for k in run._h5file[f"{run._runname}"].keys() if "detector" in k} #for this line to work, getattr has to work and _detectors2d has to be defined..
     def __len__(self):
         return len(self._items)
 
@@ -245,11 +246,14 @@ class saclarunview:
         return saclarunview(self._items[items], self._run)
 
     def __getattr__(self, attr):
-        det = getattr(self._run, attr)
+        if attr in self._detectors2d:
+            return self._detectors2d[attr]
+        det = getattr(self._run, attr)  
         if isinstance(det, h5py._hl.dataset.Dataset) and self._items != sorted(self._items):
             # cannot index into hdf5 dataset if indices are not sorted, resort to converting to np array
             # TODO: remove if always return array
             return np.array(det)[self._items]
+        
         elif isinstance(det, dict) and "__partial__" in det and det["__partial__"] == True:
             ret = [det[str(i)] if str(i) in det else None for i in self._items]
             return ret[0] if len(ret) == 1 else ret
@@ -333,7 +337,7 @@ class h5list(list):
     """
 
     def __array__(self):
-        return np.array([np.array(obj) for obj in self])
+        return np.squeeze(np.array([np.array(obj) for obj in self]))
 
 
 def getkeys(obj, identifier="", key=""):
