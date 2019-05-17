@@ -5,7 +5,7 @@ import pandas as pd
 class log:
     def __init__(self, filename):
         df = pd.read_csv(filename, header=[0, 1])
-        fillcols = [i for i, k in enumerate(df.keys()) if not "Comment" in k]
+        fillcols = [i for i, k in enumerate(df.keys()) if not "Comment" in k[0]]
         df.iloc[:, fillcols] = df.iloc[:, fillcols].fillna(method="ffill")
         self.dataframe = df
 
@@ -358,27 +358,31 @@ def getkeys(obj, identifier="", key=""):
     else:  # reached end
         return {identifier[1:]: key[1:]}
     
-def qsub(command, args=[], name='script', start=0, end=0):
+def qsub(commands, jobname='script', start=0, end=0):
     '''
     submits a job (array) using max resources.
-    if start==end
+    if start==end submit single job, else array from start(inclusive) to end(inclusive)
     use $PBS_ARRAY_INDEX as argument to get index of job in array
     '''
     from subprocess import run, PIPE
 
-    args = ' '.join(str(i) for i in args)
+    if  isinstance(commands,list):
+        commands='\n'.join(str(c) for c in commands)
     pbs = (
-        f'''
-    #PBS -V
-    #PBS -l nodes=1:ppn=14
-    #PBS -l walltime=24:00:00
-    #PBS -l mem=60GB
-    #PBS -N {jobname}
-    '''
+f'''
+#PBS -V
+#PBS -l nodes=1:ppn=14
+#PBS -l walltime=24:00:00
+#PBS -l mem=60GB
+#PBS -k oe
+#PBS -N {jobname}
+'''
         + (f'#PBS -J {start}-{end}' if start != end else f'export PBS_ARRAY_INDEX={start}')
-        + f'''
-    {command} {args}
-    '''
+        + 
+f'''
+{commands}
+'''
     )
+#     print(pbs)
     p = run(['qsub'], stdout=PIPE, input=pbs, encoding='ascii', cwd='./logs/')
     return (p.returncode, p.stdout)
