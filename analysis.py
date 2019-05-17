@@ -5,6 +5,7 @@ import idi.reconstruction as recon
 from idi.util import *
 from funchelper import *
 import scipy.ndimage as snd
+import os, shutil
 
 def isdir(string):
     if os.path.isdir(string):
@@ -32,7 +33,9 @@ parser = argparse.ArgumentParser(description='sacla 2019 analysis')
 parser.add_argument('inputfile', metavar='inputfile', type=isfile,
                     help='the hdf5 inputfile to process')
 parser.add_argument('--outpath', default=None, metavar='path', type=isdir,
-                    help='the hdf5 inputfile to process')
+                    help='where to save the output (default work dir)')
+parser.add_argument('--workpath', default=None, metavar='path', type=isdir,
+                    help='the work dir (default input file dir)')
 parser.add_argument('--run', default='', dest='run', type=str,
                     help='run info/number to store as reference')
 parser.add_argument('--simple', dest='simple', action='store_true',
@@ -48,11 +51,14 @@ parser.add_argument('--detector', dest='detector', type=str,
                     default='detector_2d_3', metavar='DETECTORNAME',
                     help='name of detector')
 parser.add_argument('-e', dest='energy', type=float,
-                    default=6400, metavar='ENERGY in ev',
+                    default=6450, metavar='ENERGY in ev',
                     help='photon energy')
 parser.add_argument('-z', dest='z', type=float,
                     default=10, metavar='DISTANCE in cm',
                     help='detector distance')
+parser.add_argument('--threshold', dest='photonsthreshold', type=int,
+                    default=100, metavar='THRESHOLD in photons',
+                    help='min. photons in image to keep it')
 parser.add_argument('--pixelsize', dest='pixelsize', type=float,
                     default=0.1, metavar='PIXELSIZE in um',
                     help='detector pixelzie')
@@ -63,66 +69,94 @@ args = parser.parse_args()
 
 
 
-if args.outpath is None: args.outpath=os.path.dirname(args.inputfile)    
-run=sacla.saclarun(args.inputfile,settings=sacla.Tais2019)
+if args.workpath is None: args.workpath=os.path.dirname(args.inputfile)
+if args.outpath is None: args.outpath=args.workpath
+workfile=(os.path.join(args.workpath,os.path.basename(args.inputfile)))
+if os.path.isfile(workfile):
+    print(f' File {workfile} exists, not copying to workdir.')
+else:
+    print(f' copying input to {workfile}')
+    shutil.copy(args.inputfile, workfile)
+
+run=sacla.saclarun(workfile,settings=sacla.Tais2019)
 detector=getattr(run,args.detector)        
 energy=args.energy
 z=args.z*1e-2/args.pixelsize*1e-6
 nmax=np.inf if args.maximg == 0 else args.maximg
 print(vars(args))
-
+print('init done')
 #filter by distance between shots and intensity
 setdist=np.percentile(diffdist(run.sampleX),75)
 mindist=setdist*0.7
 distok=np.concatenate(([0],diffdist(run.sampleX,run.sampleZ)))>mindist
-intensity=intensities(detector)
-intok=np.logical_and(intensity>np.percentile(intensity,5),intensity<np.percentile(intensity,95))
-shots=run[np.logical_and(intok,distok)]
+# intensity=intensities(detector)
+# intok=np.logical_and(intensity>np.percentile(intensity,5),intensity<np.percentile(intensity,95))
+
+
+
+shots=run[distok]
 detector=getattr(shots,args.detector)
-
-
-
+print(f'distance done, {len(shots)} remaining')
 def getbg(detector):
     accum=accumulator()
     for img in detector:
-        dat=np.array(img)*run.detector.absolute_gain*3.65
+        dat=np.array(img)*detector.absolute_gain*3.65
         hits=dat>2000
         empty=~(snd.morphology.binary_dilation(hits,snd.morphology.generate_binary_structure(2, 2)))
-        count+=empty
         accum.add(dat*empty.astype(float), empty)
     return accum.mean
-bg=0#getbg(detector)
-
+bg=getbg(detector)
+print('bg done')
 def photonize(img, energy, gain=1, bg=0):
     return np.rint(((np.squeeze(np.array(img))*gain*3.65)-bg)/energy)
-def photonsstats(detector,bg,energy,maxthres=10):
+def photonsstats(detector,bg,energy,thres=10):
     accum=accumulator()
+    photonsum=[]
     maxphotons=0
     for n,img in enumerate(detector):   
         
         photons=photonize(img, energy, detector.absolute_gain, bg)
-        accum.add(photons)
-        maxphotons = np.maximum(maxphotons,photons)
-    return(accum.mean,acum.std,maxphotons)
-meanphotons,stdphotons,maxphotons=photonsstats(detector,bg,energy)
+        ps=np.sum(photons)
+        if ps>thres:
+            accum.add(photons)
+            maxphotons = np.maximum(maxphotons,photons)
+        photonsum.append(ps)
+
+    return(accum.mean,accum.std,maxphotons,np.array(photonsum))
+meanphotons,stdphotons,maxphotons,photonsum=photonsstats(detector,bg,energy,args.photonsthreshold)
+intok=photonsum>args.photonsthreshold
+minphotons=np.percentile(photonsum[intok],1)
+maxphotons=np.percentile(photonsum[intok],99)
+np.logical_or.reduce((x, y, z))
+intok=np.logical_and.reduce((intok,minphotons<photonsum,photonsum<maxphotons))
 mask=(meanphotons>(0.1*np.mean(meanphotons)))
-
-
-
+shots=shots[intok]
+detector=getattr(shots,args.detector)
+print(f'found photons statistics. intensity filter done, keep >{minphotons} && <{maxphotons}. {len(shots)} remaining')
 accum={
     'simple': accumulator(), 
     'ft3d':accumulator(), 
     'direct':accumulator(), 
     'directrad':accumulator()
 }
+print('accums ready')
+
 for n,img in enumerate(detector):
     if n>=nmax: break
-    photons=photonize(img, energy, detector.absolute_gain, bg)
+    photons=photonize(img, energy, detector.absolute_gain, bg)/meanphotons
+    photons[~mask]=0
     if args.simple: accum['simple'].add(recon.simple.corr(photons))
     if args.ft3d: accum['ft3d'].add(recon.ft.corr(photons,z))
     if args.direct: accum['direct'].add(recon.direct.corr(photons,z))
     if args.directrad: accum['directrad'].add(recon.newrad.corr(photons,z, qmax))
- 
+    if n==0:
+        for a in accum: print(a, accum[a].shape)
+    if n%10==0: print(n,end=' ')
+        
+print('done')
 tosave=vars(args)
-tosave.update({f'{k}_mean': v.mean for k,v in accum.items})
-tosave.update({f'{k}_std': v.std for k,v in accum.items})
+tosave.update({'workfile':workfile,'mask': mask, 'meanphotons':meanphotons,'stdphotons':stdphotons,'maxphotons':maxphotons,'photonsum':photonsum,'bg':bg})
+tosave.update({f'{k}_mean': v.mean for k,v in accum.items()})
+tosave.update({f'{k}_std': v.std for k,v in accum.items()})
+
+np.savez_compressed('test.npz',**tosave)
