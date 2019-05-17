@@ -73,7 +73,7 @@ parser.add_argument('--detector', dest='detector', type=str, default='detector_2
 parser.add_argument('-e', dest='energy', type=float, default=6450, metavar='ENERGY in ev', help='photon energy')
 parser.add_argument('-z', dest='z', type=float, default=10, metavar='DISTANCE in cm', help='detector distance')
 parser.add_argument('--threshold', dest='photonsthreshold', type=int, default=50, metavar='THRESHOLD in photons', help='min. photons in image to keep it')
-parser.add_argument('--pixelsize', dest='pixelsize', type=float, default=0.1, metavar='PIXELSIZE in um', help='detector pixelzie')
+parser.add_argument('--pixelsize', dest='pixelsize', type=float, default=50, metavar='PIXELSIZE in um', help='detector pixelzie')
 parser.add_argument('--maximg', dest='maximg', type=int, default=-1, metavar='MAXIMG', help='detector pixelsize')
 parser.add_argument('--allimg', dest='allimg', action='store_true', help='store all photonized images in result')
 
@@ -84,9 +84,9 @@ if args.outpath is None:
     args.outpath = args.workpath
 workfile = os.path.join(args.workpath, os.path.basename(args.inputfile))
 if os.path.isfile(workfile):
-    print(f' File {workfile} exists, not copying to workdir.')
+    print(f' File {workfile} exists, not copying to workdir.', flush=True)
 else:
-    print(f' copying input to {workfile}')
+    print(f' copying input to {workfile}', flush=True)
     shutil.copy(args.inputfile, workfile)
 outfile=os.path.join(args.outpath,datetime.datetime.now().strftime(f'{os.path.splitext(os.path.basename(args.inputfile))[0]}-%y%m%d-%H%M%S.npz'))
 
@@ -94,7 +94,7 @@ run = sacla.saclarun(workfile, settings=sacla.Tais2019)
 print(f'{len(run)} images in input')
 detector = getattr(run, args.detector)
 energy = args.energy
-z = args.z * 1e-2 / args.pixelsize * 1e-6
+z = (args.z * 1e-2) / (args.pixelsize * 1e-6)
 nmax = np.inf if args.maximg == -1 else args.maximg
 print(vars(args))
 print('init done', flush=True)
@@ -126,6 +126,7 @@ accum = {'simple': accumulator(), 'ft3d': accumulator(), 'direct': accumulator()
 
 print('start recon...', flush=True)
 allimg=[]
+directfunc=None
 for n, img in enumerate(detector):
     if n >= nmax:
         break
@@ -140,7 +141,11 @@ for n, img in enumerate(detector):
     if args.direct:
         accum['direct'].add(recon.direct.corr(photons, z))
     if args.directrad:
-        accum['directrad'].add(recon.newrad.corr(photons, z, qmax))
+        if directfunc is None:
+            qmax=max(photons.shape) if args.directrad == -1 else args.directrad 
+            print(f'qmax: {qmax}')
+            directfunc=recon.newrad.corrfunction(photons.shape, z, qmax)
+        accum['directrad'].add(directfunc(photons))
     if n == 0:
         for a in accum:
             print(a, accum[a].shape)
