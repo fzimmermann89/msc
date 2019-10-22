@@ -64,7 +64,7 @@ parser = argparse.ArgumentParser(description='sacla 2019 analysis')
 parser.add_argument('inputfile', metavar='inputfile', type=isfile, help='the hdf5 inputfile to process')
 parser.add_argument('--outpath', default=None, metavar='path', type=isdir, help='where to save the output (default work dir)')
 parser.add_argument('--workpath', default=None, metavar='path', type=isdir, help='the work dir (default input file dir)')
-parser.add_argument('--run', default='', dest='run', type=str, help='run info/number to store as reference')
+parser.add_argument('--run', default='', dest='run', type=str, help='run info/number to use for outfile')
 parser.add_argument('--simple', dest='simple', action='store_true', help='do simple ft correlation')
 parser.add_argument('--ft3d', dest='ft3d', action='store_true', help='do 3d ft correlation')
 parser.add_argument('--direct', dest='direct', action='store_true', help='do 3d direct correlation (slow!)')
@@ -72,10 +72,12 @@ parser.add_argument('--directrad', dest='directrad', type=int, nargs='?', defaul
 parser.add_argument('--detector', dest='detector', type=str, default='detector_2d_3', metavar='DETECTORNAME', help='name of detector')
 parser.add_argument('-e', dest='energy', type=float, default=6450, metavar='ENERGY in ev', help='photon energy')
 parser.add_argument('-z', dest='z', type=float, default=10, metavar='DISTANCE in cm', help='detector distance')
-parser.add_argument('--threshold', dest='photonsthreshold', type=int, default=50, metavar='THRESHOLD in photons', help='min. photons in image to keep it')
+parser.add_argument('--threshold', dest='photonsthreshold', type=int, default=500, metavar='THRESHOLD in photons', help='min. photons in image to keep it')
 parser.add_argument('--pixelsize', dest='pixelsize', type=float, default=50, metavar='PIXELSIZE in um', help='detector pixelzie')
 parser.add_argument('--maximg', dest='maximg', type=int, default=-1, metavar='MAXIMG', help='detector pixelsize')
 parser.add_argument('--allimg', dest='allimg', action='store_true', help='store all photonized images in result')
+parser.add_argument('--normalize', dest='normalize', action='store_true', help='normalize each image to zero mean, unity std.')
+parser.add_argument('--allrad', dest='allrad', action='store_true', help='store radial profiles')
 
 args = parser.parse_args()
 if args.workpath is None:
@@ -88,7 +90,7 @@ if os.path.isfile(workfile):
 else:
     print(f' copying input to {workfile}', flush=True)
     shutil.copy(args.inputfile, workfile)
-outfile=os.path.join(args.outpath,datetime.datetime.now().strftime(f'{os.path.splitext(os.path.basename(args.inputfile))[0]}-%y%m%d-%H%M%S.npz'))
+outfile=os.path.join(args.outpath,datetime.datetime.now().strftime(f'{args.run}-{os.path.splitext(os.path.basename(args.inputfile))[0]}-%y%m%d-%H%M%S.npz'))
 
 run = sacla.saclarun(workfile, settings=sacla.Tais2019)
 print(f'{len(run)} images in input')
@@ -111,7 +113,7 @@ print(f'distance done, {len(shots)} remaining')
 bg = getbg(detector)
 print('background done', flush=True)
 
-#photons statistics
+#photons statistics for filtering
 meanphotons, stdphotons, maxphotons, photonsum = photonsstats(detector, bg, energy, args.photonsthreshold)
 intok = photonsum > args.photonsthreshold
 nphotonsmin = np.rint(np.percentile(photonsum[intok], 1))
@@ -121,11 +123,22 @@ intok = np.logical_and.reduce((intok, nphotonsmin < photonsum, photonsum < nphot
 mask = meanphotons > (0.1 * np.mean(meanphotons))
 shots = shots[intok]
 detector = getattr(shots, args.detector)
-print(f'found photons statistics. intensity filter done, keep >{nphotonsmin} && <{nphotonsmax}. {len(shots)} remaining')
+print(f'intensity filter done, keep >{nphotonsmin} && <{nphotonsmax}. {len(shots)} remaining')
+
+#now redo the statistics..
+meanphotons, stdphotons, maxphotons, photonsum = photonsstats(detector, bg, energy, args.photonsthreshold)
+print(f'statistics done')
+
 accum = {'simple': accumulator(), 'ft3d': accumulator(), 'direct': accumulator(), 'directrad': accumulator()}
 
 print('start recon...', flush=True)
+
 allimg=[]
+alldirectrad=[]
+allsimplerad=[]
+
+shotmean=[]
+shotstd=[]
 directfunc=None
 for n, img in enumerate(detector):
     if n >= nmax:
@@ -134,8 +147,18 @@ for n, img in enumerate(detector):
     photons[~mask] = 0
     if args.allimg:
         allimg.append(np.array(photons))
+    cshotmean=np.mean(photons[mask])
+    cshotstd=np.std(photons[mask])
+    if args.normalize:
+        photons=photons-cshotmean
+        photons=photons/cshotstd
+    shotmean.append(cshotmean)
+    shotstd.append(cshotstd)   
     if args.simple:
-        accum['simple'].add(recon.simple.corr(photons))
+        csimple=recon.simple.corr(photons)
+        accum['simple'].add(csimple)
+        if args.allrad:
+            allsimplerad.append(radial_profile(csimple,np.array(csimple.shape)//2))
     if args.ft3d:
         accum['ft3d'].add(recon.ft.corr(photons, z))
     if args.direct:
@@ -145,7 +168,9 @@ for n, img in enumerate(detector):
             qmax=max(photons.shape) if args.directrad == -1 else args.directrad 
             print(f'qmax: {qmax}')
             directfunc=recon.newrad.corrfunction(photons.shape, z, qmax)
-        accum['directrad'].add(directfunc(photons))
+        cdirectrad=directfunc(photons)
+        accum['directrad'].add(cdirectrad)
+        if args.allrad: alldirectrad.append(cdirectrad)
     if n == 0:
         for a in accum:
             print(a, accum[a].shape)
@@ -153,6 +178,11 @@ for n, img in enumerate(detector):
         print(n, end=' ',flush=True)
 
 allimg=np.array(allimg)
+alldirectrad=np.array(alldirectrad)
+allsimplerad=np.array(allsimplerad)
+shotstd=np.array(shotstd)
+shotmean=np.array(shotmean)
+
 print()
 print(f'start saving to {outfile}')
 tosave = vars(args)
@@ -169,7 +199,12 @@ tosave.update(
         'photonsum': photonsum,
         'bg': bg,
         'mindist': mindist,
-        'allimg':allimg
+        'allimg':allimg,
+        'shotmean':shotmean,
+        'shotstd':shotstd,
+        'Nimg':n,
+        'simplerad_all':allsimplerad,
+        'directrad_all':alldirectrad
     }
 )
 tosave.update({f'{k}_mean': v.mean for k, v in accum.items()})
