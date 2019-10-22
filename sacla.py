@@ -126,7 +126,7 @@ class saclarun:
 
     @property
     def photonenergy(self):
-        return np.array(self._h5file[f"{self_runname}/run_info/sacla_config/photon_energy_in_eV"]).take(0)
+        return np.array(self._h5file[f"{self._runname}/run_info/sacla_config/photon_energy_in_eV"]).take(0)
 
     @property
     def photonwavelength(self):
@@ -134,7 +134,7 @@ class saclarun:
 
     @property
     def electronenergy(self):
-        return np.array(self._h5file[f"{self_runname}/run_info/sacla_config/electron_energy_in_eV"]).take(0)
+        return np.array(self._h5file[f"{self._runname}/run_info/sacla_config/electron_energy_in_eV"]).take(0)
 
     @property
     def run(self):
@@ -371,9 +371,9 @@ def qsub(commands, jobname='script', start=0, end=0):
     pbs = (
 f'''
 #PBS -V
-#PBS -l nodes=1:ppn=14
+#PBS -l nodes=1:ppn=12
 #PBS -l walltime=24:00:00
-#PBS -l mem=60GB
+#PBS -l mem=25GB
 #PBS -k oe
 #PBS -N {jobname}
 '''
