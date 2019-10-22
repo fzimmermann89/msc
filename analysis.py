@@ -75,9 +75,12 @@ parser.add_argument('-z', dest='z', type=float, default=10, metavar='DISTANCE in
 parser.add_argument('--threshold', dest='photonsthreshold', type=int, default=500, metavar='THRESHOLD in photons', help='min. photons in image to keep it')
 parser.add_argument('--pixelsize', dest='pixelsize', type=float, default=50, metavar='PIXELSIZE in um', help='detector pixelzie')
 parser.add_argument('--maximg', dest='maximg', type=int, default=-1, metavar='MAXIMG', help='detector pixelsize')
-parser.add_argument('--allimg', dest='allimg', action='store_true', help='store all photonized images in result')
 parser.add_argument('--normalize', dest='normalize', action='store_true', help='normalize each image to zero mean, unity std.')
+parser.add_argument('--allimg', dest='allimg', action='store_true', help='store all photonized images in result')
 parser.add_argument('--allrad', dest='allrad', action='store_true', help='store radial profiles')
+#parser.add_argument('--allcorr', dest='allcorr', action='store_true', help='store all 2d corrs)
+parser.add_argument('--delete', dest='delete', action='store_true', help='delete workfile')
+
 
 args = parser.parse_args()
 if args.workpath is None:
@@ -120,7 +123,18 @@ nphotonsmin = np.rint(np.percentile(photonsum[intok], 1))
 nphotonsmax = np.rint(np.percentile(photonsum[intok], 99))
 
 intok = np.logical_and.reduce((intok, nphotonsmin < photonsum, photonsum < nphotonsmax))
+
+#create mask
 mask = meanphotons > (0.1 * np.mean(meanphotons))
+mask =~ snd.morphology.binary_dilation(~mask,snd.morphology.generate_binary_structure(2, 2),iterations=2)
+#ignore borders
+mask[0,:] = 0
+mask[:,0] = 0
+mask[-1,:] = 0
+mask[:,-1] = 0
+
+
+
 shots = shots[intok]
 detector = getattr(shots, args.detector)
 print(f'intensity filter done, keep >{nphotonsmin} && <{nphotonsmax}. {len(shots)} remaining')
@@ -143,8 +157,8 @@ directfunc=None
 for n, img in enumerate(detector):
     if n >= nmax:
         break
-    photons = photonize(img, energy, detector.absolute_gain, bg) / meanphotons
-    photons[~mask] = 0
+    with np.errstate(divide='ignore',invalid='ignore'):
+        photons = photonize(img, energy, detector.absolute_gain, bg) / meanphotons
     if args.allimg:
         allimg.append(np.array(photons))
     cshotmean=np.mean(photons[mask])
@@ -152,24 +166,28 @@ for n, img in enumerate(detector):
     if args.normalize:
         photons=photons-cshotmean
         photons=photons/cshotstd
+        weight=cshotstd**2
+    else:
+        weight=1
+    photons[~mask] = 0
     shotmean.append(cshotmean)
     shotstd.append(cshotstd)   
     if args.simple:
         csimple=recon.simple.corr(photons)
-        accum['simple'].add(csimple)
+        accum['simple'].add(csimple*weight,weight)
         if args.allrad:
             allsimplerad.append(radial_profile(csimple,np.array(csimple.shape)//2))
     if args.ft3d:
-        accum['ft3d'].add(recon.ft.corr(photons, z))
+        accum['ft3d'].add(recon.ft.corr(photons, z)*weight,weight)
     if args.direct:
-        accum['direct'].add(recon.direct.corr(photons, z))
+        accum['direct'].add(recon.direct.corr(photons, z)*weight,weight)
     if args.directrad:
         if directfunc is None:
             qmax=max(photons.shape) if args.directrad == -1 else args.directrad 
             print(f'qmax: {qmax}')
             directfunc=recon.newrad.corrfunction(photons.shape, z, qmax)
         cdirectrad=directfunc(photons)
-        accum['directrad'].add(cdirectrad)
+        accum['directrad'].add(cdirectrad*weight,weight)
         if args.allrad: alldirectrad.append(cdirectrad)
     if n == 0:
         for a in accum:
@@ -210,4 +228,9 @@ tosave.update(
 tosave.update({f'{k}_mean': v.mean for k, v in accum.items()})
 tosave.update({f'{k}_std': v.std for k, v in accum.items()})
 np.savez_compressed(outfile, **tosave)
+
+if args.delete:
+    print(f'deleting {workfile}', flush=True)
+    os.remove(workfile)
+
 print('done!')
