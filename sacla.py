@@ -1,4 +1,3 @@
-from funchelper import *
 from settings import *
 
 import pandas as pd

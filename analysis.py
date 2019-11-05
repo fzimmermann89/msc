@@ -3,7 +3,7 @@ import argparse, os
 import numpy as np
 import idi.reconstruction as recon
 from idi.util import *
-from funchelper import *
+from idi.funchelper import *
 import scipy.ndimage as snd
 import os, shutil
 import datetime
@@ -50,7 +50,6 @@ def photonsstats(detector, bg, energy, thres=10):
     photonsum = []
     maxphotons = 0
     for n, img in enumerate(detector):
-
         photons = photonize(img, energy, detector.absolute_gain, bg)
         ps = np.sum(photons)
         if ps > thres:
