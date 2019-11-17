@@ -8,6 +8,9 @@ import scipy.ndimage as snd
 import os, shutil
 import datetime
 
+import mkl
+mkl.set_num_threads(12) 
+
 def isdir(string):
     if os.path.isdir(string):
         return os.path.abspath(string)
@@ -118,19 +121,23 @@ print('background done', flush=True)
 #photons statistics for filtering
 meanphotons, stdphotons, maxphotons, photonsum = photonsstats(detector, bg, energy, args.photonsthreshold)
 intok = photonsum > args.photonsthreshold
-nphotonsmin = np.rint(np.percentile(photonsum[intok], 1))
-nphotonsmax = np.rint(np.percentile(photonsum[intok], 99))
+nphotonsmin = np.rint(np.percentile(photonsum[intok], 5))
+nphotonsmax = np.rint(np.percentile(photonsum[intok], 95))
 
 intok = np.logical_and.reduce((intok, nphotonsmin < photonsum, photonsum < nphotonsmax))
 
 #create mask
-mask = meanphotons > (0.1 * np.mean(meanphotons))
-mask =~ snd.morphology.binary_dilation(~mask,snd.morphology.generate_binary_structure(2, 2),iterations=2)
+mask1 = meanphotons < (np.mean(meanphotons)+5*np.std(meanphotons))
+mask1=snd.morphology.binary_opening(mask1,snd.morphology.generate_binary_structure(2, 2),iterations=2)
+mask2 = meanphotons > 0.05*np.mean(meanphotons[mask1])
+mask2=snd.morphology.binary_closing(mask2,snd.morphology.generate_binary_structure(2, 2),iterations=2)
+mask=np.logical_and(mask1,mask2)
 #ignore borders
-mask[0,:] = 0
+mask[:20,:] = 0
 mask[:,0] = 0
-mask[-1,:] = 0
+mask[-20:,:] = 0
 mask[:,-1] = 0
+mask =~ snd.morphology.binary_dilation(~mask,snd.morphology.generate_binary_structure(2, 2),iterations=4)
 
 
 
