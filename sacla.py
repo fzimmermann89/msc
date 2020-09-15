@@ -2,11 +2,9 @@ from settings import *
 
 import pandas as pd
 class log:
-    def __init__(self, filename):
+    def __init__(self, filename, fill=True):
         df = pd.read_csv(filename, header=[0, 1])
-        fillcols = [i for i, k in enumerate(df.keys()) if not "Comment" in k[0]]
-        df.iloc[:, fillcols] = df.iloc[:, fillcols].fillna(method="ffill")
-        self.dataframe = df
+        self.dataframe = self._fill(df) if fill else df
 
     def search(self, field, value):
         field = [k for k in self.dataframe.keys() if field in k]
@@ -23,15 +21,26 @@ class log:
         return self.dataframe[item]
 
     def __setitem__(self, item, value):
-        self.dataframe[item] = item
+        self.dataframe[item] = value #or item?
 
     def __setattr(self, attr, value):
         if attr in self.__dict__.keys():
             self.__dict__[attr] = value
         else:
             setattr(self.dataframe, attr, value)
-
-
+            
+    def __iter__(self):
+        return self.iterrows()
+        
+    def _fill(self, df):
+        fillcols = [i for i, k in enumerate(df.keys()) if not "Comment" in k[0]]
+        ret=df.copy()
+        ret.iloc[:, fillcols] = ret.iloc[:, fillcols].fillna(method="ffill")
+        return ret
+    
+    def save(self, filename):
+        self.dataframe.to_csv(filename)
+    
 import h5py, numpy as np, os, re
 
 
@@ -310,8 +319,8 @@ class sacla2d:
     def __len__(self):
         return len(self._run._tags)
 
-    def __array__(self):  # speeds up np.array(detector) converting one dataset at a time
-        return np.squeeze(np.array([np.array(self._run._h5file[f"{self._run._runname}/{self._detector}/{tag}/detector_data"]) for tag in self._run._tags]))
+    def __array__(self, *args, **kwargs):  # speeds up np.array(detector) converting one dataset at a time
+        return np.squeeze(np.array([np.array(self._run._h5file[f"{self._run._runname}/{self._detector}/{tag}/detector_data"],*args, **kwargs) for tag in self._run._tags]))
 
     @property
     def shape(self):
@@ -335,8 +344,8 @@ class h5list(list):
     improves the performance of np.array(h5list<h5 datasets>) compared to np.array(list<h5 datasets>) by converting each element
     """
 
-    def __array__(self):
-        return np.squeeze(np.array([np.array(obj) for obj in self]))
+    def __array__(self, *args, **kwargs):
+        return np.squeeze(np.array([np.array(obj, *args, **kwargs) for obj in self]))
 
 
 def getkeys(obj, identifier="", key=""):
@@ -357,7 +366,7 @@ def getkeys(obj, identifier="", key=""):
     else:  # reached end
         return {identifier[1:]: key[1:]}
     
-def qsub(commands, jobname='script', start=0, end=0):
+def qsub(commands, jobname='script', start=0, end=0, threads=14,mem=30,queue='serial'):
     '''
     submits a job (array) using max resources.
     if start==end submit single job, else array from start(inclusive) to end(inclusive)
@@ -370,11 +379,15 @@ def qsub(commands, jobname='script', start=0, end=0):
     pbs = (
 f'''
 #PBS -V
-#PBS -l nodes=1:ppn=12
+#PBS -l nodes=1:ppn={threads}
 #PBS -l walltime=24:00:00
-#PBS -l mem=25GB
+#PBS -l mem={mem}GB
 #PBS -k oe
 #PBS -N {jobname}
+#PBS -q {queue}
+export MKL_NUM_THREADS={threads}
+export NUMEXPR_NUM_THREADS={threads}
+export OMP_NUM_THREADS={threads}
 '''
         + (f'#PBS -J {start}-{end}' if start != end else f'export PBS_ARRAY_INDEX={start}')
         + 
@@ -382,6 +395,6 @@ f'''
 {commands}
 '''
     )
-#     print(pbs)
     p = run(['qsub'], stdout=PIPE, input=pbs, encoding='ascii', cwd='./logs/')
     return (p.returncode, p.stdout)
+#export MKL_DOMAIN_NUM_THREADS="MKL_DOMAIN_ALL {threads} : MKL_DOMAIN_BLAS {threads} : MKL_DOMAIN_FFT {threads}"
