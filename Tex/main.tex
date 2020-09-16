@@ -1,0 +1,324 @@
+%%%%%%%%%%%%%   DEFINITIONEN   %%%%%%%%%%%%%%%
+%\pdfminorversion=5 
+\documentclass[11pt,a4paper,twoside]{book}
+
+%Packages
+\usepackage[utf8]{inputenc}
+\usepackage[USenglish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{bbold}
+\usepackage{xfrac}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[textwidth=160mm,bottom=25mm,top=25mm,headsep=5mm,bindingoffset=5mm]{geometry}
+\usepackage{listings}
+\usepackage{fancybox}
+
+\usepackage[small,bf]{caption} %Schönere Beschriftungen für Abbildungen und Tabellen
+\captionsetup{width=1\textwidth,skip=5pt,format=plain,indention=5pt}
+\usepackage{sidecap}
+\sidecaptionvpos{figure}{t}
+\usepackage{subcaption} %subfigures
+\usepackage{booktabs} %Schönere Tabellen
+\usepackage{fancyhdr} %Schönere Kopfzeile
+\usepackage[section]{placeins} %Abbildungen und Tabellen bleiben in ihrer Section
+\usepackage{blindtext} %Einfügen von Blindtext über \blindtext
+\usepackage{siunitx} %Einstellungen für Dezimaltrennzeichen und Definitionen in siunitx.cfg
+\usepackage[autostyle=true,german=quotes]{csquotes} %Verwendung von Anführungszeichen über \enquote{Text}
+\usepackage[toc,page]{appendix} %um eine Titelseite "Anhang" vor dem eigentlichen Anhang einfügen zu können
+
+%Druckt den Hinweis "Entwurf" mit Datum auf jede Seite. Zum deaktivieren printwatermark=false setzen
+\usepackage[printwatermark=false]{xwatermark}
+\newwatermark[allpages,textcolor=gray!70,angle=0,xpos=68,ypos=-135,fontsize=14pt,fontfamily=phv]{Entwurf\ -\ \the\day.\the\month.\the\year}
+
+%multirow in tabellen
+\usepackage{multirow}
+
+%%prüfe nach nicht verwendeten bib einträgen
+%\usepackage{refcheck}
+
+\usepackage{tocvsec2}
+\settocdepth{section}
+
+
+%Appendices -> Anhang
+%\renewcommand*\appendixpagename{Anhang}
+%\renewcommand*\appendixtocname{Anhang}
+
+%neue Pakete
+\usepackage{verbatim} %kommentare
+\usepackage[numbers,comma,sort&compress]{natbib} %bibliographie
+\usepackage{commath}
+\usepackage{mathtools}
+\usepackage[figuresleft]{rotating} %seite quer
+\usepackage[nohyperlinks]{acronym} %abkürzungsverzeichnis
+
+%vor chapter weniger platz
+%\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+%\makeatletter
+%\patchcmd{\@makechapterhead}{\vspace*{50\p@}}{}{}{}% Removes space above \chapter head
+%%\patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{}{}{}% Removes space above \chapter* head
+%\makeatother
+
+%abstände
+\usepackage{titlesec}
+\titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titleformat{\chapter}[display]   
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{10pt}{\Huge}   
+\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
+
+\setlength{\parindent}{0mm}
+
+
+
+%kleiner abstände bei captions
+\setlength{\abovecaptionskip}{10pt plus 3pt minus 2pt}
+\captionsetup[subfigure]{aboveskip=1pt}
+%kleinere abstände bei gleichungen
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+
+%1.5 zeilig
+\usepackage{setspace}
+
+
+%bold capital
+\usepackage{bold-extra}
+
+%function beschreibung
+\usepackage{enumitem}
+
+%schönerer referenzierungen
+\usepackage[german,plain]{fancyref}
+%app für appendix zu referenzen hinzufügen
+\newcommand*{\fancyrefappendixlabelprefix}{app}
+
+\frefformat{plain}{\fancyrefappendixlabelprefix}{%
+	\appendixtocname\fancyrefdefaultspacing#1%
+}%
+
+%gleichungen ohne klammer referenzieren
+\frefformat{plain}{\fancyrefeqlabelprefix}{%
+  	\frefeqname\fancyrefdefaultspacing#1%
+}%
+
+%zum erzwingen von nummerierung bei formeln
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+%vektoren fett
+\renewcommand\vec{\mathbf}
+
+%differential operator
+\DeclareMathOperator{\dift}{d^3 \!}
+\DeclareMathOperator{\difn}{d^n \!}
+
+%%pygments%
+\usepackage{fancyvrb}
+\usepackage{xcolor}
+\include{pygments}
+
+%%text über bilder
+\usepackage[percent]{overpic}
+
+\newcommand{\dualimage}[1]{
+	\begin{overpic}#1
+		\put (0,45)  {\bf \small (a)}
+		\put (51.5,45) {\bf \small (b)}
+	\end{overpic}
+}
+
+\newcommand{\triimage}[1]{
+	\begin{overpic}#1
+		\put (0,28)  {\bf \small (a)}
+		\put (34.8,28) {\bf \small (b)}
+		\put (68.1,28) {\bf \small (c)}
+	\end{overpic}
+}
+
+\newcommand{\quadimage}[1]{
+	\begin{overpic}#1
+		\put (0,96.5)  {\bf \small (a)}
+		\put (51.5,96.5) {\bf \small (b)}
+		\put (0,45)   {\bf \small (c)}
+		\put (51.5,45)  {\bf \small (d)}
+	\end{overpic}
+}
+\newcommand{\heximage}[1]{
+	\begin{overpic}#1
+		\put (0,72)  {\bf \small (a)}
+		\put (52,72) {\bf \small (b)}
+		\put (0,47)   {\bf \small (c)}
+		\put (52,47)  {\bf \small (d)}
+		\put (0,22)   {\bf \small (e)}
+		\put (52,22)  {\bf \small (f)}
+	\end{overpic}
+}
+\newcommand{\reconimage}[1]{
+	\begin{overpic}#1
+		\put (0,100)  {\small \sffamily Original}
+		\put (50,100) {\small \sffamily IPR (Shrink-Wrap Support)}
+		\put (0,50)   {\small \sffamily FTH mit Entfaltung}
+		\put (50,50)  {\small \sffamily IPR (FTH Support)}
+	\end{overpic}
+}
+
+
+%float positionierung
+ \renewcommand{\topfraction}{0.9}	% max fraction of floats at top
+ \renewcommand{\bottomfraction}{0.9}	% max fraction of floats at bottom
+ %   Parameters for TEXT pages (not float pages):
+ \setcounter{topnumber}{2}
+ \setcounter{bottomnumber}{2}
+ \setcounter{totalnumber}{4}     % 2 may work better
+ \setcounter{dbltopnumber}{2}    % for 2-column pages
+ \renewcommand{\dbltopfraction}{0.9}	% fit big float above 2-col. text
+ \renewcommand{\textfraction}{0.07}	% allow minimal text w. figs
+ %   Parameters for FLOAT pages (not text pages):
+ \renewcommand{\floatpagefraction}{0.7}	% require fuller float pages
+ % N.B.: floatpagefraction MUST be less than topfraction !!
+ \renewcommand{\dblfloatpagefraction}{0.7}	% require fuller float pages
+
+%chemische summenformel
+\newcommand*\chem[1]{\ensuremath{\mathrm{#1}}}
+
+
+%hyperref
+\usepackage[bookmarksdepth=subsection]{hyperref} %pdf-Inhaltsverzeichnis und pdf-Links
+\hypersetup{
+	pdfborder={0 0 0}, 
+	bookmarksnumbered=true,
+	pdftitle={Bachelorarbeit},
+	pdfauthor={Felix Frederik Zimmermann}
+}
+
+
+%%%Worttrennung $$$
+\input{trennung}
+
+
+%%%%%%%%%%%%%%%%%   BEGINN  %%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\pagestyle{plain}
+\pagenumbering{Roman}
+
+
+%%%%%%%%%%%%%%%   TITELSEITE   %%%%%%%%%%%%%%%
+
+\input{title}
+\clearpage
+{\pagestyle{empty}\cleardoublepage}%
+
+
+%%%%%%%%   SELBSTÄNDIGKEITSERKLÄRUNG   %%%%%%%
+
+\begin{minipage}[b][12cm]{\textwidth}
+	\begin{center}
+		\begin{tabular}{m{12cm}}
+			\large{Hiermit erkläre ich, dass ich die vorliegende Arbeit selbstständig und eigenhändig sowie ohne unerlaubte fremde Hilfe und ausschließlich unter Verwendung der aufgeführten Quellen und Hilfsmittel angefertigt habe. }				\\
+											\\
+											\\
+			\midrule
+			\textbf{Datum / Unterschrift}	\\
+		\end{tabular}
+	\end{center}
+\end{minipage}
+
+\cleardoublepage
+\setlength{\parskip}{3mm}
+
+%%%%%%%%%%%%%%%%   ABSTRACT   %%%%%%%%%%%%%%%%
+\onehalfspacing
+\include{abstract}
+\cleardoublepage
+
+
+%%%%%%%%%%%   INHALTSVERZEICHNIS   %%%%%%%%%%%
+\singlespacing
+\begingroup
+\setlength{\parskip}{2mm}
+\setcounter{tocdepth}{5}
+\tableofcontents
+\cleardoublepage
+\endgroup
+
+%%%%%%%%   ABBILDUNGSVERZEICHNIS   %%%%%%%%%%%
+\begingroup
+\let\cleardoublepage\relax
+\setlength{\parskip}{1mm}
+\listoffigures
+\clearpage
+
+%%%%%%%%%   TABELLENVERZEICHNIS   %%%%%%%%%%%%
+
+\listoftables
+
+\vspace{4cm}
+
+%%%%%%%%%%%% AKÜRZUNGSVERZEICHNIS %%%%%%%%%%%%
+\chapter*{List of abbreviations}
+\begin{acronym}[XXXXX]
+	\acro{CDI}{Coherent Diffractive Imaging}
+\end{acronym}
+
+\endgroup
+\cleardoublepage
+
+
+%%%%%%%%%%%%%%%%   KAPITEL   %%%%%%%%%%%%%%%%%
+\setlength{\parskip}{3mm}
+\pagenumbering{arabic}
+\pagestyle{headings}
+\fancyhf{} 
+\pagestyle{fancy} 
+%\fancyhead[LE,RO]{\sc\thepage} 
+\fancyhead[RO]{\sc\nouppercase\rightmark} 
+\fancyhead[LE]{\sc\nouppercase\leftmark}
+\cfoot{\thepage}
+\renewcommand{\headheight}{14pt}
+\onehalfspacing
+
+\include{introduction}
+\include{theory}
+\include{simulation}
+\include{experiment}
+\include{discussion}
+\include{conclusion}
+%%%%%%%%%%%%%%%%   ANHANG   %%%%%%%%%%%%%%%%%%
+
+
+
+\begin{appendices}
+	\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+	\makeatletter
+	\addtocontents{toc}{%
+		\begingroup
+		\let\protect\l@chapter\protect\l@section
+		\let\protect\l@section\protect\l@subsection
+	}
+	\makeatother
+	\input{app_samples}
+	\input{app_code}
+	\addtocontents{toc}{\endgroup}
+\end{appendices}
+
+
+%%%%%%%%%   LITERATURVERZEICHNIS   %%%%%%%%%%%
+
+%\nocite{*}
+\singlespacing
+\bibliography{ffz}
+\bibliographystyle{ffz}
+\addcontentsline{toc}{chapter}{Bibliography}
+\cleardoublepage
+
+
+
+
+\end{document}
