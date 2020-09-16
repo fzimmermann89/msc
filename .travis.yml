@@ -23,7 +23,7 @@ before_script:
 script:
 - cd $DIR
 - pdflatex -interaction=nonstopmode -halt-on-error $FILE
-- bibtex $FILE
+- bibtex $FILE || true 
 - pdflatex -interaction=nonstopmode -halt-on-error $FILE
 - pdflatex -interaction=nonstopmode -halt-on-error $FILE
 - gs -o compressed.pdf -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress  -dColorConversionStrategy=/LeaveColorUnchanged  -dDownsampleColorImages=false
