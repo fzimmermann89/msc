@@ -1,22 +1,20 @@
 #!/usr/bin/env python
 
 import os
-os.environ['OMP_NUM_THREADS'] = '28'
-os.environ['OPENBLAS_NUM_THREADS'] = '28'
-os.environ['MKL_NUM_THREADS'] = '16'
-os.environ['VECLIB_MAXIMUM_THREADS'] = '12'
-os.environ['NUMEXPR_NUM_THREADS'] = '14'
-os.environ['NUMBA_NUM_THREADS'] = '14'
-os.environ['OMP_DYNAMIC'] = 'FALSE' 
+os.environ['OMP_NUM_THREADS'] = '14'
+os.environ['OPENBLAS_NUM_THREADS'] = '14'
+os.environ['MKL_NUM_THREADS'] = '14'
+os.environ['VECLIB_MAXIMUM_THREADS'] = '14'
+os.environ['NUMEXPR_NUM_THREADS'] = '12'
+os.environ['NUMBA_NUM_THREADS'] = '12'
 import mkl
-mkl.set_num_threads(16) #12
-mkl.set_dynamic(False)
+mkl.set_num_threads(14)
 import numpy
-import numexpr 
-numexpr.set_num_threads(14) #6
-numexpr.set_vml_num_threads(1) #1
+import numexpr
+numexpr.set_num_threads(14)
+numexpr.set_vml_num_threads(1)
 import numba
-numba.set_num_threads(10) #6
+numba.set_num_threads(10)
 import gc
 
 import numpy as np
@@ -316,8 +314,6 @@ def enumerate_detector(det, thresholds, shot_ok=None, tiles=None, nimages=np.inf
     global terminated
     ind_filtered = 0
     with datasetreader(datanames, filename, willread = shot_ok) if multitiles else arrayreader(det[tiles[0]]['data']) as reader:
-        #print('ready')
-        #mkl.set_num_threads(14)
         for ind_orig in range(nshots):
             if not shot_ok[ind_orig]:
                 continue
@@ -582,9 +578,9 @@ def main():
             gc.collect()
             if detinfo.correlations and args.shotintensitynormalised:
                 #normalisation thread settings
-#                 mkl.set_num_threads(12)
-#                 numexpr.set_num_threads(7)
-#                 numba.set_num_threads(7)
+                mkl.set_num_threads(12)
+                numexpr.set_num_threads(7)
+                numba.set_num_threads(7)
                 print('   doing normalisation:', end=' ', flush=True)
                 for (ind_filtered, ind_orig, img, ev, photons, _) in enumerate_detector(det, thresholds=thresholds, shot_ok=shot_ok, tiles=detinfo.tiles, nimages=args.nimages, stats=args.intv, correction=detinfo.correction):
                     if args.intv: 
@@ -616,13 +612,8 @@ def main():
 
                 for (ind_filtered, ind_orig, img, ev, photons, _) in enumerate_detector(det, thresholds=thresholds, shot_ok=shot_ok, nimages=args.nimages, stats=args.intv, correction=detinfo.correction):
                     with np.errstate(all='ignore'):
-#                         a=0
-#                         t=np.random.rand(2000,2000)
-#                         for i in range(100):
-#                             b=np.fft.fft2(t)
-#                             b*=2
-#                             b=np.fft.ifft2(b)
-#                             a=a+np.sum(np.abs(b))
+
+
                         params = []
                         if args.cont:
                             img[img < detinfo.deltaelow * 0.5] = 0
