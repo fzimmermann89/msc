@@ -162,7 +162,8 @@ dmypy.json
 # *.ps
 # *.eps
 # *.pdf
-
+main.pdf
+compressed.pdf
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
 *.bcf
