@@ -4,9 +4,11 @@
 %%
 %% The original source files were:
 %%
-%% merlin.mbs  (with options: `seq-no,nm-init,ed-au,nmlm,x3,m3,mcite,mct-3,mct-x3,atit-u,volp-com,jwdpg,jwdvol,num-xser,edpar,bkedcap,xedn,and-xcom,etal-xc,revdata,eprint,url,url-blk,nfss,')
+%% merlin.mbs  (with options: `head,exlang,seq-no,nm-init,ed-au,nmlm,x3,m3,mcite,mct-3,mct-x3,atit-u,volp-com,jwdpg,jwdvol,num-xser,edpar,bkedcap,xedn,german,xedn,ger-phd,and-xcom,etal-xc,revdata,eprint,url,url-blk,nfss,,{}')
+%% german.mbs  (with options: `exlang,seq-no,nm-init,ed-au,nmlm,x3,m3,mcite,mct-3,mct-x3,atit-u,volp-com,jwdpg,jwdvol,num-xser,edpar,bkedcap,xedn,german,xedn,ger-phd,and-xcom,etal-xc,revdata,eprint,url,url-blk,nfss,,{}')
+%% merlin.mbs  (with options: `tail,exlang,seq-no,nm-init,ed-au,nmlm,x3,m3,mcite,mct-3,mct-x3,atit-u,volp-com,jwdpg,jwdvol,num-xser,edpar,bkedcap,xedn,german,xedn,ger-phd,and-xcom,etal-xc,revdata,eprint,url,url-blk,nfss,,{}')
 %% ----------------------------------------
-%% *** ffz english ***
+%% ***  ***
 %% 
 %% Copyright 1994-2011 Patrick W Daly
  % ===============================================================
@@ -23,7 +25,8 @@
  % \ProvidesFile{merlin.mbs}[2011/11/18 4.33 (PWD, AO, DPC)]
  %   For use with BibTeX version 0.99a or later
  %-------------------------------------------------------------------
- % This bibliography style file is intended for texts in ENGLISH
+ % This bibliography style file is intended for texts in
+ %   GERMAN
  % This is a numerical citation style, and as such is standard LaTeX.
  % It requires no extra package to interface to the main text.
  % The form of the \bibitem entries is
@@ -210,85 +213,91 @@ FUNCTION {space.word}
 { " " swap$ * " " * }
  % Here are the language-specific definitions for explicit words.
  % Each function has a name bbl.xxx where xxx is the English word.
- % The language selected here is ENGLISH
+ %-------------------------------------------------------------------
+ % Begin module:
+ % \ProvidesFile{german.mbs}[2003/11/06 4.2 (PWD)]
+
+ % The language selected here is GERMAN
 FUNCTION {bbl.and}
-{ "and"}
+{ "und"}
 
 FUNCTION {bbl.etal}
 { "et~al." }
 
 FUNCTION {bbl.editors}
-{ "editors" }
+{ "Herausgeber" }
 
 FUNCTION {bbl.editor}
-{ "editor" }
+{ "Herausgeber" }
 
 FUNCTION {bbl.edby}
-{ "edited by" }
+{ "herausgegeben von" }
 
 FUNCTION {bbl.edition}
-{ "edition" }
+{ "Auf\/lage" }
 
 FUNCTION {bbl.volume}
-{ "volume" }
+{ "Band" }
 
 FUNCTION {bbl.of}
-{ "of" }
+{ "von" }
 
 FUNCTION {bbl.number}
-{ "number" }
+{ "Nummer" }
 
 FUNCTION {bbl.nr}
-{ "no." }
+{ "Nr." }
 
 FUNCTION {bbl.in}
 { "in" }
 
 FUNCTION {bbl.pages}
-{ "pages" }
+{ "Seiten" }
 
 FUNCTION {bbl.page}
-{ "page" }
+{ "Seite" }
 
 FUNCTION {bbl.eidpp}
-{ "pages" }
+{ "Seiten" }
 
 FUNCTION {bbl.chapter}
-{ "chapter" }
+{ "Kapitel" }
 
 FUNCTION {bbl.techrep}
-{ "Technical Report" }
+{ "{Technischer Bericht}" }
 
 FUNCTION {bbl.mthesis}
-{ "Master's thesis" }
+{ "Diplomarbeit" }
 
 FUNCTION {bbl.phdthesis}
-{ "Ph.D. thesis" }
+{ "Doktorarbeit" }
 
-MACRO {jan} {"January"}
+MACRO {jan} {"Januar"}
 
-MACRO {feb} {"February"}
+MACRO {feb} {"Februar"}
 
-MACRO {mar} {"March"}
+MACRO {mar} {"M\^^b{a}rz"}
 
 MACRO {apr} {"April"}
 
-MACRO {may} {"May"}
+MACRO {may} {"Mai"}
 
-MACRO {jun} {"June"}
+MACRO {jun} {"Juni"}
 
-MACRO {jul} {"July"}
+MACRO {jul} {"Juli"}
 
 MACRO {aug} {"August"}
 
 MACRO {sep} {"September"}
 
-MACRO {oct} {"October"}
+MACRO {oct} {"Oktober"}
 
 MACRO {nov} {"November"}
 
-MACRO {dec} {"December"}
+MACRO {dec} {"Dezember"}
 
+ % End module: german.mbs
+%% Copyright 1994-2011 Patrick W Daly
 MACRO {acmcs} {"ACM Computing Surveys"}
 
 MACRO {acta} {"Acta Informatica"}

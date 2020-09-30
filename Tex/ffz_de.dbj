@@ -1,12 +1,12 @@
 %% Driver file to produce ffz.bst from merlin.mbs
 %% Generated with makebst, version 4.1 (2003/09/08)
-%% Produced on 2020/09/30 at 7:24
+%% Produced on 2016/12/19 at 21:24
 %% 
 \input docstrip
 
 \preamble
 ----------------------------------------
-*** ffz english ***
+***  ***
 
 \endpreamble
 
@@ -19,14 +19,18 @@ End of customized bst file
 \askforoverwritefalse
 \def\MBopts{\from{merlin.mbs}{%
 %EXTERNAL FILES:
-%Name of language file: \cfile=.
+%Name of language file: \cfile=german.mbs.
 %No included files.
-%<<INTERNAL LANGUAGE SUPPORT (if no external language file)
-    %: (def) English words used explicitly
-% babel,%: Babel (words replaced by commands defined in babelbst.tex)
-%------\ans=*(==)-------
-%>>INTERNAL LANGUAGE SUPPORT (if no external language file)
-%<<STYLE OF CITATIONS:
+  head,\MBopta}
+\from{german.mbs}{\MBopta}
+\from{merlin.mbs}{tail,\MBopta}}
+\def\MBopta{%
+%INTERNAL LANGUAGE SUPPORT (if no external language file)
+%   %: (def) English
+% babel,%: Babel
+%--------------------
+    exlang,%: External language file
+%STYLE OF CITATIONS:
     %: (def) Numerical as in standard LaTeX
 % ay,%: Author-year with some non-standard interface
 % alph,%: Alpha style, Jon90 or JWB90 for single or multiple authors
@@ -584,8 +588,30 @@ End of customized bst file
 % ord,%: Numerical editions as 1st, 2nd, 3rd, etc
 %------\ans=*(==xedn)-------
 %>>EDITION NUMBERS:
-%>>ABBREVIATE WORD `PAGES' (if not using external language file)
-%Reading external language file \cfile=
+%Reading external language file \cfile=german.mbs
+    german,%: German language
+%ABBREVIATE WORD `SEITEN':
+    %: (def) `Seite(n)'
+% pp,%: `Seite' abbreviated
+% ppx,%: `Seite' omitted
+%--------------------
+%ABBREVIATE WORD `HERAUSGEBER':
+    %: (def) `Herausgeber'
+% ed,%: `Herausgeber' abbreviated
+%--------------------
+%OTHER ABBREVIATIONS:
+    %: (def) No abbreviations
+% abr,%: Abbreviations
+%--------------------
+%EDITION NUMBERS:
+  xedn,%: Editions as in database
+%   %: (def) Write out editions
+% ord,%: Numerical editions
+%--------------------
+%ALTERNATIVE FOR PHD THESIS:
+  ger-phd,%: PhD as `Doktorarbeit
+%   %: (def) PhD as `Dissertation'
+%--------------------
 %<<STORED JOURNAL NAMES:
     %: (def) Full journal names for prestored journals
 % jabr,%: Abbreviated journal names 
@@ -659,6 +685,8 @@ End of customized bst file
 % plntx,%: Use only Plain TeX commands for fonts and testing
 %------\ans=*(==nfss)-------
 %>>COMPATIBILITY WITH PLAIN TEX:
+,{%
   }}
 \generate{\file{ffz.bst}{\MBopts}}
 \endbatchfile
+
