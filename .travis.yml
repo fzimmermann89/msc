@@ -36,4 +36,5 @@ deploy:
   file: compressed.pdf
   on:
     repo: fzimmermann89/msc
+    tags: true
   skip_cleanup: 'true'
