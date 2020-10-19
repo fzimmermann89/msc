@@ -1,6 +1,46 @@
 \chapter{Theory}
 
+
+Spherical waves as  solutions to wave equation
+\begin{equation}
+	E(\vec{r},t)=E_0(k,t) \frac{e^{i\vec{r}\vec{k}-iwt}}{R}
+	\end{equation}
+
+Superposition principle of the waves with the real amplitudes $A_{1,2}$ and phases $\phi{1,2}$
+\begin{equation}
+E(\vec{r},t)=E_1(\vec{r},t)+E_2\vec{r},t)=A_1*e^{i\phi_1} * e^{i\vec{r}\vec{k_1}-iw_1t} + A_1*e^{i\phi_1} * e^{i\vec{r}\vec{k_2}-iw_2t} 
+\end{equation} 
+
+measured Intensity with measurement time $T\gg1/w$
+\begin{equation}
+	I(\vec{r},t)\propto \int_0^T \left|E(\vec{r},t)\right|^2 \diff t
+\end{equation}
+Consider monochromatic light
+
+Superposition of two monochromatic waves with phase difference $\Delta \phi$ gives rise to interference fringes
+\begin{equation}
+	\left<I(\vec{r},t)\right>=I_1+I_2+2\sqrt{I_1I_2}\cos{(\vec{k_1}-\vec{k_2})\vec{r}+\Delta \phi}
+\end{equation}
+
+Defining the contrast of the fringes as the visibility $V$,
+\begin{equation}
+	V=\frac{I_{max}-I_{min}}{I_{max}+I_{min}}
+\end{equation} 
+
+For fully coherent fully waves of equal amplitude, the visibility is $V=\frac{2\sqrt{I*I}}{I+I}I=1$, whereas for fully incoherent waves $V=0$.
+
+Intensity in double slit leads to normalized degree of coherence $g_1$
+Visiblity is modulus of $g_1$.
+
+
 \section{Coherence}
+ \begin{figure}
+ 	\centering
+ 	\includegraphics[width=0.8\linewidth]{images/doubleslit.pdf}
+ 	\caption{Schematic of double slit: Monochromatic light goes through slits located at $R_1$ and $R_2$. The intensity at a position $r$ on the scree (in distance $d$) is the superposition of both paths.  If the slits are within the lateral coherence area of the source, the visibility of the interference pattern depends on the path length difference in comparison to the coherence time $\tau$.}
+ \end{figure}
+
+Int
 -along Glauber/Statistical Optics Goodman
 
 
