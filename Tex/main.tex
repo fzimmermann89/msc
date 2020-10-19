@@ -56,7 +56,6 @@
 \usepackage{mathtools}
 \usepackage[figuresleft]{rotating} %seite quer
 \usepackage[nohyperlinks]{acronym} %abkürzungsverzeichnis
-
 %vor chapter weniger platz
 %\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
 %\makeatletter
@@ -115,8 +114,10 @@
 \renewcommand\vec{\mathbf}
 
 %differential operator
-\DeclareMathOperator{\dift}{d^3 \!}
-\DeclareMathOperator{\difn}{d^n \!}
+\DeclareMathOperator{\difc}{\mathrm{d}^3 \!}
+\DeclareMathOperator{\difs}{\mathrm{d}^2 \!}
+\DeclareMathOperator{\difn}{\mathrm{d}^n \!}
+\DeclareMathOperator{\diff}{\mathrm{d}\!}
 
 %%pygments%
 \usepackage{fancyvrb}
@@ -266,6 +267,7 @@
 \begin{acronym}[XXXXX]
 	\acro{CDI}{Coherent Diffractive Imaging}
 	\acro{IDI}{Incoherent Diffractive Imaging}
+	\acro{HBT}{Hanburry Brown Twiss}
 	\acro{PS}{Polystyrene}
 	\acro{MMA}{Methylmethacrylate}
 	\acro{EHMA}{Etyhlhexymethacrylate}
