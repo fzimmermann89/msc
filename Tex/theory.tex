@@ -17,9 +17,9 @@ measured Intensity with measurement time $T\gg1/w$
 \end{equation}
 Consider monochromatic light
 
-Superposition of two monochromatic waves with phase difference $\Delta \phi$ gives rise to interference fringes
+Superposition of two monochromatic, stationary waves with a fixed phase difference $\Delta \phi$ gives rise to interference fringes
 \begin{equation}
-	\left<I(\vec{r},t)\right>=I_1+I_2+2\sqrt{I_1I_2}\cos{(\vec{k_1}-\vec{k_2})\vec{r}+\Delta \phi}
+	\left<I(\vec{r},t)\right>=I_1+I_2+2\sqrt{I_1I_2}\cos\left((\vec{k_1}-\vec{k_2})\vec{r}+\Delta \phi\right)
 \end{equation}
 
 Defining the contrast of the fringes as the visibility $V$,
@@ -27,29 +27,43 @@ Defining the contrast of the fringes as the visibility $V$,
 	V=\frac{I_{max}-I_{min}}{I_{max}+I_{min}}
 \end{equation} 
 
-For fully coherent fully waves of equal amplitude, the visibility is $V=\frac{2\sqrt{I*I}}{I+I}I=1$, whereas for fully incoherent waves $V=0$.
+Gives $V=\frac{2\sqrt{I*I}}{I+I}I=1$.
 
-Intensity in double slit leads to normalized degree of coherence $g_1$
-Visiblity is modulus of $g_1$.
-
-In a double slit setup (\fref{fig:doubleslit}), $E(r,t)=c_1 E_1(t)+c_2E2(t)$ with complex $c_2$ and $c_2$, $\left|c_1\right|\approx\left|c_2\right|$ describing the propagation to the screen. 
-
- \begin{figure}
- 	\centering
- 	\includegraphics[width=0.8\linewidth]{images/doubleslit.pdf}
- 	\caption{Schematic of double slit: Monochromatic light goes through slits located at $R_1$ and $R_2$. The intensity at a position $r$ on the scree (in distance $d$) is the superposition of both paths.  If the slits are within the lateral coherence area of the source, the visibility of the interference pattern depends on the path length difference in comparison to the coherence time $\tau$.}
- 	 \label{fig:doubleslit}
- \end{figure}
-
-
-\paragraph{First order coherence $g_1(t)$}
-
-Definition of $g_1$
+To consider non monochromatic waves we define self coherence function $\Gamma$ as 
 \begin{equation}
-	g^{(1)}(\vec{r}_1,t_1;\vec{r}_2,t_2= \frac{\left< E^*(\vec{r}_1,t_1)E^*(\vec{r}_2,t_2)E(\vec{r}_1,t_1)E(\vec{r}_2,t_2) \right>}{\left<\left | E(\vec{r}_1,t_1)\right |^2 \right> \left< \left |E(\vec{r}_2,t_2)\right |^2 \right>}	
+\Gamma(\tau)=\left< E(t)E(t+\tau)\right>
+\end{equation}
+and its normalized version, the complex degree of coherence $\gamma$ as
+\begin{equation}
+\gamma(\tau)=\frac{\Gamma(\tau)}{\Gamma(0)} =  \frac{\Gamma(\tau)}{<I>}
 \end{equation}
 
+
+
+The coherence time is defined as 
+\begin{equation}
+\tau_c = \int_{-\infty}^{\infty} \left| g^1(\tau)\right|^2 \diff \tau 
+\end{equation}
+
+
+
+
+
+\paragraph{First order coherence $g_1$}
+Generalization of$\gamma$  for to different fields  $E_1^*(\vec{r}_1,t_1)$ and $E_2(\vec{r}_2,t_2)$ is $g_1$
+\begin{equation}
+	g^{(1)}(\vec{r}_1,t_1;\vec{r}_2,t_2= \frac
+	{\left< E_1^*(\vec{r}_1,t_1)E_2(\vec{r}_2,t_2) \right>}
+	{\left[ \left<\left | E(\vec{r}_1,t_1)\right |^2 \right> \left< \left |E(\vec{r}_2,t_2)\right |^2 \right>\right]^{1/2}}	
+\end{equation}
+
+
+
+
+
+
 In an interferometer, light coming from a source and a time delayed copy are superposed.
+
 
 
 For an exponentially decaying electric field $E(t)=\Theta(t)e^{-t/\tau}$, the spectrum is Lorentian with an angular frequency FWHM of $\frac{2}{\tau}$ as 
@@ -57,7 +71,10 @@ For an exponentially decaying electric field $E(t)=\Theta(t)e^{-t/\tau}$, the sp
 \left|\int_{0}^{\infty}  e^{-t/\tau} e^{-iwt} \dif t \right|^2 \propto  \frac{1}{1/\tau^2+w^2} .
 \end{equation*}
 Therefore, an Lorentian spectrum with a FWHM of $\Delta E$ corresponds to an lifetime of $\frac{2\hbar}{\Delta E}$.
-On the other hand, for a Lorentzian light source, $<g_1(\tau)>=e^{-|\tau/| \tau_c}$, defining the coherence time $\tau_c$.
+
+Wiener Khinchin to get g1
+
+On the other hand, for a Lorentzian light source, $<g_1(\tau)>=e^{-|\tau/| \tau_c}$, defining the coherence time $\tau_c$ as the time, after which $g^1$ has decreased to $e^{-1} g^1(0)$.
 
  \begin{figure}
 	\centering
@@ -74,6 +91,18 @@ Int
 -along Glauber/Statistical Optics Goodman
 
 
+
+Intensity in double slit leads to normalized degree of coherence $g_1$
+Visiblity is modulus of $g_1$.
+
+In a double slit setup (\fref{fig:doubleslit}), $E(r,t)=c_1 E_1(t)+c_2E2(t)$ with complex $c_2$ and $c_2$, $\left|c_1\right|\approx\left|c_2\right|$ describing the propagation to the screen. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/doubleslit.pdf}
+	\caption{Schematic of double slit: Monochromatic light goes through slits located at $R_1$ and $R_2$. The intensity at a position $r$ on the scree (in distance $d$) is the superposition of both paths.  If the slits are within the lateral coherence area of the source, the visibility of the interference pattern depends on the path length difference in comparison to the coherence time $\tau$.}
+	\label{fig:doubleslit}
+\end{figure}
 
 
 \paragraph{Second order coherence $g_2(t_1,t_2)$}
