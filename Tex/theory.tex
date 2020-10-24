@@ -186,11 +186,36 @@ Which factors influence SNR
 -N photons
 \label{chap:theory}
 
+
+
+
 \section{Kossel Lines}
+X-Ray radiation originating from within a single crystal gets Bragg reflected at the lattice planes, causing Intensity variation in $90^o-\theta$ around the direction $k_{hkl}$, forming the \textit{Kossel Cones}. On the spherical detector centered at at the crystal, the points with influenced intensity would lie on circles with radii determined by ...
+
+Extinction rules
+
+The structure of the intensity variations (both intense and less intense depends on the which case...
+If the fine structure cannot be resolved
+
+The Kossel lines allow to orient the detector with regards to the lattice planes. This can either be done by reprojecting the planar detector onto a sphere by an inverse gnomonic projection and determining circle center and radius, eg. by an Hugh-Transform, or by a fitting conic sections to the lines on the planar detector. As the observable curvature of the Kossel lines on the detector in an IDI setup is small and therefore the circles are difficult to determine, the second method will be used. 
+
+As each point identifyed as beloning to a Kossel line has to be part of a conic section of the same plane with each cone originating from the same point..
+
+
+
+\begin{equation}
+\vec{p} \cdot \vec{r}
+\end{equation}
 \cite{james1952}
 \begin{figure}
 	\centering
-	\includegraphics[width=0.5\linewidth]{images/kossel.pdf}
-	\caption{Geometry of Kossel Lines: Radiation from within a light source within a single crystal gets scattered at the lattice planes, causing a change in intensity along a cone of opening angle $90^o-\theta_{hkl}$ and vertex hkl. On an intersecting detector those intensity changes are visible as Kossel lines.}
+	\begin{subfigure}[b]{0.4\textwidth}
+	\includegraphics[width=\linewidth]{images/kossel.pdf}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.5\textwidth}
+	\includegraphics[width=\linewidth]{images/kossel2.pdf}
+	\end{subfigure}
+
+	\caption{Geometry of Kossel Lines: Radiation from within a light source within a single crystal gets scattered at the lattice planes, causing a change in intensity along a cone of opening angle $90^o-\theta_{hkl}$ and vertex hkl. On a spherical detector centered around the sample, those intensity changes would be visible as circular Kossel lines (left). On a planar detector, the intersections of the Kossel cones are visible as conic sections (right)}
 	\label{fig:doubleslit}
 \end{figure}
