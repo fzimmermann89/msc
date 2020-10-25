@@ -1,6 +1,6 @@
 \chapter{Theory}
 
-\cite{goodman2000,goodman2007,agarwal2013,classen2017,goodman2000,cowley1995,born1980,trigg2005,attwood1999,griffiths2005,goodman2007,agarwal2013,classen2017,loudon2000,mandel1995,hanburry1956,galuber2006,baym1997,zernike1938,rosen96,yabashi2002,singer2013,santra2009,krause1979,trost2020,inoue2019,sorum1987,lajunen04,mpccd,tono2013}
+\cite{goodman2000,goodman2007,agarwal2013,classen2017,cowley1995,born1980,trigg2005,attwood1999,griffiths2005,agarwal2013,classen2017,loudon2000,mandel1995,hanburry1956,galuber2006,baym1997,zernike1938,rosen96,yabashi2002,singer2013,santra2009,krause1979,trost2020,inoue2019,sorum1987,lajunen04,mpccd,tono2013}
 
 random process
 ergodic: time average equals expectation value
@@ -85,7 +85,7 @@ On the other hand, for a Lorentzian light source, $<g_1(\tau)>=e^{-|\tau/| \tau_
  \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/michelson.pdf}
-	\caption{Schematic of interferometer: Light of (gaussian) a gaussian light source with finite coherence time is split and interference with a delayed copy is observed. The time averaged intensity meassured by an detector changes with the delay time. }
+	\caption[Schematic of interferometer]{Schematic of interferometer: Light of (a gaussian) light source with finite coherence time is split and interference with a delayed copy is observed. The time averaged intensity measured by an detector changes with the delay time. }
 	\label{fig:michelson}
 \end{figure}
 
@@ -106,7 +106,7 @@ In a double slit setup (\fref{fig:doubleslit}), $E(r,t)=c_1 E_1(t)+c_2E2(t)$ wit
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/doubleslit.pdf}
-	\caption{Schematic of double slit: Monochromatic light goes through slits located at $R_1$ and $R_2$. The intensity at a position $r$ on the scree (in distance $d$) is the superposition of both paths.  If the slits are within the lateral coherence area of the source, the visibility of the interference pattern depends on the path length difference in comparison to the coherence time $\tau$.}
+	\caption[Schematic of double slit]{Schematic of double slit: Monochromatic light goes through slits located at $R_1$ and $R_2$. The intensity at a position $r$ on the scree (in distance $d$) is the superposition of both paths.  If the slits are within the lateral coherence area of the source, the visibility of the interference pattern depends on the path length difference in comparison to the coherence time $\tau$.}
 	\label{fig:doubleslit}
 \end{figure}
 
@@ -192,30 +192,43 @@ Which factors influence SNR
 \section{Kossel Lines}
 X-Ray radiation originating from within a single crystal gets Bragg reflected at the lattice planes, causing Intensity variation in $90^o-\theta$ around the direction $k_{hkl}$, forming the \textit{Kossel Cones}. On the spherical detector centered at at the crystal, the points with influenced intensity would lie on circles with radii determined by ...
 
-Extinction rules
+The visibility of the Kossel lines is governed by the same extinction rules as for the Bragg reflexes for, the structure factor $F_{hkl}$ has to be non-zero. For a zinc blende structure (such as GaAs) with atomic scattering factors $f_a$ and $f_b$, the structure factor is
+\begin{align}
+F_{hkl} = \begin{cases}
+0, & \text{if $h$, $k$, $l$ mixed parity}.\\
+4(f_a+f_b), & \text{if same parity and $h+k+l = 4 N$} \\
+4(f_a\pm i f_b), & \text{if same parity and $h+k+l = 2 N+1$} \\
+4(f_a-f_b), & \text{if same parity and $h+k+l = 4 N+2$} \\
+\end{cases}
+\end{align}
 
 The structure of the intensity variations (both intense and less intense depends on the which case...
 If the fine structure cannot be resolved
 
 The Kossel lines allow to orient the detector with regards to the lattice planes. This can either be done by reprojecting the planar detector onto a sphere by an inverse gnomonic projection and determining circle center and radius, eg. by an Hugh-Transform, or by a fitting conic sections to the lines on the planar detector. As the observable curvature of the Kossel lines on the detector in an IDI setup is small and therefore the circles are difficult to determine, the second method will be used. 
 
-As each point identifyed as beloning to a Kossel line has to be part of a conic section of the same plane with each cone originating from the same point..
+As each point identifyed as beloning to a Kossel line has to be part of a conic section of the same plane with each cone originating from the same point, each point $r$ on a line has to fullfill
 
 
 
 \begin{equation}
-\vec{p} \cdot \vec{r}
+\frac{\vec{r} \cdot \vec{q}}{\left|\vec{r}\right| \left| \vec{q}\right|} = \frac{\lambda}{2d}
 \end{equation}
-\cite{james1952}
+ for a reciprocal lattice vector $q$ which is an element of the allow reflections $Q$. So finding the dector orientation can be seen as finding a rotation Matrix $R$ as
+\begin{equation}
+\arg\!\min_{R} \sum_{r} \min_{q\in Q} \frac{2 d * \vec{r} \cdot \vec{Rq}}{\left|\vec{r}\right| \left| \vec{q}\right|} -\lambda
+\end{equation}
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[b]{0.25\textwidth}
+	\includegraphics[width=\linewidth]{images/kossel0.pdf}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.25\textwidth}
 	\includegraphics[width=\linewidth]{images/kossel.pdf}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.5\textwidth}
+	\begin{subfigure}[b]{0.35\textwidth}
 	\includegraphics[width=\linewidth]{images/kossel2.pdf}
 	\end{subfigure}
-
-	\caption{Geometry of Kossel Lines: Radiation from within a light source within a single crystal gets scattered at the lattice planes, causing a change in intensity along a cone of opening angle $90^o-\theta_{hkl}$ and vertex hkl. On a spherical detector centered around the sample, those intensity changes would be visible as circular Kossel lines (left). On a planar detector, the intersections of the Kossel cones are visible as conic sections (right)}
+	\caption[Geometry of Kossel Lines]{Geometry of Kossel Lines: Radiation from within a light source within a single crystal gets scattered at the lattice planes, causing a change in intensity along a cone of opening angle $90^o-\theta_{hkl}$ and vertex hkl (left). On a spherical detector centered around the sample, those intensity changes would be visible as circular Kossel lines (center). On a planar detector, the intersections of the Kossel cones are visible as conic sections (right)}
 	\label{fig:doubleslit}
 \end{figure}
