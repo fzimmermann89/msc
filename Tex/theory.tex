@@ -48,7 +48,7 @@ and its normalized version, the complex degree of coherence $\gamma$ as
 
 The coherence time is defined as 
 \begin{equation}
-\tau_c = \int_{-\infty}^{\infty} \left| g^1(\tau)\right|^2 \diff \tau 
+\tau_c = \int_{-\infty}^{\infty} \left| g_1(\tau)\right|^2 \diff \tau 
 \end{equation}
 
 
@@ -130,15 +130,27 @@ For classical fields normalized correlations of intensities:
 Hanburry Brown and Twiss 
 
 
-\paragraph{Siegert Relation for Pseudo-Thermal Light}
-
-
-
+\paragraph{Siegert Relation}
+For thermal light, 
+\begin{equation}
+	g_2(\vec{r_1},\vec{r_2}) = 1+ |g_1(\vec{r_1},\vec{r_2}) |^2 ,
+\end{equation}
+which is called the Siegert Relation.
+For $N$ Single-Photon-Emitters, a similiar form holds \cite{classen2017}:
+\begin{equation}
+	g_2(\vec{r_1},\vec{r_2}) = 1+ |g_1(\vec{r_1},\vec{r_2}) |^2 - \frac{2}{N} ,
+\end{equation}
+$g_1$ encodes structural information, as 
+\begin{equation}
+g_1(\vec{k_1},\vec{k_2}) \propto \mathscr{F}S(\vec{r}) = S(\vec{q})
+\end{equation}
+is proportional to the Fourier transform of the arangment of emitters with $q=\vec{k_1}-\vec{k_2}$ (see \fref{fig:scatteringvectors}).
  \begin{figure}
 	\centering
 	\includegraphics[width=0.9\linewidth]{images/scatteringvectors.pdf}
 	\caption[Scattering Vectors]{Scattering vector $q$ in CDI (left) and IDI (right). In CDI, $q$ is the momentum transfer between incoming and outgoing wave. In IDI, there is no momentum transfer from the incoming to the outgoing wave. Instead, intensity correlations of different $k_1$, $k_2$ give a momentum transfer $\delta q$ according to the Siegert relation.}
 	\label{fig:scatteringvectors}
+	
 \end{figure}
 
 %-Single Photon Emitters/2nd Quant description
