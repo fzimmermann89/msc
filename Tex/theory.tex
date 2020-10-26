@@ -140,9 +140,8 @@ Hanburry Brown and Twiss
 
 \section{Intensity Correlations using X-Ray Fluorescence}
 \section{Signal to Noise Considerations}
-The speckle contrast is governt by the number of independent modes overlaid in the measurement.
-
-Number of temporal degrees of freedom
+The speckle contrast is governed by the number of independent modes overlaid in the measurement.
+If the measurement, happens over a finite amount of time there will, the number of temporal degrees of freedom is
 \begin{equation}
 M_t=\frac{\left(\int_{-\infty}^{\infty} P(t)\diff t\right)^2}{\int_{-\infty}^{\infty} K(t) \left|\mu(t)\right|^2\diff t}
 \end{equation}
@@ -150,18 +149,21 @@ with $P(t)$ the integration window weighting function and $K(t)$ its autocorrela
 \begin{equation}
 M_t,rect = \frac{T}{2} \left[\int_{0}^{T} \left( 1-\frac{t}{T}\right) \left|\mu(t)\right|^2 \diff t \right]^{-1} .
 \end{equation}
-If $P(t)$ is the Gaussian excitation pulse with FWHM of $\tau$ and unit area,
+If instead $P(t)$ is the Gaussian excitation pulse with FWHM of $\tau$ and unit area,
 \begin{align}
 P(t)&=\frac{2\sqrt{\ln 2}}{\sqrt{\pi} \tau} e^{-\left(2\sqrt{\ln 2}\frac{t}{\tau}\right)^2}\\
 K(t)&= \sqrt{\frac{2{\ln 2}}{\pi}}\frac{1}{ \tau} e^{-\left(\sqrt{2\ln 2}\frac{t}{\tau}\right)^2}
 \end{align}
-and the spectrum is Lorentzian fluorescence, the number of degrees of freedom is
+the number of degrees of freedom is
 \begin{align}
-M_t,gauss&=\left[\int_{-\infty}^{\infty} K(t) \left|\mu(t)\right|^2\diff t\right]^{-1}\\
-=42
+M_t,gauss&=\left[\int_{-\infty}^{\infty} K(t) \left|\mu(t)\right|^2\diff t\right]^{-1}.
 \end{align}
+For a Lorentzian spectrum (see \fref{eq:docdecay}), this evaluates to
+\begin{equation}
+	Inhalt...
+\end{equation} 
 
-The experimentally indistinguishable fluorescence energies $K_alpha,1$ and $K_alpha,2$ (as well as  $K_beta$ if no filter is used for suppression) give additional independent modes $M_E$
+The experimentally indistinguishable fluorescence energies $K_\alpha,1$ and $K_\alpha,2$ (as well as  $K_\beta$ if no filter is used for suppression) give additional independent modes $M_E$
 
 As the used X-ray detectors are polarization insensitive and X-ray fluorescence is unpolarized, there are 2 independent polarization modes giving $M_P = 2$  
 
