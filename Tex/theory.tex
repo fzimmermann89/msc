@@ -169,18 +169,32 @@ Spectrum
 
 \section{Intensity Correlations using X-Ray Fluorescence}
 \section{Signal to Noise Considerations}
-The speckle contrast is governed by the number of independent modes overlaid in the measurement.
+The speckle contrast $\beta$ is governed by the number of independent modes $M$ overlaid in the measurement \cite{goodman2000}.
+\begin{equation}
+\beta =\tfrac{1}{M}
+\end{equation}
+
 If the measurement, happens over a finite amount of time there will, the number of temporal degrees of freedom is
 \begin{equation}
 M_t=\frac{\left(\int_{-\infty}^{\infty} P(t)\diff t\right)^2}{\int_{-\infty}^{\infty} K(t) \left|\mu(t)\right|^2\diff t}
 \end{equation}
-with $P(t)$ the integration window weighting function and $K(t)$ its autocorrelation. If the integration windows is set by the integration time $T$ of the detector, $P(t)$ is a rectangular function with the width $T$ and
+with $P(t)$ the integration window weighting function and $K(t)$ its autocorrelation \cite{goodman2007}]. If the integration windows is set by the integration time $T$ of the detector, $P(t)$ is a rectangular function with the width $T$ and
 \begin{equation}
 M_t,rect = \frac{T}{2} \left[\int_{0}^{T} \left( 1-\frac{t}{T}\right) \left|\mu(t)\right|^2 \diff t \right]^{-1} .
 \end{equation}
-If instead $P(t)$ is the Gaussian excitation pulse with FWHM of $\tau$ and unit area,
+If instead $P(t)$ is the convolution of an Gaussian excitation pulse with FWHM of $\tau_p=2\sigma\sqrt{2\ln2}$ and unit area with an exponential decay with lifetime $\tau_d$ \cite{butz2015},
 \begin{align}
-P(t)&=\frac{2\sqrt{\ln 2}}{\sqrt{\pi} \tau} e^{-\left(2\sqrt{\ln 2}\frac{t}{\tau}\right)^2}\\
+P(t)&=\frac{1}{\sigma\sqrt{2\pi}} \int_0^{\infty} e^{-\frac{t^{\prime}}{\tau_d}} 
+e^{-\frac{(t-t^{\prime})^2}{2\sigma^2}}\diff t^{\prime}
+=\frac{1}{2}e^{-\frac{t}{\tau_d}+\frac{\sigma^2}{2\tau^2}}
+\erfc\left[
+-\frac{t}{\sqrt{2}\sigma}
+-\frac{\sigma}{\sqrt{2}\tau_p}
+	\right] ,
+	\end{align}
+	with the complementary error function $\erfc=\frac{2}{\sqrt{\pi}}\int_x^\infty e^{-z^2}\diff z$
+	and
+	\begin{align}
 K(t)&= \sqrt{\frac{2{\ln 2}}{\pi}}\frac{1}{ \tau} e^{-\left(\sqrt{2\ln 2}\frac{t}{\tau}\right)^2}
 \end{align}
 the number of degrees of freedom is
@@ -197,15 +211,15 @@ The experimentally indistinguishable fluorescence energies $K_\alpha,1$ and $K_\
 As the used X-ray detectors are polarization insensitive and X-ray fluorescence is unpolarized, there are 2 independent polarization modes giving $M_P = 2$  
 
 
-Path differences longer than the coherence length give additional modes, therefore the speckle visibility will be reduced large samples:
+Path differences longer than the coherence length give additional modes $M_S$, therefore the speckle visibility will be reduced for large samples:
 
-If the speckle pattern is not spatially resolved by the detector because its resolution is to low compared to the change in intensity, undersampling will occur, the meassured signal will be spatially averaged giving independent sampling modes $M_S$
-
-
+If the speckle pattern is not spatially resolved by the detector because its resolution is to low compared to the change in intensity, undersampling will occur, the meassured signal will be spatially averaged giving independent sampling modes $M_D$
 
 
 
-As good approximation, the total number of modes can be considered the product of those modes numbers (in reality, the mode numbers are not completely independent, see \fref{chap:simulation})
+
+
+As good approximation, the total number of modes can be considered the product of those modes numbers (in reality, the mode numbers are not completely independent, see \fref{chap:simulation} for simulations of the contrast under those limiting factors)
 %- SNR
 %will use Peak/stdev bg definition
 Which factors influence SNR
