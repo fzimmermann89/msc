@@ -2,6 +2,34 @@
 
 \cite{goodman2000,goodman2007,agarwal2013,classen2017,cowley1995,born1980,trigg2005,attwood1999,griffiths2005,agarwal2013,classen2017,loudon2000,mandel1995,hanburry1956,galuber2006,baym1997,zernike1938,rosen96,yabashi2002,singer2013,santra2009,krause1979,trost2020,inoue2019,sorum1987,lajunen04,mpccd,tono2013}
 
+
+\section{Statistics}
+Consider a complex sum of phasors of constant amplitude $A$ and independent uniformly in $(-\pi,\pi)$distributed phases $\phi_k$,
+\begin{align}
+c=\sum^N_k A e^{i\phi_k}
+\end{align}
+For sufficiently large numbers of $N$, the real and imaginary parts
+\begin{align*}
+r&=\Re c =  A \sum^N_k \cos(\phi_k)\\
+i&= \Im c =A \sum^N_k \sin(\phi_k)
+\end{align*}
+will (by Central Limit Theorem) be Gaussian random variables with zero mean and variance $\sigma^2=\frac{N}{2}A^2$ and the probability distribution of the amplitude $a=\sqrt(a^2+i^2)$ will  therefore be the Rayleigh distribution
+\begin{equation}
+	p(a)=\frac{1}{2\pi\sigma^2} a e^{\frac{a^2}{2\sigma^2}}
+\end{equation}
+and  $I=\left|a\right|^2$ will  follow an exponential distribution
+\begin{equation}
+	\label{eq:expdistr}
+	p(I)=\frac{ e^{-I/\overline{I}}}{\overline{I}}
+\end{equation} 
+with mean $\overline{I}$ and standard deviation $\sigma=\overline{I}$  \cite{goodman2000,goodman1976}.
+A sum of $M$ uncorrelated random variables following identical distributions given by \fref{eq:expdistr} follows a Gamma distribution \cite{forbes2010,trost2020},
+\begin{equation}
+p(I)=\frac{I^{M-1} e^{I/\overline{I}}} {\overline{I}^M(M-1)!}
+\end{equation}
+\paragraph{Stationarity and Ergodicity}
+A process $f(t)$ is wide-sense stationary, if the expectation value $E[f(t)]$ is independent of the time $t$ and $E[f(t_1)f(t_2)]$ depends only on the time difference $\tau=f_1-f_2$. A process, for which the time average and the ensemble average are equal is called ergodic. Stationarity is a necessity for ergodicity.
+
 random process
 ergodic: time average equals expectation value
 stationary: shifting all time instants by $\tau$ does not change the statistical description of the random process 
@@ -16,6 +44,10 @@ Superposition principle of the waves with the real amplitudes $A_{1,2}$ and phas
 \begin{equation}
 E(\vec{r},t)=E_1(\vec{r},t)+E_2\vec{r},t)=A_1*e^{i\phi_1} * e^{i\vec{r}\vec{k_1}-iw_1t} + A_1*e^{i\phi_1} * e^{i\vec{r}\vec{k_2}-iw_2t} 
 \end{equation} 
+
+
+
+
 
 measured Intensity with measurement time $T\gg1/w$
 \begin{equation}
