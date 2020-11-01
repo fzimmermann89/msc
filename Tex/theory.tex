@@ -23,10 +23,32 @@ and  $I=\left|a\right|^2$ will  follow an exponential distribution
 	p(I)=\frac{ e^{-I/\overline{I}}}{\overline{I}}
 \end{equation} 
 with mean $\overline{I}$ and standard deviation $\sigma=\overline{I}$  \cite{goodman2000,goodman1976}.
-A sum of $M$ uncorrelated random variables following identical distributions given by \fref{eq:expdistr} follows a Gamma distribution \cite{forbes2010,trost2020},
+A sum of $M$ uncorrelated random variables following identical distributions given by \fref{eq:expdistr} follows a Gamma distribution,
 \begin{equation}
-p(I)=\frac{I^{M-1} e^{I/\overline{I}}} {\overline{I}^M(M-1)!}
+\label{eq:gammadistr}
+p(I)=\frac{I^{M-1} e^{-I/\overline{I}}} {\overline{I}^M \Gamma(M)},
 \end{equation}
+for a positive integer $M$ this simplifies with $\Gamma(M)=(M-1)!$ to an Erlang distribution  \cite{forbes2010,trost2020}.
+If $I$ is  distributed as \ref{eq:gammadistr} and Poisson sampled as discrete $k$, it follows  an negative binomial distribution
+\cite{trost2020,mandel1959,holmes2019}
+\begin{equation}
+p(k)=
+\frac{\Gamma(k+M)}{\Gamma(M)\Gamma(k+1) }
+\left( 1+\frac{1}{\overline{I}}
+\right)^{-k}
+\left( 1+\overline{I}
+\right)^{-M}
+\end{equation}
+with mean $\mu=M\overline{I}$ and variance $\mu+\frac{\mu^2}{M}$ (which differs from the variance of a poisson distribution $\mu$).
+This probability distribution can be compared to an experimental measured intensity distribution and the number of modes present in the measurement can be estimated by a regression \cite{lehmkuhler2014,yun2019}.
+Furthermore, following the arguments of Trost et. al, the variance of a product of the photon numbers following this distribution has a variance 
+\begin{equation}
+	\Var_{p\cdot p}= \Var_p^2 +2 \mu^2\Var_p	= \mu^4 \frac{2 M + 1}{M^2 + 2}+ \mu^3 \frac{M+1}{M} + \mu^2
+\end{equation}
+
+
+
+
 \paragraph{Stationarity and Ergodicity}
 A process $f(t)$ is wide-sense stationary, if the expectation value $E[f(t)]$ is independent of the time $t$ and $E[f(t_1)f(t_2)]$ depends only on the time difference $\tau=f_1-f_2$. A process, for which the time average and the ensemble average are equal is called ergodic. Stationarity is a necessity for ergodicity.
 
