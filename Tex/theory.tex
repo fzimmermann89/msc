@@ -3,50 +3,6 @@
 \cite{goodman2000,goodman2007,agarwal2013,classen2017,cowley1995,born1980,trigg2005,attwood1999,griffiths2005,agarwal2013,classen2017,loudon2000,mandel1995,hanburry1956,galuber2006,baym1997,zernike1938,rosen96,yabashi2002,singer2013,santra2009,krause1979,trost2020,inoue2019,sorum1987,lajunen04,mpccd,tono2013}
 
 
-\section{Statistics}
-Consider a complex sum of phasors of constant amplitude $A$ and independent uniformly in $(-\pi,\pi)$distributed phases $\phi_k$,
-\begin{align}
-c=\sum^N_k A e^{i\phi_k}
-\end{align}
-For sufficiently large numbers of $N$, the real and imaginary parts
-\begin{align*}
-r&=\Re c =  A \sum^N_k \cos(\phi_k)\\
-i&= \Im c =A \sum^N_k \sin(\phi_k)
-\end{align*}
-will (by Central Limit Theorem) be Gaussian random variables with zero mean and variance $\sigma^2=\frac{N}{2}A^2$ and the probability distribution of the amplitude $a=\sqrt(a^2+i^2)$ will  therefore be the Rayleigh distribution
-\begin{equation}
-	p(a)=\frac{1}{2\pi\sigma^2} a e^{\frac{a^2}{2\sigma^2}}
-\end{equation}
-and  $I=\left|a\right|^2$ will  follow an exponential distribution
-\begin{equation}
-	\label{eq:expdistr}
-	p(I)=\frac{ e^{-I/\overline{I}}}{\overline{I}}
-\end{equation} 
-with mean $\overline{I}$ and standard deviation $\sigma=\overline{I}$  \cite{goodman2000,goodman1976}.
-A sum of $M$ uncorrelated random variables following identical distributions given by \fref{eq:expdistr} follows a Gamma distribution,
-\begin{equation}
-\label{eq:gammadistr}
-p(I)=\frac{I^{M-1} e^{-I/\overline{I}}} {\overline{I}^M \Gamma(M)},
-\end{equation}
-for a positive integer $M$ this simplifies with $\Gamma(M)=(M-1)!$ to an Erlang distribution  \cite{forbes2010,trost2020}.
-If $I$ is  distributed as \ref{eq:gammadistr} and Poisson sampled as discrete $k$, it follows  an negative binomial distribution
-\cite{trost2020,mandel1959,holmes2019}
-\begin{equation}
-p(k)=
-\frac{\Gamma(k+M)}{\Gamma(M)\Gamma(k+1) }
-\left( 1+\frac{1}{\overline{I}}
-\right)^{-k}
-\left( 1+\overline{I}
-\right)^{-M}
-\end{equation}
-with mean $\mu=M\overline{I}$ and variance $\mu+\frac{\mu^2}{M}$ (which differs from the variance of a poisson distribution $\mu$).
-This probability distribution can be compared to an experimental measured intensity distribution and the number of modes present in the measurement can be estimated by a regression \cite{lehmkuhler2014,yun2019}.
-Furthermore, following the arguments of Trost et. al, the variance of a product of the photon numbers following this distribution has a variance 
-\begin{equation}
-	\Var_{p\cdot p}= \Var_p^2 +2 \mu^2\Var_p	= \mu^4 \frac{2 M + 1}{M^2 + 2}+ \mu^3 \frac{M+1}{M} + \mu^2
-\end{equation}
-
-
 
 
 \paragraph{Stationarity and Ergodicity}
@@ -286,7 +242,50 @@ Which factors influence SNR
 \label{chap:theory}
 
 
+\section{Statistics}
+Consider a complex sum of phasors of constant amplitude $A$ and independent uniformly in $(-\pi,\pi)$distributed phases $\phi_k$,
+\begin{align}
+c=\sum^N_k A e^{i\phi_k}
+\end{align}
+For sufficiently large numbers of $N$, the real and imaginary parts
+\begin{align*}
+r&=\Re c =  A \sum^N_k \cos(\phi_k)\\
+i&= \Im c =A \sum^N_k \sin(\phi_k)
+\end{align*}
+will (by Central Limit Theorem) be Gaussian random variables with zero mean and variance $\sigma^2=\frac{N}{2}A^2$ and the probability distribution of the amplitude $a=\sqrt(a^2+i^2)$ will  therefore be the Rayleigh distribution
+\begin{equation}
+p(a)=\frac{1}{2\pi\sigma^2} a e^{\frac{a^2}{2\sigma^2}}
+\end{equation}
+and  $I=\left|a\right|^2$ will  follow an exponential distribution
+\begin{equation}
+\label{eq:expdistr}
+p(I)=\frac{ e^{-I/\overline{I}}}{\overline{I}}
+\end{equation} 
+with mean $\overline{I}$ and standard deviation $\sigma=\overline{I}$  \cite{goodman2000,goodman1976}.
+A sum of $M$ uncorrelated random variables following identical distributions given by \fref{eq:expdistr} follows a Gamma distribution,
+\begin{equation}
+\label{eq:gammadistr}
+p(I)=\frac{I^{M-1} e^{-I/\overline{I}}} {\overline{I}^M \Gamma(M)},
+\end{equation}
+for a positive integer $M$ this simplifies with $\Gamma(M)=(M-1)!$ to an Erlang distribution  \cite{forbes2010,trost2020}.
+If $I$ is  distributed as \ref{eq:gammadistr} and Poisson sampled as discrete $k$, it follows  an negative binomial distribution
+\cite{trost2020,mandel1959,holmes2019}
+\begin{equation}
+p(k)=
+\frac{\Gamma(k+M)}{\Gamma(M)\Gamma(k+1) }
+\left( 1+\frac{1}{\overline{I}}
+\right)^{-k}
+\left( 1+\overline{I}
+\right)^{-M}
+\end{equation}
+with mean $\mu=M\overline{I}$ and variance $\mu+\frac{\mu^2}{M}$ (which differs from the variance of a poisson distribution $\mu$).
+This probability distribution can be compared to an experimental measured intensity distribution and the number of modes present in the measurement can be estimated by a regression \cite{lehmkuhler2014,yun2019}.
+The variance of a product of (uncorrelated) photon counts  following this distribution will have a variance of
+\begin{equation}
+\Var_{p\cdot p}= \Var_p^2 +2 \mu^2\Var_p	= \mu^4 \frac{2 M + 1}{M^2 + 2}+ \mu^3 \frac{M+1}{M} + \mu^2 \,.
+\end{equation}
 
+Following the idea of Trost et. al, this can be used so estimate the noise of an intensity correlation measurement, even though the actual signal will break the assumption of having uncorrelated photon counts.
 
 \section{Kossel Lines}
 X-Ray radiation originating from within a single crystal gets Bragg reflected at the lattice planes, causing Intensity variation in $90^o-\theta$ around the direction $k_{hkl}$, forming the \textit{Kossel Cones}. On the spherical detector centered at at the crystal, the points with influenced intensity would lie on circles with radii determined by ...
