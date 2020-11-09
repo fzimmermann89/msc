@@ -1,6 +1,6 @@
 \chapter{Experimental Verification}
 
-\section{Sample Preperation}
+\section{Sample Preparation}
 Magnetite Nanoparticles coated with Oleic Acid dispersed in Toluene were bought from NN-Labs, inhibited Methylmethacrylate (MMA) and Etyhlhexylmethacrylate (EHMA)  (Sigma Aldrich) were filtered using a prefilled column to remove the Inhibitor,  2,2-azo-bis-isobutyrylnitrile (AIBN) (Sigma Aldrich) was used as thermally activated radical initiator as received. Polystyrene (Sigma Aldrich, MW XXX) was used as received. As solvents, Methanol, Toluene and Chloroform were used.
 \subsection{Nanoparticles in Polystyrene Matrix}
 The nanoparticles were precipitated with Methanol, centrifuged and redispersed in Chloroform at a concentration of 25\,mg/ml, whereas the weight of nanoparticles includes the weight of the oleic acid capping. Polystyrene was dissolved in Chloroform at a concentration of 250\,mg/ml and different volumes of the nanoparticles solution were added (to account for the different iron contents) to 5\,ml of the Polystyrene solution (see \fref{tab:samplePS}). After ensuring dispersion by strong sonication, fractions of XXX\,ul the solution were dropped onto glass slides and dried. After drying, the films were carefully removed from the glass slides.
@@ -45,15 +45,25 @@ As a control sample, the polymerisation was performed without any nanoparticles 
 \end{table}
 
 \subsection{Sample Characterisation}
-TEM images
-SAXS measurements
+Before sample preparation, the iron oxide nanoparticles were deposited on a silicon nitride membrane and imaged using a FEI Tecnai microscope the measure the size distribution.
+
+
+SAXS measurements of the prepared nanoparticle polymer foils where performed at the SSRL beamline 1-5 .
 \subsection{GaAs crystal films}
 
 \section{Setup}
+The setup used at EH5 at SACLA is shown in \fref{fig:setup}. 
+
+The sample was mounted on an XXX axis stage to allow scanning perpendicular the the incoming beam, ensure perpendicularly of the scanning directions to the beam while ensuring a parallel alignment of the sample surface to the octal detector.
+
+Two MPCCD detectors were used: A dual detector with two tiles, each 512x1024 pixels perpendicular to the FEL beam in a distance of 1\,m and a Short Working Distance octal detector, consisting of eight 512x1024 tiles, parallel to the sample surface in a distance $d_{octal}$ ranging from XXX to XXX cm.
+
+An L-shaped aluminum plate was installed to reduce stray light as well as to allow mounting of the beamstop and filters between sample and detector.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/setup.pdf}
 	\caption[Experimental setup at SACLA]{Experimental setup at SACLA: The sample is mounted on a scanning stage and aligned to stay in focus during the scan and be parallel to the Octal MPCCD detector, which is in a distance $d_{octal}$. The angle between incoming FEL and Sample is XXX. Behind the sample, an stray light filter, beamstop and (depending on the sample) a filter foil is installed. The Dual detector is mounted $d_{dual}$=1\,m away from the sample in a XXX angle. To reduce air scattering, a vacuum tube is installed in the path from sample to Dual.}
+	\label{fig:setup}
 \end{figure}
 \subsection{Imaging the Focus}
 \subsection{Imaging Nanoparticles}
@@ -67,11 +77,24 @@ SAXS measurements
 \subsubsection{Filtering}
 \subsection{Imaging Crystals}
 \subsubsection{Crystal orientation}
-For determining the relative orientation of the crystal with regards to the detector, Kossel lines as described in \fref{chap:kossel} can be used. 
+For determining the relative orientation of the crystal with regards to the detector, Kossel lines as described in \fref{chap:kossel} can be used.  A semi-automatic alignment program was developed (\fref{fig:kosselfit}) and used the find the crystal orientation (\fref{tab:kosselfit}) As initial parameters, 5.65\,\AA\, lattice constant, 9.25\,keV energy and 800\,px detector distance and the result of a simple 2d cubic fit for the values of the translational shift were used. 
 \begin{figure}
 	\centering
 \includegraphics[width=0.8\linewidth]{images/kosselfit.png}
 \caption{Program for fitting Kossel lines to experimental data}
+\label{fig:kosselfig}
 \end{figure}
 
 
+\begin{table}[]
+	\begin{tabular}{lllll}
+		\hline
+		Sample & Inital Translation & Inital Rotation    & Energy & Rotation           \\
+		& x,y in pixels      & Euler angles x,y,z & in keV    & Euler angles x,y,z \\
+		\hline
+		GaAs 1 &                    &                    &        &                    \\
+		GaAs 2 &                    &                    &        &                   \\
+		\hline
+	\end{tabular}
+\label{tab:kosselfit}
+\end{table}
