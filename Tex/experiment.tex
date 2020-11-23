@@ -77,7 +77,16 @@ SAXS measurements of the prepared nanoparticle polymer foils where performed at 
 The SAXS measurements give a reasonably good insight into the expected results of the IDI scheme, which will differ due to the iron specificity and the smaller focal volume in the latter.  
 \subsection{GaAs crystal films}
 As a crystalline sample GaAs was chosen for its simple fcc structure and large product of the gallium K-shell fluorescence Energy and lattice constant. The samples were prepared by Ben Reeves at the Stanford Nanofabrication Facility. 
-Using MOCVD, 50\,nm GaAs, 400\,nm AlGaAs as an etch stop and finally a 5\,um GaAs film were grown on an epi-ready (100)±0.1° GaAs substrate. The speciman was cut into 12\,mm\,x\,15\,mm pieces, each glued to an approx. 100\,um thick quartz cover slip with the 5\,um film layer facing towards to glass. The substrate and the AlGaAs layer were selectively etched away via C6H8O7:H2O2 and HF:H2O wet etches, respectively. This left 5\,um thin GaAs films glued onto the the quartz slides (see \fref{fig:gaas_sample.pdf}).  XRD was used to measure the width of the (004) GaAs bragg peak as 0.004°, indicative of high quality single crystals. 
+Using MOCVD, 50\,nm GaAs, 400\,nm AlGaAs as an etch stop and finally a 5\,um GaAs film were grown on an epi-ready (100)±0.1° GaAs substrate. The speciman was cut into 12\,mm\,x\,15\,mm pieces, each glued to an approx. 100\,um thick fused silica cover slip with the 5\,um film layer facing towards the silica. The substrate and the AlGaAs layer were selectively etched away via C6H8O7:H2O2 and HF:H2O wet etches, respectively. This left 5\,um thin GaAs films glued onto the the quartz slides (see \fref{fig:gaas_sample}).  XRD with Cu K-alpha was used to measure the width of the (004) GaAs bragg peak as 0.004°, indicative of high quality single crystals. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/gaas_sample.pdf}
+	\caption[GaAs Sample]{Sketch of the GaAs single crsyal glued to a fused silica coverslip and Cu Kalpha XRD measurement of the GaAs (004) reflex, showing a single crystal. After mounting on the cover slip, the peak is slightly broadened, most likely by an slighly uneven thickness of the glue layer. }
+	\label{fig:gaas_sample}
+\end{figure}
+
+
 \section{Setup}
 The setup used at EH5 at SACLA is shown in \fref{fig:setup}. 
 
@@ -89,7 +98,7 @@ An L-shaped aluminum plate was installed to reduce stray light as well as to all
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/setup.pdf}
-	\caption[Experimental setup at SACLA]{Experimental setup at SACLA: The sample is mounted on a scanning stage and aligned to stay in focus during the scan and be parallel to the Octal MPCCD detector, which is in a distance $d_{octal}$. The angle between incoming FEL and Sample is XXX. Behind the sample, an stray light filter, beamstop and (depending on the sample) a filter foil is installed. The Dual detector is mounted $d_{dual}$=1\,m away from the sample in a XXX angle. To reduce air scattering, a vacuum tube is installed in the path from sample to Dual.}
+	\caption[Experimental setup at SACLA]{Experimental setup at SACLA: The sample is mounted on a scanning stage and aligned to stay in focus during the scan and be parallel to the Octal MPCCD detector, which is in a distance $d_{octal}$. The angle between incoming FEL and Sample is XXX. Behind the sample, a stray light filter, beamstop and (depending on the sample) a filter foil is installed. The Dual detector is mounted $d_{dual}$=1\,m away from the sample in a XXX angle. To reduce air scattering, a vacuum tube is installed in the path from sample to Dual.}
 	\label{fig:setup}
 \end{figure}
 \subsection{Imaging the Focus}
@@ -106,7 +115,7 @@ An L-shaped aluminum plate was installed to reduce stray light as well as to all
 \subsubsection{Crystal orientation}
 For determining the relative orientation of the crystal with regards to the detector, Kossel lines as described in \fref{chap:kossel} can be used.  A semi-automatic alignment program was developed (\fref{fig:kosselfit}) and used the find the crystal orientation (\fref{tab:kosselfit}) As initial parameters, 5.65\,\AA\, lattice constant, 9.25\,keV energy and 800\,px detector distance and the result of a simple 2d cubic fit for the values of the translational shift were used. 
 \begin{figure}
-	\centering
+\centering
 \includegraphics[width=0.8\linewidth]{images/kosselfit.png}
 \caption{Program for fitting Kossel lines to experimental data}
 \label{fig:kosselfig}
