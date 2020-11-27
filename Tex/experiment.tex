@@ -5,7 +5,7 @@ Magnetite Nanoparticles coated with Oleic Acid dispersed in Toluene were bought 
 \subsection{Nanoparticles in Polystyrene Matrix}
 The nanoparticles were precipitated with Methanol, centrifuged and redispersed in Chloroform at a concentration of 25\,mg/ml, whereas the weight of nanoparticles includes the weight of the oleic acid capping. Polystyrene was dissolved in Chloroform at a concentration of 250\,mg/ml and different volumes of the nanoparticles solution were added (to account for the different iron contents) to 5\,ml of the Polystyrene solution (see \fref{tab:samplePS}). After ensuring dispersion by strong sonication, fractions of XXX\,ul the solution were dropped onto glass slides and dried. After drying, the approximately 200\,um thick films were carefully removed from the glass slides.
 As an iron containing control sample, 60mg FeCl3 and XXX Polystyrene were dissolved in 6ml acetone, sonicated and  fractions of XXX were dropped onto slowly spinning glass slides (XXX rpm for XX 5\,min) and carefully removed after drying.
-\begin{table}
+\begin{table}[tp]
 	\centering
 	\caption{Nanoparticles in Polystyrene recipes}
 	\label{tab:samplePS}
@@ -27,7 +27,7 @@ The nanoparticle solution was concentrated to XXX in toluene by precipitation, c
 The vials were uncapped and the polymer dried for 12h at XXX. The polymer was removed from the vials and cut into slices of approximatly XXX thickness using a slow spinning diamond saw.
 As a control sample, the polymerisation was performed without any nanoparticles added.
 
-\begin{table}
+\begin{table}[tp]
 	\centering
 	\caption{Nanoparticles in PMMA/EHMA recipes}
 	\label{tab:sampleCP}
@@ -47,7 +47,7 @@ As a control sample, the polymerisation was performed without any nanoparticles 
 \subsection{Nanoparticle Sample Characterisation}
 Before sample preparation, the iron oxide nanoparticles as received were diluted with Toluene, deposited on a silicon nitride membrane and imaged using a FEI Tecnai microscope  (see \fref{fig:tem}).  For each of the three nominal sizes, 3 different areas on the membrane were analyzed using ImageJ, resulting in mean radii of 8.3$\pm$1.7\,nm ("20\,nm") 4.1$\pm$0.8 \,nm	("10\,nm") 3.1$\pm$0.6\,nm ("5\,nm"). In the TEM images, the effect of the oleic acid ligands used to stabilize the nanoparticle dispersion  can be seen as the inter-particle distance.
 
-\begin{figure}
+\begin{figure}[tp]
 	\centering
 	\begin{subfigure}[b]{0.25\textwidth}
 		\includegraphics[width=\linewidth]{images/tem5.png}
@@ -73,11 +73,11 @@ Before sample preparation, the iron oxide nanoparticles as received were diluted
 .
 
 
-SAXS measurements of the prepared nanoparticle polymer foils where performed at the SSRL beamline 1-5 . Samples were measured at 12\,keV for 5\,min each, a subtraction of the polymer matrix background was performed and a size distribution of spherical particles with hardsphere interaction was fitted to the radial profile. The low-q area is dominated by aggregate formation, which cannot be precisely quantified due to stray light and limited measuring range and is accounted for by a guinier-porod function, see \fref{fig:saxs} \cite{percus1958,feigin1987,Ilavsky2009}.
-According to the regression, the aggregates seem to have a radius of gyration of 20-30\,nm (the straylight limits the measurement validity in those small q areas), the porod $P$ of 2.5-3.8 suggests a dimensionality of the aggregates between 2 and 3.  \cite{feigin1987,lili2005}. The radii of the form factor agree within the corossponding margin of error with the values of the TEM measurement, the higher radius parameters of the structure factors correspond to the thin layer of oleic acid ligands.
+SAXS measurements of the prepared nanoparticle polymer foils where performed at the SSRL beamline 1-5. Samples were measured at 12\,keV for at two different spots for 5\,min each and averaged, a subtraction of the polymer matrix background was performed and a size distribution of spherical particles with hardsphere interaction was fitted to the radial profile. The low-q area is dominated by aggregate formation, which cannot be precisely quantified due to stray light and limited measuring range and is accounted for by a guinier-porod function, see \fref{fig:saxsps}  and  \fref{fig:saxspmma} \cite{percus1958,feigin1987,Ilavsky2009}.
+The measurements do not show a clear and significant difference between the two polymer matrices. According to the regressions, the aggregates seem to have a radius of gyration of 20-30\,nm (the straylight limits the measurement validity in those small q areas), the porod $P$ of 2.5-3.8 suggests a dimensionality of the aggregates between 2 and 3.  \cite{feigin1987,lili2005}. The radii of the form factor agree within the corresponding margin of error with the values of determined by TEM measurements, the difference between the radius parameters of the structure factors and the form factor is most likely caused by the thin layer of oleic acid ligands between aggregating particles.
 
 
-\begin{figure}
+\begin{figure}[tp]
 	\centering
 	\begin{subfigure}[b]{0.3\textwidth}
 		\includegraphics[width=\linewidth]{images/ps5.pdf}
@@ -90,7 +90,22 @@ According to the regression, the aggregates seem to have a radius of gyration of
 	\end{subfigure}
 
 	\caption{SAXS profiles of nominal 5\,nm, 10\,nm and 20\,nm iron oxide nanoparticles in polystyrene matrix (left to right).}
-	\label{fig:saxs}
+	\label{fig:saxsps}
+\end{figure}
+\begin{figure}[tp]
+	\centering
+	\begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\linewidth]{images/pmma5.pdf}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\linewidth]{images/pmma10.pdf}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\linewidth]{images/pmma20.pdf}
+	\end{subfigure}
+	
+	\caption{SAXS profiles of nominal 5\,nm, 10\,nm and 20\,nm iron oxide nanoparticles in Poly-(EHMA/MMA) matrix (left to right).}
+	\label{fig:saxspmma}
 \end{figure}
 
 The SAXS measurements give a reasonably good insight into the expected results of the IDI scheme measurement of the same sample, which will differ due to the iron specificity and the smaller focal volume in the latter.  
@@ -99,10 +114,10 @@ The SAXS measurements give a reasonably good insight into the expected results o
 As a crystalline sample GaAs was chosen for its simple fcc structure and large product of the gallium K-shell fluorescence Energy and lattice constant. The samples were prepared by Ben Reeves at the Stanford Nanofabrication Facility. 
 Using MOCVD, 50\,nm GaAs, 400\,nm AlGaAs as an etch stop and finally a 5\,um GaAs film were grown on an epi-ready (100)±0.1° GaAs substrate. The speciman was cut into 12\,mm\,x\,15\,mm pieces, each glued to an approx. 100\,um thick fused silica cover slip with the 5\,um film layer facing towards the silica. The substrate and the AlGaAs layer were selectively etched away via C6H8O7:H2O2 and HF:H2O wet etches, respectively. This left 5\,um thin GaAs films glued onto the the quartz slides (see \fref{fig:gaas_sample}).  XRD with Cu K-alpha was used to measure the width of the (004) GaAs bragg peak as 0.004°, indicative of high quality single crystals. 
 
-\begin{figure}
+\begin{figure}[tp]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/gaas_sample.pdf}
-	\caption[GaAs Sample]{Sketch of the GaAs single crsyal glued to a fused silica coverslip and Cu Kalpha XRD measurement of the GaAs (004) reflex, showing a single crystal. After mounting on the cover slip, the peak is slightly broadened, most likely by an slighly uneven thickness of the glue layer. }
+	\caption[GaAs Sample]{Sketch of the GaAs single crystal glued to a fused silica cover slip and Cu-K$\alpha$ XRD measurement of the GaAs (004) reflex, showing a single crystal. After mounting on the cover slip, the peak is slightly broadened, most likely by an slighly uneven thickness of the glue layer. }
 	\label{fig:gaas_sample}
 \end{figure}
 
