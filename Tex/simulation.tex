@@ -1,8 +1,19 @@
 \chapter{Simulations}
 \label{chap:simulation}
-\section{Single Particles}
+To illustrate the working principle of IDI and to examine the Signal-to-Noise  characteristics, different simulations were performed:
+
+First, it was assumed that the object to be imaged consists of discrete emitters, each emitting monochromatic spherical waves with the same wavelength, but with a randomly chosen phase, and the speckle image on a pixelated detector was simulated by addition of the scalar electric fields and taking the squared magnitude for each pixel. To reduce the influence of this discrete sampling on the simulated speckle patterns, the simulation is performed at twice the resolution and downsampled, such that each data point of the result is the weighted average of 3x3 discrete calculations \cite{bsc}.
+In this configuration, the speckle images of a single particle with randomly positioned emitters inside (approximating a single particle imaging setup), a focal volume filled with randomly positioned (non intersecting) hard spheres consisting of randomly positioned atoms (approximating for example many spherical nano particles imaged simultaneously) as well as a crystalline structure with emitters positioned at within a lattice were simulated. In the first two cases, a small-angle regime was chosen and the reconstruction was performed in 2D and as a 1D radial profile. For the crystalline structure, a realistic lattice constant in the same order of magnitude as the K$\alpha$ wavelength moves the reconstruction out of the small-angle regime and a 3D reconstruction of the reciprocal space was performed.
+Additionally, in these simulations the effect of under-sampling was studied.
+
+Second, to examine the influence of the fluorescence lifetime and pulse width, a time-resolved simulation was performed.
+The results were compared with the approximation, that the contrast is determined by the product of the different number of modes.
+
+Ultimately, the results of these simulations were used the determine the feasibility of an experimental setup using IDI
+\section{Time independent Simulations}
+In an infinite coherence time approximation, stationary sources approximation, the simulation of the speckle pattern can be performed time independently the superposition of scaler electrical fields emitted with random phases. The simulation of the intensity at multiple discrete points can be performed in parallel using GPU acceleration, resulting in a simple and fast to evaluate model.
 \subsection{Single Sphere}
 \subsection{Multiple Spheres}
-\section{Crystal}
+\subsection{Crystal}
 \section{Signal-to-Noise}
-
+\section{Implications for an experimental design}

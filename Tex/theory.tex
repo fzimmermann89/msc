@@ -158,11 +158,11 @@ For $N$ Single-Photon-Emitters, a similiar form holds \cite{classen2017}:
 \begin{equation}
 	g_2(\vec{r_1},\vec{r_2}) = 1+ |g_1(\vec{r_1},\vec{r_2}) |^2 - \frac{2}{N} ,
 \end{equation}
-$g_1$ encodes structural information, as 
+As, as according to the van Cittert Zernicke theorem \fref{eq:vcz}, $g_1$ encodes structural information, 
 \begin{equation}
 g_1(\vec{k_1},\vec{k_2}) \propto \mathscr{F}S(\vec{r}) = S(\vec{q})
 \end{equation}
-is proportional to the Fourier transform of the arangment of emitters with $q=\vec{k_1}-\vec{k_2}$ (see \fref{fig:scatteringvectors}).
+the difference of the intensity-intensity correlation from unity is proportional (with a contrast determining constant $\beta$) to the Fourier transform of the arrangement of emitters with $q=\vec{k_1}-\vec{k_2}$ (see \fref{fig:scatteringvectors}).
  \begin{figure}
 	\centering
 	\includegraphics[width=0.9\linewidth]{images/scatteringvectors.pdf}
@@ -192,15 +192,15 @@ The speckle contrast $\beta$ is governed by the number of independent modes $M$ 
 \beta =\tfrac{1}{M}
 \end{equation}
 
-If the measurement, happens over a finite amount of time there will, the number of temporal degrees of freedom is
+If the measurement is performed over a finite amount of time the number of temporal degrees of freedom is
 \begin{equation}
 M_t=\frac{\left(\int_{-\infty}^{\infty} P(t)\diff t\right)^2}{\int_{-\infty}^{\infty} K(t) \left|\mu(t)\right|^2\diff t}
 \end{equation}
-with $P(t)$ the integration window weighting function and $K(t)$ its autocorrelation \cite{goodman2007}]. If the integration windows is set by the integration time $T$ of the detector, $P(t)$ is a rectangular function with the width $T$ and
+with $P(t)$ the integration window weighting function and $K(t)$ its autocorrelation \cite{goodman2007}. If the integration windows is set by the integration time $T$ of the detector, $P(t)$ is a rectangular function with the width $T$ and
 \begin{equation}
 M_t,rect = \frac{T}{2} \left[\int_{0}^{T} \left( 1-\frac{t}{T}\right) \left|\mu(t)\right|^2 \diff t \right]^{-1} .
 \end{equation}
-If instead $P(t)$ is the convolution of an Gaussian excitation pulse with FWHM of $\tau_p=2\sigma\sqrt{2\ln2}$ and unit area with an exponential decay with lifetime $\tau_d$ \cite{butz2015},
+If the Integration time can be considered as infinite and instead $P(t)$ is the convolution of an Gaussian excitation pulse with FWHM of $\tau_p=2\sigma\sqrt{2\ln2}$ and unit area with an exponential decay with lifetime $\tau_d$ \cite{butz2015},
 \begin{align}
 P(t)&=\frac{1}{\sigma\sqrt{2\pi}} \int_0^{\infty} e^{-\frac{t^{\prime}}{\tau_d}} 
 e^{-\frac{(t-t^{\prime})^2}{2\sigma^2}}\diff t^{\prime}
@@ -210,8 +210,13 @@ e^{-\frac{(t-t^{\prime})^2}{2\sigma^2}}\diff t^{\prime}
 -\frac{\sigma}{\sqrt{2}\tau_p}
 	\right] ,
 	\end{align}
-	with the complementary error function $\erfc=\frac{2}{\sqrt{\pi}}\int_x^\infty e^{-z^2}\diff z$
-	and
+	with the complementary error function $\erfc=\frac{2}{\sqrt{\pi}}\int_x^\infty e^{-z^2}\diff z$.
+	If the pulse length is long in comparison the to the pulse length,
+	
+	
+	
+	
+	
 	\begin{align}
 K(t)&= \sqrt{\frac{2{\ln 2}}{\pi}}\frac{1}{ \tau} e^{-\left(\sqrt{2\ln 2}\frac{t}{\tau}\right)^2}
 \end{align}
