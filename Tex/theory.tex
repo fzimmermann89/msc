@@ -182,11 +182,37 @@ the difference of the intensity-intensity correlation from unity is proportional
 	\caption[Atomic Levels]{Atomic levels and associated X-Ray energies}
 	\label{fig:levels}
 \end{figure}
-Spectrum of 2-Level-System
-Spectrum 
 
+
+\begin{table}[]
+	\caption[X-Ray Energies]{X-Ray Energies of some relevant elements. }
+	\small
+	\begin{tabular}{l|l|ll|lll|ll}
+		\hline
+		Element & K$_{edge}$                                             & \multicolumn{2}{c}{K${_\alpha 1}$}                                                                           & \multicolumn{3}{c}{K${_\alpha 2}$}                                                                                                                                       & \multicolumn{2}{c}{K${_\beta 1,3}$}                                                                              \\
+		& \begin{tabular}[c]{@{}l@{}}Energy \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}FWHM \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy\\  / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}FWHM \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}rel. \\ Intensity\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy\\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}rel. \\ Intensity\end{tabular} \\ \hline
+		Fe      & 7112                                                   & 6403.8                                                 & 1.61                                                 & 6390.8                                                 & 1.62                                                 & 0.50                                                      & 7058.0                                                & 0.17                                                      \\
+		Cu      & 8979                                                   & 8,047.8                                                & 2.11                                                 & 8,027.8                                                & 2.17                                                 & 0.51                                                      & 8905.3                                                & 0.17                                                      \\
+		Ga      & 10367                                                  & 9251.7                                                 & 2.59                                                 & 9224.8                                                 & 2.66                                                 & 0.51                                                      & 10263.9                                               & 0.71                                                      \\
+		As      & 11867                                                  & 10543.7                                                & 3.08                                                 & 10508.0                                                & 3.17                                                 & 0.51                                                      & 11724.3                                               & 0.19                                                      \\ \hline
+	\end{tabular}
+\end{table}
 \section{Intensity Correlations using X-Ray Fluorescence}
 \section{Signal to Noise Considerations}
+
+
+The noise in the measurement will consist of three parts: First, noise inherent to IDI caused by the random distribution of phases, second, the poissonian noise caused by quantized photons and third, meassurment noise caused by an imperfect detector.
+
+Which factors influence SNR
+-lifetime/pulsewidth
+-polarisation
+-sampling conditions / undersampling
+-sample thickness / coherence length
+-N images
+-N photons
+
+
+
 The speckle contrast $\beta$ is governed by the number of independent modes $M$ overlaid in the measurement \cite{goodman2000}.
 \begin{equation}
 \beta =\tfrac{1}{M}
@@ -245,13 +271,8 @@ If the speckle pattern is not spatially resolved by the detector because its res
 As good approximation, the total number of modes can be considered the product of those modes numbers (in reality, the mode numbers are not completely independent, see \fref{chap:simulation} for simulations of the contrast under those limiting factors)
 %- SNR
 %will use Peak/stdev bg definition
-Which factors influence SNR
--lifetime/pulsewidth
--polarisation
--sampling conditions / undersampling
--sample thickness / coherence length
--N images
--N photons
+
+
 \label{chap:theory}
 
 
