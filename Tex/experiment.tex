@@ -142,6 +142,23 @@ The image to focus,
 \paragraph{Imaging Nanoparticles}
 \paragraph{Imaging Crystals}
 
+\section{Data Processing}
+As the amount of recorded data is huge, an efficient strategy for filtering on shots, preprocessing the data to eliminate interferences and finally reconstruction has to be implemented.
+\subsection{Shot filtering}
+\subsection{Preprocessing}
+
+\paragraph{Crystal orientation}
+For determining the relative orientation of the crystal with regards to the detector, Kossel lines as described in \fref{chap:kossel} can be used.  A semi-automatic alignment program was developed (\fref{fig:kosselfit}) and used the find the crystal orientation (\fref{tab:kosselfit}). As initial parameters, 5.65\,\AA\, lattice constant, 9.25\,keV energy and 800\,px detector distance and the result of a simple 2D cubic fit for the values of the translational shift were used. 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/kosselfit.png}
+	\caption{Program for fitting Kossel lines to experimental data}
+	\label{fig:kosselfig}
+\end{figure}
+
+\subsection{Reconstruction}
+
+
 \section{Results}
 \subsection{Imaging the Focus}
 \subsubsection{Filtering}
@@ -149,14 +166,7 @@ The image to focus,
 \subsection{Imaging Nanoparticles}
 \subsubsection{Filtering}
 \subsection{Imaging Crystals}
-\subsubsection{Crystal orientation}
-For determining the relative orientation of the crystal with regards to the detector, Kossel lines as described in \fref{chap:kossel} can be used.  A semi-automatic alignment program was developed (\fref{fig:kosselfit}) and used the find the crystal orientation (\fref{tab:kosselfit}). As initial parameters, 5.65\,\AA\, lattice constant, 9.25\,keV energy and 800\,px detector distance and the result of a simple 2D cubic fit for the values of the translational shift were used. 
-\begin{figure}
-\centering
-\includegraphics[width=0.8\linewidth]{images/kosselfit.png}
-\caption{Program for fitting Kossel lines to experimental data}
-\label{fig:kosselfig}
-\end{figure}
+
 
 
 \begin{table}[]
