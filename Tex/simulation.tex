@@ -11,9 +11,84 @@ The results were compared with the approximation, that the contrast is determine
 
 Ultimately, the results of these simulations were used the determine the feasibility of an experimental setup using IDI
 \section{Time independent Simulations}
-In an infinite coherence time approximation, stationary sources approximation, the simulation of the speckle pattern can be performed time independently the superposition of scaler electrical fields emitted with random phases. The simulation of the intensity at multiple discrete points can be performed in parallel using GPU acceleration, resulting in a simple and fast to evaluate model.
+In an infinite coherence time, stationary sources approximation, the simulation of the speckle pattern can be performed time independently the superposition of scaler electrical fields emitted with random phases. The simulation of the intensity at multiple discrete points can be performed in parallel using GPU acceleration, resulting in a simple and fast to evaluate model.
 \subsection{Single Sphere}
 \subsection{Multiple Spheres}
 \subsection{Crystal}
-\section{Signal-to-Noise}
+\section{Time dependent Simulations}
+
+Each atoms is assigned an emitting time  chosen according to the excitation pulse shape. Starting from this emitting time  $t_{a}$, the atom emits and exponential decaying field with a decay constant chosen to match the lifetime. 
+For each discrete pixel on the simulated detector, the arrival time of each atom's initial radiance is calculated and the atoms are sorted by their arrival time on the detector. To calculate the time dependent E-field, the following equation is used:
+\begin{equation}
+E(t)=\sum_{atoms}  E(atom) \Theta(t_{arrival}(atom)  - t) * e^{-a(t-t_{arrival}(atom) )}
+\end{equation}
+
+
+
+with $E(atom) $ the time independent complex E-field.
+
+
+The intensity in one pixel can now be calculated as the time integral over the magnitude squared of the E-field.
+This integral can be splitted into N parts with a constant number atoms which radiations has already arrived and each of those parts can be solved analytically. 
+
+
+
+This procedure is efficient in regards of discrete time steps that need to be calculated.
+
+If the atoms are sorted by their arrival time, for each of the integration parts, 
+
+\begin{algorithm}
+	\caption{Decaying prefix sum}\label{prefix}
+	\begin{algorithmic}
+	\Procedure{upsweep}{$x \in \mathbb{C}^N$, $t \in \mathbb{R}^N$, $\tau\ \in \mathbb{R}$} \Comment{first pass with increasing step size}
+		\State $s \gets 1$
+		\While{$s<N$}    \Comment{ O(log N)}
+			
+			\For{k  $\gets 0$ to $N-1$ step $2s$ \textbf{parallel}}
+				\State $decay \gets exp\left(\frac{t[k+s-1]-t[k+2s-1]}{\tau}\right)$ \Comment{handle unequal time steps}
+				\State $x[k+2s-1] \gets x[k+2s-1] + decay*x[k+s-1]$
+				
+			\EndFor
+			\State $s \gets 2s$ 
+		\EndWhile
+	\EndProcedure
+	
+	\Procedure{downsweep}{$x \in \mathbb{C}^N$, $t \in \mathbb{R}^N$, $\tau\ \in \mathbb{R}$}
+	\Comment{second pass with decreasing step size}
+		\State $s \gets N/2$
+		\While{$s>1$}    \Comment{ O(log N)}
+			\State $s \gets s/2$
+			\For{k  $\gets 0$ to $N-1-2s$ step $2s$ \textbf{parallel}}
+				\State $decay \gets exp\left(\frac{t[k+2s-1]-t[k+3s-1]}{\tau}\right)$ \Comment{handle unequal time steps}
+				\State $x[k+3s-1] \gets x[k+3s-1] + decay*x[k+2s-1]$
+			\EndFor
+		\EndWhile
+	\EndProcedure
+	
+	\Procedure{sum}{$x \in \mathbb{C}^N$, $t \in \mathbb{R}^N$, $\tau\ \in \mathbb{R}$}
+	\State	\Call{upsweep}{$x$, $t$, $\tau$}
+	\State 	\Call{downsweep}{$x$, $t$, $\tau$}
+	\EndProcedure
+	
+	\end{algorithmic}
+
+\end{algorithm}
+
+
+
+%\begin{algorithm}[H]
+%	
+%	
+%	\KwData{intitial fields F$\el \mathbb{C}^N$}
+%	\KwData{arrival times T$\el \mathbb{R}^N$}
+%	\KwResult{Intensity at support times}
+%
+%\end{algorithm}
+
+To calculate the intensity at each support, an modified prefix sum algorithm can be used.
+
+
+
+\subsection{Signal to Noise}
+
 \section{Implications for an experimental design}
