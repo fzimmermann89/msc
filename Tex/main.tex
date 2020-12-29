@@ -103,11 +103,13 @@
 \usepackage[english,plain]{fancyref}
 %app für appendix zu referenzen hinzufügen
 \newcommand*{\fancyrefappendixlabelprefix}{app}
-
 \frefformat{plain}{\fancyrefappendixlabelprefix}{%
 	\appendixtocname\fancyrefdefaultspacing#1%
 }%
-
+\newcommand*{\fancyrefalgolabelprefix}{algo}
+\frefformat{plain}{\fancyrefalgolabelprefix}{%
+	algorithm \fancyrefdefaultspacing#1%
+}%
 %gleichungen ohne klammer referenzieren
 \frefformat{plain}{\fancyrefeqlabelprefix}{%
   	\frefeqname\fancyrefdefaultspacing#1%

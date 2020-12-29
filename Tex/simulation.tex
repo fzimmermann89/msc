@@ -17,77 +17,82 @@ In an infinite coherence time, stationary sources approximation, the simulation 
 \subsection{Crystal}
 \section{Time dependent Simulations}
 
-Each atoms is assigned an emitting time  chosen according to the excitation pulse shape. Starting from this emitting time  $t_{a}$, the atom emits and exponential decaying field with a decay constant chosen to match the lifetime. 
-For each discrete pixel on the simulated detector, the arrival time of each atom's initial radiance is calculated and the atoms are sorted by their arrival time on the detector. To calculate the time dependent E-field, the following equation is used:
+Each of the $N$ atoms is assigned an emitting time $t_{n}$ chosen according to the excitation pulse shape and its position. Starting from this emitting time, the atom emits an exponential decaying field with a decay time chosen to match the lifetime. 
+
+
+For each discrete pixel on the simulated detector, for each atom the distance $d_n$, the arrival time $t'_n=t_n+d_n/c$ of each atom's initial radiance, and its time independent complex field $E_n=\frac{1}{d} e^{ikd_n+\phi_n}$ with initial random phase $phi$ is calculated.
+The time dependent E field is the summation over the decaying field of all atoms,
 \begin{equation}
-E(t)=\sum_{atoms}  E(atom) \Theta(t_{arrival}(atom)  - t) * e^{-a(t-t_{arrival}(atom) )}
+E(t)=\sum_{n=0}^N  E_n \Theta(t'_n  - t) * e^{-(t-t'_n )/\tau}
+\label{eq:tdsum}
+\end{equation}
+and the simulated intensity the time integral over the magnitude squared of the E-field,
+\begin{equation}
+I=\int_0^\infty \left| E(t) \right|^2 .
+\end{equation}
+
+To efficiently solve this integral for each detector pixel, it can be splitted into N parts with a constant number atoms which radiations has already arrived and each of those parts can be solved analytically. For this, first all atoms are sorted by the arrival time at the pixel. At each arrival time $t_n$, the sum in \fref{eq:tdsum} gets a new term and the field is calculated as
+\begin{equation}
+E(t_n)=E(t_{n-1})*e^{\sfrac{t_{n-1}-t_n}{\tau}}+E_n
+\end{equation}
+ This can be done with a parallel inclusive scan, as shown in \fref{algo:td}. This gives the supports for the integral, as show in \fref{fig:tdint}, which can now be solved as
+\begin{equation}
+	I=\int_0^\infty \left| E(t) \right|^2 = \sum
 \end{equation}
 
 
+This procedure is efficient in regards of discrete time steps that need to be calculated and can easily be parallelized using a GPU.
 
-with $E(atom) $ the time independent complex E-field.
-
-
-The intensity in one pixel can now be calculated as the time integral over the magnitude squared of the E-field.
-This integral can be splitted into N parts with a constant number atoms which radiations has already arrived and each of those parts can be solved analytically. 
-
-
-
-This procedure is efficient in regards of discrete time steps that need to be calculated.
-
-If the atoms are sorted by their arrival time, for each of the integration parts, 
 
 \begin{algorithm}
-	\caption{Decaying prefix sum}\label{prefix}
+	\caption{Time dependent Simulation}\label{timesim}
 	\begin{algorithmic}
-	\Procedure{upsweep}{$x \in \mathbb{C}^N$, $t \in \mathbb{R}^N$, $\tau\ \in \mathbb{R}$} \Comment{first pass with increasing step size}
+	\Procedure{Scan}{$x \in \mathbb{C}^N$, $t \in \mathbb{R}^N$, $\tau\ \in \mathbb{R}$}
+	\Comment{Exponentially decaying inclusive prefix sum / scan} 
 		\State $s \gets 1$
-		\While{$s<N$}    \Comment{ O(log N)}
-			
+		\While{$s<N$} 
+		\Comment{Scan Upsweep}
 			\For{k  $\gets 0$ to $N-1$ step $2s$ \textbf{parallel}}
-				\State $decay \gets exp\left(\frac{t[k+s-1]-t[k+2s-1]}{\tau}\right)$ \Comment{handle unequal time steps}
-				\State $x[k+2s-1] \gets x[k+2s-1] + decay*x[k+s-1]$
-				
+				\State $decay \gets exp\left(\frac{t[k+s-1]-t[k+2s-1]}{\tau}\right)$ 
+				\State $x[k+2s-1] \gets x[k+2s-1] + decay*x[k+s-1]$				
 			\EndFor
 			\State $s \gets 2s$ 
 		\EndWhile
-	\EndProcedure
-	
-	\Procedure{downsweep}{$x \in \mathbb{C}^N$, $t \in \mathbb{R}^N$, $\tau\ \in \mathbb{R}$}
-	\Comment{second pass with decreasing step size}
 		\State $s \gets N/2$
-		\While{$s>1$}    \Comment{ O(log N)}
+		\While{$s>1$}  
+		 \Comment{Scan Downsweep}
 			\State $s \gets s/2$
 			\For{k  $\gets 0$ to $N-1-2s$ step $2s$ \textbf{parallel}}
-				\State $decay \gets exp\left(\frac{t[k+2s-1]-t[k+3s-1]}{\tau}\right)$ \Comment{handle unequal time steps}
+				\State $decay \gets exp\left(\frac{t[k+2s-1]-t[k+3s-1]}{\tau}\right)$
 				\State $x[k+3s-1] \gets x[k+3s-1] + decay*x[k+2s-1]$
 			\EndFor
 		\EndWhile
 	\EndProcedure
 	
-	\Procedure{sum}{$x \in \mathbb{C}^N$, $t \in \mathbb{R}^N$, $\tau\ \in \mathbb{R}$}
-	\State	\Call{upsweep}{$x$, $t$, $\tau$}
-	\State 	\Call{downsweep}{$x$, $t$, $\tau$}
-	\EndProcedure
+	\Function{Simulation}{Atom positions $x \in \mathbb{R}^{Nx3}$,  Detector position $y \in \mathbb{R}^{3}$, \newline Initial Phases $\phi \in [0,2\pi)^N$, Emission Times $t_0 \in \mathbb{R}^N$, $\tau\ \in \mathbb{R}$}
+	\State	\Call{Prepare}{}
+	\State	\Call{Sort}{($a$,$t$) by $t$}
+	\State 	\Call{Scan}{$a$, $t$, $\tau$}
+	\State $Result \gets \sum_{n=0}^N a_n$
+	\State \Return $Result$
+	\EndFunction
 	
 	\end{algorithmic}
-
+\label{algo:td}
 \end{algorithm}
 
-
-
-%\begin{algorithm}[H]
-%	
-%	
-%	\KwData{intitial fields F$\el \mathbb{C}^N$}
-%	\KwData{arrival times T$\el \mathbb{R}^N$}
-%	\KwResult{Intensity at support times}
-%
-%\end{algorithm}
-
-To calculate the intensity at each support, an modified prefix sum algorithm can be used.
-
-
+\begin{figure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/tdsphere.pdf}
+		\caption{Reconstructed radial profiles at different pulse FWHM and fixed decay time $\tau = 0.1$\,fs}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/tdpspherevis.pdf}
+		\caption{Visibility in the reconstruction for different pulse FWHM and decay times $\tau$}
+	\end{subfigure}
+	\caption[Time Dependent IDI Simulation of a Sphere]{Time Dependent IDI Simulation of a Sphere: For a sphere with 10\,nm radius consisting of $2*10^5$ atoms emitting 6.4\,keV fluorescence captured by an 256x256@50\,um detector in 20\,cm distance, a series of simulations were performed with different decay times $\tau$ of the emission and different exciting pulse FWHM. In a) exemplary radial profiles of the reconstruction are shown for one fixed $\tau$. Those reconstructions are used to plot the  dependence of the visibility on the pulse width in b). For long pulses, an $1/x$ relation is visible.}
+	\label{fig:tdpshere}
+\end{figure}
 
 \subsection{Signal to Noise}
 
