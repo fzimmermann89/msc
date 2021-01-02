@@ -12,6 +12,11 @@ The results were compared with the approximation, that the contrast is determine
 Ultimately, the results of these simulations were used the determine the feasibility of an experimental setup using IDI
 \section{Time independent Simulations}
 In an infinite coherence time, stationary sources approximation, the simulation of the speckle pattern can be performed time independently the superposition of scaler electrical fields emitted with random phases. The simulation of the intensity at multiple discrete points can be performed in parallel using GPU acceleration, resulting in a simple and fast to evaluate model.
+
+
+\subsection{Reconstruction}
+
+
 \subsection{Single Sphere}
 \subsection{Multiple Spheres}
 \subsection{Crystal}
@@ -23,63 +28,37 @@ Each of the $N$ atoms is assigned an emitting time $t_{n}$ chosen according to t
 For each discrete pixel on the simulated detector, for each atom the distance $d_n$, the arrival time $t'_n=t_n+d_n/c$ of each atom's initial radiance, and its time independent complex field $E_n=\frac{1}{d} e^{ikd_n+\phi_n}$ with initial random phase $phi$ is calculated.
 The time dependent E field is the summation over the decaying field of all atoms,
 \begin{equation}
-E(t)=\sum_{n=0}^N  E_n \Theta(t'_n  - t) * e^{-(t-t'_n )/\tau}
+E(t)=\sum_{n=1}^N  E_n \Theta(t'_n  - t) * e^{-(t-t'_n )/\tau}
 \label{eq:tdsum}
 \end{equation}
 and the simulated intensity the time integral over the magnitude squared of the E-field,
 \begin{equation}
 I=\int_0^\infty \left| E(t) \right|^2 .
+\label{eq:tdint}
 \end{equation}
 
-To efficiently solve this integral for each detector pixel, it can be splitted into N parts with a constant number atoms which radiations has already arrived and each of those parts can be solved analytically. For this, first all atoms are sorted by the arrival time at the pixel. At each arrival time $t_n$, the sum in \fref{eq:tdsum} gets a new term and the field is calculated as
+To efficiently solve this integral for each detector pixel, it can be split into N parts with a constant number atoms which radiations have already arrived, and each of those parts can be solved analytically. For this, first all atoms are sorted by the arrival time at the pixel. At each arrival time $t'_n$, the sum in \fref{eq:tdsum} gets a new term and the field is calculated as
 \begin{equation}
 E(t_n)=E(t_{n-1})*e^{\sfrac{t_{n-1}-t_n}{\tau}}+E_n
 \end{equation}
- This can be done with a parallel inclusive scan, as shown in \fref{algo:td}. This gives the supports for the integral, as show in \fref{fig:tdint}, which can now be solved as
-\begin{equation}
-	I=\int_0^\infty \left| E(t) \right|^2 = \sum
-\end{equation}
+ This can be done with a parallel inclusive scan, as shown in \fref{algo:td}. This gives the supports for the integral, as show in \fref{fig:tdplot}, which can now be solved as
+\begin{align}
+	I&=\int_0^\infty \left| E(t) \right|^2 = \sum_{n=1}^{N-1} \int_0^{t_{n+1}-t_n} \left|E(t_n)\right|^2 e^{-2t/\tau} \dif t +\int_0^\infty \left| E(t_N)\right|^2 e^{-2t/\tau} \dif t \\
+	 &=  \frac{\tau}{2}  \left|E(t_N)\right|^2 -  \frac{\tau}{2}\sum_{n=1}^{N-1} \left|E(t_n)\right|^2 (e^{-2 (t_{n+1}-t_n)/\tau} -1 ) 
+\end{align}
+
+This procedure is efficient in regards of discrete time steps that need to be calculated and can easily be run on a GPU.
 
 
-This procedure is efficient in regards of discrete time steps that need to be calculated and can easily be parallelized using a GPU.
+\begin{figure}
+	   \centering
+		\includegraphics[width=0.7\linewidth]{images/tdplot.pdf}
 
 
-\begin{algorithm}
-	\caption{Time dependent Simulation}\label{timesim}
-	\begin{algorithmic}
-	\Procedure{Scan}{$x \in \mathbb{C}^N$, $t \in \mathbb{R}^N$, $\tau\ \in \mathbb{R}$}
-	\Comment{Exponentially decaying inclusive prefix sum / scan} 
-		\State $s \gets 1$
-		\While{$s<N$} 
-		\Comment{Scan Upsweep}
-			\For{k  $\gets 0$ to $N-1$ step $2s$ \textbf{parallel}}
-				\State $decay \gets exp\left(\frac{t[k+s-1]-t[k+2s-1]}{\tau}\right)$ 
-				\State $x[k+2s-1] \gets x[k+2s-1] + decay*x[k+s-1]$				
-			\EndFor
-			\State $s \gets 2s$ 
-		\EndWhile
-		\State $s \gets N/2$
-		\While{$s>1$}  
-		 \Comment{Scan Downsweep}
-			\State $s \gets s/2$
-			\For{k  $\gets 0$ to $N-1-2s$ step $2s$ \textbf{parallel}}
-				\State $decay \gets exp\left(\frac{t[k+2s-1]-t[k+3s-1]}{\tau}\right)$
-				\State $x[k+3s-1] \gets x[k+3s-1] + decay*x[k+2s-1]$
-			\EndFor
-		\EndWhile
-	\EndProcedure
-	
-	\Function{Simulation}{Atom positions $x \in \mathbb{R}^{Nx3}$,  Detector position $y \in \mathbb{R}^{3}$, \newline Initial Phases $\phi \in [0,2\pi)^N$, Emission Times $t_0 \in \mathbb{R}^N$, $\tau\ \in \mathbb{R}$}
-	\State	\Call{Prepare}{}
-	\State	\Call{Sort}{($a$,$t$) by $t$}
-	\State 	\Call{Scan}{$a$, $t$, $\tau$}
-	\State $Result \gets \sum_{n=0}^N a_n$
-	\State \Return $Result$
-	\EndFunction
-	
-	\end{algorithmic}
-\label{algo:td}
-\end{algorithm}
+	\caption[Integration in Time Dependent IDI Simulation]{To illustrate the integration in the time dependent IDI simulation, the (normalized) scalar field at one point of the detector created by 10 emitting atoms with $\tau$=1\,fs and a pulse FWHM of 2\,fs is shown. The solid colors show each atom's field, the line plot the (phase correct) sum. The simplify the calculations, only the time points marked with stars are calculated. To solve the integral \fref{eq:tdint}, it's sufficient to calculated the squared magnitude at those points and to do a piecewise integration from each star-shaped marker the next dot-shaped marker. The color wheel in the top right shows colors used for phase encoding in the plot.}
+	\label{fig:tdplot}
+\end{figure}
+
 
 \begin{figure}
 	\begin{subfigure}[b]{0.45\textwidth}
@@ -90,7 +69,7 @@ This procedure is efficient in regards of discrete time steps that need to be ca
 		\includegraphics[width=\linewidth]{images/tdpspherevis.pdf}
 		\caption{Visibility in the reconstruction for different pulse FWHM and decay times $\tau$}
 	\end{subfigure}
-	\caption[Time Dependent IDI Simulation of a Sphere]{Time Dependent IDI Simulation of a Sphere: For a sphere with 10\,nm radius consisting of $2*10^5$ atoms emitting 6.4\,keV fluorescence captured by an 256x256@50\,um detector in 20\,cm distance, a series of simulations were performed with different decay times $\tau$ of the emission and different exciting pulse FWHM. In a) exemplary radial profiles of the reconstruction are shown for one fixed $\tau$. Those reconstructions are used to plot the  dependence of the visibility on the pulse width in b). For long pulses, an $1/x$ relation is visible.}
+	\caption[Time Dependent IDI Simulation of a Sphere]{Time Dependent IDI Simulation of a Sphere: For a sphere with 10\,nm radius consisting of $2*10^5$ atoms emitting 6.4\,keV fluorescence captured by an 256x256@50\,um detector in 20\,cm distance, a series of simulations were performed with different decay times $\tau$ of the emission and different exciting pulse FWHM. In a) exemplary radial profiles of the reconstruction of 50 images each are shown for one fixed $\tau$. Those reconstructions are used to plot the  dependence of the visibility on the pulse width in b). For long pulses, an $1/x$ relation is visible.}
 	\label{fig:tdpshere}
 \end{figure}
 

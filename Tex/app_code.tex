@@ -1,1 +1,42 @@
-\chapter{Overview over Code}
+\chapter{Implementation Details}
+\section{Simulation}
+In \fref{algo:td} the procedure for time dependent simulations is show.
+\begin{algorithm}
+	\caption{Time dependent Simulation}\label{timesim}
+	\begin{algorithmic}
+		\Procedure{Scan}{$x \in \mathbb{C}^N$, $t \in \mathbb{R}^N$, $\tau\ \in \mathbb{R}$}
+		\Comment{Exponentially decaying inclusive prefix sum} 
+		\State $s \gets 1$
+		\While{$s<N$} 
+		\Comment{Scan Upsweep}
+		\For{k  $\gets 0$ to $N-1$ step $2s$ \textbf{parallel}}
+		\State $decay \gets exp\left(\frac{t[k+s-1]-t[k+2s-1]}{\tau}\right)$ 
+		\State $x[k+2s-1] \gets x[k+2s-1] + decay*x[k+s-1]$				
+		\EndFor
+		\State $s \gets 2s$ 
+		\EndWhile
+		\State $s \gets N/2$
+		\While{$s>1$}  
+		\Comment{Scan Downsweep}
+		\State $s \gets s/2$
+		\For{k  $\gets 0$ to $N-1-2s$ step $2s$ \textbf{parallel}}
+		\State $decay \gets exp\left(\frac{t[k+2s-1]-t[k+3s-1]}{\tau}\right)$
+		\State $x[k+3s-1] \gets x[k+3s-1] + decay*x[k+2s-1]$
+		\EndFor
+		\EndWhile
+		\EndProcedure
+		\Function {Prepare}{$x \in \mathbb{R}^{Nx3}$,  $y \in \mathbb{R}^{3}$, $t_0 \in \mathbb{R}^N$, $\phi \in [0,2\pi)^N$}
+		\Comment{ommitted for brevity}
+		\State \Return Time independent fields $a \in \mathbb{C}^N$, Arrival times $t \in \mathbb{R}^N$ for each atom
+		\EndFunction
+		\Function{Simulation}{Atom positions $x \in \mathbb{R}^{Nx3}$,  Detector position $y \in \mathbb{R}^{3}$, \newline Initial Phases $\phi \in [0,2\pi)^N$, Emission Times $t_0 \in \mathbb{R}^N$, $\tau\ \in \mathbb{R}$}
+		\State	(a, t) = \Call {Prepare}{$x$, $y$, $\phi$}
+		\State	\Call{Sort}{} ($a$,$t$) by $t$
+		\State 	\Call{Scan}{$a$, $t$, $\tau$}
+		\State $Result \gets \frac{\tau}{2} \left|a_N\right|^2 -\frac{\tau}{2}\sum_{n=1}^{N-1} \left|a_n\right|^2 \left(exp(-2 (t_{n+1}-t_n)/\tau)-1\right)$   
+		\State \Return $Result$
+		\EndFunction
+		
+	\end{algorithmic}
+	\label{algo:td}
+\end{algorithm}
