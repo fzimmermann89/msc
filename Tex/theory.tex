@@ -257,7 +257,12 @@ M_t,gauss&=\left[\int_{-\infty}^{\infty} K(t) \left|\mu(t)\right|^2\diff t\right
 For a Lorentzian spectrum (see \fref{eq:docdecay}), the numerical solution of \fref{eq:modes} and the approximations introduced in \fref{eq:modesapprox} and \fref{eq:modesapprox2} is shown in \fref{fig:modes} 
 \footnote{To numerically evaluate \fref{eq:pfull} and integrals involving it, the introduction of the scaled error function $\text{erfcx}(x)=e^{x^2} \text{erfc}(x)$ and switching between using $erfc$ and an sufficient approximation for $erfcx$ depending on the parameters is necessary to avoid under- or overflow of the numerical representation of either the exponential or the error function term.}
 
-
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\linewidth]{images/modes_plot.pdf}
+	\caption{Temporal Modes}
+	\label{fig:modes}
+\end{figure}
 
 The experimentally indistinguishable fluorescence energies $K_\alpha,1$ and $K_\alpha,2$ (as well as  $K_\beta$ if no filter is used for suppression) give additional independent modes $M_E$
 
