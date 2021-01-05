@@ -234,28 +234,32 @@ M_t,rect =T \left[\int_{-\infty}^{\infty} \Lambda\left(\frac{t}{T}\right) \left|
 \end{align}
 Considering the case of a long integration time, $T\gg\tau$, this can be approximated as $M\approx\frac{T}{\tau}$. For a short integration time,  $T\ll\tau$, the number of temporal modes $M$ approaches unity.
 
-If the Integration time can be considered as infinite and instead $P(t)$ is a Gaussian excitation pulse with FWHM of $\tau_p=2\sigma\sqrt{2\ln2}$ and unit area convoluted with an exponential decay with lifetime $\tau_d$ \cite{butz2015},
+If the Integration time can be considered as infinite and instead $P(t)$ is a Gaussian excitation pulse with FWHM of $2\sigma\sqrt{2\ln2}$ and unit area convoluted with an exponential decay with lifetime $\tau$ \cite{butz2015},
 \begin{align}
-P(t)&=\frac{1}{\tau_d\sigma\sqrt{2\pi}} \int_0^{\infty} e^{-\frac{t^{\prime}}{\tau_d}} 
+P(t)&=\frac{1}{\tau\sigma\sqrt{2\pi}} \int_0^{\infty} e^{-\frac{t^{\prime}}{\tau}} 
 e^{-\frac{(t-t^{\prime})^2}{2\sigma^2}}\diff t^{\prime}
-=\frac{1}{2\tau_d}e^{-\frac{t}{\tau_d}+\frac{\sigma^2}{2\tau_d^2}}
+=\frac{1}{2\tau}e^{-\frac{t}{\tau}+\frac{\sigma^2}{2\tau^2}}
 \erfc\left[
-\frac{\sigma}{\sqrt{2}\tau_d}
+\frac{\sigma}{\sqrt{2}\tau}
 -\frac{t}{\sqrt{2}\sigma}
 	\right] ,
 	\label{eq:pfull}
 	\end{align}
-	with the complementary error function $\erfc=\frac{2}{\sqrt{\pi}}\int_x^\infty e^{-z^2}\diff z$ an approximation can be made if the pulse length is long in comparison the to coherence time, dropping the exponential decay from $P(t)$ and simplifying its autocorrelation to
+	with the complementary error function $\erfc=\frac{2}{\sqrt{\pi}}\int_x^\infty e^{-z^2}\diff z$, the mode number gets more complicated to evaluate. An approximation can be made if the pulse length is long in comparison to the coherence time, simplifying the autocorrelation of $P$ to
 \begin{align}
-K(t)&\approx \sqrt{\frac{2{\ln 2}}{\pi}}\frac{1}{ \tau_p} e^{-\left(\sqrt{2\ln 2}\frac{t}{\tau_p}\right)^2} .
+K(t)=\int_{-\infty}^\infty \frac{1}{4
+	\tau ^2}e^{-\frac{t^2}{2 \sigma ^2}-\frac{(t+t')^2}{2 \sigma ^2}}
+\erfcx\left(\frac{\sigma^2 -t \tau }{\sqrt{2} \tau \sigma}\right)
+\erfcx\left(\frac{\sigma^2 -\tau  (t+t')}{\sqrt{2} \tau \sigma }\right) \diff t'&\stackrel{\tau \rightarrow 0}{\approx} \frac{1}{2\sqrt{\pi}\sigma} e^{-\left(\frac{t}{2\sigma}\right)^2} 
 \end{align}
+with the scaled complementary error function\footnote{To numerically evaluate \fref{eq:pfull} and integrals involving it, the introduction of the scaled complementary error function  and switching to a sufficient approximation is necessary to avoid under- or overflow of the numerical representation of either the exponential or the error function term.} $\erfcx(x)=e^{x^2}\erfc(x)\stackrel{x\gg1}{\approx}  \frac{1}{\sqrt{\pi}x}$
+   \cite{ren2007}.
 The number of degrees of freedom in this approximation is
 \begin{align}
 M_t,gauss&=\left[\int_{-\infty}^{\infty} K(t) \left|\mu(t)\right|^2\diff t\right]^{-1}.
 \label{eq:modesapprox2}
 \end{align}
 For a Lorentzian spectrum (see \fref{eq:docdecay}), the numerical solution of \fref{eq:modes} and the approximations introduced in \fref{eq:modesapprox} and \fref{eq:modesapprox2} is shown in \fref{fig:modes} 
-\footnote{To numerically evaluate \fref{eq:pfull} and integrals involving it, the introduction of the scaled error function $\text{erfcx}(x)=e^{x^2} \text{erfc}(x)$ and switching between using $erfc$ and an sufficient approximation for $erfcx$ depending on the parameters is necessary to avoid under- or overflow of the numerical representation of either the exponential or the error function term.}
 
 \begin{figure}
 	\centering
