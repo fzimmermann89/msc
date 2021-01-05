@@ -252,7 +252,7 @@ K(t)=\int_{-\infty}^\infty \frac{1}{4
 \erfcx\left(\frac{\sigma^2 -t \tau }{\sqrt{2} \tau \sigma}\right)
 \erfcx\left(\frac{\sigma^2 -\tau  (t+t')}{\sqrt{2} \tau \sigma }\right) \diff t'&\stackrel{\tau \rightarrow 0}{\approx} \frac{1}{2\sqrt{\pi}\sigma} e^{-\left(\frac{t}{2\sigma}\right)^2} 
 \end{align}
-with the scaled complementary error function\footnote{To numerically evaluate \fref{eq:pfull} and integrals involving it, the introduction of the scaled complementary error function  and switching to a sufficient approximation is necessary to avoid under- or overflow of the numerical representation of either the exponential or the error function term.} $\erfcx(x)=e^{x^2}\erfc(x)\stackrel{x\gg1}{\approx}  \frac{1}{\sqrt{\pi}x}$
+with the scaled complementary error function\footnote{To numerically evaluate \fref{eq:pfull} and integrals involving it, the introduction of the scaled complementary error function  and switching to a sufficient approximation is necessary to avoid under- or overflow of the numerical representation of either the exponential or the error function term.} $\erfcx(x)=e^{x^2}\erfc(x)$ bound by $\frac{\sqrt{x^2+2}-x}{\sqrt{\pi}}<\erfcx(x) <\frac{1}{\sqrt{\pi}x}$
    \cite{ren2007}.
 The number of degrees of freedom in this approximation is
 \begin{align}
