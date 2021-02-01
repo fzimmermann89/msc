@@ -138,11 +138,11 @@ For classical fields normalized correlations of intensities:
 
 \paragraph{Van Cittert Zernicke}
 The Van Cittert–Zernike theorem establishes that in the far field, the coherence function of a 
-quasi-monochromatic but spatially incoherent light source is proportional to the 2D Fourier transform intensity distribution of the source and Carter and Wolf introduced a generalization for three dimensional sources, showing that in the case of an completely incoherent source field, the complex degree of coherence is proportional to the 3D Fourier transform of the source's intensity distribution \cite{rosen1996, goodman200, carter1981}:
+quasi-monochromatic but spatially incoherent light source is proportional to the 2D Fourier transform intensity distribution of the source and Carter and Wolf introduced a generalization for three dimensional sources, showing that in the case of an completely incoherent source field, the complex degree of coherence in the far field is proportional to the 3D Fourier transform of the source's intensity distribution \cite{rosen1996, goodman2005, carter1981}:
 \begin{equation}
-	g^{(1)}(\vec{r}_1,\vec{r}_2) \propto I_0^{-1} \int_{S} I_s(\vec{r}) \frac{e^{ik(R_1-R_2)}}{R_1 R_2} \difc \vec{r}
+	g^{(1)}(\vec{r}_1,\vec{r}_2) \propto I_0^{-1} \int_{S} I_s(\vec{r}) e^{ik(R_1-R_2)} \difc \vec{r} \approx I_0^{-1} \int_{S} I_s(\vec{r}) e^{-ik\vec{r}(\vec{r_1}-\vec{r_2})} \difc \vec{r}
 \end{equation}
-with the source volume $S$ and intensity distribution $I_s$, total source intensity $I_0=\int I_s(\vec{r}) \difc \vec{r}$ and distances $R_{1,2}=\left|\vec{r}_{1,2}-\vec{r}\right|$. 
+with the source volume $S$ and intensity distribution $I_s$, total source intensity $I_0=\int I_s(\vec{r}) \difc \vec{r}$ and distances $R_{1,2}=\left|\vec{r}_{1,2}-\vec{r}\right|$.
 %-Hanbury Brown and Twist
 \section{Hanburry Brown Twiss}
 Hanburry Brown and Twiss 
@@ -328,9 +328,9 @@ p(k)=
 \end{equation}
 with mean $\mu=M\overline{I}$ and variance $\mu+\frac{\mu^2}{M}$ (which differs from the variance of a poisson distribution $\mu$).
 
-This probability distribution can be compared to an experimental measured photon count distribution and the number of modes present in the measurement can be estimated by a regression \cite{lehmkuhler2014,yun2019}.
+This probability distribution can be compared to an experimental measured photon count distribution and the number of modes present in the measurement can be estimated by a regression for small mode numbers \cite{lehmkuhler2014,yun2019}. 
 
-The variance of a product of (uncorrelated) photon counts  following this distribution will have a variance of
+The variance of a product of (uncorrelated) photon counts following this distribution will have a variance of
 \begin{equation}
 \Var_{p\cdot p}= \Var_p^2 +2 \mu^2\Var_p	= \mu^4 \frac{2 M + 1}{M^2 + 2}+ \mu^3 \frac{M+1}{M} + \mu^2 \,.
 \end{equation}
@@ -359,7 +359,7 @@ If the fine structure cannot be resolved
 
 The Kossel lines allow to orient the detector with regards to the lattice planes. This can either be done by reprojecting the planar detector onto a sphere by an inverse gnomonic projection and determining circle center and radius, eg. by an Hugh-Transform, or by a fitting conic sections to the lines on the planar detector. As the observable curvature of the Kossel lines on the detector in an IDI setup is small and therefore the circles are difficult to determine, the second method will be used. 
 
-As each point identifyed as beloning to a Kossel line has to be part of a conic section of the same plane with each cone originating from the same point, each point $r$ on a line has to fullfill
+As each point identified as belonging to a Kossel line has to be part of a conic section of the same plane with each cone originating from the same point, each point $r$ on a line has to fulfill
 
 
 
