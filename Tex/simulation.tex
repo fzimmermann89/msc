@@ -49,12 +49,15 @@ E(t_n)=E(t_{n-1})*e^{\sfrac{t_{n-1}-t_n}{\tau}}+E_n
 
 This procedure is efficient in regards of discrete time steps that need to be calculated and can easily be run on a GPU.
 
+In \fref{fig:tdpshere} the results of a simulation with Gaussian pulses with different for a single spherical object is shown. The dependence of the speckle visibility and the visibility of the reconstructions is in agreement with the theoretical considerations.
+
+To investigate the influence of sample thickness for crystalline samples as second simulation is performed. As a thicker sample gives more photons and therefore less Poisson noise, but a higher number of temporal and spatial modes and therefore a lower expected lower speckle visibility, a simulation close to experimentally feasible parameters is desirable.
+
+
 
 \begin{figure}
 	   \centering
 		\includegraphics[width=0.7\linewidth]{images/tdplot.pdf}
-
-
 	\caption[Integration in Time Dependent IDI Simulation]{To illustrate the integration in the time dependent IDI simulation, the (normalized) scalar field at one point of the detector created by 10 emitting atoms with $\tau$=1\,fs and a pulse FWHM of 2\,fs is shown. The solid colors show each atom's field, the line plot the (phase correct) sum. The simplify the calculations, only the time points marked with stars are calculated. To solve the integral \fref{eq:tdint}, it's sufficient to calculated the squared magnitude at those points and to do a piecewise integration from each star-shaped marker the next dot-shaped marker. The color wheel in the top right shows colors used for phase encoding in the plot.}
 	\label{fig:tdplot}
 \end{figure}
@@ -62,17 +65,23 @@ This procedure is efficient in regards of discrete time steps that need to be ca
 
 \begin{figure}
 	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/timedependent_1.pdf}
+		\caption{Speckle SNR for different pulse FWHM and decay times $\tau$}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/tdsphere.pdf}
 		\caption{Reconstructed radial profiles at different pulse FWHM and fixed decay time $\tau = 0.1$\,fs}
 	\end{subfigure}
+
 	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width=\linewidth]{images/tdpspherevis.pdf}
-		\caption{Visibility in the reconstruction for different pulse FWHM and decay times $\tau$}
+		\includegraphics[width=\linewidth]{images/timedependent_2.pdf}
+		\caption{Visibility of the reconstruction for different pulse FWHM and decay times $\tau$}
 	\end{subfigure}
-	\caption[Time Dependent IDI Simulation of a Sphere]{Time Dependent IDI Simulation of a Sphere: For a sphere with 10\,nm radius consisting of $2*10^5$ atoms emitting 6.4\,keV fluorescence captured by an 256x256@50\,um detector in 20\,cm distance, a series of simulations were performed with different decay times $\tau$ of the emission and different exciting pulse FWHM. In a) exemplary radial profiles of the reconstruction of 50 images each are shown for one fixed $\tau$. Those reconstructions are used to plot the  dependence of the visibility on the pulse width in b). For long pulses, an $1/x$ relation is visible.}
+	\caption[Time Dependent IDI Simulation of a Sphere]{Time Dependent IDI Simulation of a Sphere: For a sphere with 10\,nm radius consisting of $2*10^5$ atoms emitting 6.4\,keV fluorescence captured by an 256x256@50\,um detector in 20\,cm distance, a series of simulations were performed with different decay times $\tau$ of the emission and different exciting pulse FWHM. In a) the SNR of the simulated speckle pattern is compared with the theoretical  $1/\sqrt{erfcx(2\sigma/\tau}$ dependence on the ratio of pulse length and $\tau$. In b) exemplary radial profiles of the reconstruction of 50 images each are shown for one fixed $\tau$. Those reconstructions are used to plot the  dependence of the visibility on the pulse width in c). For long pulses, the reciprocal dependence on the pulse length is visible.}
 	\label{fig:tdpshere}
 \end{figure}
 
-\subsection{Signal to Noise}
+
 
 \section{Implications for an experimental design}
+
