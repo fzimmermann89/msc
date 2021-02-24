@@ -200,19 +200,10 @@ the difference of the intensity-intensity correlation from unity is proportional
 \section{Intensity Correlations using X-Ray Fluorescence}
 \section{Signal to Noise Considerations}
 
+The Signal to Noise characteristics of the method are determined by the noise and the signal:
+The signal strength is determined by $g_1$, which is dependent and the sample and the contrast of the recorded speckle image, whereas the noise in the measurement will consist of three parts: First, noise inherent to IDI caused by the random distribution of phases, second, the poissonian noise caused by quantized photons, and third, experimental noise. 
 
-The noise in the measurement will consist of three parts: First, noise inherent to IDI caused by the random distribution of phases, second, the poissonian noise caused by quantized photons and third, meassurment noise caused by an imperfect detector.
-
-Which factors influence SNR
--lifetime/pulsewidth
--polarisation
--sampling conditions / undersampling
--sample thickness / coherence length
--N images
--N photons
-
-
-
+\subsection{Signal}
 The speckle contrast $\beta$ is governed by the number of independent modes $M$ overlaid in the measurement \cite{goodman2000}.
 \begin{equation}
 \beta =\tfrac{1}{M}
@@ -283,6 +274,11 @@ If the speckle pattern is not spatially resolved by the detector because its res
 
 As an approximation, the total number of modes can be considered the product of those modes different numbers discussed above, even though in reality, the mode numbers are not completely independent.
 Therefore, in \fref{chap:simulation}  simulations under different conditions with experimentally feasible  parameters will be performed.
+
+
+\subsection{Noise}
+%Which factors influence SNR -lifetime/pulsewidth -polarisation -sampling conditions / undersampling -sample thickness / coherence length -N images -N photons
+
 %- SNR
 %will use Peak/stdev bg definition
 
