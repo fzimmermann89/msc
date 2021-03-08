@@ -163,6 +163,37 @@ As the amount of recorded data is huge, an efficient strategy for filtering on s
 \end{figure}
 
 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/xrf.png}
+	\caption[Exemplary relative intensity of the 6 keV and 8 keV photon peak on the detector for different scanning positions on the sample]{Exemplary relative intensity of the 6 keV and 8 keV photon peak on the detector for different scanning positions on the sample. In this iron sample, a localized impurity, most likely copper, is clearly visible and can be masked out .}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/mask.png}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/mask.png}
+	\end{subfigure}
+	\caption{Usable detector area (yellow) of the dual (a) and octal (b) detector after signal correction and statistical filtering. Only the intersection of good areas for each run will be used. This way the same mask and number of correlation pairs will be used for samples that will be compared to each other.}	
+\end{figure}
+
+\paragraph{Shot filtering}
+
+\paragraph{Filtering by sample position}
+\paragraph{Detector masking}
+
+\paragraph{Photon counting}
+As shown in \fref{fig:spectrum}, the background corrected and masked spectrum of the detector shows peaks at multiplex of the fluorescence and exitation energy with a FWHM of .... . As the relevant signal for the correlation analysis is the presence of single photons, the signal is discretized by a simple photon counting algorithm. For low photon counts, first a droplet algorithm is used: 
+
+For each local maxima over the noise threshold XXX a check is performed if by fusing with a single neighbouring pixel 
+
+ afterwards, as well as for high photon counts, the signal is discretized by only counting events with an energy consistent with the sum of integer multples of the florescence energy and the excitation energy  within a window of XXX \,ev.
+
+
 % Raw Data
 % Spectrum
 % Peaks
