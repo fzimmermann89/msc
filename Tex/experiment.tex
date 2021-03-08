@@ -147,6 +147,27 @@ As the amount of recorded data is huge, an efficient strategy for filtering on s
 \subsection{Shot filtering}
 \subsection{Preprocessing}
 
+
+
+\begin{figure}[tp]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/octalissue2.png}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/octalissue.png}
+	\end{subfigure}
+
+	\caption[Periodic noise on octal detector]{Periodic noise on octal detector after background subtraction: For two exemplary shots the median over columns of one detector tile is shown. A periodic noise is visible. The mean spatial spectrum (over the rows) for each column of the tile is shown on the right. The periodic noise is not uniformly affecting all the columns of the tile.}
+	\label{fig:octalissue}
+\end{figure}
+
+
+% Raw Data
+% Spectrum
+% Peaks
+
+
 \paragraph{Crystal orientation}
 For determining the relative orientation of the crystal with regards to the detector, Kossel lines as described in \fref{chap:kossel} can be used.  A semi-automatic alignment program was developed (\fref{fig:kosselfit}) and used the find the crystal orientation (\fref{tab:kosselfit}). As initial parameters, 5.65\,\AA\, lattice constant, 9.25\,keV energy and 800\,px detector distance and the result of a simple 2D cubic fit for the values of the translational shift were used. 
 \begin{figure}
@@ -157,6 +178,8 @@ For determining the relative orientation of the crystal with regards to the dete
 \end{figure}
 
 \subsection{Reconstruction}
+
+
 
 
 \section{Results}
