@@ -189,9 +189,8 @@ As the amount of recorded data is huge, an efficient strategy for filtering on s
 \paragraph{Photon counting}
 As shown in \fref{fig:spectrum}, the background corrected and masked spectrum of the detector shows peaks at multiplex of the fluorescence and exitation energy with a FWHM of .... . As the relevant signal for the correlation analysis is the presence of single photons, the signal is discretized by a simple photon counting algorithm. For low photon counts, first a droplet algorithm is used: 
 
-For each local maxima over the noise threshold XXX a check is performed if by fusing with a single neighbouring pixel 
+For each local maxima over the noise threshold of $3\sigma$ of the dark images, a check is performed if by moving a fraction of the energy of a single neighboring pixels the sum of the absolute deviations to $nE_{fluorescence}+mE_{excitation}$ with integer $n$ and $n\in\left\{0,1\right\}$ of both pixels can be reduced. Afterwards, as well as for high photon counts, the signal is discretized into the closest integer $n$. According to the characterisation of the MPCCD detecors XXX, without the droplet algorithm, the probability of not detecting a ph
 
- afterwards, as well as for high photon counts, the signal is discretized by only counting events with an energy consistent with the sum of integer multples of the florescence energy and the excitation energy  within a window of XXX \,ev.
 
 
 % Raw Data
