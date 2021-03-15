@@ -10,6 +10,30 @@ Second, to examine the influence of the fluorescence lifetime and pulse width, a
 The results were compared with the approximation, that the contrast is determined by the product of the different number of modes.
 
 Ultimately, the results of these simulations were used the determine the feasibility of an experimental setup using IDI
+
+
+
+
+\paragraph{Detector effects}
+To simulate the influence of detector charecteristics charge-sharing and readout noise, an image degradation is performed: After Poisson sampling the simulated speckle image, for each photon an uniform random position within its pixel is chosen as the center of Gaussian distribution with FWHM of 0.15 pixel  (similar to the size of the PSF for MPCCD detectors XXX).
+The intensity within one pixel is given by the integral over the Gaussian,
+\begin{equation}
+I(\Delta x,\Delta y)=\frac{1}{4} \left(\text{erf}\left(\frac{\sfrac{1}{2}-\Delta x}{\sqrt{2}
+	\sigma}\right)+\text{erf}\left(\frac{\sfrac{1}{2}+\Delta x}{\sqrt{2} \sigma}\right)\right) \left(\text{erf}\left(\frac{\sfrac{1}{2}-\Delta y}{\sqrt{2}
+	\sigma}\right)+\text{erf}\left(\frac{\sfrac{1}{2}+\Delta y}{\sqrt{2} \sigma}\right)\right)
+\end{equation}
+with $\sigma$ the standard deviation of the Gaussian in pixels and $\Delta x$, $\Delta y$ the distance of the pixel to the chosen photon center, and evaluated for the neighboring pixels. Afterwards a Gaussian readout noise is added. The effect of this degradation on the spectrum is illustrated in \fref{fig:degrad}.
+
+
+\begin{figure}
+	\centering
+\includegraphics[width=0.8\linewidth]{images/sharing.png}
+	\caption[Effect of charge sharing and detector noise]{Effect of charge sharing and detector noise on the spectrum of the simulated speckle pattern.}
+	\label{fig:degrad}
+\end{figure}
+
+
+
 \section{Time independent Simulations}
 In an infinite coherence time, stationary sources approximation, the simulation of the speckle pattern can be performed time independently the superposition of scaler electrical fields emitted with random phases. The simulation of the intensity at multiple discrete points can be performed in parallel using GPU acceleration, resulting in a simple and fast to evaluate model.
 
@@ -24,7 +48,48 @@ In an infinite coherence time, stationary sources approximation, the simulation 
 
 \subsection{Reconstruction}
 
+\paragraph{Photon counting}
+As the relevant signal for the correlation analysis is the presence of fluorescence photons, but charge sharing and readout noise of the detector as well as the presence of photons caused by air scattering degrades this signal, different approaches  of preprocessing will be compared:
 
+\begin{itemize}
+	\item Using the raw signal
+	\item Using the raw signal after applying a threshold.
+	\item Discretization by closest number of signal photons
+	\item Discretization by closest possible combination for each pixel
+	\item Discretization by maximum likelihood
+	\item Droplet algorithm
+\end{itemize}
+The noise thresholding will be done with a threshold of 3$\sigma$. To find the closest number of signal photons, the signal after thresholding is divided by the expected energy of a single photon and rounded to the closest integer. Considering possible combinations of signal and scattering photons by finding  $nE_{fluorescence}+mE_{excitation}$ with integer $n$, $m$ closest to the observed value and only using the signal photon number $n$ for the correlation would suppress the influence of scattering, but would still be influenced by charge sharing and doesn't account for the different probabilities of signal and scattering photons.
+
+If the detector noise level, the PSF due to charge sharing as well as the distribution of signal and scattering is known, a Bayesian classifier can be trained on synthetic data, which each observed value on the detector, returns the number of signal photons with the highest conditional probability (\fref{fig:probs}). Depending on the apriori probabilities and the detector characteristics, this maximum likelihood solution can differ from the closest combination. If those parameters are not known with reasonable certainty, an educated guess can still provide decision boundaries.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/hist.pdf}
+		\caption{Histogram}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/probs.pdf}
+		\caption{Probabilities and Decision Boundaries}
+	\end{subfigure}
+	\label{fig:probs}
+	\caption[Histogram, probabilities and decision boundaries for the photon number]{For a Poisson distributed signal with mean 0.01 photons/pixel, a Poisson distributed scattering with mean 0.001 photons/pixel and an photon energy of 1.3 times the energy of a signal photon, a charge sharing PSF with $\sigma$ 0.1 pixel and a Gaussian noise with $\sigma$ 0.05 photons, the simulated histogram is shown on the left. The probabilities of an observed energy being caused by a certain number of signal photons is shown on the right, the dashed lines mark the decision boundaries for an Bayesian classifier.} 
+\end{figure}
+For comparison, the PSANA Photon algorithm, a droplet algorithm considering only the signal photons is used \ref{psana}.
+
+Possible avenues for improvement would be to use a more sophisticated droplet scheme based on error minimization allowing for subpixel resolution, incorporating the scattering photons into the droplet algorithm or using a neural network trained on synthetic images.
+
+
+
+
+\paragraph{Normalisation}
+Mean of all pixels 
+Mean of all pixels inside the overlap
+
+If only a single image is taken, the expectation value for each pixel has to be approximated.
+
+If multiple images are taken, under the assumption of ergodicity, the expectation value for each pixel can be approximated by its mean over many images. To account for fluctuations in the exciting FEL pulse and resulting fluctations of the fluorescence intensity, it can be assumed that the distribution over pixel  intensities and FEL intensities are uncorrelated, and the detection probability of each pixel in each shot can be factorized into the product of the probability to detect a photon in a pixel and to detect a photon in a shot. Therefor, the effect of the FEL intensity fluctuations can be suppressed by normalizing each image by the total intensity of the image.
 \subsection{Single Sphere}
 radial symmetrie
 
