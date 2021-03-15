@@ -322,9 +322,15 @@ p(k)=
 \left( 1+\overline{I}
 \right)^{-M}
 \end{equation}
-with mean $\mu=M\overline{I}$ and variance $\mu+\frac{\mu^2}{M}$ (which differs from the variance of a poisson distribution $\mu$).
+with mean $\mu=M\overline{I}$ and variance $\mu+\frac{\mu^2}{M}$ (which is higher than the variance of the Poisson distribution $\mu$ ).
 
 This probability distribution can be compared to an experimental measured photon count distribution and the number of modes present in the measurement can be estimated by a regression for small mode numbers \cite{lehmkuhler2014,yun2019}. 
+For low photon numbers, a simplified approach can be used by only considering single- and two-photon events: By considering the ratio of the probabilities of those events, $p(1) /p(2)$,  an expression for the number of modes can be found, which can be simplified with a low intensity approximation $\mu\approx p(1)+2p(2)+O(\mu^2)$ to 
+\begin{equation}
+	M=\frac{\mu  (p(1)-2 p(2))}{2 p(2)-\mu  p(1)}\approx \frac{p(1)^2}{2 p(2) (1-p(1))-p(1)^2}
+	\label{eq:modesp1p2}
+\end{equation}
+as an estimation for the number of modes.
 
 The variance of a product of (uncorrelated) photon counts following this distribution will have a variance of
 \begin{equation}
@@ -332,6 +338,12 @@ The variance of a product of (uncorrelated) photon counts following this distrib
 \end{equation}
 
 Following the idea of Trost et. al, this can be used so estimate the noise of an intensity correlation measurement, even though the actual signal will break the assumption of having uncorrelated photon counts \cite{trost2020}.
+
+
+
+
+
+
 \begin{figure}
 \centering
 \includegraphics[width=0.6\linewidth]{images/modes.pdf}
