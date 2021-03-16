@@ -18,7 +18,7 @@ Ultimately, the results of these simulations were used the determine the feasibi
 
 
 \section{Time independent Simulations}
-In an infinite coherence time, stationary sources approximation, the simulation of the speckle pattern can be performed time independently the superposition of scalar electrical fields emitted with random phases. The simulation of the intensity at multiple discrete points can be performed in parallel using GPU acceleration, resulting in a simple and fast to evaluate model.
+In an infinite coherence time, stationary sources approximation, the simulation of the speckle pattern can be performed time independently the superposition of scaler electrical fields emitted with random phases. The simulation of the intensity at multiple discrete points can be performed in parallel using GPU acceleration, resulting in a simple and fast to evaluate model.
 
 
 
@@ -40,13 +40,6 @@ The intensity within one pixel is given by the integral over the Gaussian,
 with $\sigma$ the standard deviation of the Gaussian in pixels and $\Delta x$, $\Delta y$ the distance of the pixel to the chosen photon center, and evaluated for the neighboring pixels. Afterwards a Gaussian readout noise is added. The effect of this degradation on the spectrum is illustrated in \fref{fig:degrad}.
 
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.6\linewidth]{images/sharing.png}
-	\caption[Effect of charge sharing and detector noise]{Effect of charge sharing and detector noise on the spectrum of the simulated speckle pattern.}
-	\label{fig:degrad}
-\end{figure}
-
 
 \paragraph{Photon counting}
 As the relevant signal for the correlation analysis is the presence of fluorescence photons, but charge sharing and readout noise of the detector as well as the presence of photons caused by air scattering degrades this signal, different approaches  of preprocessing will be compared:
@@ -66,15 +59,17 @@ If the detector noise level, the PSF due to charge sharing as well as the distri
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width=\linewidth]{images/hist.pdf}
-		\caption{Histogram}
+		\includegraphics[width=\linewidth]{images/sharing.pdf}
+		\fref{fig:degrad}
+		\caption{True Histogram and Degradation}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/probs.pdf}
+		\label{fig:probs}
 		\caption{Probabilities and Decision Boundaries}
 	\end{subfigure}
-	\label{fig:probs}
-	\caption[Histogram, probabilities and decision boundaries for the photon number]{For a Poisson distributed signal with mean 0.01 photons/pixel, a Poisson distributed scattering with mean 0.001 photons/pixel and an photon energy of 1.3 times the energy of a signal photon, a charge sharing PSF with $\sigma$ 0.1 pixel and a Gaussian noise with $\sigma$ 0.05 photons, the simulated histogram is shown on the left. The probabilities of an observed energy being caused by a certain number of signal photons is shown on the right, the dashed lines mark the decision boundaries for an Bayesian classifier.} 
+	
+	\caption[Histogram, probabilities and decision boundaries for the photon number]{For a Poisson distributed signal with mean 0.01 photons/pixel, a Poisson distributed scattering with mean 0.001 photons/pixel and an photon energy of 1.3 times the energy of a signal photon, a charge sharing PSF with $\sigma$ 0.1 pixel and a Gaussian noise with $\sigma$ 0.05 photons, the simulated histogram is shown on the left. Detector noise, charge sharing scattering photons degrade the histogram. The probabilities of an observed energy being caused by a certain number of signal photons is shown on the right, the dashed lines mark the decision boundaries for an Bayesian classifier.} 
 \end{figure}
 For comparison, the PSANA Photon algorithm, a droplet algorithm considering only the signal photons is used \ref{psana}.
 
