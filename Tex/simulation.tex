@@ -60,7 +60,7 @@ If the detector noise level, the PSF due to charge sharing as well as the distri
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/sharing.pdf}
-		\fref{fig:degrad}
+		\label{fig:degrad}
 		\caption{True Histogram and Degradation}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.45\textwidth}
@@ -71,6 +71,25 @@ If the detector noise level, the PSF due to charge sharing as well as the distri
 	
 	\caption[Histogram, probabilities and decision boundaries for the photon number]{For a Poisson distributed signal with mean 0.01 photons/pixel, a Poisson distributed scattering with mean 0.001 photons/pixel and an photon energy of 1.3 times the energy of a signal photon, a charge sharing PSF with $\sigma$ 0.1 pixel and a Gaussian noise with $\sigma$ 0.05 photons, the simulated histogram is shown on the left. Detector noise, charge sharing scattering photons degrade the histogram. The probabilities of an observed energy being caused by a certain number of signal photons is shown on the right, the dashed lines mark the decision boundaries for an Bayesian classifier.} 
 \end{figure}
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.85\textwidth}
+		\includegraphics[width=\linewidth]{images/photonreconimg.pdf}
+		\label{fig:photonreconimg}
+		\caption{Reconstructions}
+	\end{subfigure}
+\\
+	\begin{subfigure}[b]{0.95\textwidth}
+		\includegraphics[width=\linewidth]{images/photonrecon.pdf}
+		\label{fig:photonrecon}
+		\caption{Profiles}
+	\end{subfigure}	
+	
+	\caption{Result} 
+\end{figure}
+
 For comparison, the PSANA Photon algorithm, a droplet algorithm considering only the signal photons is used \ref{psana}.
 
 Possible avenues for improvement would be to use a more sophisticated droplet scheme based on error minimization allowing for subpixel resolution, incorporating the scattering photons into the droplet algorithm or using a neural network trained on synthetic images.
