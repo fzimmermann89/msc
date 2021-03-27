@@ -90,6 +90,10 @@ If the detector noise level, the PSF due to charge sharing as well as the distri
 	\caption{Result} 
 \end{figure}
 
+
+
+
+
 For comparison, the PSANA Photon algorithm, a droplet algorithm considering only the signal photons is used \ref{psana}.
 
 Possible avenues for improvement would be to use a more sophisticated droplet scheme based on error minimization allowing for subpixel resolution, incorporating the scattering photons into the droplet algorithm or using a neural network trained on synthetic images.
@@ -114,9 +118,12 @@ If multiple images are taken, under the assumption of ergodicity, the expectatio
 	\paragraph{Spherical Samples}
 
 \subsection{Multiple Samples}
+Multiple spheres inside the focal volume, placed randomly but ensuring a minimum distance between neighboring spheres larger than the diameter plus an additional buffer 1\,nm, simulating an layer of non-fluorescing organic dispersion agent capping the spheres with no other interaction. 
+Different numbers of spherical particles ranging from a single sphere over multiple spheres to a Poisson Sphere Distribution as a dense random placement of particles with the minimal allowed spacing and mean a volume fraction of XXX are compared.
 
+The structure factor of this hard-sphere model  (see \fref{fig:spheres}) shows
 
-
+For the IDI simulation, the number of photons per atom in the focus is keept constant. In this setting, opposing effects occur: With increasing number of photons, the Poisson noise is reduced, but the signal strength in low scattering angles is decreased as the structure factor changes from a single sphere to a hard-sphere model. Therefor, for the chosen simulation parameters an optimum in the detectebility of a correlation effect can be found for a small number of samples in the focus.
 
 
 \section{Time dependent Simulations}
@@ -166,7 +173,7 @@ To investigate the influence of sample thickness for crystalline samples as seco
 \begin{figure}
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/timedependent_1.pdf}
-		\caption{Speckle SNR for different pulse FWHM and decay times $\tau$}
+d idi		\caption{Speckle SNR for different pulse FWHM and decay times $\tau$}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/tdsphere.pdf}
