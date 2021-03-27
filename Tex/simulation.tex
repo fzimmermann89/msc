@@ -90,6 +90,10 @@ If the detector noise level, the PSF due to charge sharing as well as the distri
 	\caption{Result} 
 \end{figure}
 
+
+
+
+
 For comparison, the PSANA Photon algorithm, a droplet algorithm considering only the signal photons is used \ref{psana}.
 
 Possible avenues for improvement would be to use a more sophisticated droplet scheme based on error minimization allowing for subpixel resolution, incorporating the scattering photons into the droplet algorithm or using a neural network trained on synthetic images.
@@ -114,10 +118,45 @@ If multiple images are taken, under the assumption of ergodicity, the expectatio
 	\paragraph{Spherical Samples}
 
 \subsection{Multiple Samples}
+To decide if having more than one spherical sample in the focus is advantageous, an additional simulation is performed:
+ 
+Multiple spheres inside the focal volume, placed randomly but ensuring a minimum distance between neighboring spheres larger than the diameter plus an additional buffer 5\,nm, simulating an layer of non-fluorescing organic dispersion agent capping the spheres with no other interaction. 
+Different numbers of spherical particles ranging from a single sphere over multiple spheres to a Poisson Sphere Distribution as a random placement of particles with the minimal allowed spacing and mean a volume fraction of approx. 25\% \footnote{without the buffer layer, the volume fraction would be around 50\%, significantly smaller than the densest possible packing} are compared.
+
+The structure factor of this hard-sphere model  (see \fref{fig:spheres}) shows
+
+
+20nm radius inside a 200nm (FWHM) focus with a spacing layer of 5nm, mean of 50000 excited atoms per sphere. The fluorescence is recorded on a 1024x1024 pixel (pixelsize 100\,um) detector placed 30\,cm In this geometry, Assuming constant distance to the sample for each detector pixel, approximately 1\% of the emitted photons reach the detector.
+
+10000 images for each IDI simulation.
+
+For the IDI simulation, the number of photons per atom in the focus is keept constant. In this setting, opposing effects occur: With increasing number of photons, the Poisson noise is reduced, but the signal strength in low scattering angles is decreased as the structure factor changes from a single sphere to a hard-sphere model. Therefor, for the chosen simulation parameters an optimum in the detectebility of a correlation effect can be found for a medium number of samples in the focus.
+
+
+The structure factor of the ensemble of spherical particels inside the focus is determined by three factors: The structure factor of the focus, the structure factor of an Poissoin Sphere Distribution and the scattering  of a single sphere.
 
 
 
+ As the number of particles inside the focus is increased, in the low $q$ region of the IDI reconstruction, the focal volume becomes more visible. For high numbers of particles, the structure factor of the distribution of the centers of the particles causes a reduction in the scattering factor in the low $q$ region. For low numbers of particles inside the focus, the Poisson noise casued by the low photon numbers dominates the error.
+ 
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.32\textwidth}
+		\includegraphics[width=\linewidth]{images/multisphere1.pdf}
+		\caption{Structure Factors\\$ $}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.32\textwidth}
+		\includegraphics[width=\linewidth]{images/multisphere3.pdf}
+		\caption{Structure Factor of Multiple Spheres}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.32\textwidth}
+		\includegraphics[width=\linewidth]{images/multisphere2.pdf}
+		\caption{IDI Reconstruction \\ $ $}
+	\end{subfigure}
+\caption{Structure Factor of a sphere with 20\,nm radius, a 200\,nm Gaussian focus and a random distribution of points at least 50\,nm apart (a), the structure factor of different numbers hard 20\,nm radius spheres with an additional 5\,nm separating layer in between inside the focal volume (b), and the result of an IDI simulation assuming iron fluorescence, a mean of $5*10^4$ excited atoms per sphere,  a 1024x1024 pixel (100\,um pixelsize) detector in a distance of 30\,cm (resulting in approximately 1\% of the emitted photons being captured), and using 5000 images (c). The shaded area is the standard error of the mean over images.}
 
+
+\end{figure}
 
 \section{Time dependent Simulations}
 
@@ -166,7 +205,7 @@ To investigate the influence of sample thickness for crystalline samples as seco
 \begin{figure}
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/timedependent_1.pdf}
-		\caption{Speckle SNR for different pulse FWHM and decay times $\tau$}
+d idi		\caption{Speckle SNR for different pulse FWHM and decay times $\tau$}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/tdsphere.pdf}
