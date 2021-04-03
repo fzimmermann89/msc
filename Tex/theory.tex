@@ -176,11 +176,18 @@ the difference of the intensity-intensity correlation from unity is proportional
 %-Fluorescence g2
 %$2 Level with finite Lifetime -> Spectrum of fluorescence
 \section{X-Ray Fluorescence}
- \begin{figure}
+\begin{figure}
 	\centering
-	\includegraphics[width=0.4\linewidth]{images/levels.pdf}
-	\caption[Atomic Levels]{Atomic levels and associated X-Ray energies}
-	\label{fig:levels}
+	 \begin{subfigure}[b]{0.35\textwidth}
+		\includegraphics[width=\linewidth]{images/levels.pdf}
+		\caption[Atomic Levels]{Atomic levels and associated X\nobreakdash-Ray energies}
+		\label{fig:levels}
+	\end{subfigure}
+	 \begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/crosssectionFe.pdf}
+		\caption[Cross Sections]{X-ray Cross Sections for Iron. Data from xraylib \ref{xraylib}}
+		\label{fig:cross}
+	\end{subfigure}
 \end{figure}
 
 
