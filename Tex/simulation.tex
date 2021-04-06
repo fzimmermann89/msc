@@ -57,13 +57,13 @@ If the detector noise level, the PSF due to charge sharing as well as the distri
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/sharing.pdf}
-		\label{fig:degrad}
 		\caption{True Histogram and Degradation}
+		\label{fig:degrad}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/probs.pdf}
-		\label{fig:probs}
 		\caption{Probabilities and Decision Boundaries}
+		\label{fig:probs}
 	\end{subfigure}
 	
 	\caption[Histogram, probabilities and decision boundaries for the photon number]{For a Poisson distributed signal with mean 0.01 photons/pixel, a Poisson distributed scattering with mean 0.001 photons/pixel and an photon energy of 1.3 times the energy of a signal photon, a charge sharing PSF with $\sigma$ 0.1 pixel and a Gaussian noise with $\sigma$ 0.05 photons, the simulated histogram is shown on the left. Detector noise, charge sharing scattering photons degrade the histogram. The probabilities of an observed energy being caused by a certain number of signal photons is shown on the right, the dashed lines mark the decision boundaries for an Bayesian classifier.} 
@@ -91,7 +91,7 @@ If the detector noise level, the PSF due to charge sharing as well as the distri
 
 
 
-For comparison, the PSANA Photon algorithm, a droplet algorithm considering only the signal photons is used \ref{psana}.
+For comparison, the PSANA Photon algorithm, a droplet algorithm considering only the signal photons is used \cite{psana}.
 
 Possible avenues for improvement would be to use a more sophisticated droplet scheme based on error minimization allowing for subpixel resolution, incorporating the scattering photons into the droplet algorithm or using a neural network trained on synthetic images.
 
@@ -123,9 +123,9 @@ If multiple images are taken, under the assumption of ergodicity, the expectatio
 To decide if having more than one spherical sample in the focus is advantageous, an additional simulation is performed:
  
 Multiple spheres inside the focal volume, placed randomly but ensuring a minimum distance between neighboring spheres larger than the diameter plus twice the thickness of an additional layer of non-fluorescing organic dispersion agent capping the spheres with no other interaction are simulated.  The number of particles is varied, ranging from a single sphere over multiple spheres to a Poisson Sphere Distribution as a random placement of particles with the minimal allowed spacing and mean a volume fraction of approx. 25\% \footnote{without the buffer layer, the volume fraction would be around 50\%, significantly smaller than the densest possible packing}. 
-The structure factor of this ensemble of spherical particles is determined by three factors: The structure factor of the focus, the structure factor of points following an Poisson Sphere Distribution and the structure factor of a single sphere.(see \fref{fig:multisphere1}). As the number of spheres is increased, the influence of the focal volume increases and the distribution of the spheres's centers increases (see  \fref{fig:multisphere2})
+The structure factor of this ensemble of spherical particles is determined by three factors: The structure factor of the focus, the structure factor of points following an Poisson Sphere Distribution and the structure factor of a single sphere.(see \fref{fig:multisphere1}). As the number of spheres is increased, the influence of the focal volume increases and the distribution of the spheres's centers increases (see  \fref{fig:multisphere3})
 For spheres with 20\, nm radius, a spacing layer of 5\,nm around each sphere, with  50000 excited atoms per sphere on average, a focus of 200nm (FWHM), the fluorescence on a 1024x1024 pixel (pixelsize 100\,um) detector placed 30\,cm is simulated. In this geometry, assuming constant distance to the sample for each detector pixel, approximately 1\% of the emitted photons reach the detector. 
-For each number of spheres 5000 images are used for an IDI reconstruction.
+For each number of spheres 5000 images are used for an IDI reconstruction (see  \fref{fig:multisphere2}).
 As the number of photons sphere is kept constant, opposing effects occur:  With increasing number of particles and therefor photons recorded, the Poisson noise is reduced, but the signal strength in low scattering angles is decreased as the structure factor changes from a single sphere to a hard-sphere model. Therefor, for the chosen simulation parameters an optimum in the detectebility of a correlation effect can be found for a medium number of samples in the focus, below
 
 
@@ -138,14 +138,17 @@ As the number of particles inside the focus is increased, in the low $q$ region 
 	\begin{subfigure}[b]{0.32\textwidth}
 		\includegraphics[width=\linewidth]{images/multisphere1.pdf}
 		\caption{Structure Factors\\$ $}
+		\label{fig:multisphere1}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.32\textwidth}
 		\includegraphics[width=\linewidth]{images/multisphere3.pdf}
 		\caption{Structure Factor of Multiple Spheres}
+		\label{fig:multisphere3}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.32\textwidth}
 		\includegraphics[width=\linewidth]{images/multisphere2.pdf}
 		\caption{IDI Reconstruction \\ $ $}
+		\label{fig:multisphere2}
 	\end{subfigure}
 \caption{Structure factors of a sphere with 20\,nm radius, a 200\,nm Gaussian focus and a random distribution of points at least 50\,nm apart (a), the structure factor of different numbers of hard 20\,nm radius spheres with an additional 5\,nm separating layer on each sphere inside the focal volume (b), and the result of an IDI simulation assuming iron fluorescence, a mean of $5*10^4$ excited atoms per sphere, a 1024x1024 pixel (100\,um pixelsize) detector in a distance of 30\,cm (resulting in approximately 1\% of the emitted photons being captured), and using 5000 images (c). The shaded area is the standard error of the mean over images, the markers show the discrete $q$ steps in the reconstruction.}
 
