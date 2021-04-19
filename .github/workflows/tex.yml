@@ -11,7 +11,8 @@ jobs:
       - name: Compile LaTeX document
         uses: dante-ev/latex-action@latest
         with:
-          root_file: Tex/main.tex
+          root_file: main.tex
+          working_directory: Tex
       - run: ls -R
       - name: Release
         uses: softprops/action-gh-release@v1
