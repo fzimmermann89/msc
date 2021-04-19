@@ -4,8 +4,6 @@ jobs:
   build_latex:
     runs-on: ubuntu-latest
     steps:
-      - name: Get ghostscript
-        run: sudo apt-get install ghostscript 
       - name: Set up Git repository
         uses: actions/checkout@v2
         
@@ -15,7 +13,7 @@ jobs:
           root_file: main.tex
           working_directory: Tex
           compiler: pdflatex
-          args: -interaction=nonstopmode -shell-escape  
+          args: -interaction=nonstopmode -halt-on-error
         
       - name: bibtex
         uses: dante-ev/latex-action@latest
@@ -31,7 +29,7 @@ jobs:
           root_file: main.tex
           working_directory: Tex
           compiler: pdflatex
-          args: -interaction=nonstopmode -shell-escape     
+          args: -interaction=nonstopmode -halt-on-error  
           
       - name: pdflatex
         uses: dante-ev/latex-action@latest
@@ -39,7 +37,7 @@ jobs:
           root_file: main.tex
           working_directory: Tex
           compiler: pdflatex
-          args: -interaction=nonstopmode -shell-escape      
+          args: -interaction=nonstopmode -halt-on-error    
           
       - run: ls -R
       - name: Release
