@@ -8,11 +8,39 @@ jobs:
         run: sudo apt-get install ghostscript 
       - name: Set up Git repository
         uses: actions/checkout@v2
-      - name: Compile LaTeX document
+        
+      - name: pdflatex
         uses: dante-ev/latex-action@latest
         with:
           root_file: main.tex
           working_directory: Tex
+          compiler: pdflatex
+          args: -interaction=nonstopmode -shell-escape  
+        
+      - name: bibtex
+        uses: dante-ev/latex-action@latest
+        with:
+          root_file: main.tex
+          working_directory: Tex
+          compiler: bibtex
+          args: ''
+          
+      - name: pdflatex
+        uses: dante-ev/latex-action@latest
+        with:
+          root_file: main.tex
+          working_directory: Tex
+          compiler: pdflatex
+          args: -interaction=nonstopmode -shell-escape     
+          
+      - name: pdflatex
+        uses: dante-ev/latex-action@latest
+        with:
+          root_file: main.tex
+          working_directory: Tex
+          compiler: pdflatex
+          args: -interaction=nonstopmode -shell-escape      
+          
       - run: ls -R
       - name: Release
         uses: softprops/action-gh-release@v1
