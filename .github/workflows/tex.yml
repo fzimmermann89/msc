@@ -18,7 +18,7 @@ jobs:
       - name: bibtex
         uses: dante-ev/latex-action@latest
         with:
-          root_file: main.tex
+          root_file: main
           working_directory: Tex
           compiler: bibtex
           args: ''
@@ -38,13 +38,20 @@ jobs:
           working_directory: Tex
           compiler: pdflatex
           args: -interaction=nonstopmode -halt-on-error    
-          
+      - name: ghostscript
+        uses: dante-ev/latex-action@latest
+        with:
+          root_file: main.pdf
+          working_directory: Tex
+          compiler: gs
+          args: -o compressed.pdf -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress  -dColorConversionStrategy=/LeaveColorUnchanged  -dDownsampleColorImages=false -dEmbedAllFonts=true  -dCompressFonts=true -dSubsetFonts=false -dNOPAUSE -dBATCH
+          extra_system_packages: ghostscript   
       - run: ls -R
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: ./*.pdf
+          files: Tex/*.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
