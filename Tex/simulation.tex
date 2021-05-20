@@ -104,7 +104,7 @@ Mean of all pixels inside the overlap
 
 If only a single image is taken, the expectation value for each pixel has to be approximated.
 
-If multiple images are taken, under the assumption of ergodicity, the expectation value for each pixel can be approximated by its mean over many images. To account for fluctuations in the exciting FEL pulse and resulting fluctations of the fluorescence intensity, it can be assumed that the distribution over pixel  intensities and FEL intensities are uncorrelated, and the detection probability of each pixel in each shot can be factorized into the product of the probability to detect a photon in a pixel and to detect a photon in a shot. Therefor, the effect of the FEL intensity fluctuations can be suppressed by normalizing each image by the total intensity of the image.
+If multiple images are taken, under the assumption of ergodicity, the expectation value for each pixel can be approximated by its mean over many images. To account for fluctuations in the exciting FEL pulse and resulting fluctations of the fluorescence intensity, it can be assumed that the distribution over pixel intensities and FEL intensities are uncorrelated, and the detection probability of each pixel in each shot can be factorized into the product of the probability to detect a photon in a pixel and to detect a photon in a shot. Therefor, the effect of the FEL intensity fluctuations can be suppressed by normalizing each image by the total intensity of the image.
 
 
 
@@ -116,7 +116,32 @@ If multiple images are taken, under the assumption of ergodicity, the expectatio
 
 
 \subsection{Number of images}
-\subsection{Undersampling and detector size}
+\subsection{Undersampling and  Sample Size}
+
+
+A simulation of a cubic single crystal with a simple cubic lattice of varying size (from 20$^3$ to 200$^3$\,atoms) is performed. The lattice constant is chosen as 5.7\,\AA, the fluorescence energy as 8\,keV. The simulated detector has 1024x1024 50\,µm sized pixels and is placed 8\,cm from the  sample. 
+The simulation of the fluorescence patterns is performed with 4x4 oversampling (4096x4096 pixel) and rebinning to the detector size. Only a single coherence mode is simulated. The number of photons emitted by the sample in 4$\pi$ is chosen as equal the number of atoms in the sample. Therefor, the mean number of photons per pixel is (especially for small crystal sizes) very small, but experimentally feasible.
+
+The peak signal-to-noise ratio is calculated by simulating 20-2000 independent images  and taking the mean intensity at the visible Bragg peaks positions as signal and the standard deviations at those positions over the independent simulations as noise, resulting in an estimated of the peak SNR of a single image.
+Due to the low photon numbers, the Poisson noise is dominating the noise characteristic and with an increase in atoms in the focus, the SNR increases linear (as shown in \fref{fig:SNRNatoms}), up to the point where a the peaks are no longer fully sampled and the signal decreases linear with a further increase in the number of atoms in the crystal., resulting in a nearly constant peak SNR.
+If instead of considering the peak value of the reconstruction as signal, the three dimensional integral over the Bragg peak would be considered as signal, the decreasing width of the Bragg peak with increasing size of the crystal would result in a nearly constant SNR under these low photon count conditions. 
+
+This results suggests, that for an experimental verification using Bragg peaks, the excited volume of the crystal should be as large as possible without undersampling - for example choosing a thin single crystal and an appropriately tight focal volume.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.48\textwidth}
+		\includegraphics[width=\linewidth]{images/SNRNatoms.pdf}
+		\caption{ SNR dependence on crystal size\\$ $}
+		\label{fig:SNRNatoms}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.32\textwidth}
+	\end{subfigure}
+\caption{SNR dependence on the crystal size (a): As the crystal size increases, the SNR increases linear (as shown by the linear regression) with the number of atoms in the sample as long as the Bragg peaks is sufficiently sampled (blue points), in undersampling conditions the signal strength decreases linear with the number of atoms resulting in a near constant SNR (right side of the dashed line). The error bars show the standard deviation of the SNR calculated for the 12 visible Bragg peaks. For details on the simulation parameters, see main text}
+
+\end{figure}
+
+
 \subsection{Random Orientations}
 
 \subsection{Multiple Samples}
@@ -131,7 +156,7 @@ As the number of photons sphere is kept constant, opposing effects occur:  With 
 
 As the number of particles inside the focus is increased, in the low $q$ region of the IDI reconstruction, the focal volume becomes more visible. For high numbers of particles, the structure factor of the distribution of the centers of the particles causes a reduction in the scattering factor in the low $q$ region. For low numbers of particles inside the focus, the Poisson noise casued by the low photon numbers dominates the error.
 
-\
+
  
 \begin{figure}
 	\centering
@@ -151,7 +176,6 @@ As the number of particles inside the focus is increased, in the low $q$ region 
 		\label{fig:multisphere2}
 	\end{subfigure}
 \caption{Structure factors of a sphere with 20\,nm radius, a 200\,nm Gaussian focus and a random distribution of points at least 50\,nm apart (a), the structure factor of different numbers of hard 20\,nm radius spheres with an additional 5\,nm separating layer on each sphere inside the focal volume (b), and the result of an IDI simulation assuming iron fluorescence, a mean of $5*10^4$ excited atoms per sphere, a 1024x1024 pixel (100\,um pixelsize) detector in a distance of 30\,cm (resulting in approximately 1\% of the emitted photons being captured), and using 5000 images (c). The shaded area is the standard error of the mean over images, the markers show the discrete $q$ steps in the reconstruction.}
-
 
 \end{figure}
 
