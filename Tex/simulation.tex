@@ -111,11 +111,46 @@ If multiple images are taken, under the assumption of ergodicity, the expectatio
 \subsection{Autocorrelation}
 
 \subsection{Accessible Reciprocal Space}
-	\paragraph{Crystal}
-	\paragraph{Spherical Samples}
+	\paragraph{Accessible Reciprocal Space}
+	\paragraph{Detector Size and SNR}
+	
+	To asses the influence of the number of pixels of an detector (and correlation pairs) on the SNR, a simulation for a 1\,um thick Copper foil in an 100\,nm FWHM focus is performed. The detector size was varied from 64x64 to 3072x3072 pixels and always placed at the same distance of 1\,m, keeping the mean photon count per pixel constant. For the SNR calculations, the signal is defined as, the noise as the standard deviation XXX
+	As show in \fref{fig:SNRdetsize}, under these conditions, the SNR is proportional to the square root of the number of pixels of the detector.
+
+
+
+\begin{figure}[!htb]
+	\centering
+	\begin{tabular}[t]{cc}
+		\begin{tabular}{c}
+		\smallskip
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{images/accessibleq2.png}
+			\caption{Accessible reciprocal space compared to CDI}
+		\end{subfigure}\\
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{images/accessibleq.png}
+			\caption{Accessible reciprocal space with Bragg peaks}
+		\end{subfigure}
+	\end{tabular}
+		&
+	\begin{subfigure}{0.55\textwidth}
+	\centering
+	\smallskip
+	\includegraphics[width=0.9\linewidth]{images/pairs.png}
+	\caption{Correlation pairs dependence on q} 
+\end{subfigure}\\
+	\end{tabular}
+	\caption{Cats}
+\end{figure}
+
 
 
 \subsection{Number of images}
+As shown in \fref{fig:SNRNimages}, the SNR scales with  the square root of the independent images. This will be used to estimate the number of shots necessary to achieve a SNR greater than three to be able to experimentally verify IDI as an imaging method.
+ 
 \subsection{Undersampling and  Sample Size}
 
 
@@ -130,14 +165,15 @@ This results suggests, that for an experimental verification using Bragg peaks, 
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.48\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 		\includegraphics[width=\linewidth]{images/SNRNatoms.pdf}
 		\caption{ SNR dependence on crystal size}
 		\label{fig:SNRNatoms}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.48\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 		\includegraphics[width=\linewidth]{images/detsize.pdf}
 		\caption{SNR dependence on detector size}
+		\label{fig:SNRdetsize}
 	\end{subfigure}
 \caption[SNR dependence on crystal size and detector size]{SNR dependence on the crystal size (a): As the crystal size increases, the SNR increases linear (as shown by the linear regression) with the number of atoms in the sample as long as the Bragg peaks is sufficiently sampled (blue points), in undersampling conditions the signal strength decreases linear with the number of atoms resulting in a near constant SNR (right side of the dashed line). The error bars show the standard deviation of the SNR calculated for the 12 visible Bragg peaks. For details on the simulation parameters, see main text}
 
@@ -145,6 +181,13 @@ This results suggests, that for an experimental verification using Bragg peaks, 
 
 
 \subsection{Random Orientations}
+In an atomic resolution IDI experiment using a crystalline sample, there can be random orientations of the sample structure between each different shot if a powder is used as a sample.
+
+If a superlattice structure is used, it can be possible to limit the random orientations to orientations within a plane.
+
+The random orientations cause randomly oriented Bragg peaks and a significantly lower SNR as shown in \fref{fig:orientation}.  To have the best chance of experimental verification, a sample with static orientations between all shots used in the reconstruction is therefor beneficial.
+
+For random orientations in a plane and  imaging Bragg peaks of, it is possible to do an angular correlation of each reconstructed image and increase the SNR (as shown in \fref{fig:polarcor}), similar to a method in correlated X-ray scattering \cite{mendez2016}.
 
 
 
@@ -222,31 +265,32 @@ To investigate the influence of sample thickness for crystalline samples as seco
 
 \begin{figure}
 	   \centering
-		\includegraphics[width=0.7\linewidth]{images/tdplot.pdf}
+		\includegraphics[width=0.5\linewidth]{images/tdplot.pdf}
 	\caption[Integration in Time Dependent IDI Simulation]{To illustrate the integration in the time dependent IDI simulation, the (normalized) scalar field at one point of the detector created by 10 emitting atoms with $\tau$=1\,fs and a pulse FWHM of 2\,fs is shown. The solid colors show each atom's field, the line plot the (phase correct) sum. The simplify the calculations, only the time points marked with stars are calculated. To solve the integral \fref{eq:tdint}, it's sufficient to calculated the squared magnitude at those points and to do a piecewise integration from each star-shaped marker the next dot-shaped marker. The color wheel in the top right shows colors used for phase encoding in the plot.}
 	\label{fig:tdplot}
 \end{figure}
 
 
 \begin{figure}
-	\begin{subfigure}[b]{0.32\textwidth}
+	\begin{subfigure}[b]{0.40\textwidth}
 		\includegraphics[width=\linewidth]{images/timedependent_1.pdf}
 	\caption{Speckle SNR for different pulse FWHM and decay times $\tau$\\$ $}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.32\textwidth}
+	\begin{subfigure}[b]{0.40\textwidth}
 		\includegraphics[width=\linewidth]{images/tdsphere.pdf}
 		\caption{Reconstructed radial profiles at different pulse FWHM and fixed decay time $\tau = 0.1$\,fs}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.32\textwidth}
+	\end{subfigure}\\
+	\begin{subfigure}[b]{0.40\textwidth}
 		\includegraphics[width=\linewidth]{images/timedependent_2.pdf}
 		\caption{Visibility of the reconstruction for different pulse FWHM and decay times $\tau$}
 	\end{subfigure}
-	\caption[Time Dependent IDI Simulation of a Sphere]{Time Dependent IDI Simulation of a Sphere: For a sphere with 10\,nm radius consisting of $2*10^5$ atoms emitting 6.4\,keV fluorescence captured by an 256x256@50\,um detector in 20\,cm distance, a series of simulations were performed with different decay times $\tau$ of the emission and different exciting pulse FWHM. In a) the SNR of the simulated speckle pattern is compared with the theoretical  $1/\sqrt{erfcx(2\sigma/\tau}$ dependence on the ratio of pulse length and $\tau$. In b) exemplary radial profiles of the reconstruction of 50 images each are shown for one fixed $\tau$. Those reconstructions are used to plot the  dependence of the visibility on the pulse width in c). For long pulses, the reciprocal dependence on the pulse length is visible.}
+	\begin{subfigure}[b]{0.40\textwidth}
+	\caption{}
+	\end{subfigure}
+	\caption[Time Dependent IDI Simulation of a Sphere]{Time Dependent IDI Simulation of a Sphere: For a sphere with 10\,nm radius consisting of $2*10^5$ atoms emitting 6.4\,keV fluorescence captured by an 256x256@50\,um detector in 20\,cm distance, a series of simulations were performed with different decay times $\tau$ of the emission and different exciting pulse FWHM. In a) the SNR of the simulated speckle pattern is compared with the theoretical  $1/\sqrt{erfcx(2\sigma/\tau}$ dependence on the ratio of pulse length and $\tau$. In b) exemplary radial profiles of the reconstruction of 50 images each are shown for one fixed $\tau$. Those reconstructions are used to plot the  dependence of the visibility on the pulse width in c). For long pulses, the reciprocal dependence on the pulse length is visible. The comparison with a time independent simulation using different modes (d) shows good agreement between the approaches.}
 	\label{fig:tdpshere}
 \end{figure}
 
-\subsection{Pulse length}
-\subsection{Sample thickness}
 
 
 
