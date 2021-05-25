@@ -26,7 +26,7 @@ In an infinite coherence time, stationary sources approximation, the simulation 
 
 
 
-\subsection{Detector effects}
+\subsection{Detector Effects}
 To simulate the influence of detector characteristics charge-sharing and readout noise, an image degradation is performed: After Poisson sampling the simulated speckle image, for each photon an uniform random position within its pixel is chosen as the center of Gaussian distribution with FWHM of 0.15 pixel  (similar to the size of the PSF for MPCCD detectors XXX).
 The intensity within one pixel is given by the integral over the Gaussian,
 \begin{equation}
@@ -135,20 +135,19 @@ If multiple images are taken, under the assumption of ergodicity, the expectatio
 			\caption{Accessible reciprocal space with Bragg peaks}
 		\end{subfigure}
 	\end{tabular}
-		&
+		& 
 	\begin{subfigure}{0.55\textwidth}
 	\centering
-	\smallskip
-	\includegraphics[width=0.9\linewidth]{images/pairs.png}
-	\caption{Correlation pairs dependence on q} 
+	\includegraphics[width=0.8\linewidth]{images/pairsnoise.pdf}
+	\caption{Correlation pairs and noise dependence on $\vec{q}$ } 
 \end{subfigure}\\
 	\end{tabular}
-	\caption[Accessible reciprocal space]{The accesible reciprocal space with an 1024x1024\,pixel (50\,um) pixelsize at XXX distance and XXX\,keV is shown in a) and b). In a), the surface of the Ewald sphere accessible in an diffraction experiment is shown in green for comparison. IDI allows a reconstruction of a three dimensional volume. The position of Bragg peaks for an XXX is shown in b). As the accessible $q_z$ is depended on $q_x$/$q_y$ and smaller the larger the latter two, in this setup a precise alignment of the detector with regard to the lattice planes if useful to be able to image the maximal number of peaks. Using a square, centered, planar detector with uniform pixelsize, the number of correlation pairs for resulting in the same $\vec{q}$ depends on $\vec{q}$ as shown in c).}
+	\caption[Accessible reciprocal space]{The accesible reciprocal space with an 2048x2048\,pixel (100\,um) pixelsize at 12.5\,cm distance and 9.2\,keV is shown in a) and b). In a), the surface of the Ewald sphere accessible in an diffraction experiment is shown in green for comparison. IDI allows a reconstruction of a three dimensional volume. The position of GaAs Bragg peaks inside this volume is shown in b). As the accessible $q_z$ is depended on $q_x$/$q_y$ and smaller the larger the latter two, in this setup a precise alignment of the detector with regard to the lattice planes if useful to be able to image the maximal number of peaks. Using a square, centered, planar detector with uniform pixelsize, the number of correlation pairs for resulting in the same $\vec{q}$ depends on $\vec{q}$ as shown in on the left of c) for a $q_z=0$ slice. The noise (calculated as the standard deviation over 100 independent simulations) is therefor also non-uniform, as shown on the right of c).}
 \end{figure}
 
 
 
-\subsection{Number of images}
+\subsection{Number of Images}
 As shown in \fref{fig:SNRNimages}, the SNR scales with  the square root of the independent images. This will be used to estimate the number of shots necessary to achieve a SNR greater than three to be able to experimentally verify IDI as an imaging method.
  
 \subsection{Number of Modes}
