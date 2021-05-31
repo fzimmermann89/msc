@@ -261,9 +261,20 @@ For a Lorentzian spectrum (see \fref{eq:docdecay}), the numerical solution of \f
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.5\linewidth]{images/modes_plot.pdf}
-	\caption[Temporal Modes for a Lorentzian Spectrum and Gaussian excitation]{Temporal Modes for a Lorentzian Spectrum and Gaussian excitation: In the limit of longer excitation pulses, the number of modes increases linear with the pulse duration.}
-	\label{fig:modes}
+	\begin{subfigure}[b]{0.35\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/modes_plot.pdf}
+		\caption{Temporal Modes}
+		\label{fig:modes}
+	\end{subfigure}
+	\hspace{0.2cm}
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/modes_stat.pdf}
+		\caption{Photon Statistics}
+		\label{fig:stat}	
+		\end{subfigure}
+	\caption{Temporal Modes for a Lorentzian Spectrum and Gaussian excitation (a): In the limit of longer excitation pulses, the number of modes increases linear with the pulse duration. Photon statistics with different numbers of modes $M$ and equal mean of 0.1\,photons (b): A lower number of modes corresponds the an higher probability of observing multi photon events. The limit of a high number of modes is a Poisson distribution.}
 \end{figure}
 
 The experimentally indistinguishable fluorescence energies $K_\alpha,1$ and $K_\alpha,2$ (as well as  $K_\beta$ if no filter is used for suppression) give additional independent modes $M_E$
@@ -353,11 +364,7 @@ Following the idea of Trost et. al, this can be used so estimate the noise of an
 
 
 
-\begin{figure}
-\centering
-\includegraphics[width=0.4\linewidth]{images/modes_stat.pdf}
-\caption[Photon Statistics with different numbers of Modes]{Photon statistics with different numbers of modes $M$ and equal mean of 0.1\,photons. A lower number of modes corresponds the an higher probability of observing multi photon events. The limit of a high number of modes is a Poisson distribution.}
-\end{figure}
+
 \section{Kossel Lines}
 X-Ray radiation originating from within a single crystal gets Bragg reflected at the lattice planes, causing Intensity variation in $90^o-\theta$ around the direction $k_{hkl}$, forming the \textit{Kossel Cones}. On the spherical detector centered at at the crystal, the points with influenced intensity would lie on circles with radii determined by ...
 
