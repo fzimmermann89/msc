@@ -236,13 +236,13 @@ As the number of particles inside the focus is increased, in the low $q$ region 
 
 \end{figure}
 
-\section{Time dependent Simulations}
+\section{Time Dependent Simulations}
 
 Each of the $N$ atoms is assigned an emitting time $t_{n}$ chosen according to the excitation pulse shape and its position. Starting from this emitting time, the atom emits an exponential decaying field with a decay time chosen to match the lifetime. 
 
 
 
-For each discrete pixel on the simulated detector, for each atom the distance $d_n$, the arrival time $t'_n=t_n+d_n/c$ of each atom's initial radiance, and its time independent complex field $E_n=\frac{1}{d} e^{ikd_n+\phi_n}$ with initial random phase $phi$ is calculated.
+For each discrete pixel on the simulated detector, for each atom the distance $d_n$, the arrival time $t'_n=t_n+d_n/c$ of each atom's initial radiance, and its time independent complex field $E_n=\frac{1}{d} e^{ikd_n+\phi_n}$ with initial random phase $\phi$ is calculated.
 The time dependent E field is the summation over the decaying field of all atoms,
 \begin{equation}
 E(t)=\sum_{n=1}^N  E_n \Theta(t'_n  - t) * e^{-(t-t'_n )/\tau}
@@ -253,7 +253,6 @@ and the simulated intensity the time integral over the magnitude squared of the 
 I=\int_0^\infty \left| E(t) \right|^2 .
 \label{eq:tdint}
 \end{equation}
-
 To efficiently solve this integral for each detector pixel, it can be split into N parts with a constant number atoms which radiations have already arrived, and each of those parts can be solved analytically. For this, first all atoms are sorted by the arrival time at the pixel. At each arrival time $t'_n$, the sum in \fref{eq:tdsum} gets a new term and the field is calculated as
 \begin{equation}
 E(t_n)=E(t_{n-1})*e^{\sfrac{t_{n-1}-t_n}{\tau}}+E_n
@@ -263,12 +262,18 @@ E(t_n)=E(t_{n-1})*e^{\sfrac{t_{n-1}-t_n}{\tau}}+E_n
 	I&=\int_0^\infty \left| E(t) \right|^2 = \sum_{n=1}^{N-1} \int_0^{t_{n+1}-t_n} \left|E(t_n)\right|^2 e^{-2t/\tau} \dif t +\int_0^\infty \left| E(t_N)\right|^2 e^{-2t/\tau} \dif t \\
 	 &=  \frac{\tau}{2}  \left|E(t_N)\right|^2 -  \frac{\tau}{2}\sum_{n=1}^{N-1} \left|E(t_n)\right|^2 (e^{-2 (t_{n+1}-t_n)/\tau} -1 ) 
 \end{align}
-
 This procedure is efficient in regards of discrete time steps that need to be calculated and can easily be run on a GPU.
 
-In \fref{fig:tdpshere} the results of a simulation with Gaussian pulses with different for a single spherical object is shown. The dependence of the speckle visibility and the visibility of the reconstructions is in agreement with the theoretical considerations.
+\subsection{Influence of the Pulse Length}
+For a sphere with 10\,nm radius consisting of $2*10^5$ atoms emitting 6.4\,keV fluorescence captured by an 256x256@50\,um detector in 20\,cm distance, the speckle SNR of a series of simulations with different decay times $\tau$ of the emission and different FWHM of the exciting Gaussian pulse are shown in \fref{fig:tdpshere_specke}.  These follow the $1/\sqrt{erfcx(2\sigma/\tau})$ relation as predicted by the theory.  For each simulation, a reconstruction can be performed, resulting in radial profiles as shown for one $\tau$ in \fref{fig:tdpshere_recon}. The visibility of the reconstructions (\fref{fig:tdsphere_vis}) shows the for long pulses a reciprocal relationship.
 
-To investigate the influence of sample thickness for crystalline samples as second simulation is performed. As a thicker sample gives more photons and therefore less Poisson noise, but a higher number of temporal and spatial modes and therefore a lower expected lower speckle visibility, a simulation close to experimentally feasible parameters is desirable.
+\subsection{Influence of the Sample Thickness}
+To investigate the influence of the sample thickness, the speckle SNR of a second simulation is shown in \fref{fig:thickness}. In this simulation, $10^6$ 8\,keV emitters are placed inside a 200\,nm x 200\,nm (FWHM) Gaussian volume with varying thickness. To ensure sufficient sampling of the speckle pattern, the axis of varying thickness is always set perpendicular to the detector. The 64x64 pixel (pixelsize 100\,um) is placed in 1\,m distance, the simulation is performed with 4x oversampling and rebinning in both directions. The varying angle $\alpha$ influences only the mean (for each emitter) of the 1\,fs FWHM Gaussian from which the emission is sampled without influencing the overall volume in which the emitters are placed. Therefor, the change in SNR is only caused by the finite coherence time $\tau=1\,fs$, not by a change of the speckle size. This simulations show that in high angles the limited coherence length of the fluorescence reduces the speckle SNR for thick samples, whereas in small angles, the sample thickness does not influence the SNR. In the 0° limit, the thickness is in beam direction and the position of an emitter along this axis does not change the arrival time of its contribution the the speckle pattern.
+
+
+
+
+ As a thicker sample gives more photons and therefore less Poisson noise, but a higher number of temporal and spatial modes and therefore a lower expected lower speckle visibility, a simulation close to experimentally feasible parameters is desirable.
 
 
 
@@ -278,25 +283,36 @@ To investigate the influence of sample thickness for crystalline samples as seco
 	\caption[Integration in Time Dependent IDI Simulation]{To illustrate the integration in the time dependent IDI simulation, the (normalized) scalar field at one point of the detector created by 10 emitting atoms with $\tau$=1\,fs and a pulse FWHM of 2\,fs is shown. The solid colors show each atom's field, the line plot the (phase correct) sum. The simplify the calculations, only the time points marked with stars are calculated. To solve the integral \fref{eq:tdint}, it's sufficient to calculated the squared magnitude at those points and to do a piecewise integration from each star-shaped marker the next dot-shaped marker. The color wheel in the top right shows colors used for phase encoding in the plot.}
 	\label{fig:tdplot}
 \end{figure}
-
+I
 
 \begin{figure}
-	\begin{subfigure}[b]{0.40\textwidth}
+	\centering
+	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/timedependent_1.pdf}
-	\caption{Speckle SNR for different pulse FWHM and decay times $\tau$\\$ $}
+		\caption{Speckle SNR for different pulse FWHM and decay times $\tau$\\$ $}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.40\textwidth}
+	\hspace{0.1cm}
+	\begin{subfigure}[t]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/thickness.pdf}
+		\caption{Speckle SNR for different sample thicknesses and angles}
+	\end{subfigure}
+	\caption[Speckle SNR in Time Dependent Simulation]{ In a) the SNR of the simulated speckle pattern for different pulse length and decay times $\tau$ of a spherical object is compared with the theoretical dependence on the ratio of pulse length and $\tau$ (details in text), showing good agreement. In b) the influence of sample thickness on the speckle SNR under different angles is show (using the mean of 5 independent simulations and the standard deviation as errors). For small angles, the sample thickness does not influence the SNR.}
+\end{figure}
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
 		\includegraphics[width=\linewidth]{images/tdsphere.pdf}
-		\caption{Reconstructed radial profiles at different pulse FWHM and fixed decay time $\tau = 0.1$\,fs}
-	\end{subfigure}\\
-	\begin{subfigure}[b]{0.40\textwidth}
+		\caption{Reconstructed radial profiles at different pulse FWHM and fixed $\tau = 0.1$\,fs}
+	\end{subfigure}
+	\hspace{0.1cm}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
 		\includegraphics[width=\linewidth]{images/timedependent_2.pdf}
 		\caption{Visibility of the reconstruction for different pulse FWHM and decay times $\tau$}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.40\textwidth}
-	\caption{}
-	\end{subfigure}
-	\caption[Time Dependent IDI Simulation of a Sphere]{Time Dependent IDI Simulation of a Sphere: For a sphere with 10\,nm radius consisting of $2*10^5$ atoms emitting 6.4\,keV fluorescence captured by an 256x256@50\,um detector in 20\,cm distance, a series of simulations were performed with different decay times $\tau$ of the emission and different exciting pulse FWHM. In a) the SNR of the simulated speckle pattern is compared with the theoretical  $1/\sqrt{erfcx(2\sigma/\tau}$ dependence on the ratio of pulse length and $\tau$. In b) exemplary radial profiles of the reconstruction of 50 images each are shown for one fixed $\tau$. Those reconstructions are used to plot the  dependence of the visibility on the pulse width in c). For long pulses, the reciprocal dependence on the pulse length is visible. The comparison with a time independent simulation using different modes (d) shows good agreement between the approaches.}
+
+	\caption[Reconstruction Time Dependent IDI Simulation]{In a) exemplary radial profiles of the reconstruction of 50 images simulated for a spherical object are shown for one fixed $\tau$. Those reconstructions are used to plot the  dependence of the visibility on the pulse width in b). For long pulses, the reciprocal dependence on the pulse length is visible.}
 	\label{fig:tdpshere}
 \end{figure}
 
