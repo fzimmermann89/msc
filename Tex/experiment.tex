@@ -205,10 +205,12 @@ As discussed in \fref{chap:simulation}, the number of fluorescence photons can b
 \paragraph{Crystal orientation}
 For determining the relative orientation of the crystal with regards to the detector, Kossel lines as described in \fref{chap:kossel} can be used.  A semi-automatic alignment program was developed (\fref{fig:kosselfit}) to aid with the procedure: 
 
-For each sample, the images are split into sets of 5000 shots and (after filtering for hot pixels and cutting bellow a noise threshold of 2\,keV), the mean is taken. To better distinguish the Kossel lines from uniform fluorescence, a Gaussian blurred version ($\sigma$=20\, px) is subtracted. Kossel lines are identified visually and the local maxima in the 20x20\,px surrounding block of a selected Kossel line are considered as points on the Kossel line. A least-square regression is performed to minimize the sum of the distances of identified points from Kossel lines by varying the rotation angles and detector translation. 
-As initial parameters, a 5.65\,\AA\, lattice constant, 9.25\,keV energy and 2800\,px detector distance and the result of a 2D cubic fit to the fluorescence background for the values of the translational shift are used. 
+For each sample, the images are split into sets of 5000 shots and (after filtering for hot pixels and cutting bellow a noise threshold of 2\,keV), the mean is taken. To better distinguish the Kossel lines from uniform fluorescence, a Gaussian blurred version ($\sigma$=20\, px) is subtracted (see \fref{fig:kosselgaasmean} for examples). The Kossel lines are identified visually and the local maxima in the 20x20\,px surrounding block of a selected Kossel line are considered as points on the Kossel line. A least-square regression is performed by varying the rotation angles and detector translation as described in \fref{chap:kossel}. 
+As initial parameters, a 5.65\,\AA\, lattice constant, 9.25\,keV energy, 14\,cm detector distance and the result of a 2D cubic fit to the fluorescence background for the values of the x- and y-shifts are used. 
 
-The results are shown in \fref{tab:kosselfit} as mean over the sets for each sample and maximum deviation from the mean as an error estimation.
+The used lines are shown in \fref{fig:kosselgaaslines} and \fref{tab:kosselpeaks}, the results are shown in \fref{tab:kosselfit} as mean over the sets for each sample and maximum deviation from the mean as an error estimation.
+
+The detector shift is corrected before calculating the correlations, the rotation angles are used afterwards to determine the expected position of Bragg peaks in the reconstruction.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/kosselfit.png}
@@ -216,14 +218,10 @@ The results are shown in \fref{tab:kosselfit} as mean over the sets for each sam
 	\label{fig:kosselfit}
 \end{figure}
 
-\begin{figure}
-	\centering
-	\begin{subfigure}{0.7\textwidth}
-		\includegraphics[width=\linewidth]{images/kossel_gaas.png}
-		\caption{Mean images after background subtraction for sample 1 (left) and sample 2 (right)}
-	\end{subfigure}
-\\
 
+
+
+\begin{figure}
 	\begin{subfigure}{0.35\textwidth}
 		\includegraphics[width=\linewidth]{images/kossel_gaas1.pdf}
 		\caption{Indexed lines on sample 1}
@@ -233,7 +231,8 @@ The results are shown in \fref{tab:kosselfit} as mean over the sets for each sam
 		\includegraphics[width=\linewidth]{images/kossel_gaas2.pdf}
 		\caption{Indexed lines on sample 2}
 	\end{subfigure}
-	\caption[Kossel lines on GaAs samples]{Kossel lines on GaAs samples after background subtraction (a) and the indexed lines overlaid in the determined orientation (b and c).}
+	\caption[Kossel lines on GaAs samples]{Indexed Kossel lines in the determined orientation overlaid over the mean of 5000 shots after background subtraction. For a list of all considered indices, see  \fref{tab:kosselpeaks}.}
+	\label{fig:kosselgaasline}
 \end{figure}
 
 \begin{table}[]
