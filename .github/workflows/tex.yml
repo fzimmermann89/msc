@@ -44,7 +44,7 @@ jobs:
           root_file: main.pdf
           working_directory: Tex
           compiler: gs
-          args: -o compressed.pdf -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress  -dColorConversionStrategy=/LeaveColorUnchanged  -dDownsampleColorImages=false -dEmbedAllFonts=true  -dCompressFonts=true -dSubsetFonts=false -dNOPAUSE -dBATCH
+          args: -o compressed.pdf -sDEVICE=pdfwrite -dPDFSETTINGS=/printer  -dColorConversionStrategy=/LeaveColorUnchanged  -dEmbedAllFonts=true  -dCompressFonts=true -dSubsetFonts=true -dNOPAUSE -dBATCH
           extra_system_packages: ghostscript   
       - run: ls -R
       - name: Release
