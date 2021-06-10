@@ -189,14 +189,11 @@ This results suggests, that for an experimental verification using Bragg peaks, 
 \end{figure}
 
 
-\subsection{Random Orientations}
-In an atomic resolution IDI experiment using a crystalline sample, there can be random orientations of the sample structure between each different shot if a powder is used as a sample.
-
-If a superlattice structure is used, it can be possible to limit the random orientations to orientations within a plane.
-
-The random orientations cause randomly oriented Bragg peaks and a significantly lower SNR as shown in \fref{fig:orientation}.  To have the best chance of experimental verification, a sample with static orientations between all shots used in the reconstruction is therefor beneficial.
-
-For random orientations in a plane and  imaging Bragg peaks of, it is possible to do an angular correlation of each reconstructed image and increase the SNR (as shown in \fref{fig:polarcor}), similar to a method in correlated X-ray scattering \cite{mendez2016}.
+%\subsection{Random Orientations}
+%In an atomic resolution IDI experiment using a crystalline sample, there can be random orientations of the sample structure between each different shot if a powder is used as a sample.
+%If a superlattice structure is used, it can be possible to limit the random orientations to orientations within a plane.
+%The random orientations cause randomly oriented Bragg peaks and a significantly lower SNR as shown in \fref{fig:orientation}.  To have the best chance of experimental verification, a sample with static orientations between all shots used in the reconstruction is therefor beneficial.
+%For random orientations in a plane and  imaging Bragg peaks of, it is possible to do an angular correlation of each reconstructed image and increase the SNR (as shown in \fref{fig:polarcor}), similar to a method in correlated X-ray scattering \cite{mendez2016}.
 
 
 
@@ -322,9 +319,10 @@ This simulations show that in high angles the limited coherence length of the fl
 
 \section{Implications for an experimental design}
 
-The result of a simulation for a thick 5\,um Copper foil, rotated 45° with respect to the beam (200\,nm focus FWHM), measured with an detector with 50\,um pixel size placed in a distance of 1\,m  perpendicular to the beam is shown in \fref{fig:simfoil}.
+The result of a simulation for a thick 5\,um Copper foil, rotated 45° with respect to the beam (200\,nm focus FWHM, 10\,fs pulse FWHM), measured with an detector with 50\,um pixel size (charge sharing $\sigma$=5\,um) placed in a distance of 1\,m  perpendicular to the beam is shown in \fref{fig:simfoil}. Even tough the under sampling in the horizontal direction, causes an significant reduction in signal strength, ~100 images suffice in the simulation to get an acceptable SNR to clearly see the  focal size, leading to the estimation that even with additional noise sources, less than 1000 images might suffice for an experimental verification.
+
 \begin{figure}
 	\centering
-	\includegraphics[width=0.5\linewidth]{images/sim_foil5umCu.pdf}
+	\includegraphics[width=0.5\linewidth]{images/sim_foil5umCu_shared.pdf}
 	\label{fig:simfoil}
 \end{figure}
