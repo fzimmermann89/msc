@@ -257,7 +257,7 @@ The number of degrees of freedom in this approximation is
 M_t,gauss&=\left[\int_{-\infty}^{\infty} K(t) \left|\mu(t)\right|^2\diff t\right]^{-1}.
 \label{eq:modesapprox2}
 \end{align}
-For a Lorentzian spectrum (see \fref{eq:docdecay}), the numerical solution of \fref{eq:modes} and the approximations introduced in \fref{eq:modesapprox} and \fref{eq:modesapprox2} is shown in \fref{fig:modes} 
+For a Lorentzian spectrum (see \fref{eq:docdecay}), the numerical solution of \fref{eq:modes} and the approximations introduced in \fref{eq:modesapprox} and \fref{eq:modesapprox2} is shown in \fref{fig:theorymodes} 
 
 \begin{figure}
 	\centering
@@ -265,7 +265,7 @@ For a Lorentzian spectrum (see \fref{eq:docdecay}), the numerical solution of \f
 		\centering
 		\includegraphics[width=\linewidth]{images/modes_plot.pdf}
 		\caption{Temporal Modes}
-		\label{fig:modes}
+		\label{fig:theorymodes}
 	\end{subfigure}
 	\hspace{0.2cm}
 	\begin{subfigure}[b]{0.5\textwidth}
@@ -345,12 +345,14 @@ p(k)=
 with mean $\mu=M\overline{I}$ and variance $\mu+\frac{\mu^2}{M}$ (which is higher than the variance of the Poisson distribution $\mu$ ).
 
 This probability distribution can be compared to an experimental measured photon count distribution and the number of modes present in the measurement can be estimated by a regression for small mode numbers \cite{lehmkuhler2014,yun2019}. 
-For low photon numbers, a simplified approach can be used by only considering single- and two-photon events: By considering the ratio of the probabilities of those events, $p(1) /p(2)$,  an expression for the number of modes can be found, which can be simplified with a low intensity approximation $\mu\approx p(1)+2p(2)+O(\mu^2)$ to 
+For low photon numbers, a simplified approach can be used by only considering single- and two-photon events: By considering the ratio of the probabilities of those events, $p(1) / p(2)$,  an expression for the number of modes can be found, which can be simplified with a low intensity approximation $\mu\approx p(1)+2p(2)+O(\mu^2)$ to 
 \begin{equation}
 	M=\frac{\mu  (p(1)-2 p(2))}{2 p(2)-\mu  p(1)}\approx \frac{p(1)^2}{2 p(2) (1-p(1))-p(1)^2}
 	\label{eq:modesp1p2}
 \end{equation}
 as an estimation for the number of modes.
+If $p(1)$ and $p(2)$ are estimated as $p'_1$ and $p'_2$ based on the frequency in experimental observations, the uncertainty of the mode estimate can itself be estimated as 
+$\Delta M \lesssim \frac{2 p'_1}{\left(p'_1^2+2 (p'_1-1) p'_2\right)^2} \left(\Delta p'_1 (2-p'_1) p'_2+\Delta p'_2 (1-p'_1) p'_1\right)$.
 
 The variance of a product of (uncorrelated) photon counts following this distribution will have a variance of
 \begin{equation}
