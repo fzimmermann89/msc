@@ -193,6 +193,7 @@ the difference of the intensity-intensity correlation from unity is proportional
 
 \begin{table}[]
 	\caption[X-Ray Energies]{X-Ray Energies of some relevant elements. }
+	\label{tab:elements}
 	\small
 	\begin{tabular}{l|l|ll|lll|ll}
 		\hline
@@ -223,7 +224,7 @@ M_t=\frac{\left(\int_{-\infty}^{\infty} P(t)\diff t\right)^2}{\int_{-\infty}^{\i
 \end{equation}
 with $P(t)$ the integration window weighting function and $K(t)$ its autocorrelation \cite{goodman2007}. If the integration windows is set by the integration time $T$ of the detector, $P(t)$ is a rectangular function with the width $T$ and
 \begin{align}
-M_t,rect =T \left[\int_{-\infty}^{\infty} \Lambda\left(\frac{t}{T}\right) \left|\mu(t)\right|^2 \diff t \right]^{-1} .\\
+M_{t,\text{rect}} =T \left[\int_{-\infty}^{\infty} \Lambda\left(\frac{t}{T}\right) \left|\mu(t)\right|^2 \diff t \right]^{-1} .\\
 \text{with  }\Lambda(x) = \begin{cases} 
  1-\left|x\right|& \textit{if }|x|<1\\
 0 & \textit{otherwise}\\ 
@@ -232,7 +233,15 @@ M_t,rect =T \left[\int_{-\infty}^{\infty} \Lambda\left(\frac{t}{T}\right) \left|
 \end{align}
 Considering the case of a long integration time, $T\gg\tau$, this can be approximated as $M\approx\frac{T}{\tau}$. For a short integration time,  $T\ll\tau$, the number of temporal modes $M$ approaches unity.
 
-If the Integration time can be considered as infinite and instead $P(t)$ is a Gaussian excitation pulse with FWHM of $2\sigma\sqrt{2\ln2}$ and unit area convoluted with an exponential decay with lifetime $\tau$ \cite{butz2015},
+If the Integration time can be considered as infinite and instead $P(t)$ is a Gaussian excitation pulse with FWHM of $2\sigma\sqrt{2\ln2}$, this leads to
+\begin{equation}
+	M_{t,\text{Gauss}}=e^{\frac{4 \sigma ^2}{\tau ^2}} \text{erfc}\left(\frac{2 \sigma }{\tau }\right),
+	\label{eq:mgauss}
+\end{equation}
+with the complementary error function $\erfc=\frac{2}{\sqrt{\pi}}\int_x^\infty e^{-z^2}\diff z$.
+
+
+Inoue et al. considered $P$ to be the Gaussian excitation pulse convoluted with an exponential decay with lifetime $\tau$ \cite{inoue2019,butz2015},
 \begin{align}
 P(t)&=\frac{1}{\tau\sigma\sqrt{2\pi}} \int_0^{\infty} e^{-\frac{t^{\prime}}{\tau}} 
 e^{-\frac{(t-t^{\prime})^2}{2\sigma^2}}\diff t^{\prime}
@@ -243,41 +252,40 @@ e^{-\frac{(t-t^{\prime})^2}{2\sigma^2}}\diff t^{\prime}
 	\right] ,
 	\label{eq:pfull}
 	\end{align}
-	with the complementary error function $\erfc=\frac{2}{\sqrt{\pi}}\int_x^\infty e^{-z^2}\diff z$, the mode number gets more complicated to evaluate. An approximation can be made if the pulse length is long in comparison to the coherence time, simplifying the autocorrelation of $P$ to
+	An approximation can be made if the pulse length is long in comparison to the coherence time, simplifying the autocorrelation of $P$ to
 \begin{align}
 K(t)=\int_{-\infty}^\infty \frac{1}{4
 	\tau ^2}e^{-\frac{t^2}{2 \sigma ^2}-\frac{(t+t')^2}{2 \sigma ^2}}
 \erfcx\left(\frac{\sigma^2 -t \tau }{\sqrt{2} \tau \sigma}\right)
 \erfcx\left(\frac{\sigma^2 -\tau  (t+t')}{\sqrt{2} \tau \sigma }\right) \diff t'&\stackrel{\tau \rightarrow 0}{\approx} \frac{1}{2\sqrt{\pi}\sigma} e^{-\left(\frac{t}{2\sigma}\right)^2} 
+\label{eq:kapprox}
 \end{align}
-with the scaled complementary error function\footnote{To numerically evaluate \fref{eq:pfull} and integrals involving it, the introduction of the scaled complementary error function  and switching to a sufficient approximation is necessary to avoid under- or overflow of the numerical representation of either the exponential or the error function term.} $\erfcx(x)=e^{x^2}\erfc(x)\stackrel{x\gg1}{\approx}  \frac{1}{\sqrt{\pi}x}$
+with the scaled complementary error function\footnote{To numerically evaluate \fref{eq:mgauss}, \fref{eq:pfull} and integrals involving them, the introduction of the scaled complementary error function and switching to a sufficient approximation is beneficial to avoid under- or overflow of the numerical representation of either the exponential or the error function term.} $\erfcx(x)=e^{x^2}\erfc(x)\stackrel{x\gg1}{\approx}  \frac{1}{\sqrt{\pi}x}$
    \cite{ren2007}.
-The number of degrees of freedom in this approximation is
-\begin{align}
-M_t,gauss&=\left[\int_{-\infty}^{\infty} K(t) \left|\mu(t)\right|^2\diff t\right]^{-1}.
-\label{eq:modesapprox2}
-\end{align}
-For a Lorentzian spectrum (see \fref{eq:docdecay}), the numerical solution of \fref{eq:modes} and the approximations introduced in \fref{eq:modesapprox} and \fref{eq:modesapprox2} is shown in \fref{fig:theorymodes} 
+The number of degrees of freedom, $M_{t,\text{Conv}}=\left[\int_{-\infty}^{\infty} K(t) \left|\mu(t)\right|^2\diff t\right]^{-1}$  can then be numerically evaluated   for a Lorentzian spectrum as shown in \fref{fig:theorymodes}.
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.35\textwidth}
+	\begin{subfigure}[b]{0.38\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{images/modes_plot.pdf}
+		\includegraphics[width=\linewidth]{images/temporalmodes.pdf}
 		\caption{Temporal Modes}
 		\label{fig:theorymodes}
 	\end{subfigure}
 	\hspace{0.2cm}
 	\begin{subfigure}[b]{0.5\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{images/modes_stat.pdf}
+    	\includegraphics[width=\linewidth]{images/modes_stat.pdf}
 		\caption{Photon Statistics}
 		\label{fig:stat}	
 		\end{subfigure}
-	\caption[Temporal Modes and Photons statistics]{Temporal Modes for a Lorentzian Spectrum and Gaussian excitation (a): In the limit of longer excitation pulses, the number of modes increases linear with the pulse duration. Photon statistics with different numbers of modes $M$ and equal mean of 0.1\,photons (b): A lower number of modes corresponds the an higher probability of observing multi photon events. The limit of a high number of modes is a Poisson distribution.}
+	\caption[Temporal Modes and Photons statistics]{Temporal Modes for a Lorentzian Spectrum and Gaussian excitation (a): In the limit of longer excitation pulses, the number of modes increases linear with the pulse duration, $M\approx \frac{\text{FWHM}}{\tau_c} \sqrt{\frac{\pi} {2 \ln{2}}}$. 
+		Additionally, the results of applying the mode estimation   (\fref{eq:modesp1p2}) to simulated fluorescence images as described in \fref{sec:timedependend} is shown (see there for more details on the simulation).
+		
+		Photon statistics with different numbers of modes $M$ and equal mean of 0.1\,photons (b): A lower number of modes corresponds the an higher probability of observing multi photon events. The limit of a high number of modes is a Poisson distribution.}
 \end{figure}
 
-The experimentally indistinguishable fluorescence energies $K_\alpha,1$ and $K_\alpha,2$ (as well as  $K_\beta$ if no filter is used for suppression) give additional independent modes $M_E$
+The experimentally indistinguishable fluorescence energies $K_{\alpha,1}$ and $K_{\alpha,2}$ (as well as  $K_\beta$ if no filter is used for suppression) give additional independent modes $M_E$ depending on the relative intensity of the lines, with $M_E \lessapprox 2$ for the elements considered in this work (see \fref{tab:elements}).
 
 As the used X-ray detectors are polarization insensitive and X-ray fluorescence is unpolarized and the incoherent field can be separated into two polarization modes, which are pairwise orthogonal with $\vec{k}$ and therefore change slightly for each atom and detector position. For small source dimensions, this change is negligible,  giving $M_P \approx 2$. 
 
@@ -286,7 +294,7 @@ Path differences longer than the coherence length give additional modes $M_S$, t
 This is for example important, if the exciting beam is not perpendicular to the detector (such as in an off-axis setup), as the excitation time difference between different parts of the a thick sample is not compensated for by the difference in flight time to the detector or in a wide angle experiment. In a small angle setup with a detector perpendicular to the beam, fluorescence from different emitters along the sample thickness will arrive at approximately equal time, therefor the sample thickness does not introduce additional modes)
 
 
-If the speckle pattern is not spatially resolved by the detector because its resolution is to low compared to the change in intensity, undersampling will occur, the meassured signal will be spatially averaged giving independent sampling "modes" $M_D$
+If the speckle pattern is not spatially resolved by the detector because its resolution is to low compared to the change in intensity, undersampling will occur, the meassured signal will be spatially averaged giving independent spatial sampling modes $M_D$ \cite{goodman2007}.
 
 
 
@@ -351,8 +359,8 @@ For low photon numbers, a simplified approach can be used by only considering si
 	\label{eq:modesp1p2}
 \end{equation}
 as an estimation for the number of modes.
-If $p(1)$ and $p(2)$ are estimated as $p'_1$ and $p'_2$ based on the frequency in experimental observations, the uncertainty of the mode estimate can itself be estimated as 
-$\Delta M \lesssim \frac{2 p'_1}{\left(p'_1^2+2 (p'_1-1) p'_2\right)^2} \left(\Delta p'_1 (2-p'_1) p'_2+\Delta p'_2 (1-p'_1) p'_1\right)$.
+If $p(1)$ and $p(2)$ are estimated as $p'_1$ and $p'_2$ based on the frequency in experimental observations, the uncertainty of the mode estimate can be estimated as 
+$\Delta M \lesssim \frac{2 p'_1}{\left({p'_1}^2+2 (p'_1-1) p'_2\right)^2} \left(\Delta p'_1 (2-p'_1) p'_2+\Delta p'_2 (1-p'_1) p'_1\right)$.
 
 The variance of a product of (uncorrelated) photon counts following this distribution will have a variance of
 \begin{equation}
