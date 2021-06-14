@@ -257,6 +257,9 @@ The detector shift is corrected before calculating the correlations, the rotatio
 
 \section{Results}
 \subsection{Imaging the Focus}
+
+The excited volume can in the horizontal direction be approximated as a rectangular function with a width of $\sqrt{2}$-times the thickness of the foil used, due to the 45° angle and ignoring absorption.  In the vertical direction, the volume is limited by the (vertical) FWHM of the focus and can be (roughly) approximated to be Gaussian. 
+In the small angle approximation, the reconstruction is the magnitude squared of the 2D Fourier transform of the volume (see XXX). As the magnitude squared of the Fourier transform of a Gaussian with FWHM $f$ is another Gaussian with FWHM $\frac{4\sqrt{2}\log{2}}{f}$ and the magnitude squared of a rectangular function with width $w$ is proportional to $\sinc^2{\left(\frac{q w}{2}\right)}$, a 2D least-squares regression of the product of those functions if performed with the reconstructed image to estimate the focal FWHM.
 \subsubsection{Filtering}
 
 \subsection{Imaging Nanoparticles}
