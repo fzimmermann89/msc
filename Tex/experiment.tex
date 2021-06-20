@@ -143,7 +143,7 @@ The image to focus,
 \paragraph{Imaging Crystals}
 
 \section{Data Processing}
-As the amount of recorded data is huge, an efficient strategy for filtering on shots, preprocessing the data to eliminate interferences and finally reconstruction has to be implemented.
+As the amount of recorded data is huge, an efficient strategy for filtering on shots, preprocessing the data to eliminate interference and finally reconstruction has to be implemented.
 \subsection{Shot filtering}
 \subsection{Preprocessing}
 
@@ -164,11 +164,7 @@ As the amount of recorded data is huge, an efficient strategy for filtering on s
 
 
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/xrf.png}
-	\caption[Exemplary relative intensity of the 6 keV and 8 keV photon peak on the detector for different scanning positions on the sample]{Exemplary relative intensity of the 6 keV and 8 keV photon peak on the detector for different scanning positions on the sample. In this iron sample, a localized impurity, most likely copper, is clearly visible and can be masked out .}
-\end{figure}
+
 
 \begin{figure}
 	\centering
@@ -183,8 +179,17 @@ As the amount of recorded data is huge, an efficient strategy for filtering on s
 \end{figure}
 
 \paragraph{Shot filtering}
+A first rough filtering pass on the recorded data is done on the following criteria: Reported beam energy > XXX, beam energy in the hutch being not more than one standard deviation below the mean and the distance on the sample to the closest neighouring shot not being less than one standard deviation of the mean distance to the next neighbour for the sample (to remove shots with stopped, turning or still accelerating scanning motors).
 
-\paragraph{Filtering by sample position}
+\paragraph{Filtering for Impurities}
+On some of the samples, areas can be identified where the relative fluorescence intensities at different energies change. An example is shown in \fref{fig:xrf}: For a 500\,nm thick iron foil, a spot can be seen where the intensity at 8\,keV is much higher than expected. As this is most likely due to impurities on the sample, those areas are identified and excluded from further analysis.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/xrf.png}
+	\caption[Exemplary relative intensity of the 6 keV and 8 keV photon peak on the detector for different scanning positions on the sample]{Exemplary relative intensity of the 6 keV and 8 keV photon peak on the detector for different scanning positions on the sample. In this iron sample, a localized impurity, most likely copper, is clearly visible and can be masked out .}
+	\label{fig:xrf}
+\end{figure}
 \paragraph{Detector masking}
 
 \paragraph{Photon counting}
