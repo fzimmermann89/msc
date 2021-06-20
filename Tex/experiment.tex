@@ -149,18 +149,7 @@ As the amount of recorded data is huge, an efficient strategy for filtering on s
 
 
 
-\begin{figure}[tp]
-	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width=\linewidth]{images/octalissue2.png}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width=\linewidth]{images/octalissue.png}
-	\end{subfigure}
 
-	\caption[Periodic noise on octal detector]{Periodic noise on octal detector after background subtraction: For two exemplary shots the median over columns of one detector tile is shown. A periodic noise is visible. The mean spatial spectrum (over the rows) for each column of the tile is shown on the right. The periodic noise is not uniformly affecting all the columns of the tile.}
-	\label{fig:octalissue}
-\end{figure}
 
 
 
@@ -190,8 +179,24 @@ On some of the samples, areas can be identified where the relative fluorescence 
 	\caption[Exemplary relative intensity of the 6 keV and 8 keV photon peak on the detector for different scanning positions on the sample]{Exemplary relative intensity of the 6 keV and 8 keV photon peak on the detector for different scanning positions on the sample. In this iron sample, a localized impurity, most likely copper, is clearly visible and can be masked out .}
 	\label{fig:xrf}
 \end{figure}
+
 \paragraph{Detector masking}
 
+\paragraph{Detector Artifacts}
+During the experiment, an unnoticed failure of the electronics of the octal detector has occurred, manifesting as periodic noise on most of the detector tiles at a much higher level than expected (see \fref{fig:octalissue} for an illustration). Not all columns of a tile are affected (in contrast to common-mode effects commonly encountered with different detectors). As the overall affected area of the detector is substantial and the noise leaks through the photon counting scheme by slightly influencing the probability of a pixel being considered a photon hit, causing correlations and therefore artifacts in the reconstruction in one direction, a correction was applied to the affected columns of affected tiles of the detector. For the correction, the median over the affected columns is calculated (for each of the eight separate read out areas of a tile independently) and subtracted. This reduces the artifact, but doesn't fully remove it. As the artifact in the reconstructions is limited to low $q$ compared to the expected positions of the Bragg peaks, no further correction as been applied.
+
+\begin{figure}[tp]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/octalissue2.png}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/octalissue.png}
+	\end{subfigure}
+	
+	\caption[Periodic noise on octal detector]{Periodic noise on octal detector after background subtraction: For two exemplary shots the median over columns of one detector tile is shown. A periodic noise is visible. The mean spatial spectrum (over the rows) for each column of the tile is shown on the right. The periodic noise is not uniformly affecting all the columns of the tile.}
+	\label{fig:octalissue}
+\end{figure}
 \paragraph{Photon counting}
 
 
