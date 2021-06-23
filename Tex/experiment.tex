@@ -52,23 +52,23 @@ Before sample preparation, the iron oxide nanoparticles as received were diluted
 
 \begin{figure}[tp]
 	\centering
-	\begin{subfigure}[b]{0.3\textwidth}
+	\begin{subfigure}[b]{0.25\textwidth}
 		\includegraphics[width=\linewidth]{images/tem5.png}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.3\textwidth}
+	\begin{subfigure}[b]{0.25\textwidth}
 		\includegraphics[width=\linewidth]{images/tem10.png}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.3\textwidth}
+	\begin{subfigure}[b]{0.25\textwidth}
 		\includegraphics[width=\linewidth]{images/tem20.png}
 	\end{subfigure}
 \par\smallskip
-	\begin{subfigure}[b]{0.3\textwidth}
+	\begin{subfigure}[b]{0.25\textwidth}
 		\includegraphics[width=\linewidth]{images/temh5.png}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.3\textwidth}
+	\begin{subfigure}[b]{0.25\textwidth}
 		\includegraphics[width=\linewidth]{images/temh10.png}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.3\textwidth}
+	\begin{subfigure}[b]{0.25\textwidth}
 		\includegraphics[width=\linewidth]{images/temh20.png}
 	\end{subfigure}
 \caption[TEM images of iron oxide nanoparticle]{TEM images of the iron oxide nanoparticles. From left to right: 5\,nm 10\,nm and 20\,nm nominal size in two different magnifications each (rows).}
@@ -144,7 +144,6 @@ The image to focus,
 
 \section{Data Processing}
 As the amount of recorded data is huge, an efficient strategy for filtering on shots, preprocessing the data to eliminate interference and finally reconstruction has to be implemented.
-\subsection{Shot filtering}
 \subsection{Preprocessing}
 
 
@@ -168,7 +167,7 @@ As the amount of recorded data is huge, an efficient strategy for filtering on s
 \end{figure}
 
 \paragraph{Shot filtering}
-A first rough filtering pass on the recorded data is done on the following criteria: Reported beam energy > XXX, beam energy in the hutch being not more than one standard deviation below the mean and the distance on the sample to the closest neighouring shot not being less than one standard deviation of the mean distance to the next neighbour for the sample (to remove shots with stopped, turning or still accelerating scanning motors).
+A first rough filtering pass on the recorded data is done on the following criteria: Reported beam energy > XXX, beam energy in the hutch being not more than one standard deviation below the mean energy and the distance on the sample to the closest neighboring shot not being less than one standard deviation of the mean distance to the next neighbor for the sample (to remove shots with stopped, turning or still accelerating scanning motors). Furthermore, the scanning range occupied by the sample is identified by the fluorescence intensity on the octal detector and shots, were the X-ray beam does not hit the sample are removed.
 
 \paragraph{Filtering for Impurities}
 On some of the samples, areas can be identified where the relative fluorescence intensities at different energies change. An example is shown in \fref{fig:xrf}: For a 500\,nm thick iron foil, a spot can be seen where the intensity at 8\,keV is much higher than expected. As this is most likely due to impurities on the sample, those areas are identified and excluded from further analysis.
@@ -197,7 +196,22 @@ During the experiment, an unnoticed failure of the electronics of the octal dete
 	\caption[Periodic noise on octal detector]{Periodic noise on octal detector after background subtraction: For two exemplary shots the median over columns of one detector tile is shown. A periodic noise is visible. The mean spatial spectrum (over the rows) for each column of the tile is shown on the right. The periodic noise is not uniformly affecting all the columns of the tile.}
 	\label{fig:octalissue}
 \end{figure}
+
+
+\paragraph{Spectra}
+The background subtracted and masked detector images are used to create spectra. On these spectra, a regression with a model consisting of peaks at multiples of the K$_\alpha$ energy and of the excitation energy with an initial FWHM of 500\,eV and intensities following a negative binomial distribution (signal) or Poisson distribution (scattering noise) is performed, minimizing the squared difference the logarithmic values. To roughly approximate the charge sharing, a numerical convolution with a  window of the shape
+\begin{equation}
+	w (x)= (1-p)\delta(x)+\rect\left(\frac{x-1/2}{E_{signal}}\right)*p
+\end{equation}
+is performed, thus smearing the peaks to lower energies with a strength parameter $p$ (initialized as $10^{-4}$).
+With this regression, an estimate for the number of modes of the binomial distribution as well as for the mean number of signal and scattering photons is found.
+
 \paragraph{Photon counting}
+
+The mean number of signal and scattering photons as well as the peak width and the known charge sharing PSF for the detectors is used to find the thresholds for a classification of the pixel values into signal photon numbers as described in \fref{sec:chargesharing}.
+
+
+
 
 
 
@@ -267,6 +281,11 @@ The detector shift is corrected before calculating the correlations, the rotatio
 
 \section{Results}
 \subsection{Imaging the Focus}
+
+The reconstruction if performed once without discretization and only applying a threshold of 1500\,eV and once with discretization into photons. 
+
+
+
 
 The excited volume can in the horizontal direction be approximated as a rectangular function with a width of $\sqrt{2}$-times the thickness of the foil used, due to the 45° angle, if the (horizontal) FWHM of the focus is much smaller than the thickness of the foil and ignoring absorption.  In the vertical direction, the volume is limited by the (vertical) FWHM of the focus and can be (roughly) approximated to be Gaussian. 
 In the small angle approximation, the reconstruction is the magnitude squared of the 2D Fourier transform of the volume (see XXX). As the magnitude squared of the Fourier transform of a Gaussian with FWHM $f$ is another Gaussian with FWHM $\frac{4\sqrt{2}\log{2}}{f}$ and the magnitude squared of the Fourier transform of a rectangular function with width $w$ is proportional to $\sinc^2{\left(\frac{q w}{2}\right)}$

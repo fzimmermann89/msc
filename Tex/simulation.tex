@@ -27,6 +27,7 @@ In an infinite coherence time, stationary sources approximation, the simulation 
 
 
 \subsection{Detector Effects}
+\label{sect:chargesharing}
 To simulate the influence of detector characteristics charge-sharing and readout noise, an image degradation is performed: After Poisson sampling the simulated speckle image, for each photon an uniform random position within its pixel is chosen as the center of Gaussian distribution with FWHM of 0.15 pixel  (similar to the size of the PSF for MPCCD detectors XXX).
 The intensity within one pixel is given by the integral over the Gaussian,
 \begin{equation}
@@ -49,7 +50,7 @@ As the relevant signal for the correlation analysis is the presence of fluoresce
 	\item Discretization by maximum likelihood
 	\item Droplet algorithm
 \end{itemize}
-The noise thresholding will be done with a threshold of 3$\sigma$. To find the closest number of signal photons, the signal after thresholding is divided by the expected energy of a single photon and rounded to the closest integer. Considering possible combinations of signal and scattering photons by finding  $nE_{fluorescence}+mE_{excitation}$ with integer $n$, $m$ closest to the observed value and only using the signal photon number $n$ for the correlation would suppress the influence of scattering, but would still be influenced by charge sharing and doesn't account for the different probabilities of signal and scattering photons.
+The noise thresholding will be done with a threshold of 3$\sigma$. To find the closest number of signal photons, the signal after thresholding is divided by the expected energy of a single photon and rounded to the closest integer. Considering possible combinations of signal and scattering photons by finding  $nE_{fluorescence}+mE_{excitation}$ with integer $n$, $m$ closest to the observed value and only using the signal photon number $n$ for the correlation would suppress the influence of scattering, but would still be influenced by charge sharing and does not account for the different probabilities of signal and scattering photons.
 
 If the detector noise level, the PSF due to charge sharing as well as the distribution of signal and scattering is known, a Bayesian classifier can be trained on synthetic data, which each observed value on the detector, returns the number of signal photons with the highest conditional probability (\fref{fig:probs}). Depending on the apriori probabilities and the detector characteristics, this maximum likelihood solution can differ from the closest combination. If those parameters are not known with reasonable certainty, an educated guess can still provide decision boundaries.
 
