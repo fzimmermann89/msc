@@ -113,6 +113,11 @@ If multiple images are taken, under the assumption of ergodicity, the expectatio
 
 \subsection{Accessible Reciprocal Space}
 	\paragraph{Accessible Reciprocal Space}
+	As IDI is based on $g^2(\Delta \vec{q})$, for a ...  $q$ determined by the experimental geometry ($k$, detector size and distance), IDI can achieve higher $\left|\vec{q}\right|$ than a scattering setup, increasing the numerical aperture and could in theory be used to achieve a higher resolution. In practice, for most samples the resolution will be limited by the $q^{-4}$ dependence of $S$ and the SNR, thus only increasing the resolution for samples with strong features at high $q$.
+	
+	Compared to CDI, which measures $\vec{q}$ on the Ewald sphere and gives only limited $q_z$ information, IDI with a flat detector can give access  to a three dimensional volume in reciprocal space, as shown in \fref{fig:accesibleq} and, with greater $q_z$ coverage the greater the curvature of the Ewald sphere is. This, for example, gives access to multiple Bragg peaks in a single crystal experiment as shown in \fref{fig:accesiblebraggq}. 
+		
+	
 	\paragraph{Detector Size and SNR}
 	
 	To asses the influence of the number of pixels of an detector (and correlation pairs) on the SNR, a simulation for a 1\,um thick Copper foil in an 100\,nm FWHM focus is performed. The detector size was varied from 64x64 to 3072x3072 pixels and always placed at the same distance of 1\,m, keeping the mean photon count per pixel constant. For the SNR calculations, the signal is defined as, the noise as the standard deviation XXX
@@ -129,11 +134,13 @@ If multiple images are taken, under the assumption of ergodicity, the expectatio
 			\centering
 			\includegraphics[width=0.9\textwidth]{images/accessibleq2.png}
 			\caption{Accessible reciprocal space compared to CDI }
+			\label{fig:accesibleq}
 		\end{subfigure}\\
 		\begin{subfigure}[t]{0.4\textwidth}
 			\centering
 			\includegraphics[width=0.9\textwidth]{images/accessibleq.png}
 			\caption{Accessible reciprocal space with Bragg peaks}
+			\label{fig:accesiblebraggq}
 		\end{subfigure}
 	\end{tabular}
 		& 
@@ -144,6 +151,7 @@ If multiple images are taken, under the assumption of ergodicity, the expectatio
 \end{subfigure}\\
 	\end{tabular}
 	\caption[Accessible reciprocal space]{The accesible reciprocal space with an 2048x2048\,pixel (100\,um) pixelsize at 12.5\,cm distance and 9.2\,keV is shown in a) and b). In a), the surface of the Ewald sphere accessible in an diffraction experiment is shown in green for comparison. IDI allows a reconstruction of a three dimensional volume. The position of GaAs Bragg peaks inside this volume is shown in b). As the accessible $q_z$ is depended on $q_x$/$q_y$ and smaller the larger the latter two, in this setup a precise alignment of the detector with regard to the lattice planes if useful to be able to image the maximal number of peaks. Using a square, centered, planar detector with uniform pixelsize, the number of correlation pairs for resulting in the same $\vec{q}$ depends on $\vec{q}$ as shown in on the left of c) for a $q_z=0$ slice. The noise (calculated as the standard deviation over 100 independent simulations) is therefor also non-uniform, as shown on the right of c).}
+	
 \end{figure}
 
 
