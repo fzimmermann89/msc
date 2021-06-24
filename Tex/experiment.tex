@@ -201,14 +201,14 @@ During the experiment, an unnoticed failure of the electronics of the octal dete
 \paragraph{Spectra}
 The background subtracted and masked detector images are used to create spectra. On these spectra, a regression with a model consisting of peaks at multiples of the K$_\alpha$ energy and of the excitation energy with an initial FWHM of 500\,eV and intensities following a negative binomial distribution (signal) or Poisson distribution (scattering noise) is performed, minimizing the squared difference the logarithmic values. To roughly approximate the charge sharing, a numerical convolution with a  window of the shape
 \begin{equation}
-	w (x)= (1-p)\delta(x)+\rect\left(\frac{x-1/2}{E_{signal}}\right)*p
+	w (x)= (1-p)\delta(x)+\rect\left(\frac{x-1/2}{E_{signal}}\right)*\frac{p}{E_{signal}}
 \end{equation}
-is performed, thus smearing the peaks to lower energies with a strength parameter $p$ (initialized as $10^{-4}$).
+is performed, thus smearing the peaks to lower energies with a strength parameter $p$ (initialized as 10\%).
 With this regression, an estimate for the number of modes of the binomial distribution as well as for the mean number of signal and scattering photons is found.
 
 \paragraph{Photon counting}
 
-The mean number of signal and scattering photons as well as the peak width and the known charge sharing PSF for the detectors is used to find the thresholds for a classification of the pixel values into signal photon numbers as described in \fref{sec:chargesharing}.
+The mean number of signal and scattering photons found from the spectra as well as the peak width and the (known) charge sharing PSF for the detectors are used to find the thresholds for a classification of the pixel values into signal photon numbers as described in \fref{sec:chargesharing}.
 
 
 
@@ -246,6 +246,7 @@ The detector shift is corrected before calculating the correlations, the rotatio
 
 
 \begin{figure}
+	\centering
 	\begin{subfigure}{0.35\textwidth}
 		\includegraphics[width=\linewidth]{images/kossel_gaas1.pdf}
 		\caption{Indexed lines on sample 1}
@@ -275,8 +276,11 @@ The detector shift is corrected before calculating the correlations, the rotatio
 \end{table}
 
 \subsection{Reconstruction}
+For the foil data, the small angle approximation is valid and each pixel can be thought of as having the same XXX angle, permitting using the pixelwise correlation as a reconstruction.
 
+For the nanoparticle data, detection angle is higher and therefor the $\delta q$ is lower for pixels further of axis. Therefor, for each pixel the $q$ value is calculated and a radial correlation with the corrected values is performed.
 
+For the crystal data, a full 3d correlation in $q$ space is performed.
 
 
 \section{Results}
