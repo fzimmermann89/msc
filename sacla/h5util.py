@@ -6,7 +6,7 @@ def appenddata(file, key, data):
     if np.array(data).dtype.kind == 'U':
         data = data.astype(h5py.string_dtype(encoding='ascii'))
     if key not in file.keys():
-        file.create_dataset(key, chunks=data.shape, compression='lzf', shuffle=True, data=data, maxshape=(None, *data.shape[1:]))
+        file.create_dataset(key, chunks=tuple(np.minimum(data.shape,256)), compression='lzf', shuffle=True, data=data, maxshape=(None, *data.shape[1:]))
     else:
         file[key].resize((file[key].shape[0] + data.shape[0]), axis=0)
         file[key][-data.shape[0] :] = data
@@ -17,7 +17,7 @@ def overwritedata(file, key, data, chunks=None):
         data = data.astype(h5py.string_dtype(encoding='ascii'))
     if key in file.keys():
         del file[key]
-    file.create_dataset(key,  chunks=chunks if not chunks is None else data.shape, compression='lzf',  shuffle=True, data=data, maxshape=(None, *data.shape[1:]))
+    file.create_dataset(key,  chunks=chunks if not chunks is None else tuple(np.minimum(data.shape,256)), compression='lzf',  shuffle=True, data=data, maxshape=(None, *data.shape[1:]))
 #compression='gzip',compression_opts=1,  shuffle=True,
 
 def shrink(file,key,n):
