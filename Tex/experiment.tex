@@ -131,6 +131,9 @@ The setup used at EH5 at SACLA is shown in \fref{fig:setup}.
 
 The sample was mounted in an XXX angle to the beam on an XXX axis stage to allow scanning of the sample, ensure perpendicularly of the scanning directions to the beam to stay within the Rayleigh length of approx. XXX\,um while also ensuring a parallel alignment of the sample surface to one of the detectors. Overall, two MPCCD detectors were used: A Dual detector with two tiles, each 512x1024 pixels perpendicular to the FEL beam in a distance of 1\,m and a Short Working Distance Octal detector, consisting of eight 512x1024 tiles, parallel to the sample surface in a distance $d_{octal}$ ranging from XXX to XXX cm. To supress absorption and more importantly, air scattering, a vacuum pipe with Kapton windows was installed in between the sample and the Dual detector
 An L-shaped aluminum plate was installed to reduce stray light as well as to allow mounting of the beamstop and filters to suppress coherent scattering and K$\beta$ fluorescence and between sample and detector.
+
+The samples were scanned with a mean step size of 20\,um in horizontal direction (fast scanning direction) and 20\,um in vertical direction.between shots. The step size was chosen based on the crater size visible with an optical microscope of approximately 5-10\,um for the samples and energies used in the experiment.
+
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/setup.pdf}
@@ -167,10 +170,15 @@ As the amount of recorded data is huge, an efficient strategy for filtering on s
 \end{figure}
 
 \paragraph{Shot filtering}
-A first rough filtering pass on the recorded data is done on the following criteria: Reported beam energy > XXX, beam energy in the hutch being not more than one standard deviation below the mean energy and the distance on the sample to the closest neighboring shot not being less than one standard deviation of the mean distance to the next neighbor for the sample (to remove shots with stopped, turning or still accelerating scanning motors). Furthermore, the scanning range occupied by the sample is identified by the fluorescence intensity on the octal detector and shots, were the X-ray beam does not hit the sample are removed.
+A first rough filtering pass on the recorded data is done on the following criteria: Reported beam energy > 250\,uJ, beam energy in the hutch being not more than one standard deviation below the mean energy and the distance on the sample to the closest neighboring shot not being less than one standard deviation of the mean distance to the next neighbor for the sample (to remove shots with stopped, turning or still accelerating scanning motors). Furthermore, the scanning range occupied by the sample is identified by the fluorescence intensity on the octal detector and shots, were the X-ray beam does not hit the sample are removed.
 
+ 
 \paragraph{Filtering for Impurities}
 On some of the samples, areas can be identified where the relative fluorescence intensities at different energies change. An example is shown in \fref{fig:xrf}: For a 500\,nm thick iron foil, a spot can be seen where the intensity at 8\,keV is much higher than expected. As this is most likely due to impurities on the sample, those areas are identified and excluded from further analysis.
+
+Before doing the reconstruction, a final filtering pass is done on the images, keeping only those shots where the pulse energy > XXX, the measured photon energy is within two standard deviations of the median,
+the ratio of pulse energy in the experimental hutch to further upstream in the optical hutch is within one standard deviation of the mean and the ratio of the intensity on all 4 edges of the detectors as well as  the total intensity on both detectors  to the pulse energy to is not lower than two and not higher than four standard deviations of the mean.
+For the last criterion, the scanning area is cut into equally sized squares with a side length of 1/100th the horizontal scanning range and the filtering is done for each square. This increases the statistics and is sufficient to remove bad areas on the sample as well as areas where shadowing might have occurred.
 
 \begin{figure}
 	\centering
@@ -180,9 +188,15 @@ On some of the samples, areas can be identified where the relative fluorescence 
 \end{figure}
 
 \paragraph{Detector masking}
+Masks for both detectors were created based on the standard deviation in dark images not being more than than 4 standard deviations higher than the mean, the mean intensity over images taken of a sample not being more than 3 standard deviations lower or higher than the mean as well as XXXXX.
+The masks were dilated by 5 pixels.
 
 \paragraph{Detector Artifacts}
 During the experiment, an unnoticed failure of the electronics of the octal detector has occurred, manifesting as periodic noise on most of the detector tiles at a much higher level than expected (see \fref{fig:octalissue} for an illustration). Not all columns of a tile are affected (in contrast to common-mode effects commonly encountered with different detectors). As the overall affected area of the detector is substantial and the noise leaks through the photon counting scheme by slightly influencing the probability of a pixel being considered a photon hit, causing correlations and therefore artifacts in the reconstruction in one direction, a correction was applied to the affected columns of affected tiles of the detector. For the correction, the median over the affected columns is calculated (for each of the eight separate read out areas of a tile independently) and subtracted. This reduces the artifact, but doesn't fully remove it. As the artifact in the reconstructions is limited to low $q$ compared to the expected positions of the Bragg peaks, no further correction as been applied.
+
+
+
+
 
 \begin{figure}[tp]
 	\centering
@@ -203,7 +217,7 @@ The background subtracted and masked detector images are used to create spectra.
 \begin{equation}
 	w (x)= (1-p)\delta(x)+\rect\left(\frac{x-1/2}{E_{signal}}\right)*\frac{p}{E_{signal}}
 \end{equation}
-is performed, thus smearing the peaks to lower energies with a strength parameter $p$ (initialized as 10\%).
+is performed, thus smearing the peaks to lower energies with a strength parameter $p$ (initialized as 25\%).
 With this regression, an estimate for the number of modes of the binomial distribution as well as for the mean number of signal and scattering photons is found.
 
 \paragraph{Photon counting}
@@ -278,13 +292,17 @@ The detector shift is corrected before calculating the correlations, the rotatio
 \subsection{Reconstruction}
 For the foil data, the small angle approximation is valid and each pixel can be thought of as having the same XXX angle, permitting using the pixelwise correlation as a reconstruction.
 
-For the nanoparticle data, detection angle is higher and therefor the $\delta q$ is lower for pixels further of axis. Therefor, for each pixel the $q$ value is calculated and a radial correlation with the corrected values is performed.
+For the nanoparticle data, detection angle is higher and therefor the $\delta q$ is lower for pixels further of axis. Therefor, for each pixel the $q$ value is calculated and a radial correlation with the corrected values	 is performed.
 
 For the crystal data, a full 3d correlation in $q$ space is performed.
 
 
 \section{Results}
 \subsection{Imaging the Focus}
+
+The regression of the spectra results in a mean K$_{\alpha}$ photon count per pixel of 0.004$\pm$0.001 (500\,nm iron foil) to 0.041$\pm$0.001 (20\,um copper foil). The mode number could not be reasonably estimated for the 500\,nm iron sample due to the influence of air scattering and fluorescence stemming from the experimental setup and low number of signal photons. For the other samples, a the regression provides a rough estimate of 15-25. This number seems lower than expected, but one has to keep in mind that the regression scheme as a low sensitivity for higher $M$ values due to the diminishing gradient and might underestimate the number of modes. Nevertheless, this is an indicator that the $M$ is much higher than the "optimal" value for unpolarized of light of $M=2$, resulting in severely reduced signal and therefor SNR.
+
+The charge sharing approximation parameter $p$ is found to be 0.43$\pm$0.01, meaning roughly 40\% of the photon hits are affected. The simplifications of assuming a uniform charge cloud by using a convolution windows with a flat side lobe leads to disagreement between the slightly curved histograms and the flat regressions in the valleys between integer multiples of the single photon energy.
 
 The reconstruction if performed once without discretization and only applying a threshold of 1500\,eV and once with discretization into photons. 
 

@@ -1,6 +1,6 @@
 \chapter{Additional Graphs and Tables}
 \section{Simulation}
-\begin{table}
+\begin{table}[h!]
 	\caption{Ratio of $g^2-1$ of different photon counting schemes to ground truth value  for $\Delta$=1\, pixel/first maximum}
 	\begin{tabular}{llllll}
 		
@@ -13,10 +13,22 @@
 		\bottomrule
 	\end{tabular}
 \end{table}
+
 \section{Experiment}
 
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/spectrum_foil_cu.pdf}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/spectrum_foil_fe.pdf}
+	\end{subfigure}
+	\caption[Spectra of fluorescence using foil samples ]{Spectra of fluorescence using foil samples (left for copper, right for iron) and best fit of the regression.}
+	\label{fig:spectrafoil}
+\end{figure}
 
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/kossel_gaas.png}
 	\caption[Mean image of fluorescence of GaAs after background subtraction with visible Kossel lines ]{Mean images of 5000 shots after background subtraction for sample 1 (left) and sample 2 (right), showing the Kossel lines and some artifacts at the edges.}
@@ -24,7 +36,7 @@
 \end{figure}
 
 
-\begin{table}
+\begin{table}[h!]
 	\caption[Miller Indices considered in Kossel line least squares regression of GaAs sample]{Miller Indices considered in Kossel line least squares regression of GaAs sample 1 (left) and sample 2 (right). Not all possible Kossel lines are visible in the recorded images.}
 	\begin{tabular}[t]{lll}
 		\toprule
@@ -80,3 +92,4 @@
 	\bottomrule
 \end{tabular}
 \end{table}
+\FloatBarrier
