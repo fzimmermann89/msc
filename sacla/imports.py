@@ -20,6 +20,8 @@ import matplotlib as mpl
 from sacla import *
 from accum import *
 import idi.reconstruction as recon
+import re
+from pathlib import Path
 
 
 def browse(obj,depth=0):
