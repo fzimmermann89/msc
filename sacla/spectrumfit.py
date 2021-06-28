@@ -14,9 +14,10 @@ def _gaussian(x, mu, s):
     return ne.evaluate('1 / ( s* sqrt(2 * Pi)) * exp(-((x - mu) ** 2) / (2 * s ** 2))')
 
 
-def _comb(x, Esignal, Escatter, Escatter2, Ebeta, psignal, pscatter, pscatter2, pbeta, sigma, M, scale, p,scattersigmamod):
+def _comb(x, Esignal, Escatter, Escatter2, Ebeta, psignal, pscatter, pscatter2, pbeta, sigma, M, scale, p, scattersigmamod):
     # print(f'{Esignal=}, {Escatter=}, {Ebeta=}, {psignal=}, {pscatter=}, {pbeta=}, {sigma=}, {M=}, {scale=}, {p=}')
-    window = np.zeros(1 + 2 * int((Esignal * len(x)) // np.ptp(x)))
+    EW = (Esignal, Escatter, Escatter2)[np.argmax((psignal, pscatter, pscatter2))]
+    window = np.zeros(1 + 2 * int((EW * len(x)) // np.ptp(x)))
     window[len(window) // 2] = 1 - p
     window[: len(window) // 2] = p / (len(window) // 2)
     window /= window.sum()
@@ -35,19 +36,29 @@ def _comb(x, Esignal, Escatter, Escatter2, Ebeta, psignal, pscatter, pscatter2, 
 
                 for l in range(0, 1 + floor(np.max(x) / Escatter2)):
                     scatamp2 = max(0, pscatter2 ** l * exp(-pscatter2) / factorial(l)) if pscatter2 > 0 else 1
-
+                    if i == k == j == l == 0:
+                        continue
                     res += np.nan_to_num(
                         scatamp
                         * scatamp2
                         * sigamp
                         * betaamp
-                        * _gaussian(x, Escatter * j + i * Esignal + k * Ebeta + l * Escatter2, scattersigmamod * sigma if j > 0 or l > 0 else sigma)
+                        * _gaussian(x, Escatter * j + i * Esignal + k * Ebeta + l * Escatter2, scattersigmamod * sigma * np.sqrt(max(1,j)) if j > 0 or l > 0 else sigma)
                     )
-    return np.nan_to_num(np.convolve(np.maximum(EPS, scale * res), window, 'same'))
+    res = np.convolve(np.maximum(EPS, scale * res), window, 'same')
+    # don't convolve the zero peak
+    scatamp = max(0, pscatter ** 0 * exp(-pscatter) / factorial(0)) if pscatter > 0 else 1
+    scatamp2 = max(0, pscatter2 ** 0 * exp(-pscatter2) / factorial(0)) if pscatter2 > 0 else 1
+    sigamp = max(0, sigdist.pmf(0))
+    betaamp = max(0, betadist.pmf(0))
+    res += scale * scatamp * scatamp2 * sigamp * betaamp * _gaussian(x, 0, sigma)
+    return np.nan_to_num(res)
 
 
-def _logcomb(x, Esignal, Escatter, Escatter2, Ebeta, psignal, pscatter, pscatter2, pbeta, sigma, M, scale, p,scattersigmamod):
-    return np.nan_to_num(np.log10(_comb(x, Esignal, Escatter, Escatter2, Ebeta, psignal, pscatter, pscatter2, pbeta, sigma, M, scale, p,scattersigmamod)))
+def _logcomb(x, Esignal, Escatter, Escatter2, Ebeta, psignal, pscatter, pscatter2, pbeta, sigma, M, scale, p, scattersigmamod):
+    return np.nan_to_num(
+        np.log10(_comb(x, Esignal, Escatter, Escatter2, Ebeta, psignal, pscatter, pscatter2, pbeta, sigma, M, scale, p, scattersigmamod))
+    )
 
 
 def spectrumfit(
@@ -72,9 +83,9 @@ def spectrumfit(
     if psignal is None:
         psignal = np.sum(x[x > Esignal * 0.5] * y[x > Esignal * 0.5]) / np.sum(y) / Esignal
     if pscatter is None:
-        pscatter = psignal / 10
+        pscatter = psignal * np.sum(y[np.abs(x-Escatter)<sigma/2])/np.sum(y[np.abs(x-Esignal)<sigma/2])
     if pscatter2 is None:
-        pscatter2 = psignal / 30
+        pscatter2 = psignal *  np.sum(y[np.abs(x-Escatter2)<sigma/2])/np.sum(y[np.abs(x-Esignal)<sigma/2])
 
     params1 = model1.make_params()
     params1['Esignal'].value = 1.0 * Esignal
@@ -90,9 +101,9 @@ def spectrumfit(
     params1['pbeta'].value = pbetaratio
     params1['pbeta'].min = 0
     params1['pbeta'].max = 0.3
-    
+
     params1['scattersigmamod'].value = scattersigmamod
-    params1['scattersigmamod'].vary=False
+    params1['scattersigmamod'].vary = False
 
     if Escatter is None:
         params1['Escatter'].vary = False
@@ -125,13 +136,14 @@ def spectrumfit(
     params1['M'].vary = False
     params1['p'].value = p
     params1['p'].min = 0
+    params1['p'].max = 0.8
     params1['p'].vary = True
 
     # weights
     Es = [0 if E is None else E for E in (Esignal, Escatter, Escatter2)]
     rs = [[0] if E == 0 else range(ceil(1 + max(x) / E)) for E in Es]
     peaks = np.array(sorted([sum([i * E for i, E in zip(ids, Es)]) for ids in itertools.product(*rs)]))
-    dist = np.abs(x[None, ...] - peaks[1:, None]).min(0)
+    dist = np.abs(x[None, ...] - peaks[:, None]).min(0)
     weights = np.maximum(0, 1 - dist / Esignal)
     w1 = np.nan_to_num(np.log10(np.maximum(y, EPS) / y[(y > np.sqrt(EPS))].min()) * weights)
     w1 /= np.max(w1)
@@ -139,7 +151,7 @@ def spectrumfit(
     w1[w1 < EPS] = 0
 
     # for second fit, only look at first 3 signal peaks
-    dist2 = np.abs(x[None, ...] - params1['Esignal'].value * np.arange(1, 4)[..., None]).min(0)
+    dist2 = np.abs(x[None, ...] - params1['Esignal'].value * np.arange(0, 4)[..., None]).min(0)
     if Escatter is not None:  # and first scatter peak
         dist2 = np.minimum(dist2, np.abs(x - params1['Escatter']))
     if Escatter2 is not None:  # and first scatter peak
