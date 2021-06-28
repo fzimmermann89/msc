@@ -159,11 +159,11 @@ def spectrumfit(
     params1['M'].value = 20
     params2['psignal'].vary = True
     params2['sigma'].vary = True
-    params2['scale'].vary = False
+    params2['scale'].vary = True
     if Escatter is not None:
-        params2['pscatter'].vary = False
+        params2['pscatter'].vary = True
     if Escatter2 is not None:
-        params2['pscatter2'].vary = False
+        params2['pscatter2'].vary = True
 
     f2 = model2.fit(np.log10(np.maximum(EPS, y)), params2, x=x, weights=w2, max_nfev=400, fit_kws=dict(gtol=1e-16, xtol=1e-16, ftol=1e-16))
 
