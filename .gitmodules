@@ -2,3 +2,6 @@
 	path = idi
 	url = https://github.com/fzimmermann89/idi
 	branch = master
+[submodule "ssrljune2021"]
+	path = ssrljune2021
+	url = https://github.com/fzimmermann89/ssrljune2021
