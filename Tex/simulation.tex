@@ -45,14 +45,11 @@ As the relevant signal for the correlation analysis is the presence of fluoresce
 \begin{itemize}
 	\item Using the raw signal
 	\item Using the raw signal after applying a threshold.
-	\item Discretization by closest number of signal photons
-	\item Discretization by closest possible combination for each pixel
+	\item Discretization by closest possible combination of signal and scattering photons for each pixel
 	\item Discretization by maximum likelihood
 	\item Droplet algorithm
 \end{itemize}
-The noise thresholding will be done with a threshold of 3$\sigma$. To find the closest number of signal photons, the signal after thresholding is divided by the expected energy of a single photon and rounded to the closest integer. Considering possible combinations of signal and scattering photons by finding  $nE_{fluorescence}+mE_{excitation}$ with integer $n$, $m$ closest to the observed value and only using the signal photon number $n$ for the correlation would suppress the influence of scattering, but would still be influenced by charge sharing and does not account for the different probabilities of signal and scattering photons.
-
-If the detector noise level, the PSF due to charge sharing as well as the distribution of signal and scattering is known, a Bayesian classifier can be trained on synthetic data, which each observed value on the detector, returns the number of signal photons with the highest conditional probability (\fref{fig:probs}). Depending on the apriori probabilities and the detector characteristics, this maximum likelihood solution can differ from the closest combination. If those parameters are not known with reasonable certainty, an educated guess can still provide decision boundaries.
+The noise thresholding will be done with a threshold of 3 the standard deviation of the detector noise. Considering possible combinations of signal and scattering photons by finding  $nE_{fluorescence}+mE_{excitation}$ with integer $n$, $m$ closest to the observed value and only using the signal photon number $n$ for the correlation could reduce the influence of scattering as well as charge sharing, but does not account for the different probabilities of signal and scattering photons. If the detector noise level, the point spread function due to charge sharing as well as the distribution of signal and scattering is known, a Bayesian classifier can be trained on synthetic data, which each observed value on the detector, returns the number of signal photons with the highest conditional probability (\fref{fig:probs}). Depending on the apriori probabilities and the detector characteristics, this maximum likelihood solution can differ from the closest combination. If those parameters are not known with reasonable certainty, an educated guess can still provide decision boundaries.
 
 \begin{figure}
 	\centering
@@ -87,16 +84,19 @@ If the detector noise level, the PSF due to charge sharing as well as the distri
 	
 	\caption{Result} 
 \end{figure}
+	
+For comparison, the PSANA Photon algorithm, a droplet algorithm considering only the signal photons is used \cite{psana}. The disadvantage of most droplet algorithms is the more obscure effect on the correlations, as they influence the position of photons and usually consider only a single energy or require a much higher computational effort.  
 
+To evaluate these approaches, for a grating with pitch 50\,nm, line width 20\,nm and 100\,nm thickness in a 
+400\,nm (FWHM) focus, resulting in $10^7$ excited atoms emitting at 10\,keV and a 1024x1024 pixel detector with 50\,um pixel size in 50\,cm distance, 2000 florescence images are simulated. Three different cases are considered: With high signal ($10^5 $photons/image), low signal ($10^4$ photons/image), both having $10^3$ photons at 13\,keV as scattering noise and 500\,ev (gaussian) detector noise as a "high noise" case  with 2.5\,times the scattering and 2\,times the detector noise  ($10^4$ signal photons/image). Charge sharing is in all cases simulated with $\sigma$=10\,um. 
 
+For each photon counting approach, reconstructions are performed in all the cases and compared to a reconstruction without noise or charge sharing as ground truth. For the first two cases, the center part of the reconstructions is show in \fref{fig:photonreconimg}, line profiles through the center and the first maximum for all cases are shown in \fref{fig:photonrecon}. 
 
+In the different reconstruction, two effects are visible: In comparison with the ground truth , without any correction the reconstruction for low $q$ will be overestimated due to the correlation of neighboring pixels and underestimated for the first maximum (see \fref{tab:photonrecon} for detailed values). This can be slighlty reduced by thresholding, and greatly reduced by rounding to the closest combination as well as by the maximum likelihood classification. The PSANA droplet algorithm seems to join more neighboring photons than necessary, resulting in a negative correlation between neighboring pixels. 
 
+These observations in the simulation suggest using either the combination scheme or the classifier for an experiment, and both will be evaluated on the experimental data.
 
-For comparison, the PSANA Photon algorithm, a droplet algorithm considering only the signal photons is used \cite{psana}.
-
-Possible avenues for improvement would be to use a more sophisticated droplet scheme based on error minimization allowing for subpixel resolution, incorporating the scattering photons into the droplet algorithm or using a neural network trained on synthetic images.
-
-
+Possible avenues for improvement would be to use a more sophisticated droplet scheme based on error minimization allowing for subpixel resolution, incorporating the scattering photons into the droplet algorithm or using a neural network trained on synthetic images \cite{baumann2018,collaboration2014,schayck2020}
 
 
 \subsection{Normalisation}
