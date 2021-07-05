@@ -4,7 +4,9 @@
 \begin{table}[h!]
 	\caption[Ratio of $g^2-1$ of different photon counting schemes to ground truth value]{Ratio of $g^2-1$ of different photon counting schemes to ground truth value  for $\Delta$=1\, pixel/first maximum. \textit{Closest} is \textit{Combination} without considering Noise photons, giving good results in the low noise cases.}
 	\label{tab:photonrecon}
-	
+
+\begin{adjustwidth}{-1em}{-2em}	
+\small
 \begin{tabular}{lllllll}
 	\toprule
 	 &        Raw &       Threshold &         Combination &      Closest &         MaxL &          PSANA \\
@@ -14,7 +16,7 @@
 	High Noise  &  9.3 / 0.3 &  8.1 / 0.39 &   1.0 / 0.58 &   1.3 / 0.46 &  0.44 / 0.54 &   -0.37 / 0.45 \\
 	\bottomrule
 \end{tabular}
-
+\end{adjustwidth}
 \end{table}
 
 \section{Experiment}
@@ -29,6 +31,21 @@
 	\end{subfigure}
 	\caption[Spectra of fluorescence using foil samples ]{Spectra of fluorescence using foil samples (left for copper, right for iron) and best fit of the regression.}
 	\label{fig:spectrafoil}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}[b]{0.30\textwidth}
+		\includegraphics[width=\linewidth]{images/thresholdsCopperHigh.pdf}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.30\textwidth}
+		\includegraphics[width=\linewidth]{images/thresholdsIronLow.pdf}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.30\textwidth}
+		\includegraphics[width=\linewidth]{images/thresholdsIronHigh.pdf}
+	\end{subfigure}
+	\caption[Spectra of fluorescence using foil samples with photon number classes]{Spectra of fluorescence using foil samples (black), and spectra of the models used for classification, colored by the assigned class of signal photon numbers.}
+	\label{fig:thresholdsfoil}
 \end{figure}
 
 \begin{figure}[h!]
