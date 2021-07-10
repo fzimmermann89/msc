@@ -36,7 +36,7 @@
 \begin{figure}[h!]
 	\centering
 	\begin{subfigure}[b]{0.30\textwidth}
-		\includegraphics[width=\linewidth]{images/thresholdsCopperHigh.pdf}
+		\includegraphics[width=\linewidth]{images/thresholdsCopperHighNoBeta.pdf}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.30\textwidth}
 		\includegraphics[width=\linewidth]{images/thresholdsIronLow.pdf}
@@ -44,10 +44,27 @@
 	\begin{subfigure}[b]{0.30\textwidth}
 		\includegraphics[width=\linewidth]{images/thresholdsIronHigh.pdf}
 	\end{subfigure}
-	\caption[Spectra of fluorescence using foil samples with photon number classes]{Spectra of fluorescence using foil samples (black), and spectra of the models used for classification, colored by the assigned class of signal photon numbers.}
+	\caption[Spectra of fluorescence using foil samples with photon number classes]{Spectra of fluorescence using foil samples (black), and spectra of the models used for classification, colored by the assigned class of signal photon numbers. The initial values used are the average values found in the regression, for the sharing width the estimation $\sigma\approx\frac{1}{6} \left(1-\sqrt{1-\rho }\right)$ is used and some minor adjustments were made to achieve a better fit with the more precise charge sharing simulation. The final values used are show in \fref{tab:fitvalues}.}
 	\label{fig:thresholdsfoil}
 \end{figure}
+\begin{table}[]
+	\centering
+	\caption{Parameters for simulated spectra used to find thresholds.}
+	\label{tab:fitvalues}
+		\tiny
+	\begin{adjustwidth}{-2em}{-2em}	
+\begin{tabular}{lrrrrrrrrrrrr}
 
+	\toprule
+	{} &  $E_{sig}$ &  $p_{sig}$ &  $p_{\beta}$ &  $E_{scat}$ &  $p_{scat}$ &  $\sigma_{scat}$ & $E_{scat,2}$ & $p_{scat,2}$ &  $\sigma_{det}$ &   M &  $\sigma_{sharing}$ &  $K_{\beta}$ as noise \\	\midrule
+	Copper &          7940 &       4.7e-02 &     1.5e-01 &          10500 &        5.0e-05 &                 450 &           8150 &        5.9e-05 &             350 &  20 &             4.2e-02 &                  True \\
+	Iron High         &          6340 &       2.5e-02 &     1.5e-01 &          10700 &        1.5e-05 &                 500 &                &                &             420 &  20 &             3.5e-02 &                 False \\
+	Iron Low          &          6320 &       3.3e-03 &     1.5e-01 &          10570 &        3.0e-06 &                 380 &           8000 &        3.7e-05 &             350 &  20 &             3.0e-02 &                 False \\
+	\bottomrule
+
+\end{tabular}
+\end{adjustwidth}
+\end{table}
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/kossel_gaas.png}
