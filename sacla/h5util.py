@@ -31,12 +31,12 @@ def copymasked(src, dst, mask):
     def func(name, obj):
         print('  ', name)
         if isinstance(obj, h5py._hl.dataset.Dataset):
-            dst[name] = obj[mask, ...]
+            dst[name] = obj[mask.nonzero()]
 
     if isinstance(src, h5py._hl.dataset.Dataset):
         name = src.name.split('/')[-1]
         print('  ', name)
-        dst[name] = src[mask]
+        dst[name] = src[mask.nonzero()]
     elif isinstance(src, h5py._hl.group.Group) or isinstance(h5py._hl.files.File):
         src.visititems(func)
     else:

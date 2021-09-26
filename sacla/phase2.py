@@ -8,35 +8,42 @@ os.environ['MKL_NUM_THREADS'] = '14'
 os.environ['VECLIB_MAXIMUM_THREADS'] = '14'
 os.environ['NUMEXPR_NUM_THREADS'] = '12'
 os.environ['NUMBA_NUM_THREADS'] = '12'
-import mkl
 
+import mkl
 mkl.set_num_threads(14)
+
 import numpy
 import numexpr
-
 numexpr.set_num_threads(14)
 numexpr.set_vml_num_threads(1)
 import numba
-
 numba.set_num_threads(10)
 import gc
-
 import numpy as np
-import argparse, os, shutil, datetime, collections, itertools, sys, signal, socket
+import argparse, os, shutil, datetime, collections, itertools, sys, signal, socket, functools
 import h5py
 import scipy.signal as ss
 import fast_histogram
 from accum import *
-from idi.reconstruction.simple import *
+import idi.reconstruction as recon
 from correlator import *
 import numba
 import scipy.ndimage as snd
 import skimage.morphology as skm
 from datasetreader import *
 from dataclasses import dataclass
-
 from h5util import *
-
+try:
+    import mkl_umath
+    mkl_umath.use_in_numpy()
+except ImportError:
+    pass
+try:
+    import mkl_fft
+    corr=functools.partial(recon.cpusimple.corr,fftfunctions=(mkl_fft.rfftn_numpy, mkl_fft.irfftn_numpy))
+    correlator=functools.partial(correlator,fftfunctions=(mkl_fft.rfftn_numpy, mkl_fft.irfftn_numpy))
+except ImportError
+    corr=recon.cpusimple.corr
 terminated = 0
 
 
@@ -66,6 +73,7 @@ class detectorinfo2_t:
     deltaelow: float
     deltaehigh: float
     correction: bool
+    photonsettings: str
 
 
 @numba.njit(parallel=True)
@@ -402,6 +410,8 @@ def enumerate_detector(det, thresholds, shot_ok=None, tiles=None, nimages=np.inf
                         correct(tile, correctionphotonthres, Ncorrect, correctmask[t], rots[t], assembled, startx[t], starty[t])
                     else:
                         assembled = np.asarray(np.rot90(reader[ind_orig], rots[t]), order='C', dtype=np.float64)
+            
+            ##change me
             if stats:
                 ev, number, scatter = getstats(assembled, thresholds)
                 yield (ind_filtered, ind_orig, np.copy(assembled), ev, number, scatter)
@@ -603,7 +613,6 @@ def main():
                     if ind_filtered - skipped >= args.nimages:
                         break
                     if np.any(img[mask] > ((detinfo.skipphotons + 0.5) * kalpha)):
-
                         shot_skipped[ind_orig] = True
                         skipped += 1
                     else:
@@ -678,7 +687,7 @@ def main():
                 print('   doing correlation:', end=' ', flush=True)
 
                 if args.singleshotcorr:
-                    tmpcorrelator = correlator(mask)  # TODO: rewrite correlator and seperate with internal accum and without..
+                    tmpcorrelator = correlator(mask)
 
                 for (ind_filtered, ind_orig, img, ev, photons, _) in enumerate_detector(
                     det, thresholds=thresholds, shot_ok=shot_ok, nimages=args.nimages, stats=args.intv, correction=detinfo.correction
@@ -827,7 +836,9 @@ if __name__ == "__main__":
     arg_photons.add_argument('--deltaehigh', default=1000, dest='deltaehigh', metavar='eV', type=float, help='how far ABOVE n*kalpha consider a fluorescence photon')
     arg_photons.add_argument('--deltaelow', default=1000, dest='deltaelow', metavar='eV', type=float, help='how far BELOW n*kalpha consider a fluorescence photon')
     arg_photons.add_argument('--correct', default=False, dest='correction', action='store_true', help='do masked median correction')
+    arg_photons.add_argument('--photonsettings', default=None, dest='photonsettings', nargs='*', help='json string of [[thresholds],[signal photon number]]')
 
+    
     arg_correlation = parser.add_argument_group('correlations')
     arg_correlation.add_argument('--disc', default=False, dest='disc', action='store_true', help='discrete photon variants (use number of fluorescence photons)')
     arg_correlation.add_argument('--cont', default=False, dest='cont', action='store_true', help='continuous variant (use ev values that are in 0.2*deltaelow..maxphotons*kalpha+deltaehigh)')
@@ -866,6 +877,8 @@ if __name__ == "__main__":
     detparser.add_argument('+skipphotons', type=int, default=args.skipphotons)
     detparser.add_argument('+deltaehigh', type=float, default=args.deltaehigh)
     detparser.add_argument('+deltaelow', type=float, default=args.deltaelow)
+    detparser.add_argument('+photonsettings', type=str, default=args.photonsettings)
+
 
     # detectorinfo2_t = collections.namedtuple('detectorinfo2', ['inputname','tiles','photons', 'correlations', 'maxphotons', 'scatterphotons', 'skipphotons', 'deltaelow', 'deltaehigh', 'correction'])
 
@@ -886,6 +899,7 @@ if __name__ == "__main__":
             detargs.deltaelow,
             detargs.deltaehigh,
             detargs.correction,
+            detargs.photonsettings
         )
 
     main()
