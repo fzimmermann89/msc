@@ -33,16 +33,18 @@ import skimage.morphology as skm
 from datasetreader import *
 from dataclasses import dataclass
 from h5util import *
+import warnings
 try:
     import mkl_umath
     mkl_umath.use_in_numpy()
 except ImportError:
-    pass
+    warnings.warn("no mkl umath available")
 try:
     import mkl_fft
     corr=functools.partial(recon.cpusimple.corr,fftfunctions=(mkl_fft.rfftn_numpy, mkl_fft.irfftn_numpy))
     correlator=functools.partial(correlator,fftfunctions=(mkl_fft.rfftn_numpy, mkl_fft.irfftn_numpy))
-except ImportError
+except ImportError:
+    warnings.warn("no mkl fft available")
     corr=recon.cpusimple.corr
 terminated = 0
 
@@ -259,8 +261,8 @@ def parsephotonthresholds(jsonstring):
                     if steps[k] > img[i, j]:
                         ret[i, j] = photons[k]
                         break
-                    else:
-                        ret[i, j] = photons[-k]
+                else:
+                    ret[i, j] = photons[-1]
         return ret
 
     return photonize
@@ -335,7 +337,7 @@ def roi(data):
 
 
 # @profile
-def enumerate_detector(det, thresholds, shot_ok=None, tiles=None, nimages=np.inf, stats=True, correction=False, progress=True):
+def enumerate_detector(det, thresholds, shot_ok=None, tiles=None, nimages=np.inf, stats=True, correction=False, progress=True, photonfunction=None):
     """
     get an image from the detector with corrections and photonizing
     """
@@ -411,14 +413,20 @@ def enumerate_detector(det, thresholds, shot_ok=None, tiles=None, nimages=np.inf
                     else:
                         assembled = np.asarray(np.rot90(reader[ind_orig], rots[t]), order='C', dtype=np.float64)
             
-            ##change me
-            if stats:
-                ev, number, scatter = getstats(assembled, thresholds)
-                yield (ind_filtered, ind_orig, np.copy(assembled), ev, number, scatter)
-            else:
-                number = getphotons(assembled, thresholds)
-                yield (ind_filtered, ind_orig, np.copy(assembled), None, number, None)
 
+            
+            numberfromfunc = photonfunction(assembled) if photonfunction is not None else None
+            if thresholds is not None:
+                if stats:
+                    ev, number, scatter = getstats(assembled, thresholds)
+                    yield (ind_filtered, ind_orig, np.copy(assembled), ev, number, scatter, numberfromfunc)
+                else:
+                    number = getphotons(assembled, thresholds)
+                    yield (ind_filtered, ind_orig, np.copy(assembled), None, number, None, numberfromfunc)
+            else: 
+                    yield (ind_filtered, ind_orig, np.copy(assembled), None, None, None, numberfromfunc)
+
+                    
             ind_filtered += 1
 
 
@@ -571,13 +579,11 @@ def main():
         accums = collections.defaultdict(lambda: accumulator(False))
 
         for detname, detinfo in dets.items():
-
-            # stats thread settings
-            #             mkl.set_num_threads(10)
-            #             numexpr.set_num_threads(6)
-            #             numba.set_num_threads(8)
-
             thresholds = get_thresholds(kalpha, detinfo.deltaelow, detinfo.deltaehigh, detinfo.maxphotons, detinfo.scatterphotons, np.nanmean(photonEnergy[shot_ok]))
+            if detinfo.photonsettings is not None:
+                photonfunction = parsephotonthresholds(detinfo.photonsettings)
+            else:
+                photonfuntion = None
             overwritedata(outfile, f'{detname}/thresholds', np.array(thresholds))
             print(f'doing detector {detname}: ')
             if not (detinfo.stats or detinfo.correlations):
@@ -594,7 +600,6 @@ def main():
 
             # load mask
             if args.maskfile is not None:
-                ##TODO
                 mask = np.array(maskfile[f'{detname}'])
             else:
                 mask = None
@@ -605,8 +610,8 @@ def main():
                 max_intensities = []
                 shot_skipped = np.zeros_like(shot_ok)
                 skipped = 0
-                for (ind_filtered, ind_orig, img, ev, photons, scatterphotons) in enumerate_detector(
-                    det, thresholds=thresholds, shot_ok=shot_ok, tiles=detinfo.tiles, nimages=np.inf, stats=True, correction=detinfo.correction
+                for (ind_filtered, ind_orig, img, ev, photons, scatterphotons, photonsfromsettings) in enumerate_detector(
+                    det, thresholds=thresholds, shot_ok=shot_ok, tiles=detinfo.tiles, nimages=np.inf, stats=True, correction=detinfo.correction, photonfunction=photonfunction
                 ):
                     if mask is None:
                         mask = np.ones(img.shape, bool)
@@ -618,6 +623,8 @@ def main():
                     else:
                         accums[f'{detname}/ev_photons'].add(ev)
                         accums[f'{detname}/photons'].add(photons)
+                        if photonsfromsettings is not None:
+                            accums[f'{detname}/photons_fromsettings'].add(photons)
                         accums[f'{detname}/scatterphotons'].add(scatterphotons)
 
                         intensities.append(np.sum(photons[mask]))
@@ -659,8 +666,8 @@ def main():
                 numexpr.set_num_threads(7)
                 numba.set_num_threads(7)
                 print('   doing normalisation:', end=' ', flush=True)
-                for (ind_filtered, ind_orig, img, ev, photons, _) in enumerate_detector(
-                    det, thresholds=thresholds, shot_ok=shot_ok, tiles=detinfo.tiles, nimages=args.nimages, stats=args.intv, correction=detinfo.correction
+                for (ind_filtered, ind_orig, img, ev, photons, _, photonsfromsettings) in enumerate_detector(
+                    det, thresholds=thresholds, shot_ok=shot_ok, tiles=detinfo.tiles, nimages=args.nimages, stats=args.intv, correction=detinfo.correction, photonfunction=photonfunction
                 ):
                     if args.intv:
                         accums[f'{detname}/ev_photons_shotintensitynormalised'].add(ev / intensities[ind_filtered] * np.mean(intensities))
@@ -671,6 +678,9 @@ def main():
                         img[img > (detinfo.maxphotons * kalpha + detinfo.deltaehigh)] = 0
                         img = img.astype(float)
                         accums[f'{detname}/ev_shotintensitynormalised'].add(img / intensities[ind_filtered] * np.mean(intensities))
+                    if photonsfromsettings is not None:
+                        accums[f'{detname}/photons_fromsettings_shotintensitynormalised'].add(photonsfromsettings / intensities[ind_filtered] * np.mean(intensities))
+
 
                 if not terminated:
                     print(ind_filtered + 1)
@@ -678,9 +688,9 @@ def main():
             # correlations
             if detinfo.correlations:
                 # corr thread settings
-                #                 numexpr.set_num_threads(8)
-                #                 mkl.set_num_threads(12)
-                #                 numba.set_num_threads(8)
+                mkl.set_num_threads(12)
+                numexpr.set_num_threads(7)
+                numba.set_num_threads(7)
 
                 norm = corr(mask.astype(float))
                 invroinorm = np.nan_to_num(1 / roi(norm))
@@ -689,8 +699,8 @@ def main():
                 if args.singleshotcorr:
                     tmpcorrelator = correlator(mask)
 
-                for (ind_filtered, ind_orig, img, ev, photons, _) in enumerate_detector(
-                    det, thresholds=thresholds, shot_ok=shot_ok, nimages=args.nimages, stats=args.intv, correction=detinfo.correction
+                for (ind_filtered, ind_orig, img, ev, photons, _, photonsfromsettings) in enumerate_detector(
+                    det, thresholds=thresholds, shot_ok=shot_ok, nimages=args.nimages, stats=args.intv, correction=detinfo.correction, photonfunction=photonfunction if args.discSettings else None
                 ):
                     with np.errstate(all='ignore'):
 
@@ -704,6 +714,9 @@ def main():
                             params.append((ev, accums[f'{detname}/ev_photons'].result, accums[f'{detname}/ev_photons_shotintensitynormalised'].result, 'interval'))
                         if args.disc:
                             params.append((photons, accums[f'{detname}/photons'].result, accums[f'{detname}/photons_shotintensitynormalised'].result, 'discrete'))
+                        if args.discSettings and photonsfromsettings is not None:
+                            params.append((photonsfromsettings, accums[f'{detname}/photons_fromsettings'].result, accums[f'{detname}/photons_fromsettings_shotintensitynormalised'].result, 'discrete_fromsettings'))
+
 
                         for img, accum, accum_shotintensitynormalised, name in params:
                             img[~mask] = 0
@@ -790,7 +803,7 @@ def main():
                 overwritedata(outfile, f'{k}/n', np.array(v.n, np.int64))
         if not terminated:
             print('copying', flush=True)
-            mask = np.copy(shot_ok)
+            mask = np.array(shot_ok, bool)
             maximg = np.searchsorted(np.cumsum(np.logical_and.reduce([shot_ok] + [~np.array(outfile['filtering'][k], bool) for k in outfile['filtering'].keys() if 'skipped' in k])), args.nimages + 1)
             mask[maximg:] = False
             # mask[:]=True #TESTING
@@ -841,6 +854,8 @@ if __name__ == "__main__":
     
     arg_correlation = parser.add_argument_group('correlations')
     arg_correlation.add_argument('--disc', default=False, dest='disc', action='store_true', help='discrete photon variants (use number of fluorescence photons)')
+    arg_correlation.add_argument('--discSettings', default=False, dest='discSettings', action='store_true', help='discrete photon variants (use number of fluorescence photons) from settings string')
+
     arg_correlation.add_argument('--cont', default=False, dest='cont', action='store_true', help='continuous variant (use ev values that are in 0.2*deltaelow..maxphotons*kalpha+deltaehigh)')
     arg_correlation.add_argument('--intv', default=False, dest='intv', action='store_true', help='interval variant (use ev values that are in the range around the kalpha peak)')
     arg_correlation.add_argument('--roi', default=50, dest='roi', metavar='pixel', type=int, help='roi size around center')
@@ -880,14 +895,14 @@ if __name__ == "__main__":
     detparser.add_argument('+photonsettings', type=str, default=args.photonsettings)
 
 
-    # detectorinfo2_t = collections.namedtuple('detectorinfo2', ['inputname','tiles','photons', 'correlations', 'maxphotons', 'scatterphotons', 'skipphotons', 'deltaelow', 'deltaehigh', 'correction'])
-
     if args.det is None:
         # TODO
         args.det = [['dual', 'both']]
     dets = {}
     for d in args.det:
         detargs = detparser.parse_args(d)
+        if args.discSettings and detargs.photonsettings is None:
+            warnings.warn(f'for discSettings a settings json string must be supplied, for {detargs.name} this is missing.')
         dets[detargs.name] = detectorinfo2_t(
             detargs.inputname,
             detargs.tiles,
