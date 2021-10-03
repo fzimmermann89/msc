@@ -29,7 +29,7 @@
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/spectrum_foil_fe.pdf}
 	\end{subfigure}
-	\caption[Spectra of fluorescence using foil samples ]{Spectra of fluorescence using foil samples (left for copper, right for iron) and best fit of the regression.}
+	\caption[Spectra of fluorescence using foil samples ]{Spectra of fluorescence using foil samples (left for copper, right for iron) and best fit of the regression using an approximated charge sharing.}
 	\label{fig:spectrafoil}
 \end{figure}
 
@@ -44,12 +44,17 @@
 	\begin{subfigure}[b]{0.30\textwidth}
 		\includegraphics[width=\linewidth]{images/thresholdsIronHigh.pdf}
 	\end{subfigure}
-	\caption[Spectra of fluorescence using foil samples with photon number classes]{Spectra of fluorescence using foil samples (black), and spectra of the models used for classification, colored by the assigned class of signal photon numbers. The initial values used are the average values found in the regression, for the sharing width the estimation $\sigma\approx\frac{1}{6} \left(1-\sqrt{1-\rho }\right)$ is used and some minor adjustments were made to achieve a better fit with the more precise charge sharing simulation. The final values used are show in \fref{tab:fitvalues}.}
+	\caption[Spectra of fluorescence using foil samples with photon number classes]{Spectra of fluorescence using foil samples (black), and spectra of the final regression models used for classification, colored by the assigned class of signal photon numbers. The initial values used for the regression are the average values found in the regression using approximated charge sharing, for the sharing width the estimation $\sigma\approx\frac{1}{6} \left(1-\sqrt{1-\rho }\right)$ is used.  The final values of the regression used for classification of photon events are show in \fref{tab:fitvalues}.}
 	\label{fig:thresholdsfoil}
 \end{figure}
-\begin{table}[]
+\begin{figure}
+	\includegraphics[width=\linewidth]{images/foil_photonmodes.pdf}
+	\label{fig:foil_photonmodes}
+	\caption[Effect of discretizing the signal into photons]{Effect on the reconstruction of discretizing the signal into photons: For two foils at focal position,  correlations of the continuous, thresholded values read by the detector as well as  correlations after discretizing into photons are shown. Artifacts caused by charge sharing (for example diagonally neighboring pixels being correlated, visible as a square in the center) and other detector imperfections are greatly reduced by discretizing.}
+\end{figure}
+\begin{table}[h]
 	\centering
-	\caption{Parameters for simulated spectra used to find thresholds.}
+	\caption[Parameters for simulated spectra used to find thresholds]{Parameters for simulated spectra used to find thresholds. $E_{sig}$/$E_{scat}$ denote the energy of the signal/scattering background photons, $p_{sig}$/$p_{\beta}$/$p_{scat}$ the probability of a signal/K$_{\beta}$/scattering photons, $\sigma_{scat}$ the width (standard deviation) of the (approximated as Gaussian) scattering peak, $\sigma_{det}$ the standard deviation of (assumed as Gaussian) broadening due to detector noise and $\sigma_{sharing}$ the width of the charge sharing cloud.  As the $K_beta$ peak can be distinguished as a shoulder in the Copper spectra, $K_{\beta}$ is considered as noise there and treated like the scattering noise in the classification, resulting in tighter final thresholds ()resulting in partial rejection of  $K_{\beta}$) compared to counting those photons as signal.}
 	\label{tab:fitvalues}
 		\tiny
 	\begin{adjustwidth}{-2em}{-2em}	
@@ -61,10 +66,10 @@
 	Iron High         &          6340 &       2.5e-02 &     1.5e-01 &          10700 &        1.5e-05 &                 500 &                &                &             420 &  20 &             3.5e-02 &                 False \\
 	Iron Low          &          6320 &       3.3e-03 &     1.5e-01 &          10570 &        3.0e-06 &                 380 &           8000 &        3.7e-05 &             350 &  20 &             3.0e-02 &                 False \\
 	\bottomrule
-
 \end{tabular}
 \end{adjustwidth}
 \end{table}
+
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/kossel_gaas.png}
