@@ -1,7 +1,7 @@
 \chapter{Experimental Verification}
 An initial experimental proof of principle experiment was performed at the SACLA FEL.
 The experiments consisted of three parts: First, reproducing XXX and imaging projection of the focal volume of the FEL by using metal foils as samples, performing a measurement of the K$\alpha$  fluorescence and an reconstruction in the small angle regime. Second, moving the a smaller length scale and try to image nanoparticles. And Third, leaving the small angle regime and record the fluoresccne of a single crystal and perform a reciprocal space reconstruction.
-\section{Sample Preparation}
+\section{Sample Preparation and Characterization}
 As an nanoparticle sample, spherical iron oxide nanoparticles where chosen. To improve the number of detected fluorescence photons per FEL shot, the decision was made to have many particles many for each shot within the focus. This ensures a higher number of fluorescence photons recorded and basically eliminates the possibility of having shots without any particles inside the focus. 
 
 Magnetite Nanoparticles coated with Oleic Acid dispersed in Toluene were bought from NN-Labs, inhibited Methylmethacrylate (MMA) and Etyhlhexylmethacrylate (EHMA)  (Sigma Aldrich) were filtered using a prefilled column to remove the Inhibitor,  2,2-azo-bis-isobutyrylnitrile (AIBN) (Sigma Aldrich) was used as thermally activated radical initiator as received. Polystyrene (Sigma Aldrich, MW XXX) was used as received. As solvents, Methanol, Toluene and Chloroform were used.
@@ -24,8 +24,8 @@ As an iron containing control sample, 60mg FeCl3 and XXX Polystyrene were dissol
 	\end{tabular}
 \end{table}
 
-\subsection{Nanoparticles in Poly(MMA/EHMA)  Matrix}
-As a second nanoparticle in polymer sample, a AIBN initiated Poly(MMA/EHMA) polymerisation with magnetite nanoparticles was performed. 
+\subsection{Nanoparticles in Poly(methyl methacrylate/etylhexyl methacrylate)  Matrix}
+As a second nanoparticle in polymer sample, an Azobisisobutyronitrile (AIBN) initiated methyl methacrylate (MMA)/etylhexyl methacrylate (EHMA) polymerisation with magnetite nanoparticles was performed. 
 The nanoparticle solution was concentrated to XXX in toluene by precipitation, centrifugation and redispersion. To account for the different iron concentration, to different amounts of the nanoparticle solution and additional toluene, 800\,ul of EHMA was added each (see \fref{tab:sampleCP}). After strong sonication to ensure dispersion, 3.2\,ml of MMA were added and the solution was bubbled with N$_2$ for 5\,min. To start the polymerisation, 20\,mg of AIBN were added and the solution was bubbled again with N$_2$  for 10\,min before heating it up to XXX using a water bath under weak sonication using a sonic bath. The mixture was kept at XXX for XXX.
 The vials were uncapped and the polymer dried for 12h at XXX. The polymer was removed from the vials and cut into slices of approximatly XXX thickness using a slow spinning diamond saw.
 As a control sample, the polymerisation was performed without any nanoparticles added.
@@ -48,7 +48,7 @@ As a control sample, the polymerisation was performed without any nanoparticles 
 \end{table}
 
 \subsection{Nanoparticle Sample Characterisation}
-Before sample preparation, the iron oxide nanoparticles as received were diluted with Toluene, deposited on a silicon nitride membrane and imaged using a FEI Tecnai microscope  (see \fref{fig:tem}).  For each of the three nominal sizes, 3 different areas on the membrane were analyzed using ImageJ, resulting in mean radii of 8.3$\pm$1.7\,nm ("20\,nm") 4.1$\pm$0.8 \,nm	("10\,nm") 3.1$\pm$0.6\,nm ("5\,nm"). In the TEM images, the effect of the oleic acid ligands used to stabilize the nanoparticle dispersion  can be seen as the inter-particle distance.
+Before sample preparation, the iron oxide nanoparticles as received were diluted with Toluene, deposited on a silicon nitride membrane and imaged using a FEI Tecnai microscope  (see \fref{fig:tem}).  For each of the three nominal sizes, 3 different areas on the membrane were analyzed using ImageJ, resulting in mean radii of 8.3$\pm$1.7\,nm (nominal "20\,nm" diameter) 4.1$\pm$0.8 \,nm	("10\,nm" diameter) 3.1$\pm$0.6\,nm ("5\,nm"). In the TEM images, the effect of the oleic acid ligands used to stabilize the nanoparticle dispersion  can be seen as the inter-particle distance.
 
 \begin{figure}[tp]
 	\centering
@@ -145,7 +145,7 @@ The image to focus,
 \paragraph{Imaging Nanoparticles}
 \paragraph{Imaging Crystals}
 
-\section{Data Processing}
+\section{Data Processing and Analysis}
 As the amount of recorded data is huge, an efficient strategy for filtering on shots, preprocessing the data to eliminate interference and finally reconstruction has to be implemented.
 \subsection{Preprocessing}
 
@@ -166,7 +166,7 @@ As the amount of recorded data is huge, an efficient strategy for filtering on s
 	\begin{subfigure}{0.2\textwidth}
 		\includegraphics[width=\linewidth]{images/mask_octal.png}
 	\end{subfigure}
-	\caption[Usable detector area]{Usable detector area (gray) of the dual (left) and octal (right) detector after signal correction and statistical filtering. Only the intersection of good areas for each run will be used. This way the same mask and number of correlation pairs will be used for samples that will be compared to each other.}	
+	\caption[Usable detector area]{Usable detector area (gray) of the Dual detector for foil samples (left) and the Octal detector (right) for nanoparticle samples) after signal correction and statistical filtering. Masks are created by considering the intersection of good areas for each run, in order be able to use the mask and therefor number of correlation pairs for samples that will be compared to each other.}	
 \end{figure}
 
 \paragraph{Shot filtering}
@@ -321,10 +321,57 @@ The reconstruction if performed once without discretization and only applying a 
 The excited volume can in the horizontal direction be approximated as a rectangular function with a width of $\sqrt{2}$-times the thickness of the foil used, due to the 45° angle, if the (horizontal) FWHM of the focus is much smaller than the thickness of the foil and ignoring absorption.  In the vertical direction, the volume is limited by the (vertical) FWHM of the focus and can be (roughly) approximated to be Gaussian. 
 In the small angle approximation, the reconstruction is the magnitude squared of the 2D Fourier transform of the volume (see XXX). As the magnitude squared of the Fourier transform of a Gaussian with FWHM $f$ is another Gaussian with FWHM $\frac{4\sqrt{2}\log{2}}{f}$ and the magnitude squared of the Fourier transform of a rectangular function with width $w$ is proportional to $\sinc^2{\left(\frac{q w}{2}\right)}$
 \footnote{If the foil were thicker, the absorption length $a$ could not be ignored and the more complicated $\left|\mathscr{F}\left(e^{-\frac{x}{a}} \Pi \left(\frac{x}{w}\right)\right)\right|^2 \propto \frac{\cosh \left(\frac{w}{a}\right)-\cos (q w)}{a^2 q^2+1}$
- could be used instead.}, a 2D least-squares regression of the product of those functions is performed with the reconstructed image to estimate the focal FWHM \cite{butz2015}. As the horizontal direction is under sampled, the horizontal profile will not be resolved in the reconstruction. To account for the binning in the reconstruction, the function used for the regression is sampled at 25x the resolution in both directions and averaged (corresponding to a convolution with an rectangular sampling kernel). 
-\subsubsection{Filtering}
+ could be used instead.}, a 2D least-squares regression of the product of those functions is performed with the reconstructed image to estimate the focal FWHM \cite{butz2015}. As the horizontal direction is under sampled, the horizontal profile will not be resolved in the reconstruction. To account for the binning in the reconstruction, the function used for the regression is sampled at 25x the resolution in both directions and averaged (corresponding to a convolution with an rectangular sampling kernel), reducing the effect of under sampling on the values determined by the regression. Furthermore, a rotation parameter is introduced to account for slight misalignment of the detector.
+
+For a 5\,um Copper foil placed at three different positions, at the nominal focus and two positions further upstream, results of the auto-correlation reconstruction are shown in \fref{fig:Cu5umreco2d}.
+The regression allows an estimation of the focal width in vertical direction at nominal focus of (240$\pm$20)\,nm and while defocused by 250\,um of (380$\pm$40)\, nm (the stated errors only include regression uncertainty).
+In \fref{fig:fereco2d} the results for 10\,um and 500\,nm iron foils as well as an example of the result of the regression is shown.
+For all three foils, the signal amplitude in focal position determined by regression is 0.004$\pm$0.001 and no significant difference between iron and copper can be observed. 
+
+The observed intensity correlation is a factor of 2-4 less than previously measured by Inoue et al \cite{inoue2019}. This might be the combination of a longer pulse length and the only partially by the regression corrected undersampling. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/Cu5um_reco2d.pdf}
+	\caption{Results for the 5\,um copper foil placed at the focus as well as at two positions outside the focus (along the X-ray beam) }
+	\label{fig:Cu5umreco2d}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.9\textwidth}
+		\includegraphics[width=\linewidth]{images/Fe10um_reco2d.pdf}
+		\caption{10\,um iron foil}
+		\label{fig:fe10umreco2d}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.9\textwidth}
+		\includegraphics[width=\linewidth]{images/Fe500nm_reco2d.pdf}
+		\caption{500\,nm iron foil}
+		\label{fig:fe500nmreco2d}
+	\end{subfigure}
+	\caption[Results Iron Foils]{\textbf{(a)} Results for the 10\,um iron foil placed at the focus as well as outside the focus (along the X-ray beam) and the result obtained by regression on the nominal focus data with fixed true horizontal dimension. This is used to extrapolate the peak amplitude in the masked areas. \textbf{(b)} Results for the 500\,nm Iron foil at focus as well as at two defocused positions. The SNR is low and the signal almost indistinguishable from noise.}
+	\label{fig:fereco2d}
+\end{figure}
+
+As the 5\,um and 10\,um foils suffer from severe undersampling along the horizontal direction, for comparison the results for an 500\,um Iron are shown in \fref{fig:fe500nmreco2d}. Even though the effect is just barley visible, due to the much lower number of photons from such a thin sample and therefore lower SNR for the same number of images used, the result shows a broader peak in the horizontal direction, as expected.
 
 \subsection{Imaging Nanoparticles}
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.8\textwidth}
+		\includegraphics[width=\linewidth]{images/resultnano.pdf}
+		\caption{Radial Profiles}
+		\label{fig:resnanorad}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.9\textwidth}
+		\includegraphics[width=\linewidth]{images/resultnano2d.pdf}
+		\caption{Images}
+		\label{fig:resnano2d}
+	\end{subfigure}
+	\caption[Results Nanoparticles]{\textbf{(a)} Radial profiles of the calculated $g^2$ of the images recorded with the Octal detector and the standard error of the mean. None of the expected features are visible. \textbf{(b)} 2d images of $g^2$ for two nanoparticle-in-copolymer samples in comparison to two different baseline samples: (mostly homogeneous in the polymer distributed) iron chloride and the polymer matrix without any added iron. The detector artifacts are almost completely removed.}
+	\label{fig:resnano}
+\end{figure}
+Using a sample with just the polymer, without any added iron (neither nanoparticles nor atomic), the influence of air scattering on the correlations can be examined, using an iron chloride in polymer sample, there are rougly equal amounts photons at the iron K-energy as in the nanoparticle samples and the effect of uncorrected detector artifacts could be seen. Neither seem to causes a strong correlation signal (see \fref{fig:resnano2d}). 
 \subsubsection{Filtering}
 \subsection{Imaging Crystals}
 
