@@ -144,46 +144,26 @@ quasi-monochromatic but spatially incoherent light source is proportional to the
 \end{equation}
 with the source volume $S$ and intensity distribution $I_s$, total source intensity $I_0=\int I_s(\vec{r}) \difc \vec{r}$ and distances $R_{1,2}=\left|\vec{r}_{1,2}-\vec{r}\right|$.
 %-Hanbury Brown and Twist
-\section{Hanburry Brown Twiss}
-Hanburry Brown and Twiss 
 
-
-\paragraph{Siegert Relation}
-For thermal light, 
-\begin{equation}
-	g_2(\vec{r_1},\vec{r_2}) = 1+ |g_1(\vec{r_1},\vec{r_2}) |^2 ,
-\end{equation}
-which is called the Siegert Relation.
-For $N$ Single-Photon-Emitters, a similiar form holds \cite{classen2017}:
-\begin{equation}
-	g_2(\vec{r_1},\vec{r_2}) = 1+ |g_1(\vec{r_1},\vec{r_2}) |^2 - \frac{2}{N} ,
-\end{equation}
-As, as according to the van Cittert Zernicke theorem \fref{eq:vcz}, $g_1$ encodes structural information, 
-\begin{equation}
-g_1(\vec{k_1},\vec{k_2}) \propto \mathscr{F}S(\vec{r}) = S(\vec{q})
-\end{equation}
-the difference of the intensity-intensity correlation from unity is proportional (with a contrast determining constant $\beta$) to the Fourier transform of the arrangement of emitters with $q=\vec{k_1}-\vec{k_2}$ (see \fref{fig:scatteringvectors}).
- \begin{figure}
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/scatteringvectors.pdf}
-	\caption[Scattering Vectors]{Scattering vector $q$ in CDI (left) and IDI (right). In CDI, $q$ is the momentum transfer between incoming and outgoing wave. In IDI, there is no momentum transfer from the incoming to the outgoing wave. Instead, intensity correlations of different $k_1$, $k_2$ give a momentum transfer $\delta q$ according to the Siegert relation.}
-	\label{fig:scatteringvectors}
-	
-\end{figure}
 
 %-Single Photon Emitters/2nd Quant description
 %(siehe Referenzen in Schaller/resonance fluorescence)
 %-Fluorescence g2
 %$2 Level with finite Lifetime -> Spectrum of fluorescence
-\section{X-Ray Fluorescence}
+%\section{X-Ray Fluorescence}
+
+
+
+\section{Intensity Correlations of X-Ray Fluorescence}
+\subsection{X-Ray Fluorescence}
 \begin{figure}
 	\centering
-	 \begin{subfigure}[b]{0.35\textwidth}
+	\begin{subfigure}[b]{0.35\textwidth}
 		\includegraphics[width=\linewidth]{images/levels.pdf}
 		\caption[Atomic Levels]{Atomic levels and associated X\nobreakdash-Ray energies}
 		\label{fig:levels}
 	\end{subfigure}
-	 \begin{subfigure}[b]{0.45\textwidth}
+	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/crosssectionFe.pdf}
 		\caption[Cross Sections]{X-ray Cross Sections for Iron. Data from xraylib \cite{xraylib}}
 		\label{fig:cross}
@@ -205,11 +185,93 @@ the difference of the intensity-intensity correlation from unity is proportional
 		As      & 11867                                                  & 10543.7                                                & 3.08                                                 & 10508.0                                                & 3.17                                                 & 0.51                                                      & 11724.3                                               & 0.19                                                      \\ \hline
 	\end{tabular}
 \end{table}
-\section{Intensity Correlations using X-Ray Fluorescence}
+\section{Hanburry Brown Twiss}
+Hanburry Brown and Twiss 
+
+
+\paragraph{Siegert Relation}
+For thermal light, 
+\begin{equation}
+	g_2(\vec{r_1},\vec{r_2}) = 1+ |g_1(\vec{r_1},\vec{r_2}) |^2 ,
+\end{equation}
+which is called the Siegert Relation.
+For $N$ Single-Photon-Emitters, a similiar form holds \cite{classen2017}:
+\begin{equation}
+	g_2(\vec{r_1},\vec{r_2}) = 1+ |g_1(\vec{r_1},\vec{r_2}) |^2 - \frac{2}{N} ,
+\end{equation}
+As, as according to the van Cittert Zernicke theorem \fref{eq:vcz}, $g_1$ encodes structural information, 
+\begin{equation}
+	g_1(\vec{k_1},\vec{k_2}) \propto \mathscr{F}S(\vec{r}) = S(\vec{q})
+\end{equation}
+the difference of the intensity-intensity correlation from unity is proportional (with a contrast determining constant $\beta$) to the Fourier transform of the arrangement of emitters with $q=\vec{k_1}-\vec{k_2}$ (see \fref{fig:scatteringvectors}).
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/scatteringvectors.pdf}
+	\caption[Scattering Vectors]{Scattering vector $q$ in CDI (left) and IDI (right). In CDI, $q$ is the momentum transfer between incoming and outgoing wave. In IDI, there is no momentum transfer from the incoming to the outgoing wave. Instead, intensity correlations of different $k_1$, $k_2$ give a momentum transfer $\delta q$ according to the Siegert relation.}
+	\label{fig:scatteringvectors}
+	
+\end{figure}
+
+\section{Photon Statistics}
+Consider a complex sum of phasors of constant amplitude $A$ and independent uniformly in $(-\pi,\pi)$distributed phases $\phi_k$,
+\begin{align}
+	c=\sum^N_k A e^{i\phi_k}
+\end{align}
+For sufficiently large numbers of $N$, the real and imaginary parts
+\begin{align*}
+	r&=\Re c =  A \sum^N_k \cos(\phi_k)\\
+	i&= \Im c =A \sum^N_k \sin(\phi_k)
+\end{align*}
+will (by Central Limit Theorem) be Gaussian random variables with zero mean and variance $\sigma^2=\frac{N}{2}A^2$ and the probability distribution of the amplitude $a=\sqrt(a^2+i^2)$ will  therefore be the Rayleigh distribution
+\begin{equation}
+	p(a)=\frac{1}{2\pi\sigma^2} a e^{\frac{a^2}{2\sigma^2}}
+\end{equation}
+and  $I=\left|a\right|^2$ will  follow an exponential distribution
+\begin{equation}
+	\label{eq:expdistr}
+	p(I)=\frac{ e^{-I/\overline{I}}}{\overline{I}}
+\end{equation} 
+with mean $\overline{I}$ and standard deviation $\sigma=\overline{I}$  \cite{goodman2000,goodman1976}.
+A sum of $M$ uncorrelated random variables following identical distributions given by \fref{eq:expdistr} follows a Gamma distribution,
+\begin{equation}
+	\label{eq:gammadistr}
+	p(I)=\frac{I^{M-1} e^{-I/\overline{I}}} {\overline{I}^M \Gamma(M)},
+\end{equation}
+for a positive integer $M$ this simplifies with $\Gamma(M)=(M-1)!$ to an Erlang distribution  \cite{forbes2010,trost2020}.
+If $I$ is distributed like \fref{eq:gammadistr} and furthermore Poisson sampled as discrete $k$ (such as photon counts), it follows  an negative binomial distribution,
+\cite{trost2020,mandel1959,holmes2019}
+\begin{equation}
+	p(k)=
+	\frac{\Gamma(k+M)}{\Gamma(M)\Gamma(k+1) }
+	\left( 1+\frac{1}{\overline{I}}
+	\right)^{-k}
+	\left( 1+\overline{I}
+	\right)^{-M}
+\end{equation}
+with mean $\mu=M\overline{I}$ and variance $\mu+\frac{\mu^2}{M}$ (which is higher than the variance of the Poisson distribution $\mu$ ).
+
+This probability distribution can be compared to an experimental measured photon count distribution and the number of modes present in the measurement can be estimated by a regression for small mode numbers \cite{lehmkuhler2014,yun2019}. 
+For low photon numbers, a simplified approach can be used by only considering single- and two-photon events: By considering the ratio of the probabilities of those events, $p(1) / p(2)$,  an expression for the number of modes can be found, which can be simplified with a low intensity approximation $\mu\approx p(1)+2p(2)+O(\mu^2)$ to 
+\begin{equation}
+	M=\frac{\mu  (p(1)-2 p(2))}{2 p(2)-\mu  p(1)}\approx \frac{p(1)^2}{2 p(2) (1-p(1))-p(1)^2}
+	\label{eq:modesp1p2}
+\end{equation}
+as an estimation for the number of modes.
+If $p(1)$ and $p(2)$ are estimated as $p'_1$ and $p'_2$ based on the frequency in experimental observations, the uncertainty of the mode estimate can be estimated as 
+$\Delta M \lesssim \frac{2 p'_1}{\left({p'_1}^2+2 (p'_1-1) p'_2\right)^2} \left(\Delta p'_1 (2-p'_1) p'_2+\Delta p'_2 (1-p'_1) p'_1\right)$.
+
+The variance of a product of (uncorrelated) photon counts following this distribution will have a variance of
+\begin{equation}
+	\Var_{p\cdot p}= \Var_p^2 +2 \mu^2\Var_p	= \mu^4 \frac{2 M + 1}{M^2 + 2}+ \mu^3 \frac{M+1}{M} + \mu^2 \,.
+\end{equation}
+
+Following the idea of Trost et. al, this can be used so estimate the noise of an intensity correlation measurement, even though the actual signal will break the assumption of having uncorrelated photon counts \cite{trost2020}.
+
+
 \section{Signal to Noise Considerations}
 
 The Signal to Noise characteristics of the method are determined by the noise and the signal:
-The signal strength is determined by $g_1$, which is dependent and the sample and the contrast of the recorded speckle image, whereas the noise in the measurement will consist of three parts: First, noise inherent to IDI caused by the random distribution of phases, second, the poissonian noise caused by quantized photons, and third, experimental noise. 
+The signal strength is determined by $g_1$, which is dependent and the sample and the contrast of the recorded speckle image, whereas the noise in the measurement will consist of three parts: First, noise inherent to IDI caused by the random distribution of phases, second, the poissonian noise caused by quantized photons, and third, experimental noise \cite{trost2020, goodman2007}. 
 
 \subsection{Signal}
 The speckle contrast $\beta$ is governed by the number of independent modes $M$ overlaid in the measurement \cite{goodman2000}.
@@ -217,7 +279,7 @@ The speckle contrast $\beta$ is governed by the number of independent modes $M$ 
 \beta =\tfrac{1}{M}
 \end{equation}
 
-If the measurement is performed over a finite amount of time the number of temporal degrees of freedom is
+If the measurement is performed over a finite amount of time, the number of temporal degrees of freedom is
 \begin{equation}
 M_t=\frac{\left(\int_{-\infty}^{\infty} P(t)\diff t\right)^2}{\int_{-\infty}^{\infty} K(t) \left|\mu(t)\right|^2\diff t}
 \label{eq:modes}
@@ -252,12 +314,13 @@ e^{-\frac{(t-t^{\prime})^2}{2\sigma^2}}\diff t^{\prime}
 	\right] ,
 	\label{eq:pfull}
 	\end{align}
-	An approximation can be made if the pulse length is long in comparison to the coherence time, simplifying the autocorrelation of $P$ to
+	An approximation can be made if the pulse length is long in comparison to the coherence time, simplifying the auto-correlation of $P$ to
 \begin{align}
-K(t)=\int_{-\infty}^\infty \frac{1}{4
+K(t)&=\int_{-\infty}^\infty \frac{1}{4
 	\tau ^2}e^{-\frac{t^2}{2 \sigma ^2}-\frac{(t+t')^2}{2 \sigma ^2}}
 \erfcx\left(\frac{\sigma^2 -t \tau }{\sqrt{2} \tau \sigma}\right)
-\erfcx\left(\frac{\sigma^2 -\tau  (t+t')}{\sqrt{2} \tau \sigma }\right) \diff t'&\stackrel{\tau \rightarrow 0}{\approx} \frac{1}{2\sqrt{\pi}\sigma} e^{-\left(\frac{t}{2\sigma}\right)^2} 
+\erfcx\left(\frac{\sigma^2 -\tau  (t+t')}{\sqrt{2} \tau \sigma }\right) \diff t' \nonumber \\
+&\stackrel{\tau \rightarrow 0}{\approx} \frac{1}{2\sqrt{\pi}\sigma} e^{-\left(\frac{t}{2\sigma}\right)^2} 
 \label{eq:kapprox}
 \end{align}
 with the scaled complementary error function\footnote{To numerically evaluate \fref{eq:mgauss}, \fref{eq:pfull} and integrals involving them, the introduction of the scaled complementary error function and switching to a sufficient approximation is beneficial to avoid under- or overflow of the numerical representation of either the exponential or the error function term.} $\erfcx(x)=e^{x^2}\erfc(x)\stackrel{x\gg1}{\approx}  \frac{1}{\sqrt{\pi}x}$
@@ -313,61 +376,6 @@ Therefore, in \fref{chap:simulation}  simulations under different conditions wit
 
 \label{chap:theory}
 
-
-\section{Statistics}
-Consider a complex sum of phasors of constant amplitude $A$ and independent uniformly in $(-\pi,\pi)$distributed phases $\phi_k$,
-\begin{align}
-c=\sum^N_k A e^{i\phi_k}
-\end{align}
-For sufficiently large numbers of $N$, the real and imaginary parts
-\begin{align*}
-r&=\Re c =  A \sum^N_k \cos(\phi_k)\\
-i&= \Im c =A \sum^N_k \sin(\phi_k)
-\end{align*}
-will (by Central Limit Theorem) be Gaussian random variables with zero mean and variance $\sigma^2=\frac{N}{2}A^2$ and the probability distribution of the amplitude $a=\sqrt(a^2+i^2)$ will  therefore be the Rayleigh distribution
-\begin{equation}
-p(a)=\frac{1}{2\pi\sigma^2} a e^{\frac{a^2}{2\sigma^2}}
-\end{equation}
-and  $I=\left|a\right|^2$ will  follow an exponential distribution
-\begin{equation}
-\label{eq:expdistr}
-p(I)=\frac{ e^{-I/\overline{I}}}{\overline{I}}
-\end{equation} 
-with mean $\overline{I}$ and standard deviation $\sigma=\overline{I}$  \cite{goodman2000,goodman1976}.
-A sum of $M$ uncorrelated random variables following identical distributions given by \fref{eq:expdistr} follows a Gamma distribution,
-\begin{equation}
-\label{eq:gammadistr}
-p(I)=\frac{I^{M-1} e^{-I/\overline{I}}} {\overline{I}^M \Gamma(M)},
-\end{equation}
-for a positive integer $M$ this simplifies with $\Gamma(M)=(M-1)!$ to an Erlang distribution  \cite{forbes2010,trost2020}.
-If $I$ is distributed like \fref{eq:gammadistr} and furthermore Poisson sampled as discrete $k$ (such as photon counts), it follows  an negative binomial distribution,
-\cite{trost2020,mandel1959,holmes2019}
-\begin{equation}
-p(k)=
-\frac{\Gamma(k+M)}{\Gamma(M)\Gamma(k+1) }
-\left( 1+\frac{1}{\overline{I}}
-\right)^{-k}
-\left( 1+\overline{I}
-\right)^{-M}
-\end{equation}
-with mean $\mu=M\overline{I}$ and variance $\mu+\frac{\mu^2}{M}$ (which is higher than the variance of the Poisson distribution $\mu$ ).
-
-This probability distribution can be compared to an experimental measured photon count distribution and the number of modes present in the measurement can be estimated by a regression for small mode numbers \cite{lehmkuhler2014,yun2019}. 
-For low photon numbers, a simplified approach can be used by only considering single- and two-photon events: By considering the ratio of the probabilities of those events, $p(1) / p(2)$,  an expression for the number of modes can be found, which can be simplified with a low intensity approximation $\mu\approx p(1)+2p(2)+O(\mu^2)$ to 
-\begin{equation}
-	M=\frac{\mu  (p(1)-2 p(2))}{2 p(2)-\mu  p(1)}\approx \frac{p(1)^2}{2 p(2) (1-p(1))-p(1)^2}
-	\label{eq:modesp1p2}
-\end{equation}
-as an estimation for the number of modes.
-If $p(1)$ and $p(2)$ are estimated as $p'_1$ and $p'_2$ based on the frequency in experimental observations, the uncertainty of the mode estimate can be estimated as 
-$\Delta M \lesssim \frac{2 p'_1}{\left({p'_1}^2+2 (p'_1-1) p'_2\right)^2} \left(\Delta p'_1 (2-p'_1) p'_2+\Delta p'_2 (1-p'_1) p'_1\right)$.
-
-The variance of a product of (uncorrelated) photon counts following this distribution will have a variance of
-\begin{equation}
-\Var_{p\cdot p}= \Var_p^2 +2 \mu^2\Var_p	= \mu^4 \frac{2 M + 1}{M^2 + 2}+ \mu^3 \frac{M+1}{M} + \mu^2 \,.
-\end{equation}
-
-Following the idea of Trost et. al, this can be used so estimate the noise of an intensity correlation measurement, even though the actual signal will break the assumption of having uncorrelated photon counts \cite{trost2020}.
 
 
 
