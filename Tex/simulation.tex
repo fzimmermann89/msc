@@ -17,7 +17,7 @@ Ultimately, the results of these simulations were used the determine the feasibi
 
 
 
-\section{Time independent Simulations}
+\section{Time Independent Simulations}
 In an infinite coherence time, stationary sources approximation, the simulation of the speckle pattern can be performed time independently the superposition of scaler electrical fields emitted with random phases. The simulation of the intensity at multiple discrete points can be performed in parallel using GPU acceleration, resulting in a simple and fast to evaluate model.
 
 
@@ -334,4 +334,8 @@ The result of a simulation for a thick 5\,um Copper foil, rotated 45° with resp
 	\centering
 	\includegraphics[width=0.5\linewidth]{images/sim_foil5umCu_shared.pdf}
 	\label{fig:simfoil}
+	\caption{Simulation result for a metal foil placed in a 200\,nm focus viewed perpendicular to the incoming FEL beam. No correction for charge sharing is applied. The center pixel is masked, as $g^2(0)-1\approx 
+		\frac{1}{M}+\frac{1}{\mu}$ is dominated by the mean count and does 
+		not carry spatial information.}
 \end{figure}
+
