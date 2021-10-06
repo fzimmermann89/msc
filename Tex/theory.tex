@@ -155,8 +155,9 @@ with the source volume $S$ and intensity distribution $I_s$, total source intens
 
 
 \section{Intensity Correlations of X-Ray Fluorescence}
-\subsection{X-Ray Fluorescence}
-\begin{figure}
+\paragraph{X-Ray Fluorescence}
+ X-ray fluorescence is emitted if atoms are ionised leaving holes in the inner shell, which are subsequently filled by electrons of higher energy levels and the energy difference is emitted as photons (see \fref{fig:levels} for the usual naming convention). In the experimental section, iron, copper and gallium are the most relevant atoms considered. The relevant emission energies, the line widths and relative intensities are shown in \fref{tab:elements}.   Roughly, the $K_\alpha$ line widths correspond to coherence times in XXX range.
+\begin{figure}[h]
 	\centering
 	\begin{subfigure}[b]{0.35\textwidth}
 		\includegraphics[width=\linewidth]{images/levels.pdf}
@@ -170,9 +171,8 @@ with the source volume $S$ and intensity distribution $I_s$, total source intens
 	\end{subfigure}
 \end{figure}
 
-
-\begin{table}[]
-	\caption[X-Ray Energies]{X-Ray Energies of some relevant elements. }
+\begin{table}[h]
+	\caption[X-Ray Energies]{X-ray energies and line widths of some relevant elements \cite{xraylib,krause1979}.  }
 	\label{tab:elements}
 	\small
 	\begin{tabular}{l|l|ll|lll|ll}
@@ -180,11 +180,12 @@ with the source volume $S$ and intensity distribution $I_s$, total source intens
 		Element & K$_{edge}$                                             & \multicolumn{2}{c}{K${_\alpha 1}$}                                                                           & \multicolumn{3}{c}{K${_\alpha 2}$}                                                                                                                                       & \multicolumn{2}{c}{K${_\beta 1,3}$}                                                                              \\
 		& \begin{tabular}[c]{@{}l@{}}Energy \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}FWHM \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy\\  / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}FWHM \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}rel. \\ Intensity\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy\\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}rel. \\ Intensity\end{tabular} \\ \hline
 		Fe      & 7112                                                   & 6403.8                                                 & 1.61                                                 & 6390.8                                                 & 1.62                                                 & 0.50                                                      & 7058.0                                                & 0.17                                                      \\
-		Cu      & 8979                                                   & 8,047.8                                                & 2.11                                                 & 8,027.8                                                & 2.17                                                 & 0.51                                                      & 8905.3                                                & 0.17                                                      \\
+		Cu      & 8979                                                   & 8047.8                                                & 2.11                                                 & 8,027.8                                                & 2.17                                                 & 0.51                                                      & 8905.3                                                & 0.17                                                      \\
 		Ga      & 10367                                                  & 9251.7                                                 & 2.59                                                 & 9224.8                                                 & 2.66                                                 & 0.51                                                      & 10263.9                                               & 0.71                                                      \\
 		As      & 11867                                                  & 10543.7                                                & 3.08                                                 & 10508.0                                                & 3.17                                                 & 0.51                                                      & 11724.3                                               & 0.19                                                      \\ \hline
 	\end{tabular}
 \end{table}
+\FloatBarrier
 \section{Hanburry Brown Twiss}
 Hanburry Brown and Twiss 
 
