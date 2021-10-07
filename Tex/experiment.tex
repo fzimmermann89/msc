@@ -334,7 +334,7 @@ The observed intensity correlation is a factor of 2-4 less than previously measu
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\linewidth]{images/Cu5um_reco2d.pdf}
+	\includegraphics[width=0.9\linewidth]{images/Cu5um_reco2d.pdf}
 	\caption{Results for the 5\,um copper foil placed at the focus as well as at two positions outside the focus (along the X-ray beam) }
 	\label{fig:Cu5umreco2d}
 \end{figure}
@@ -357,20 +357,29 @@ The observed intensity correlation is a factor of 2-4 less than previously measu
 
 As the 5\,um and 10\,um foils suffer from severe undersampling along the horizontal direction, for comparison the results for an 500\,um Iron are shown in \fref{fig:fe500nmreco2d}. Even though the effect is just barley visible, due to the much lower number of photons from such a thin sample and therefore lower SNR for the same number of images used, the result shows a broader peak in the horizontal direction, as expected.
 
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\linewidth]{images/energy_binned.pdf}
+	\caption[Excitation energy binned reconstruction]{$g^2$ reconstructions using a 5\,um copper foil placed at the focus as the sample. The reconstructions have been performed on 4000 images each (10\% of all good shots recorded for this sample, see histogram on the left)  selected by excitation pulse energy estimates by upstream energy detectors as surrogate for the pulse length, similar to \cite{inoue2019}. Regression of the amplitude as (as described in the main text) shows a slight difference: 0.0038$\pm$0.0007 for the low energy shots, 0.0043$\pm$0.0007 for the medium energy shots and 0.0052$\pm$0.0007 for the high energy shots. This suggests dropping low energy shots from the reconstruction to improve the SNR.}
+	\label{fig:energy_binned}
+\end{figure}
+
+
 \subsection{Imaging Nanoparticles}
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.8\textwidth}
+		\includegraphics[width=\linewidth]{images/resultnano2dr.pdf}
+		\caption{Calculated $g^2$ images of different nanoparticle samples.}
+		\label{fig:resnanor2d}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.8\textwidth}
 		\includegraphics[width=\linewidth]{images/resultnano.pdf}
-		\caption{Radial Profiles}
+		\caption{Radial profiles of $g^2$ for two nanoparticle samples and two reference samples.}
 		\label{fig:resnanorad}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.9\textwidth}
-		\includegraphics[width=\linewidth]{images/resultnano2dr.pdf}
-		\caption{Images}
-		\label{fig:resnano2d}
-	\end{subfigure}
-	\caption[Results Nanoparticles]{\textbf{(a)} Radial profiles of the calculated $g^2$ of the images recorded with the Octal detector and the standard error of the mean. None of the expected features are visible. \textbf{(b)} 2d images of $g^2$ for two nanoparticle-in-copolymer samples in comparison to two different baseline samples: (mostly homogeneous in the polymer distributed) iron chloride and the polymer matrix without any added iron. The detector artifacts are almost completely removed.}
+	\caption[Results Nanoparticles]{\textbf{(a)} 2d images of the calculated $g^2$ of fluorescence patterns recorded on the octal detector of two nanoparticle-in-copolymer samples with 10\,nm and 20\,nm nominal diameter in comparison to two different baseline samples, (mostly homogeneous in the polymer distributed) iron chloride and the polymer matrix without any added iron. The detector artifacts are almost completely removed in those images. \textbf{(b)} Radial profiles and standard error of the mean of the calculated $g^2$ of two differently sized nanoparticles in the two different polymer matrices. None of the expected features are visible in the reconstruction. }
 	\label{fig:resnano}
 \end{figure}
 Using a sample with just the polymer, without any added iron (neither nanoparticles nor atomic), the influence of air scattering on the correlations can be examined, using an iron chloride in polymer sample, there are rougly equal amounts photons at the iron K-energy as in the nanoparticle samples and the effect of uncorrected detector artifacts could be seen. Neither seem to causes a strong correlation signal (see \fref{fig:resnano2d}). 
