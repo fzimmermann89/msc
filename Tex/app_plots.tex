@@ -52,6 +52,15 @@
 	\label{fig:foil_photonmodes}
 	\caption[Effect of discretizing the signal into photons]{Effect on the reconstruction of discretizing the signal into photons: For two foils at focal position,  correlations of the continuous, thresholded values read by the detector as well as  correlations after discretizing into photons are shown. Artifacts caused by charge sharing (for example diagonally neighboring pixels being correlated, visible as a square in the center) and other detector imperfections are greatly reduced by discretizing.}
 \end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\linewidth]{images/energy_binned.pdf}
+	\caption[Excitation energy binned reconstruction]{$g^2$ reconstructions using a 5\,um copper foil placed at the focus as the sample. The reconstructions have been performed on 4000 images each (10\% of all good shots recorded for this sample, see histogram on the left)  selected by excitation pulse energy estimates by upstream energy detectors as surrogate for the pulse length, similar to \cite{inoue2019}. Regression of the amplitude as (as described in the main text) shows a slight difference: 0.0038$\pm$0.0007 for the low energy shots, 0.0043$\pm$0.0007 for the medium energy shots and 0.0052$\pm$0.0007 for the high energy shots. This suggests dropping low energy shots from the reconstruction to improve the SNR.}
+	\label{fig:energy_binned}
+\end{figure}
+
+
 \begin{table}[h]
 	\centering
 	\caption[Parameters for simulated spectra used to find thresholds]{Parameters for simulated spectra used to find thresholds. $E_{sig}$/$E_{scat}$ denote the energy of the signal/scattering background photons, $p_{sig}$/$p_{\beta}$/$p_{scat}$ the probability of a signal/K$_{\beta}$/scattering photons, $\sigma_{scat}$ the width (standard deviation) of the (approximated as Gaussian) scattering peak, $\sigma_{det}$ the standard deviation of (assumed as Gaussian) broadening due to detector noise and $\sigma_{sharing}$ the width of the charge sharing cloud.  As the $K_beta$ peak can be distinguished as a shoulder in the Copper spectra, $K_{\beta}$ is considered as noise there and treated like the scattering noise in the classification, resulting in tighter final thresholds ()resulting in partial rejection of  $K_{\beta}$) compared to counting those photons as signal.}
