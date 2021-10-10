@@ -78,7 +78,7 @@ Before sample preparation, the iron oxide nanoparticles as received were diluted
 
 
 SAXS measurements of the prepared nanoparticle polymer foils where performed at the SSRL beamline 1-5. Samples were measured at 12\,keV for at two different spots for 5\,min each and averaged, a subtraction of the polymer matrix background was performed and a size distribution of spherical particles with hardsphere interaction was fitted to the radial profile. The low-q area is dominated by aggregate formation, which cannot be precisely quantified due to stray light and limited measuring range and is accounted for by a guinier-porod function, see \fref{fig:saxsps}  and  \fref{fig:saxspmma} \cite{percus1958,feigin1987,Ilavsky2009}.
-The measurements do not show a clear and significant difference between the two polymer matrices. According to the regressions, the aggregates seem to have a radius of gyration of 20-30\,nm (the straylight limits the measurement validity in those small q areas), the porod $P$ of 2.5-3.8 suggests a dimensionality of the aggregates between 2 and 3.  \cite{feigin1987,lili2005}. The radii of the form factor agree within the corresponding margin of error with the values of determined by TEM measurements, the difference between the radius parameters of the structure factors and the form factor is most likely caused by the thin layer of oleic acid ligands between aggregating particles.
+The measurements do not show a clear and significant difference between the two polymer matrices. According to the regressions, the aggregates seem to have a radius of gyration of 20-30\,nm (the straylight limits the measurement validity in those small q areas), the Porod parameter $P$ of 2.5-3.8 suggests a dimensionality of the aggregates between 2 and 3 \cite{feigin1987,lili2005}. The radii of the form factor agree within the corresponding margin of error with the values of determined by TEM measurements, the difference between the radius parameters of the structure factors and the form factor is most likely caused by the thin layer of oleic acid ligands between aggregating particles.
 
 
 \begin{figure}[tp]
@@ -384,7 +384,24 @@ As the 5\,um and 10\,um foils suffer from severe undersampling along the horizon
 Using a sample with just the polymer, without any added iron (neither nanoparticles nor atomic), the influence of air scattering on the correlations can be examined, using an iron chloride in polymer sample, there are rougly equal amounts photons at the iron K-energy as in the nanoparticle samples and the effect of uncorrected detector artifacts could be seen. Neither seem to causes a strong correlation signal (see \fref{fig:resnano2d}). 
 \subsubsection{Filtering}
 \subsection{Imaging Crystals}
+The shape of the reconstructed volume is 3750x4032x567 pixels$^3$.
 
+ In slices in the $q_z=0$ plane the Bragg peaks with index $h=0$ should be visible. As the determined detector rotation has an estimated uncertainty of approximately 0.2° in each direction, maximum intensity projections along 10 $q_z$ slices (up to $q_z\approx$0.15\,nm$^{-1}$) are shown to ensure Bragg peaks rotated out the of the $q_z=0$\,nm$^{-1}$ would be visible. Marked areas in the overview on the left are shown in detail on the right.  No Bragg peaks are clearly distinguishable in the result.
+ Similar results for the 45$\deg$ rotated second sample are shown in \fref{fig:resgaas2}.
+ 
+ The non-trivial shape of the reconstructed volume is influenced by the the placement of the 8 individual tiles of the detector, the applied mask to each tile as well as the overall detector offset and slight rotation. In the shown overview images of the reconstruction, points with less then 100 pixel-pairs are masked out.
+ 
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.55\textwidth}
+		\includegraphics[width=\linewidth]{images/gaas1_overview.pdf}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.4\textwidth}
+		\includegraphics[width=\linewidth]{images/gaas1_zoom.pdf}
+	\end{subfigure}
+	\caption[Results GaAs]{Result of the $g^2$ calculation for a GaAs single crystal (GaAs Sample 1). MIP from $q_z$=0\,nm$^{-1}$ to 0.15\,nm$^{-1}$. Marked areas in the overview on the left around expected positions of Bragg peaks are shown in detail on the right (labeled by the corresponding Laue indices). No Bragg peaks are  clearly distinguishable in the result.}
+	\label{fig:resgaas1}
+\end{figure}
 
 
 
