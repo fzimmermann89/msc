@@ -1,2 +1,6 @@
 \chapter{Discussion}
 Even though the application of non-uniform FFT (NUFFT) based correlation estimators with sophisticated interpolation kernels, which have  successfully been used in other fields, would require more memory, the reduction in under-sampling by making full use of the smaller $\vec{q}$ spacing at higher detector angles could make it a worthwhile extension of the used 3d reconstruction \cite{laguna1998,yang2008,chang2020}. Another possible avenue for improvement of the implementation might be to only reconstruct relevant parts of the reciprocal space, greatly reducing computational time and memory requirements if using direct correlation estimators instead of FFT based methods (which are not suitable for reconstruction of the whole $\vec{q}$-space due to the higher computational complexity) and thereby making use of the unequal $\vec{q}$ spacing as well.
+
+
+
+An avenue for improvement is subpixel resolution of the photon hits and better usage of the varying solid angle of each pixel of the detector to increase the resolution in the reconstruction, as this is currenly limited by the computational work and memory requirements to calulate the correlations at higher resolution.

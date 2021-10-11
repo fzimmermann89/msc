@@ -1,5 +1,10 @@
 \chapter{Conclusion and Outlook}
 
+\section{Developed tools for CDI/IDI experiments}
+Both the GPU-accelerated simulation code and the reconstruction code developed for this thesis are open source \footnote{available under \url{https;//github.com/fzimmermann89/idi}} and will be used for planning and analyzing future IDI experiments. The simulation code allows to compare IDI and CDI experiments for the same sample, comparison for different samples and experimental parameters as shown in \fref{chap:simulation}.
+The analysis code implements 2d, 3d and radial correlations for small and wide angle experiments with different normalization approaches as well as library of commonly needed auxiliary functions, such as dark and mask generation for pixel detectors, a new common mode correction with adaptive block sizes, photon counting procedures, different regression tools as well as tools for center finding and similar tasks.
+Furthermore, the Kossel line alignment tool with its graphical user interface allows easy analysis of the detector orientation for future experiments with strict alignment margins.
+
 
 \section{Using Incoherent Imaging for Online Beam Diagnostic}
 
@@ -17,7 +22,6 @@ Element specific
 Even just the ability to image to focal volume might be an useful diagnostic tool in certain experiments
 
 
-An avenue for improvement is subpixel resolution of the photon hits and better usage of the varying XXX of the detector to increase the resolution in the reconstruction, as this is currenly limited by the computional intensity to calulate the correlations at higher resolution.
 
 
 \begin{figure}
@@ -29,28 +33,24 @@ An avenue for improvement is subpixel resolution of the photon hits and better u
 
 \section{Experimental Improvements}
 
+Recently, we performed an experiment using sub-1\,fs pulses at the CXI beamline at the LCLS free electron laser. In this experiment, three major improvements made over the SACLA experiment: First, the shorter pulse length reduces the number of temporal modes and a shot-by-shot high resolution spectrometer allows for better filtering of the x-ray pulses by estimated pulse length and intensity. Second, the data was recorded in forward direction, solving the undersampling issue and reducing the spatial modes. And third, two new, signal optimized samples were chosen: Anodic aluminum oxide (AAO) membranes with regular spaced 20\,nm or 30\,nm wide pores, with are filled with Nickel or Vanadium using atomic layer deposition, creating an array of hexagonal placed 500\,nm long cylinders 60\,nm/100\,nm apart \cite{carina2019}. As the range of the order of the self-organizing pores is smaller than the total area used in the experiment, the simulated reconstruction shows rings (\fref{fig:outlook_aao}). 
+The other sample is will be lithographically produced gratings with two diffferent pitches, 60\,nm  and 80\,nm \cite{mojarad2015}. For these samples, a simulation is shown in \fref{fig:outlook_grating}. Both samples combine the advantages of a single crystal sample (namely intense features) while providing more signal and requiring less accessible reciprocal space. 
+Based on the simulations, it can be estimated, that a few hundred images taken with sub-fs pulses exciting 20\% of the atoms would suffice to reach a SNR of >3.
+We were able to record full datasets on multiple samples. The data analysis of this experiment has not yet been completed and might result in the first experimental proof of using fluorescence intensity correlation for structural imaging at the nano-scale.  
+
 
 
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.50\textwidth}
-	\includegraphics[width=\linewidth]{images/lv65simA.pdf}
-	\caption{Nano-Grating}
-	\label{fig:outlook_grating}
-\end{subfigure}
-\begin{subfigure}[b]{0.37\textwidth}
-	\includegraphics[width=\linewidth]{images/lv65simB.pdf}
-	\caption{AAO membrane  }
-	\label{fig:outlook_aao}
-\end{subfigure}
-\caption[Simulations in Preparation of LV65 Experiment]{Examples of simulations performed with the tools developed in this thesis in preparation of the LCLS free electron laser experiment LV65, which will use nano-gratings and AAO membranes with metal filled self-organized pores as samples for an IDI measurement. The simulations were used to chose an optimized sample geometry and to estimate the feasibility with respect to the expected SNR. The images shown are the calculated fluorescence intensity correlations between pixels of a quarter of an Jungfrau 4M detector placed at a distance of 70\,cm (grating) and 1\,m (membrane) respectively. The simulated grating has a pitch of 80\,nm, 40\,nm line width and 40\,nm thickness; 20\% excitation and 4 modes were simulated. The AAO membrane has and inter pore distance 105\,nm, the pores are filled with vanadium and 20\% excitation are assumed. For both samples, the average over 100 images is shown.}
+		\includegraphics[width=\linewidth]{images/lv65simA.pdf}
+		\caption{Nano-Grating}
+		\label{fig:outlook_grating}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.37\textwidth}
+		\includegraphics[width=\linewidth]{images/lv65simB.pdf}
+		\caption{AAO membrane  }
+		\label{fig:outlook_aao}
+	\end{subfigure}
+	\caption[Simulations in Preparation of LV65 Experiment]{Examples of simulations performed with the tools developed in this thesis in preparation of the LCLS free electron laser experiment LV65, which will use nano-gratings and AAO membranes with metal filled self-organized pores as samples for an IDI measurement. The simulations were used to chose an optimized sample geometry and to estimate the feasibility with respect to the expected SNR. The images shown are the calculated fluorescence intensity correlations between pixels of a quarter of an Jungfrau 4M detector placed at a distance of 70\,cm (grating) and 1\,m (membrane) respectively. The simulated grating has a pitch of 80\,nm, 40\,nm line width and 40\,nm thickness; 20\% excitation and 4 modes were simulated. The AAO membrane has and inter pore distance 105\,nm, the pores are filled with vanadium and 20\% excitation are assumed. For both samples, the average over 100 images is shown.}
 \end{figure}
-
-Upcoming experiment using sub-1\,fs pulse length as LCLS. 
-For this experiment, two new, signal optimized samples were chosen: Anodic Aluminum Oxide (AAO) membranes with regular spaced XX pores, with are filled with Nickel or Vanadium using atomic layer deposition, creating an array of hexagonal placed  500\,nm long cylinders. As the order of the self-organizing pores is smaller than the area used in the experiment, the simulated reconstruction shows rings (\fref{fig:outlook_aao}). Using realistic simulation parameters, XXX images should suffice to reach a SNR of XXX.
-The other sample is will be a litographically procuced gratings with a pitches of XXX (simulation shown in \fref{fig:outlook_grating}.). Both samples combine the advantes of a single crystal sample (namely intense features) while providing more signal and requiring less accessible reciprocal space. 
-
-
-Furthermore, for the randomly in plane oriented pores, the SNR might be improved by considering the polar correlations in the single image reconstructions as described in XXX
-
-
