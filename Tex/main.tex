@@ -15,10 +15,9 @@
 \usepackage{xfrac}
 \usepackage{graphicx}
 \usepackage{xcolor}
-\usepackage[textwidth=150mm,bottom=25mm,top=25mm,headsep=5mm,bindingoffset=5mm]{geometry}
+\usepackage[textwidth=160mm,bottom=25mm,top=25mm,headsep=5mm,bindingoffset=5mm]{geometry}
 \usepackage{listings}
 \usepackage{fancybox}
-
 \usepackage[small,bf]{caption} %Schönere Beschriftungen für Abbildungen und Tabellen
 \captionsetup{width=1\textwidth,skip=5pt,format=plain,indention=5pt}
 \usepackage{sidecap}
@@ -102,6 +101,7 @@
 
 %schönerer referenzierungen
 \usepackage[english,plain]{fancyref}
+\renewcommand*{\frefeqname}{eq.}%
 %app für appendix zu referenzen hinzufügen
 \newcommand*{\fancyrefappendixlabelprefix}{app}
 \frefformat{plain}{\fancyrefappendixlabelprefix}{%
@@ -340,6 +340,9 @@
 
 %\nocite{*}
 \singlespacing
+\setlength{\parskip}{0pt}
+\setlength{\itemsep}{0pt plus 0.3ex}
+%\setlength{\bibsep}{0pt plus 0.3ex}
 \bibliography{ffz}
 \bibliographystyle{ffz}
 \addcontentsline{toc}{chapter}{Bibliography}
