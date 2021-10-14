@@ -1,9 +1,39 @@
 \chapter{Introduction}
-Background
-Issues CDI
-Classen
 
-\cleardoublepage
-In this thesis I will present
+
+
+The advent of free-electron lasers (FELs) providing ultra-short and brilliant X-ray pulses far beyond 
+
+In coherent diffractive imaging (CDI) methods, the spatially and temporally coherent incoming light is scattered in a sample by a fixed phase, conserving its coherence properties and producing an interference pattern 
+which can upon measurement can give spatial information with high temporal and spatial resolution \cite{seibert2011,bostedt2010,barke2015}. Incoherent scattering processes, such as fluorescence, are considered background noise worth suppression or filtering \cite{schultz2013chapter7}. 
+
+Based on intensity-intensity correlations pioneered by Hanbury-Brown and Twiss in stellar interferometry \cite{hanbury1956}
+
+Famously contradicting the statement by Dirac, that "each photon then interferes only with itself. Interference between two different photons never occurs.” \cite{dirac1958}
+
+
+Considered as one of the most influential experiments leading to a new understanding of quantum optics and a quantum theory of coherence by Glauber, Mandel et al \cite{glauber1963,mandel1959, glauber2006}.
+
+
+ X-ray photon correlation spectroscopy (XPCS) use intensity fluctuations in X-ray speckle patterns introduced by  temporally varying phase shifts to gain insights about dynamics on the timescales of milliseconds or longer using synchrotron radiation or shorter than picoseconds using FELs \cite{lehmkuhler2021,grubel2007}.
+ 
+ 
+ Recently, Classen et al. suggested instead to use the fluorescence for imaging \cite{classen2017}.
+
+As long as the fluorescence would be recorded in a time interval of similar length as the coherence time, the phase fluctuation with the measurement can be considered stationary
+
+
+
+For many elements the cross section of fluorescence exceeds that of coherent scattering by orders of magnitude \cite{xraylib}.
+
+
+
+The strong anisotropy of coherent scattering leads to the need for high dynamic range detectors  whereas fluorescence can be recorded in all directions
+
+
+Intensity correlation measurements have been used at synchrotrons and FELs to meassure the coherence properties beam \cite{yabashi2002,singer2013,inoue2019,gorobtsov2018}. Thus far, the only successful experiment using inner shell fluorescence intensity correlation for imaging used a metal foil to measure the volume of the focal spot \cite{nakumura2020}.
+
+
+In this thesis I will first introduce some basic concepts of coherence (\fref{chap:theory}) before presenting the results of simulations regarding the SNR and relevant parameters for an experimental implementation of IDI in \fref{chap:simulation}. In \fref{chap:experiment}, I will show the sample preparation, the setup, the necessary processing of the recorded data and finally the results of an experiment performed at the SACLA FEL facility in which we have tired to move IDI from imaging the focal volume to imaging nanoparticles and crystal samples.
 
 \cleardoublepage
