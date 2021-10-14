@@ -118,7 +118,7 @@ In a double slit setup (\fref{fig:doubleslit}), $E(r,t)=c_1 E_1(t)+c_2E2(t)$ wit
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\linewidth]{images/doubleslit.pdf}
+	\includegraphics[width=0.6\linewidth]{images/doubleslit.pdf}
 	\caption[Schematic of double slit]{Schematic of double slit: Monochromatic light goes through slits located at $R_1$ and $R_2$. The intensity at a position $r$ on the scree (in distance $d$) is the superposition of both paths.  If the slits are within the lateral coherence area of the source, the visibility of the interference pattern depends on the path length difference in comparison to the coherence time $\tau$.}
 	\label{fig:doubleslit}
 \end{figure}
@@ -133,7 +133,8 @@ The definition of $g_1$ can be extended to the second order by
 For classical fields normalized correlations of intensities:
 \begin{equation}
 	g^{(2)}(\vec{r}_1,t_1;\vec{r}_2,t_2)= 
-		\frac{\left< I(\vec{r}_1,t_1)I(\vec{r}_2,t_2 \right>}{\left<I(\vec{r}_1,t_1)\right>\left<I(\vec{r}_1,t_1)\right>}	
+		\frac{\left< I(\vec{r}_1,t_1)I(\vec{r}_2,t_2 \right>}{\left<I(\vec{r}_1,t_1)\right>\left<I(\vec{r}_2,t_2)\right>}	
+		\label{eq:g2}
 \end{equation}
 
 \paragraph{Van Cittert Zernicke}
@@ -325,14 +326,13 @@ The number of degrees of freedom, $M_{t,\text{Conv}}=\left[\int_{-\infty}^{\inft
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.38\textwidth}
+	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{images/temporalmodes.pdf}
 		\caption{Temporal Modes}
 		\label{fig:theorymodes}
 	\end{subfigure}
-	\hspace{0.2cm}
-	\begin{subfigure}[b]{0.5\textwidth}
+	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
     	\includegraphics[width=\linewidth]{images/modes_stat.pdf}
 		\caption{Photon Statistics}
