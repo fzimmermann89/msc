@@ -1,6 +1,6 @@
 \chapter{Theory}
 
-%\cite{goodman2000,goodman2007,agarwal2013,classen2017,cowley1995,born1980,trigg2005,attwood1999,griffiths2005,agarwal2013,classen2017,loudon2000,mandel1995,hanburry1956,glauber2006,baym1997,zernike1938,rosen1996,yabashi2002,singer2013,santra2009,krause1979,trost2020,inoue2019,sorum1987,lajunen04,mpccd,tono2013}
+%\cite{goodman2000,goodman2007,agarwal2013,classen2017,cowley1995,born1980,trigg2005,attwood1999,griffiths2005,agarwal2013,classen2017,loudon2000,mandel1995,hanbury1956,glauber2006,baym1997,zernike1938,rosen1996,yabashi2002,singer2013,santra2009,krause1979,trost2020,inoue2019,sorum1987,lajunen04,mpccd,tono2013}
 
 
 
@@ -56,25 +56,25 @@ To consider non monochromatic waves, we define the self coherence function $\Gam
 and its normalized version, the complex degree of coherence $\gamma$, as
 \begin{equation}
 \gamma(\tau)=\frac{\Gamma(\tau)}{\Gamma(0)} =  \frac{\Gamma(\tau)}{<I>}
-\end{equation}
+\end{equation} \cite{zernike1938,loudon2000}
 
-
-The coherence time is defined as 
+The coherence time describes at which delay the falls to approximately zero. One possible more precise definition of the coherence time introduced by Mandel based on the complex degree of coherence is
 \begin{equation}
-\tau_c = \int_{-\infty}^{\infty} \left| g_1(\tau)\right|^2 \diff \tau 
-\end{equation}
+\tau_c = \int_{-\infty}^{\infty} \left| \gamma(\tau)\right|^2 \diff \tau 
+\end{equation} and will be used in the following. Other definitions commonly used are equivalent up to a constant factor and lead generally to coherence times of the same order of magnitude. \cite{mandel1959,goodman2000}.
+
 
 
 
 
 
 \paragraph{First order coherence $g_1$}
-Generalization of$\gamma$  for to different fields  $E_1^*(\vec{r}_1,t_1)$ and $E_2(\vec{r}_2,t_2)$ is $g_1$
+A generalization of $\gamma$  to different fields  $E_1^*(\vec{r}_1,t_1)$ and $E_2(\vec{r}_2,t_2)$ is the normalized first order correlation function $g_1$ \cite{agarwal2013}
 \begin{equation}
 	g^{(1)}(\vec{r}_1,t_1;\vec{r}_2,t_2)= \frac
 	{\left< E_1^*(\vec{r}_1,t_1)E_2(\vec{r}_2,t_2) \right>}
 	{\left[ \left<\left | E(\vec{r}_1,t_1)\right |^2 \right> \left< \left |E(\vec{r}_2,t_2)\right |^2 \right>\right]^{1/2}}	
-\end{equation}
+\end{equation}.
 
 
 
@@ -118,10 +118,20 @@ In a double slit setup (\fref{fig:doubleslit}), $E(r,t)=c_1 E_1(t)+c_2E2(t)$ wit
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.6\linewidth]{images/doubleslit.pdf}
-	\caption[Schematic of double slit]{Schematic of double slit: Monochromatic light goes through slits located at $R_1$ and $R_2$. The intensity at a position $r$ on the scree (in distance $d$) is the superposition of both paths.  If the slits are within the lateral coherence area of the source, the visibility of the interference pattern depends on the path length difference in comparison to the coherence time $\tau$.}
+	\begin{subfigure}[b]{0.53\textwidth}
+	\includegraphics[width=\linewidth]{images/doubleslit.pdf}
+	\caption[Schematic of a double slit]{Schematic of a double slit.}
 	\label{fig:doubleslit}
+	\end{subfigure}
+\begin{subfigure}[b]{0.41\textwidth}
+	\includegraphics[width=\linewidth]{images/correlation.pdf}
+	\caption{Two photon interference in HBT.}
+	\label{fig:twophoton}
+\end{subfigure}
+\caption[Schematic of double slit and two photon interference in  HBT experiments]{\textbf{(a)} Monochromatic light goes through slits located at $R_1$ and $R_2$. The intensity at a position $r$ on the scree (in distance $d$) is the superposition of both paths.  If the slits are within the lateral coherence area of the source, the visibility of the interference pattern depends on the path length difference in comparison to the coherence time $\tau$.
+In the Hanbury Brown Twiss experiment\textbf{(b)} are two indistinguishable two photon states, illustrated as dashed and  continuous lines respectively: Either simultaneously a photon from emitter 1 is detected by detector A and from emitter 2 by detector B or from emitter 1 by detector B and from emitter 2 by detector A.}
 \end{figure}
+
 
 
 \paragraph{Second order coherence $g_2(t_1,t_2)$}
@@ -139,9 +149,10 @@ For classical fields normalized correlations of intensities:
 
 \paragraph{Van Cittert Zernicke}
 The Van Cittert–Zernike theorem establishes that in the far field, the coherence function of a 
-quasi-monochromatic but spatially incoherent light source is proportional to the 2D Fourier transform intensity distribution of the source and Carter and Wolf introduced a generalization for three dimensional sources, showing that in the case of an completely incoherent source field, the complex degree of coherence in the far field is proportional to the 3D Fourier transform of the source's intensity distribution \cite{rosen1996, goodman2005, carter1981}:
+quasi-monochromatic but spatially incoherent light source is proportional to the 2D Fourier transform intensity distribution of the source. Carter and Wolf introduced a generalization for three dimensional sources, showing that in the case of an completely incoherent source field, the complex degree of coherence in the far field is proportional to the 3D Fourier transform of the source's intensity distribution \cite{rosen1996, goodman2005, carter1981}:
 \begin{equation}
 	g^{(1)}(\vec{r}_1,\vec{r}_2) \propto I_0^{-1} \int_{S} I_s(\vec{r}) e^{ik(R_1-R_2)} \difc \vec{r} \approx I_0^{-1} \int_{S} I_s(\vec{r}) e^{-ik\vec{r}(\vec{r_1}-\vec{r_2})} \difc \vec{r}
+	\label{eq:vcz}
 \end{equation}
 with the source volume $S$ and intensity distribution $I_s$, total source intensity $I_0=\int I_s(\vec{r}) \difc \vec{r}$ and distances $R_{1,2}=\left|\vec{r}_{1,2}-\vec{r}\right|$.
 %-Hanbury Brown and Twist
@@ -157,7 +168,7 @@ with the source volume $S$ and intensity distribution $I_s$, total source intens
 
 \section{Intensity Correlations of X-Ray Fluorescence}
 \paragraph{X-Ray Fluorescence}
- X-ray fluorescence is emitted if atoms are ionised leaving holes in the inner shell, which are subsequently filled by electrons of higher energy levels and the energy difference is emitted as photons (see \fref{fig:levels} for the usual naming convention). In the experimental section, iron, copper and gallium are the most relevant atoms considered. The relevant emission energies, the line widths and relative intensities are shown in \fref{tab:elements}.   Roughly, the $K_\alpha$ line widths correspond to coherence times in XXX range.
+ X-ray fluorescence is emitted if atoms are ionised leaving holes in the inner shell, which are subsequently filled by electrons of higher energy levels and the energy difference is emitted as photons (see \fref{fig:levels} for the usual naming convention) \cite{attwood1999}. In the experimental section, iron, copper and gallium are the most relevant atoms considered. The relevant emission energies, the line widths and relative intensities are shown in \fref{tab:elements}.   Roughly, the $K_\alpha$ line widths correspond to coherence times in the 0.4-0.8\,fs range ().
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}[b]{0.35\textwidth}
@@ -173,7 +184,7 @@ with the source volume $S$ and intensity distribution $I_s$, total source intens
 \end{figure}
 
 \begin{table}[h]
-	\caption[X-Ray Energies]{X-ray energies and line widths of some relevant elements \cite{xraylib,krause1979}.  }
+	\caption[X-Ray Energies]{X-ray energies and line widths of some relevant elements \cite{xraylib,krause1979,sorum1987}.  }
 	\label{tab:elements}
 	\small
 	\begin{tabular}{l|l|ll|lll|ll}
@@ -187,8 +198,8 @@ with the source volume $S$ and intensity distribution $I_s$, total source intens
 	\end{tabular}
 \end{table}
 \FloatBarrier
-\section{Hanburry Brown Twiss}
-Hanburry Brown and Twiss 
+\section{Hanbury Brown Twiss}
+Hanbury Brown and Twiss 
 
 
 \paragraph{Siegert Relation}
