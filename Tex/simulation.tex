@@ -84,23 +84,39 @@ The noise thresholding is done with a threshold of three times the standard devi
 	
 	\caption[Comparison of different photon counting methods for intensity correlation calculations]{Comparison of different photon counting methods for intensity correlation calculations: In \textbf{(a)} the center of the 2d results of the correlation for a simulated grating under two conditions are shown (high signal and low signal, parameters as described in the main text). In  \textbf{(b)}, for three different conditions (from left to right: high signal, low signal and high noise) line profiles are shown. Using the raw signal or simple thresholding overestimates the correlation between neighboring pixels, the PSANA droplet algorithm underestimates it compared to the ground truth. The maximum likelihood method and the "closest combination approach" reproduce the ground truth signal sufficiently well. For detailed quantitative results see also \fref{tab:photonrecon}.}
 \end{figure}
+\begin{table}
+	\caption[Ratio of $g^2-1$ of different photon counting schemes to ground truth value]{Ratio of $g^2-1$ of different photon counting schemes to ground truth value  for $\Delta$=1\, pixel/first maximum. \textit{Closest} is \textit{Combination} without considering Noise photons, giving good results in the low noise cases.}
+	\label{tab:photonrecon}
+	
+	\begin{adjustwidth}{-1em}{-2em}	
+		\small
+		\begin{tabular}{lllllll}
+			\toprule
+			&        Raw &       Threshold &         Combination &      Closest &         MaxL &          PSANA \\
+			\midrule
+			Low Signal  &  12 / 0.59 &  6.9 / 0.64 &  0.62 / 0.79 &  0.88 / 0.68 &  0.57 / 0.81 &    -0.5 / 0.66 \\
+			High Signal &  2.4 / 1.1 &   1.8 / 1.0 &  0.72 / 0.82 &   1.1 / 0.96 &   1.0 / 0.95 &  -0.026 / 0.79 \\
+			High Noise  &  9.3 / 0.3 &  8.1 / 0.39 &   1.0 / 0.58 &   1.3 / 0.46 &  0.44 / 0.54 &   -0.37 / 0.45 \\
+			\bottomrule
+		\end{tabular}
+	\end{adjustwidth}
+\end{table}
 
-To evaluate the different approaches, for a grating with pitch 50\,nm, line width 20\,nm and 100\,nm thickness in a 
-400\,nm (FWHM) focus, resulting in $10^7$ excited atoms emitting at 10\,keV and a 1024x1024 pixel detector with 50\,um pixel size in 50\,cm distance, independent, 2000 florescence images are simulated. Three different cases are considered: With high signal ($10^5 $photons/image), low signal ($10^4$ photons/image), both having $10^3$ photons at 13\,keV as scattering noise and 500\,ev (gaussian) detector noise as a "high noise" case  with 2.5\,times the scattering and 2\,times the detector noise  ($10^4$ signal photons/image). Charge sharing is in all cases simulated with $\sigma$=5\,um. 
-For each photon counting approach, reconstructions are performed in all the cases and compared to a reconstruction without noise or charge sharing as ground truth. For the first two cases, the center part of the reconstructions is show in \fref{fig:photonreconimg}, line profiles through the center and the first maximum for all cases are shown in \fref{fig:photonrecon}. In the different reconstructions, two effects are visible: In comparison with the ground truth, without any correction the reconstruction for low $q$ is be overestimated due to the correlation of neighboring pixels and underestimated for the first maximum (see \fref{tab:photonrecon} for detailed values). This can be slighlty reduced by thresholding, and greatly reduced by rounding to the closest combination as well as by the maximum likelihood classification. The PSANA droplet algorithm seems to join more neighboring photons than necessary, resulting in an incorrect negative correlation between neighboring pixels.  These observations in the simulation suggest using either the combination scheme or the classifier for an experiment, and both will be evaluated on the experimental data.
+To evaluate the different approaches, for a grating with pitch 50\,nm, line width 20\,nm and 100\,nm thickness in a 400\,nm (FWHM) focus, resulting in $10^7$ excited atoms emitting at 10\,keV and a 1024x1024 pixel detector with 50\,um pixel size in 50\,cm distance, independent, 2000 florescence images are simulated. Three different cases are considered: With high signal ($10^5 $photons/image), low signal ($10^4$ photons/image), both having $10^3$ photons at 13\,keV as scattering noise and 500\,ev (gaussian) detector noise as a "high noise" case  with 2.5\,times the scattering and 2\,times the detector noise  ($10^4$ signal photons/image). Charge sharing is in all cases simulated with $\sigma$=5\,um.  For each photon counting approach, reconstructions are performed in all the cases and compared to a reconstruction without noise or charge sharing as ground truth. For the first two cases, the center part of the reconstructions is show in \fref{fig:photonreconimg}, line profiles through the center and the first maximum for all cases are shown in \fref{fig:photonrecon}. In the different reconstructions, two effects are visible: In comparison with the ground truth, without any correction the reconstruction for low $q$ is be overestimated due to the correlation of neighboring pixels and underestimated for the first maximum (see \fref{tab:photonrecon} for detailed values). This can be slighlty reduced by thresholding, and greatly reduced by rounding to the closest combination as well as by the maximum likelihood classification. The PSANA droplet algorithm seems to join more neighboring photons than necessary, resulting in an incorrect negative correlation between neighboring pixels.  These observations in the simulation suggest using either the combination scheme or the classifier for an experiment, and both are evaluated on the experimental data in \fref{chap:experiment}.
 
 Possible avenues for improvement would be to use a more sophisticated droplet scheme based on error minimization allowing for subpixel resolution, incorporating the scattering photons into the droplet algorithm or using a neural network trained on synthetic images \cite{baumann2018,collaboration2014,schayck2020}
 
 
 \subsection{Normalisation}
-Mean of all pixels 
-Mean of all pixels inside the overlap
+In the definition of the normalized intensity correlation (\fref{eq:g2}), normalization is performed by the product of the expectation values of the intensity at the two locations. As these expectation values are influenced by the sample, the geometry, and experimental imperfections, some considerations how to implement this normalization have to be made for calculating $g^2(\Delta\vec{q})$ from measured or simulated fluorescence speckle patterns. 
+If only a single image is taken, the expectation value for each pixel has to be approximated. This can be done by assuming an equal value for all pixels (and estimating by the mean), which will lead to significant artifacts if, for example, due to geometry outside pixels have a much lower true expectation value than pixels in the center of the recorded image.  
 
-If only a single image is taken, the expectation value for each pixel has to be approximated.
-
-If multiple images are taken, under the assumption of ergodicity, the expectation value for each pixel can be approximated by its mean over many images. To account for fluctuations in the exciting FEL pulse and resulting fluctations of the fluorescence intensity, it can be assumed that the distribution over pixel intensities and FEL intensities are uncorrelated, and the detection probability of each pixel in each shot can be factorized into the product of the probability to detect a photon in a pixel and to detect a photon in a shot. Therefor, the effect of the FEL intensity fluctuations can be suppressed by normalizing each image by the total intensity of the image.
-
-
+For masked image registration and similiar tasks, the cross correlation is commonly normalized by the following ( simplified to the relevant case of the autocorrelation) divisor \cite{padfield2010}:
+\begin{equation}
+\frac{\mathit{corr}(\mathit{mask},\mathit{image}) \mathit{corr}(\mathit{image},\mathit{mask})}{\mathit{corr}(\mathit{mask},\mathit{mask})}
+\end{equation}, which would correspond to estimation of the expectation values  y the mean over all pixels that form a pixel pair contributing to the value in the reconstruction at a particular $\Delta q$, giving an slightly different weighting to the pixels than first first calculating $g^2$ normalized by the true expectation values for each pair and afterwards averaging over the pairs.
+If multiple images are taken, under the assumption of ergodicity, the expectation value for each pixel can be approximated by its mean over many images. To account for fluctuations in the exciting FEL pulse and resulting fluctations of the fluorescence intensity, if it can be assumed that the distribution over pixel intensities and FEL intensities are uncorrelated, the photon detection probability of each pixel in each shot can be factorized into the product of the probability to detect a photon in a pixel and to detect a photon in a shot. Thus, the effect of the FEL intensity fluctuations can be suppressed by normalizing each image by the total intensity of the image. This normalization scheme will be used for all reconstructions in this thesis.
+For brevity, a detailed comparison of the different normalization approaches is not shown. Still, the successful reconstructions of the reciprocal space, for both wide and small angle simulations with varying amounts of noise and simulated photon numbers, without any pedestal ($g^2(\infty)\not\approx 1$) or strong artifacts throughout this chapter show that the applied normalization is sufficient.  
 
 \subsection{Autocorrelation}
 
@@ -123,7 +139,7 @@ If multiple images are taken, under the assumption of ergodicity, the expectatio
 	\begin{tabular}[t]{cc}
 		\begin{tabular}{c}
 		\smallskip
-		\begin{subfigure}[t]{0.4\textwidth}
+		\begin{subfigure}[t]{0.42\textwidth}
 			\centering
 			\includegraphics[width=0.9\textwidth]{images/accessibleq2.png}
 			\caption{Accessible reciprocal space compared to CDI }
@@ -137,13 +153,13 @@ If multiple images are taken, under the assumption of ergodicity, the expectatio
 		\end{subfigure}
 	\end{tabular}
 		& 
-	\begin{subfigure}{0.55\textwidth}
+	\begin{subfigure}{0.52\textwidth}
 	\centering
-	\includegraphics[width=0.8\linewidth]{images/pairsnoise.pdf}
+	\includegraphics[width=\linewidth]{images/pairsnoise.pdf}
 	\caption{Correlation pairs and noise dependence on $\vec{q}$ } 
 \end{subfigure}\\
 	\end{tabular}
-	\caption[Accessible reciprocal space]{The accesible reciprocal space with an 2048x2048\,pixel (100\,um pixelsize) at 12.5\,cm distance and 9.2\,keV is shown in a) and b). In a), the surface of the Ewald sphere accessible in an diffraction experiment is shown in green for comparison. IDI allows a reconstruction of a three dimensional volume. The position of GaAs Bragg peaks inside this volume is shown in b). As the accessible $q_z$ is depended on $q_x$/$q_y$ and smaller the larger the latter two, in this setup a precise alignment of the detector with regard to the lattice planes if useful to be able to image the maximal number of peaks. Using a square, centered, planar detector with uniform pixelsize, the number of correlation pairs for resulting in the same $\vec{q}$ depends on $\vec{q}$ as shown in on the left of c) for a $q_z=0$ slice. The noise (calculated as the standard deviation over 100 independent simulations) is therefor also non-uniform, as shown on the right of c).}
+	\caption[Accessible reciprocal space]{The accessible reciprocal space with an 2048x2048\,pixel (100\,um pixelsize) at 12.5\,cm distance and 9.2\,keV is shown in a) and b). In a), the surface of the Ewald sphere accessible in an diffraction experiment is shown in green for comparison. IDI allows a reconstruction of a three dimensional volume. The position of GaAs Bragg peaks inside this volume is shown in b). As the accessible $q_z$ is depended on $q_x$/$q_y$ and smaller the larger the latter two, in this setup a precise alignment of the detector with regard to the lattice planes if useful to be able to image the maximal number of peaks. Using a square, centered, planar detector with uniform pixelsize, the number of correlation pairs for resulting in the same $\vec{q}$ depends on $\vec{q}$ as shown in on the left of c) for a $q_z=0$ slice. The noise (calculated as the standard deviation over 100 independent simulations) is therefor also non-uniform, as shown on the right of c).}
 	
 \end{figure}
 
@@ -155,13 +171,13 @@ As shown in \fref{fig:SNRNimages}, the SNR scales with  the square root of the i
 \subsection{Number of Modes}
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.42\textwidth}
+	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/modes_signal.pdf}
-		\caption{Signal dependence on the number of modes}
+		\caption{Signal dependence on the number of modes\\ ${}$}
 		\label{fig:modes}
 	\end{subfigure}
 	\hspace{0.02\textwidth}
-	\begin{subfigure}[b]{0.42\textwidth}
+	\begin{subfigure}[b]{0.45\textwidth}
 	\includegraphics[width=\linewidth]{images/SNRNimagesgrating.pdf}
 	\caption{SNR dependence on the number of modes and images}
 	\label{fig:Nimages}
@@ -184,13 +200,13 @@ This results suggests, that for an experimental verification using Bragg peaks, 
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.42\textwidth}
+	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/SNRNatoms.pdf}
 		\caption{ SNR dependence on crystal size}
 		\label{fig:SNRNatoms}
 	\end{subfigure}
 	\hspace{0.02\textwidth}
-	\begin{subfigure}[b]{0.42\textwidth}
+	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/detsize.pdf}
 		\caption{SNR dependence on detector size}
 		\label{fig:SNRdetsize}
