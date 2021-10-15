@@ -201,6 +201,48 @@ with the source volume $S$ and intensity distribution $I_s$, total source intens
 \section{Hanbury Brown Twiss}
 Hanbury Brown and Twiss 
 
+The interpretation based on (semi-)classical coherence theory for thermal light sources \cite{baym1997,goodman2000}
+
+If the sources $A$ and $B$ produce spherical electromagnetic waves $E_{A,B}=c_{A,B} e^{i k\left|\vec{r}-\vec{r}_{1,2}\right|+i \phi_{A,B}} /\left|\vec{r}-\vec{r}_{A,B}\right|$ with $\phi_{A,B}$ random phases and ignoring polarisation, the total intensity at detector 1 $I_{1}$ (and similiar $I_{2}$ at detector 2) is
+\begin{equation}
+	I_{1} =
+	\frac{1}{L^{2}}\left(
+	|c_A|^{2}
+	+|c_B|^{2}
+	+c_A^{*} c_B     e^{ i\left(k\left(r_{1 b}-r_{1 a}\right)+\phi_{B}-\phi_{A}\right)}
+	+c_A     c_B^{*} e^{-i\left(k\left(r_{1 b}-r_{1 a}\right)+\phi_{B}-\phi_{A}\right)}
+	\right)
+\end{equation}
+with $r_{1 a}$ the distance from source $A$ to detector 1 etc. 
+Averaging over many independent realisations of the random phases leads to the average intensities in the two detectors,
+\begin{equation}
+	\left\langle I_{1}\right\rangle=\left\langle I_{2}\right\rangle=\frac{1}{L^{2}}\left(\left\langle|c_A|^{2}\right\rangle+\left\langle|c_B|^{2}\right\rangle\right)
+\end{equation}, 
+
+independent of the seperation of the detectors. On the other hand, the average of the product of the intensites is
+\begin{equation}
+	\left\langle I_{1} I_{2}\right\rangle =
+	\left\langle I_{1}\right\rangle\left\langle I_{2}\right\rangle+\frac{2}{L^{4}}|c_A|^{2}|c_B|^{2} \cos \left(k\left(r_{1 a}-r_{2 a}-r_{1 b}+r_{2 b}\right)\right) 
+\end{equation}.
+Hence,
+\begin{equation}
+	\frac{\left\langle I_{1} I_{2}\right\rangle}{\left\langle I_{1}\right\rangle\left\langle I_{2}\right\rangle}
+	=1+2 \frac{\left\langle|\alpha|^{2}\right\rangle\left\langle|\beta|^{2}\right\rangle}{\left(\left\langle|\alpha|^{2}\right\rangle+\left\langle|\beta|^{2}\right\rangle\right)^{2}} \cos \left(k\left(r_{1 a}-r_{2 a}-r_{1 b}+r_{2 b}\right)\right)
+\end{equation}
+
+For large separation between the sources and detectors $(L \gg R)$, the small angle approximation can be made and
+\begin{equation}
+	g^2\left(\vec{k_1}-\vec{k_2}\right)-1\propto \cos{\left(\vec{R} \cdot\left(\vec{k}_{2}-\vec{k}_{1}\right)\right)}
+\end{equation} 
+where $\vec{k}_{1,2}=k \vec{r}_{1,2}$ is the wavevector of the light seen in detector $1$/detector $2$.
+
+
+
+The quantum mechanical describtion of the HBT experiment consideres the 
+
+A detailed quantum mechanical treatment considers the mixtures of the probability amplitudes of emission and detection at the two detectors (as the individual paths are indistinguishable), leading what was shown as an equivalent description of the HBT effect for thermal light sources \cite{fano1961,sudarshan1963,glauber2006}, but allows the treatment of non classical light sources such as single photon emitters \cite{mandel1995,classen2017}. This introduces a correction term in $g^2$ of the order of $1/N$ with $N$ the number of emitters, which for the considered cases is negligible.
+
+
 
 \paragraph{Siegert Relation}
 For thermal light, 
@@ -281,7 +323,7 @@ $\Delta M \lesssim \frac{2 p'_1}{\left({p'_1}^2+2 (p'_1-1) p'_2\right)^2} \left(
 The Signal to Noise characteristics of the method are determined by the noise and the signal:
 The signal strength is determined by $g_1$, which is dependent and the sample and the contrast of the recorded speckle image, whereas the noise in the measurement will consist of three parts: First, noise inherent to IDI caused by the random distribution of phases, second, the poissonian noise caused by quantized photons, and third, experimental noise \cite{trost2020, goodman2007}. 
 
-\subsection{Signal}
+\subsection{The Signal..}
 The speckle contrast $\beta$ is governed by the number of independent modes $M$ overlaid in the measurement \cite{goodman2000}.
 \begin{equation}
 \beta =\tfrac{1}{M}
@@ -369,12 +411,12 @@ As an approximation, the total number of modes can be considered the product of 
 Hence, in \fref{chap:simulation}  simulations under different conditions with experimentally feasible  parameters will be performed.
 
 
-\subsection{Noise}
+\subsection{... and the Noise}
 The variance of a product of (uncorrelated) photon counts following the negative binomial distribution \fref{eq:negbinomialdist} is
 \begin{equation}
 	\Var_{p\cdot p}= \Var_p^2 +2 \mu^2\Var_p	= \mu^4 \frac{2 M + 1}{M^2 + 2}+ \mu^3 \frac{M+1}{M} + \mu^2 \,.
 \end{equation}.
-Assuming no signal, this would describe the noise in the meassurment.
+Assuming no signal, this would describe the noise in the measurement.
 As shown by Trost et. al, this can be used so estimate the inherent noise of an intensity correlation measurement up to small term, even though the actual signal will break the assumption of having uncorrelated photon counts \cite{trost2020}.
 
 %Which factors influence SNR -lifetime/pulsewidth -polarisation -sampling conditions / undersampling -sample thickness / coherence length -N images -N photons
