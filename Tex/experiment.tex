@@ -252,9 +252,17 @@ As discussed in \fref{chap:simulation}, the number of fluorescence photons can b
 
 
 \paragraph{Crystal orientation}
-For determining the relative orientation of the crystal with regards to the detector, Kossel lines as described in \fref{chap:kossel} can be used.  A semi-automatic alignment program was developed (\fref{fig:kosselfit}) to aid with the procedure: 
+For determining the relative orientation of the crystal with regards to the detector, Kossel lines as described in \fref{sec:kossel} can be used.  A semi-automatic alignment program was developed (\fref{fig:kosselfit}) to aid with the procedure: 
 
-For each sample, the images are split into sets of 5000 shots and (after filtering for hot pixels and cutting bellow a noise threshold of 2\,keV), the mean is taken. To better distinguish the Kossel lines from uniform fluorescence, a Gaussian blurred version ($\sigma$=20\, px) is subtracted (see \fref{fig:kosselgaasmean} for examples). The Kossel lines are identified visually and the local maxima in the 20x20\,px surrounding block of a selected Kossel line are considered as points on the Kossel line. A least-square regression is performed by varying the rotation angles and detector translation as described in \fref{chap:kossel}. 
+For each sample, the images are split into sets of 5000 shots and (after filtering for hot pixels and cutting bellow a noise threshold of 2\,keV), the mean is taken. To better distinguish the Kossel lines from uniform fluorescence, a Gaussian blurred version ($\sigma$=20\, px) is subtracted (see \fref{fig:kosselgaasmean} for examples). The Kossel lines are identified visually and the local maxima in the 20x20\,px surrounding block of a selected Kossel line are considered as points on the Kossel line. A least-square regression is performed,
+
+\begin{equation}
+	\arg\!\min_{R,t} \sum_{r} \min_{q\in Q} \left\Vert \frac{2 d * \left( \vec{r} - \vec{t} \right) \cdot \vec{Rq}}{\left|\vec{q}\right| \left| \left(\vec{r}-\vec{t}\right)\right|} -\lambda \right\Vert_2^2 \,,
+\end{equation}
+with
+$\vec{q}$ a reciprocal lattice vector and element of the allowed reflections $Q$, wavelength $\lambda$ and lattice constant $d$, to find
+ the optimal angles of the rotation matrix $\vec{R}$ and the detector translations $\vec{t}$.
+
 As initial parameters, a 5.65\,\AA\, lattice constant, 9.25\,keV energy, 14\,cm detector distance and the result of a 2D cubic fit to the fluorescence background for the values of the x- and y-shifts are used. 
 
 The used lines are shown in \fref{fig:kosselgaaslines} and \fref{tab:kosselpeaks}, the results are shown in \fref{tab:kosselfit} as mean over the sets for each sample and maximum deviation from the mean as an error estimation.
@@ -374,7 +382,7 @@ As the 5\,um and 10\,um foils suffer from severe undersampling along the horizon
 	\begin{subfigure}[b]{0.8\textwidth}
 		\includegraphics[width=\linewidth]{images/resultnano2dr.pdf}
 		\caption{Calculated $g^2$ images of different nanoparticle samples.}
-		\label{fig:resnanor2d}
+		\label{fig:resnano2d}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.8\textwidth}
 		\includegraphics[width=\linewidth]{images/resultnano.pdf}

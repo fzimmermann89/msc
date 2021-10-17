@@ -27,7 +27,7 @@ In an infinite coherence time, stationary sources approximation, the simulation 
 
 
 \subsection{Detector Effects}
-\label{sect:chargesharing}
+\label{sec:chargesharing}
 To simulate the influence of detector dependent charge-sharing and readout noise, an image degradation is performed: After Poisson sampling the simulated speckle image, for each photon an uniform random position within its pixel is chosen as the center of a Gaussian distribution with $\sigma$=0.1, pixel, similar to the size of the point spread function (PSF) for MPCCD detectors \cite{mpccd}.
 The signal within each pixel caused by one photon is given by the integral over the Gaussian,
 \begin{equation*}
@@ -71,15 +71,15 @@ The noise thresholding is done with a threshold of three times the standard devi
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.85\textwidth}
-		\includegraphics[width=\linewidth]{images/photonreconimg.pdf}
-		\label{fig:photonreconimg}
+		\includegraphics[width=\linewidth]{images/photonreconimg.pdf}	
 		\caption{Center part of the reconstructions}
+		\label{fig:photonreconimg}
 	\end{subfigure}
 \\
 	\begin{subfigure}[b]{0.95\textwidth}
 		\includegraphics[width=\linewidth]{images/photonrecon.pdf}
-		\label{fig:photonrecon}
 		\caption{Line profiles}
+		\label{fig:photonrecon}
 	\end{subfigure}	
 	
 	\caption[Comparison of different photon counting methods for intensity correlation calculations]{Comparison of different photon counting methods for intensity correlation calculations: In \textbf{(a)} the center of the 2d results of the correlation for a simulated grating under two conditions are shown (high signal and low signal, parameters as described in the main text). In  \textbf{(b)}, for three different conditions (from left to right: high signal, low signal and high noise) line profiles are shown. Using the raw signal or simple thresholding overestimates the correlation between neighboring pixels, the PSANA droplet algorithm underestimates it compared to the ground truth. The maximum likelihood method and the "closest combination approach" reproduce the ground truth signal sufficiently well. For detailed quantitative results see also \fref{tab:photonrecon}.}
@@ -111,7 +111,7 @@ Possible avenues for improvement would be to use a more sophisticated droplet sc
 In the definition of the normalized intensity correlation (\fref{eq:g2}), normalization is performed by the product of the expectation values of the intensity at the two locations. As these expectation values are influenced by the sample, the geometry, and experimental imperfections, some considerations how to implement this normalization have to be made for calculating $g^2(\Delta\vec{q})$ from measured or simulated fluorescence speckle patterns. 
 If only a single image is taken, the expectation value for each pixel has to be approximated. This can be done by assuming an equal value for all pixels (and estimating by the mean), which will lead to significant artifacts if, for example, due to geometry outside pixels have a much lower true expectation value than pixels in the center of the recorded image.  
 
-For masked image registration and similiar tasks, the cross correlation is commonly normalized by the following ( simplified to the relevant case of the autocorrelation) divisor \cite{padfield2010}:
+For masked image registration and similiar tasks, the cross correlation is commonly normalized by the following (simplified to the relevant case of the autocorrelation) divisor \cite{padfield2010}:
 \begin{equation}
 \frac{\mathit{corr}(\mathit{mask},\mathit{image}) \mathit{corr}(\mathit{image},\mathit{mask})}{\mathit{corr}(\mathit{mask},\mathit{mask})}
 \end{equation}, which would correspond to estimation of the expectation values  y the mean over all pixels that form a pixel pair contributing to the value in the reconstruction at a particular $\Delta q$, giving an slightly different weighting to the pixels than first first calculating $g^2$ normalized by the true expectation values for each pair and afterwards averaging over the pairs.
@@ -180,7 +180,7 @@ As shown in \fref{fig:SNRNimages}, the SNR scales with  the square root of the i
 	\begin{subfigure}[b]{0.45\textwidth}
 	\includegraphics[width=\linewidth]{images/SNRNimagesgrating.pdf}
 	\caption{SNR dependence on the number of modes and images}
-	\label{fig:Nimages}
+	\label{fig:SNRNimages}
 \end{subfigure}
 \caption[SNR dependence on the number of modes and images]{For a simulated crystal
 	(sc-structure, 200x200x500 atoms, 5\,\AA\,lattice constant, 2048x2048 detector with 100\,um pixelsize at 50\c,m, $10^4$ photons/image on the detector, 10\,keV) dependence of the signal (height of the peak) on the number of simulated modes shows approximately an $1/M$ relation.  The inset shows individual line profiles through a Bragg peak in the reconstruction. In (b), for a simulated Nickel grating (80\,nm pitch, 40\,nm thickness in a 200\,nm focus, 1024x1024 detector, 70\,cm) the dependence of the SNR on the number of images averaged over and modes fits the $\sqrt{N}/M$ relation, which is indicated by dashed lines.}
@@ -350,9 +350,10 @@ The result of a simulation for a thick 5\,um Copper foil, rotated 45° with resp
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\linewidth]{images/sim_foil5umCu_shared.pdf}
-	\label{fig:simfoil}
+
 	\caption[Simulation of a metal foil with similar parameters as used in the experiment]{Simulation result for a metal foil placed in a 200\,nm focus viewed perpendicular to the incoming FEL beam. No correction for charge sharing is applied. The center pixel is masked, as $g^2(0)-1\approx 
 		\frac{1}{M}+\frac{1}{\mu}$ is dominated by the mean count and does 
 		not carry spatial information.}
+	\label{fig:simfoil}
 \end{figure}
 
