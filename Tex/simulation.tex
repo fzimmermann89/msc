@@ -345,15 +345,21 @@ This simulations show that in high angles the limited coherence length of the fl
 	\end{subfigure}	
 	\caption[Speckle Strength and Signal Visibility in Time Dependent Simulation]{ In \textbf{(a)} the strength of the simulated speckle pattern for different pulse length and decay times $\tau$ of a spherical object (radius 10\,nm) is compared with the theoretical dependence on the ratio of pulse length and $\tau$, showing good agreement. 
 	In \textbf{(b)} exemplary radial profiles of the reconstruction from 50 of those patterns are shown for one fixed $\tau$. Those reconstructions are used to determine the signal visibility as quantification of the  dependence of the signal strength on the pulse width in \textbf{(c)}. For long pulses, the reciprocal dependence on the pulse length is visible.
-	In \textbf{(d)}  the influence of sample thickness on the speckle strength under different angles is show (using the mean of 5 independent simulations and the standard deviation as errors). The dashed lines are  regressions. For small angles, the sample thickness does not influence the speckle strength.}
+	In \textbf{(d)}  the influence of sample thickness $t$ on the speckle strength under different angles is show (using the mean of 5 independent simulations and the standard deviation as errors). The dashed lines are the approximation $s(t,\alpha)=\frac{s(t\rightarrow0\text{um}, \alpha= 0)}{1+\left(1-\cos{\alpha}\right)\sfrac{t}{2.35\text{um}}}$. For small angles, the sample thickness does not influence the speckle strength.}
 \end{figure}
 
 %$y=c/\left(1+(\sfrac{{4})\right)$
 
 
-\section{Implications for an experimental design}
+\section{Summary and Discussion of the Implications for an Experiment}
 
-The result of a simulation for a thick 5\,um Copper foil, rotated 45° with respect to the beam (200\,nm focus FWHM, 10\,fs pulse FWHM), measured with an detector with 50\,um pixel size (charge sharing $\sigma$=5\,um) placed in a distance of 1\,m  perpendicular to the beam is shown in \fref{fig:simfoil}. Even tough the under sampling in the horizontal direction, causes an significant reduction in signal strength, ~100 images suffice in the simulation to get an acceptable SNR to clearly see the  focal size, leading to the estimation that even with additional noise sources, less than 1000 images might suffice for an experimental verification.
+The time dependent simulation of different samples and realistic conditions allows to estimate the number of images necessary for a successful IDI measurement: The result of a full simulation for a thick 5\,um Copper foil, rotated 45° with respect to the beam (200\,nm focus FWHM, 10\,fs pulse FWHM), measured with an detector with 50\,um pixel size (charge sharing $\sigma$=5\,um) placed in a distance of 1\,m perpendicular to the beam is shown in \fref{fig:simfoil}. Even tough the under sampling in the horizontal direction, causes an significant reduction in signal strength, ~100 images suffice in the simulation to get an acceptable SNR to clearly see the focal size, leading to the estimation that even with additional noise sources not included in the simulation, less than 1000 images would suffice for an replication of the previously published results \cite{nakumura2020}.
+
+The insights about the influence of different numbers of spherical samples inside the focus will guide the preperation of nanoparticle samples: By depositing the nanoparticles in a polymer matrix at a concentration which is on the one hand high enough to make use of the gain in signal photons but on the other hand low enough not to loose contrast in the form factor.
+
+The most relevant implications for imaging single crystals are: First, there is a trade-off  between the number of signal photons, undersampling and loss of speckle contrast due to the path length difference by cause by the sample thickness, suggesting to use few micrometer thick samples. Second, the orientation of the detector with regards to the sample has to be aligned reliably, as the reconstructed reciprocal volume is large compared to the size of the expected Bragg peaks and additionally, the coverage in $q_z$ direction is finite (and depends on the detector position, size and masks applied) - bad alignment could therefor lead to fewer potential Bragg positions being inside the reconstruced reciprocal space than optimal. For a GaAs single crystals and a centered octal-MPCCD detector as available at SACLA, the sample-detector distance has to be 12-15\,cm and the alignment can be off by at most 1°
+
+
 
 \begin{figure}
 	\centering

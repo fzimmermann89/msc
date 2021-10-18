@@ -116,6 +116,20 @@ Visiblity is modulus of $g_1$.
 
 In a double slit setup (\fref{fig:doubleslit}), $E(r,t)=c_1 E_1(t)+c_2E2(t)$ with complex $c_2$ and $c_2$, $\left|c_1\right|\approx\left|c_2\right|$ describing the propagation to the screen. 
 
+
+The electrical field is 
+\begin{equation}
+	E(\vec{r}, t)=\frac{E\left(\vec{r}_{1}, t-R_{1} / c\right)}{R_{1}} e^{i\left[\vec{k}_{1} \cdot\left(\vec{r}-\vec{r}_{1}\right)-\omega t\right]}+\frac{E\left(\vec{r}_{2}, t-R_{2} / c\right)}{R_{2}} e^{i\left[\vec{k}_{2} \cdot\left(\vec{r}-\vec{r}_{2}\right)-\omega t\right]} 
+\end{equation}
+If the distances from $r$ to the two slits are (approximately) equal, $R_{1}\approx R_{2} \approx R$, the intensity at $\vec{r}$ is
+\begin{align*}
+	\left\langle I_{P}\left(\vec{r}, t^{\prime}\right)\right\rangle=\left\langle\left|E\left(\vec{r}_{1}, t\right)\right|^{2}\right\rangle+\left\langle\left|E\left(\vec{r}_{2}, t\right)\right|^{2}\right\rangle \\
+	+\left[\left\langle E^{*}\left(\vec{r}_{1}, t\right) E\left(\vec{r}_{2}, t\right)\right\rangle e^{i\left(\vec{k}_{1}-\vec{k}_{2}\right) \cdot \vec{r}+i \varphi_{0}}+\text{c.c}\right] \\
+	\propto 1+V\left|\gamma_{12}\right| \cos \left[\left(\vec{k}_{1}-\vec{k}_{2}\right) \cdot \vec{r}+\Delta \varphi\right]
+\end{align*}
+
+
+
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.53\textwidth}
@@ -146,6 +160,7 @@ For classical fields normalized correlations of intensities:
 		\frac{\left< I(\vec{r}_1,t_1)I(\vec{r}_2,t_2 \right>}{\left<I(\vec{r}_1,t_1)\right>\left<I(\vec{r}_2,t_2)\right>}	
 		\label{eq:g2}
 \end{equation}
+
 
 \paragraph{Van Cittert Zernicke}
 The Van Cittert–Zernike theorem establishes that in the far field, the coherence function of a 
@@ -236,6 +251,7 @@ For large separation between the sources and detectors $(L \gg R)$, the small an
 \end{equation} 
 where $\vec{k}_{1,2}=k \vec{r}_{1,2}$ is the wavevector of the light seen in detector $1$/detector $2$.
 
+Visibility of the speckle pattern
 
 
 The quantum mechanical describtion of the HBT experiment consideres the 
@@ -270,16 +286,16 @@ This is the basic principle used in IDI to recover spatial information from the 
 \end{figure}
 
 \section{Photon Statistics}
-Consider a complex sum of phasors of constant amplitude $A$ and independent uniformly in $(-\pi,\pi)$distributed phases $\phi_k$,
+Considering a complex sum of phasors of constant amplitude $A$ and independent uniformly in $(-\pi,\pi)$distributed phases $\phi_k$,
 \begin{align}
 	c=\sum^N_k A e^{i\phi_k}
-\end{align}:
-For sufficiently large numbers of $N$, the real and imaginary parts
+\end{align}
+for sufficiently large numbers of $N$, the real and imaginary parts
 \begin{align*}
-	r&=\Re c =  A \sum^N_k \cos(\phi_k)\\
+	r&=\Re c =  A \sum^N_k \cos(\phi_k) &
 	i&= \Im c =A \sum^N_k \sin(\phi_k)
 \end{align*}
-will (by Central Limit Theorem) be Gaussian random variables with zero mean and variance $\sigma^2=\frac{N}{2}A^2$, the probability distribution of the amplitude $a=\sqrt(a^2+i^2)$ will  therefore be the Rayleigh distribution
+will (by Central Limit Theorem) be Gaussian random variables with zero mean and variance $\sigma^2=\frac{N}{2}A^2$, the probability distribution of the amplitude $a=\sqrt(a^2+i^2)$ will therefor be the Rayleigh distribution
 \begin{equation}
 	p(a)=\frac{1}{2\pi\sigma^2} a e^{\frac{a^2}{2\sigma^2}}
 \end{equation}
@@ -292,10 +308,10 @@ with mean $\overline{I}$ and standard deviation $\sigma=\overline{I}$  \cite{goo
 A sum of $M$ uncorrelated random variables following identical distributions given by \fref{eq:expdistr} follows a Gamma distribution,
 \begin{equation}
 	\label{eq:gammadistr}
-	p(I)=\frac{I^{M-1} e^{-I/\overline{I}}} {\overline{I}^M \Gamma(M)},
+	p(I)=\frac{I^{M-1} e^{-I/\overline{I}}} {\overline{I}^M \Gamma(M)}.
 \end{equation}
-for a positive integer $M$ this simplifies with $\Gamma(M)=(M-1)!$ to an Erlang distribution  \cite{forbes2010,trost2020}.
-If $I$ is distributed like \fref{eq:gammadistr} and furthermore Poisson sampled as discrete $k$ (such as photon counts in the semi-classical picture), it follows  an negative binomial distribution,
+For a positive integer $M$ this simplifies with $\Gamma(M)=(M-1)!$ to an Erlang distribution  \cite{forbes2010,trost2020}.
+If $I$ is distributed like \fref{eq:gammadistr} and furthermore Poisson sampled as discrete $k$ (such as photon counts in the semi-classical picture), it is negative binomial distributed,
 \cite{trost2020,mandel1959,holmes2019}
 \begin{equation}
 	p(k)=
@@ -319,11 +335,10 @@ If $p(1)$ and $p(2)$ are estimated as $p'_1$ and $p'_2$ based on the frequency i
 $\Delta M \lesssim \frac{2 p'_1}{\left({p'_1}^2+2 (p'_1-1) p'_2\right)^2} \left(\Delta p'_1 (2-p'_1) p'_2+\Delta p'_2 (1-p'_1) p'_1\right)$.
 
 
-
 \section{Signal to Noise Considerations}
 
 The Signal to Noise characteristics of the method are determined by the noise and the signal:
-The signal strength is determined by $g_1$, which is dependent and the sample and the contrast of the recorded speckle image, whereas the noise in the measurement will consist of three parts: First, noise inherent to IDI caused by the random distribution of phases, second, the poissonian noise caused by quantized photons, and third, experimental noise \cite{trost2020, goodman2007}. 
+The signal strength is determined by $\left|S(q)\right|^2$, which is dependent and the sample, and the contrast of the recorded speckle image. The noise in the measurement will consist of three parts: First, noise inherent to IDI caused by the random distribution of phases, second, the poissonian noise caused by quantized photons, and third, experimental noise \cite{trost2020, goodman2007}. 
 
 \subsection{The Signal..}
 The speckle contrast $\beta$ is governed by the number of independent modes $M$ overlaid in the measurement \cite{goodman2000}.
@@ -410,17 +425,23 @@ This is for example important, if the exciting beam is not perpendicular to the 
 If the speckle pattern is not spatially resolved by the detector because its resolution is to low compared to the change in intensity, undersampling will occur, the measured signal will be spatially averaged giving independent spatial sampling modes $M_D$ \cite{goodman2007}.
 
 As an approximation, the total number of modes can be considered the product of those modes different numbers discussed above, even though in reality, the mode numbers are not completely independent.
-Hence, in \fref{chap:simulation}  simulations under different conditions with experimentally feasible  parameters will be performed.
+Hence, in \fref{chap:simulation} simulations combining all these effects under different conditions with experimentally feasible  parameters will be performed.
 
 
 \subsection{... and the Noise}
 The variance of a product of (uncorrelated) photon counts following the negative binomial distribution \fref{eq:negbinomialdist} is
 \begin{equation}
 	\Var_{p\cdot p}= \Var_p^2 +2 \mu^2\Var_p	= \mu^4 \frac{2 M + 1}{M^2 + 2}+ \mu^3 \frac{M+1}{M} + \mu^2 \,.
-\end{equation}.
-Assuming no signal, this would describe the noise in the measurement.
-As shown by Trost et. al, this can be used so estimate the inherent noise of an intensity correlation measurement up to small term, even though the actual signal will break the assumption of having uncorrelated photon counts \cite{trost2020}.
+\end{equation}
+Assuming no correlations, this would describe the inherent noise in the measurement. The last term, dominating in the low photon count regime, can be considered as the "Poissonian character of the noise, whereas the other terms, dominating at low photon counts, the phase noise.
+As shown by Trost et. al, this can be used to estimate the inherent noise of an intensity correlation measurement (up to a small term), even though the actual signal will break the assumption of having uncorrelated photon counts\cite{trost2020}.
 
+
+Combining the contrast of the speckle pattern, the expectation value of the product of the photon counts, the standard deviation as a quantification of the noise, and the number of independent measurements $N$ over which an average is taken, finally gives 
+\begin{equation}
+SNR\propto  \frac{|S(q)|^2 \mu\sqrt{N}}{M\sqrt{\mu^2 \frac{2 M + 1}{M^2 + 2}+ \mu \frac{M+1}{M} + 1}}
+\end{equation}
+as an estimation of the SNR, which will be further examined by performing simulations.
 %Which factors influence SNR -lifetime/pulsewidth -polarisation -sampling conditions / undersampling -sample thickness / coherence length -N images -N photons
 
 %- SNR
