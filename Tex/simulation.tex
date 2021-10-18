@@ -169,6 +169,8 @@ For brevity, a detailed comparison of the different normalization approaches is 
 As shown in \fref{fig:SNRNimages}, the SNR scales with  the square root of the independent images. This will be used to estimate the number of shots necessary to achieve a SNR greater than three to be able to experimentally verify IDI as an imaging method.
  
 \subsection{Number of Modes}
+To Illustrate the effect of the number of modes on the signal and the SNR, a simulation is performed by averaging the intensity over $M$ realizations of the random phases.  
+
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
@@ -183,7 +185,7 @@ As shown in \fref{fig:SNRNimages}, the SNR scales with  the square root of the i
 	\label{fig:SNRNimages}
 \end{subfigure}
 \caption[SNR dependence on the number of modes and images]{For a simulated crystal
-	(sc-structure, 200x200x500 atoms, 5\,\AA\,lattice constant, 2048x2048 detector with 100\,um pixelsize at 50\c,m, $10^4$ photons/image on the detector, 10\,keV) dependence of the signal (height of the peak) on the number of simulated modes shows approximately an $1/M$ relation.  The inset shows individual line profiles through a Bragg peak in the reconstruction. In (b), for a simulated Nickel grating (80\,nm pitch, 40\,nm thickness in a 200\,nm focus, 1024x1024 detector, 70\,cm) the dependence of the SNR on the number of images averaged over and modes fits the $\sqrt{N}/M$ relation, which is indicated by dashed lines.}
+	(sc-structure, 200x200x500 atoms, 5\,\AA\,lattice constant, 2048x2048 detector with 100\,um pixelsize at 50\,cm, $10^4$ photons/image on the detector, 10\,keV) dependence of the signal (height of the peak) on the number of simulated modes shows approximately an $1/M$ relation.  The inset shows individual line profiles through a Bragg peak in the reconstruction. In (b), for a simulated Nickel grating (80\,nm pitch, 40\,nm thickness in a 200\,nm focus, 1024x1024 detector, 70\,cm) the dependence of the SNR on the number of images averaged over and modes fits the $\sqrt{N}/M$ relation, which is indicated by dashed lines.}
 \end{figure}
 
 \subsection{Undersampling and  Sample Size}
@@ -227,7 +229,7 @@ This results suggests, that for an experimental verification using Bragg peaks, 
 
 \subsection{Multiple Samples}
 To decide if having more than one spherical sample in the focus is advantageous, an additional simulation is performed:
-Multiple spheres inside the focal volume, placed randomly but ensuring a minimum distance between neighboring spheres larger than the diameter plus twice the thickness of an additional layer of non-fluorescing organic dispersion agent capping the spheres with no other interaction are simulated.  The number of particles is varied, ranging from a single sphere over multiple spheres to a Poisson Sphere Distribution as a random placement of particles with the minimal allowed spacing and mean a volume fraction of approx. 25\% \footnote{without the buffer layer, the volume fraction would be around 50\%, significantly smaller than the densest possible packing}. 
+Multiple spheres inside the focal volume, placed randomly but ensuring a minimum distance between neighboring spheres larger than the diameter plus twice the thickness of an additional layer of non-fluorescing organic dispersion agent capping the spheres with no other interaction are simulated.  The number of particles is varied, ranging from a single sphere over multiple spheres to a Poisson Sphere Distribution as a random placement of particles with the minimal allowed spacing and mean a volume fraction of approx. 25\%\footnote{without the buffer layer, the volume fraction would be around 50\%, significantly smaller than the densest possible packing}. 
 The structure factor of this ensemble of spherical particles is determined by three factors: The structure factor of the focus, the structure factor of points following an Poisson Sphere Distribution and the structure factor of a single sphere.(see \fref{fig:multisphere1}). As the number of spheres is increased, the influence of the focal volume increases and the distribution of the spheres's centers increases (see  \fref{fig:multisphere3})
 For spheres with 20\, nm radius, a spacing layer of 5\,nm around each sphere, with  50000 excited atoms per sphere on average, a focus of 200nm (FWHM), the fluorescence on a 1024x1024 pixel (pixelsize 100\,um) detector placed 30\,cm is simulated. In this geometry, assuming constant distance to the sample for each detector pixel, approximately 1\% of the emitted photons reach the detector. 
 For each number of spheres 5000 images are used for an IDI reconstruction (see  \fref{fig:multisphere2}).
@@ -291,13 +293,19 @@ This procedure is efficient in regards of discrete time steps that need to be ca
 For a sphere with 10\,nm radius consisting of $2*10^5$ atoms emitting 6.4\,keV fluorescence captured by an 256x256@50\,um detector in 20\,cm distance, the speckle strength (calculated as the standard deviation of the speckle pattern over the mean) of a series of simulations with different decay times $\tau$ of the emission and different FWHM of the exciting Gaussian pulse are shown in \fref{fig:tdpshere_specke}.  These follow the $1/\sqrt{erfcx(2\sigma/\tau})$ relation as predicted by the theory.  For each simulation, a reconstruction can be performed, resulting in radial profiles as shown for one $\tau$ in \fref{fig:tdpshere_recon}. The visibility of the reconstructions (\fref{fig:tdsphere_vis}) shows the for long pulses a reciprocal relationship.
 
 \subsection{Influence of the Sample Thickness}
-To investigate the influence of the sample thickness, the speckle strength in a second simulation is shown in \fref{fig:thickness}. In this simulation, a constant number ($10^6$) of 8\,keV emitters are placed inside a 200\,nm x 200\,nm (FWHM) Gaussian volume with varying thickness. To ensure sufficient sampling of the speckle pattern, the axis of varying thickness is always set perpendicular to the detector. The 64x64 pixel (pixelsize 100\,um) detector is placed in 1\,m distance. The simulation is performed with 4x oversampling and rebinning in both directions. The varying angle $\alpha$ influences only the mean (for each emitter) of the 1\,fs FWHM Gaussian from which the emission is sampled without influencing the overall volume in which the emitters are placed. Therefore, the change in SNR is only caused by the finite coherence time $\tau=1\,fs$, not by a change of the speckle size. Furthermore, no shot noise is considered in the simulation.
-This simulations show that in high angles the limited coherence length of the fluorescence reduces the speckle SNR for thick samples, whereas in small angles, the sample thickness does not influence the SNR: In the 0° limit, the thickness is in beam direction and the position of an emitter along this axis does not change the arrival time of its contribution the the speckle pattern.
-
+To investigate the influence of the sample thickness, the speckle strength in a simulation is shown in \fref{fig:thickness}. In this simulation, a constant number ($10^6$) of 8\,keV emitters are placed inside a 200\,nm x 200\,nm (FWHM) Gaussian volume with varying thickness. To ensure sufficient sampling of the speckle pattern, the axis of varying thickness is always set perpendicular to the detector. The 64x64 pixel (pixelsize 100\,um) detector is placed in 1\,m distance. The simulation is performed with 4x oversampling and rebinning in both directions. The varying viewing angle $\alpha$ influences only the mean (for each emitter) of the 1\,fs FWHM Gaussian from which the emission is sampled without influencing the overall volume in which the emitters are placed. Therefore, the change in SNR is only caused by the finite coherence time $\tau=1\,fs$, not by a change of the speckle size. Furthermore, no shot noise is considered in the simulation.
+This simulations show that in high angles the limited coherence length of the fluorescence reduces the speckle SNR for thick samples, whereas in small angles, the sample thickness does not influence the SNR: In the 0° limit, the thickness is in beam direction and the position of an emitter along this axis does not change the arrival time of its contribution the the speckle pattern, as the path lengh difference $\Delta$ caused by the sample thickness $t$ is (with the transversal distance between sample and detector $z$ and the lateral distance $x$)
+\begin{equation}
+	\Delta=z+\sqrt{z^2+x^2}-\sqrt{(z+t)^2+x^2} \approx(1-\cos (\alpha)) t=\frac{k^2}{\left|\vec{q}\right|^2}t \,.
+\end{equation}
 
 
 
  As a thicker sample gives more photons and therefore less Poisson noise, but a higher number of temporal and spatial modes, thus a lower expected lower speckle visibility, a simulation close to experimentally feasible parameters is desirable.
+
+
+
+
 
 
 
@@ -310,37 +318,37 @@ This simulations show that in high angles the limited coherence length of the fl
 
 
 \begin{figure}
-	\centering
-	\begin{subfigure}[t]{0.45\textwidth}
+\centering
+	
+	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/timedependent_1.pdf}
-		\caption{Speckle SNR for different pulse FWHM and decay times $\tau$\\$ $}
+		\caption{Speckle Strength for different pulse FWHM and decay times $\tau$}
+		\label{fig:pulsedecay}
 	\end{subfigure}
 	\hspace{0.1cm}
-	\begin{subfigure}[t]{0.45\textwidth}
-		\includegraphics[width=\linewidth]{images/thickness.pdf}
-		\caption{Speckle SNR for different sample thicknesses and angles}
-	\end{subfigure}
-	\caption[Speckle SNR in Time Dependent Simulation]{ In a) the SNR of the simulated speckle pattern for different pulse length and decay times $\tau$ of a spherical object is compared with the theoretical dependence on the ratio of pulse length and $\tau$ (details in text), showing good agreement. In b) the influence of sample thickness on the speckle SNR under different angles is show (using the mean of 5 independent simulations and the standard deviation as errors). The dashed lines are $y=c/\left(1+(\sfrac{\sin^2 \alpha}{4})\right)$ regressions. For small angles, the sample thickness does not influence the SNR.}
-\end{figure}
-\begin{figure}
-	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{images/tdsphere.pdf}
 		\caption{Reconstructed radial profiles at different pulse FWHM and fixed $\tau = 0.1$\,fs}
+		\label{fig:tdpshere}
 	\end{subfigure}
-	\hspace{0.1cm}
 	\begin{subfigure}[b]{0.45\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{images/timedependent_2.pdf}
 		\caption{Visibility of the reconstruction for different pulse FWHM and decay times $\tau$}
 	\end{subfigure}
-
-	\caption[Reconstruction Time Dependent IDI Simulation]{In a) exemplary radial profiles of the reconstruction of 50 images simulated for a spherical object are shown for one fixed $\tau$. Those reconstructions are used to plot the  dependence of the visibility on the pulse width in b). For long pulses, the reciprocal dependence on the pulse length is visible.}
-	\label{fig:tdpshere}
+	\hspace{0.1cm}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/thickness.pdf}
+		\caption{Speckle strength for different sample thicknesses and angles}
+		\label{fig:thickness}
+	\end{subfigure}	
+	\caption[Speckle Strength and Signal Visibility in Time Dependent Simulation]{ In \textbf{(a)} the strength of the simulated speckle pattern for different pulse length and decay times $\tau$ of a spherical object (radius 10\,nm) is compared with the theoretical dependence on the ratio of pulse length and $\tau$, showing good agreement. 
+	In \textbf{(b)} exemplary radial profiles of the reconstruction from 50 of those patterns are shown for one fixed $\tau$. Those reconstructions are used to determine the signal visibility as quantification of the  dependence of the signal strength on the pulse width in \textbf{(c)}. For long pulses, the reciprocal dependence on the pulse length is visible.
+	In \textbf{(d)}  the influence of sample thickness on the speckle strength under different angles is show (using the mean of 5 independent simulations and the standard deviation as errors). The dashed lines are  regressions. For small angles, the sample thickness does not influence the speckle strength.}
 \end{figure}
 
-
+%$y=c/\left(1+(\sfrac{{4})\right)$
 
 
 \section{Implications for an experimental design}
