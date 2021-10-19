@@ -64,6 +64,10 @@
 %%\patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{}{}{}% Removes space above \chapter* head
 %\makeatother
 
+%formel in caption
+\makeatletter
+\g@addto@macro\bfseries{\boldmath}
+\makeatother
 
 %algorithmcx
 \usepackage{algorithm}
@@ -348,7 +352,7 @@
 \singlespacing
 \setlength{\parskip}{0pt}
 \setlength{\itemsep}{0pt plus 0.3ex}
-%\setlength{\bibsep}{0pt plus 0.3ex}
+\setlength{\bibsep}{0pt plus 0.3ex}
 \bibliography{ffz}
 \bibliographystyle{ffz}
 \addcontentsline{toc}{chapter}{Bibliography}

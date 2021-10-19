@@ -18,52 +18,75 @@ A process $f(t)$ is wide-sense stationary, if the expectation value $E[f(t)]$ is
 
 
 
-Spherical waves as  solutions to scalar wave equation in spherical coordinates,
+Spherical waves as solutions wave equation in spherical coordinates,
 \begin{equation}
-	E(\vec{r},t)=E_0(k,t) \frac{e^{i\vec{r}\vec{k}-iwt}}{R}
+	\vec{E}(\vec{r},t)=\vec{E}_0(k,t) \frac{e^{i\vec{r}\vec{k}-iwt}}{R}
 	\end{equation}
-describe light propagating isotropically. 
-Superposition principle of two waves with the real amplitudes $A_{1,2}$ and phases $\phi_{1,2}$
+describe the electric field of light propagating isotropically in vacuum. 
+The superposition principle allows the addition of two waves (with the real amplitudes $\vec{A}_{1,2}$ and phases $\phi_{1,2}$)
 \begin{equation}
-E(\vec{r},t)=E_1(\vec{r},t)+E_2\vec{r},t)=A_1*e^{i\phi_1} * e^{i\vec{r}\vec{k_1}-iw_1t} + A_1*e^{i\phi_1} * e^{i\vec{r}\vec{k_2}-iw_2t} 
+\vec{E}(\vec{r},t)=\vec{E_1}(\vec{r},t)+\vec{E_2}(\vec{r},t)=\vec{A_1}*e^{i\phi_1} * e^{i\vec{r}\vec{k_1}-iw_1t} + \vec{A_1}*e^{i\phi_1} * e^{i\vec{r}\vec{k_2}-iw_2t} 
 \end{equation} 
-
-The measured Intensity with measurement time $T\gg1/w$ will be
+The measured intensity with measurement time $T$ will be
 \begin{equation}
-	I(\vec{r},t)\propto \int_0^T \left|E(\vec{r},t)\right|^2 \diff t .
+	I(\vec{r},t)\propto \frac{1}{T} \int_0^T \left|E(\vec{r},t)\right|^2 \diff t
+	\stackrel{T\gg1/w}{\propto}
+    \left<\left|E(\vec{r},t)\right|^2\right> \,.
 \end{equation}
 
-The superposition of two monochromatic, stationary waves with a fixed phase difference $\Delta \phi$, such as a wave and its time delayed copy (\fref{fig:michelson}) in a Michelson interferometer, gives rise to interference fringes
-\begin{equation}
-	\left<I(\vec{r},t)\right>=I_1+I_2+2\sqrt{I_1I_2}\cos\left((\vec{k_1}-\vec{k_2})\vec{r}+\Delta \phi\right)
+The superposition of two monochromatic, stationary waves with a fixed phase difference $\Delta \phi$, such as a wave and its time delayed copy (\fref{fig:michelson}) in an interferometer, gives rise to interference fringes
+\begin{align}
+	\left<I(\vec{r},t)\right> & = I_1+I_2+2\left<\Re({E_1(\vec{r},t)}E_2^*(\vec{r},t))\right> \\
+	& = I_1+I_2+2\sqrt{I_1I_2}\cos\left((\vec{k_1}-\vec{k_2})\vec{r}+\Delta \phi\right) 
 \label{eq:interference}
-\end{equation}
+\end{align}
 
 Defining the contrast of the fringes as the visibility $V$,
 \begin{equation}
 	V=\frac{I_{max}-I_{min}}{I_{max}+I_{min}} ,
 \end{equation} 
 
-it results for equal intensities of the the waves in maximum contrast,  $V=\frac{2\sqrt{I*I}}{I+I}I=1$. This case of a fixed phase difference is called coherent.
+results for equal intensities of the the waves in maximum contrast,  $V=\frac{2\sqrt{I*I}}{I+I}I=1$. This case of a fixed phase difference is called coherent.
 If, on the other hand, the phase difference $\Delta \phi$ is not fixed but completly random and therefore averages out in \fref{eq:interference}, the visibility goes to 0 and the waves are regarded as incoherent.
 
 To consider non monochromatic waves, we define the self coherence function $\Gamma$ as 
 \begin{equation}
 \Gamma(\tau)=\left< E(t)E(t+\tau)\right>
 \end{equation}
-and its normalized version, the complex degree of coherence $\gamma$, as
+and its normalized version, the complex degree of (self-)coherence $\gamma$, as
 \begin{equation}
 \gamma(\tau)=\frac{\Gamma(\tau)}{\Gamma(0)} =  \frac{\Gamma(\tau)}{<I>}
-\end{equation} \cite{zernike1938,loudon2000}
+\end{equation} 
+Now \fref{eq:interference} can be written as 
+\begin{equation}
+	I=I_{1}+I_{2}+2 \sqrt{I_{1} I_{2}} \operatorname{Re}\left[\gamma(\tau)\right]
+\end{equation}
+and (again for equal intensities) the visibility is $V(\tau)=\left|\gamma(\tau)\right|$ \cite{zernike1938,loudon2000}.
 
-The coherence time describes at which delay the falls to approximately zero. One possible more precise definition of the coherence time introduced by Mandel based on the complex degree of coherence is
+The \textit{coherence time }shall describe at which delay the visibility falls to approximately zero. One possible definition by Mandel based on the complex degree of coherence is
 \begin{equation}
 \tau_c = \int_{-\infty}^{\infty} \left| \gamma(\tau)\right|^2 \diff \tau 
-\end{equation} and will be used in the following. Other definitions commonly used are equivalent up to a constant factor and lead generally to coherence times of the same order of magnitude. \cite{mandel1959,goodman2000}.
+\end{equation} and will be used in the following. Other definitions commonly used are equivalent up to a constant factor and lead generally to coherence times of the same order of magnitude \cite{mandel1959,goodman2000}.
+
+For an exponentially decaying electric field $E(t)=\Theta(t)e^{-t/\tau}$, the spectrum is Lorentian with an angular frequency FWHM of $\frac{2}{\tau}$ as 
+\begin{equation*}
+\left|\int_{0}^{\infty}  e^{-t/\tau} e^{-iwt} \dif t \right|^2 \propto  \frac{1}{1/\tau^2+w^2} .
+\end{equation*}
+Therefore, an Lorentian spectrum with a FWHM of $\Delta E$ corresponds to an lifetime of $\frac{2\hbar}{\Delta E}$ and vice versa.
+The Wiener Khinchin theorem connects the spectrum $F(w)$ with $\gamma$
+\begin{equation}
+	F(\omega)=\frac{1}{2 \pi} \int_{-\infty}^{\infty} \gamma(\tau) \exp (\mathrm{i} \omega \tau)  \dif \tau
+\end{equation}, leading to
+$<\gamma(\tau)>=e^{-|\tau/| \tau_c}$ and showing that the the coherence time  $\tau_c$ with the definition above is the time, after which $\gamma$ has decreased to $\sfrac{1}{e} $.
 
 
 
-
+ \begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/michelson.pdf}
+	\caption[Schematic of interferometer]{Schematic of interferometer: Light of (a gaussian) light source with finite coherence time is split and interference with a delayed copy is observed. The time averaged intensity measured by an detector changes with the delay time. }
+	\label{fig:michelson}
+\end{figure}
 
 
 \paragraph{First order coherence $g_1$}
@@ -76,59 +99,24 @@ A generalization of $\gamma$  to different fields  $E_1^*(\vec{r}_1,t_1)$ and $E
 
 
 
-
-
-
-
-
-
-
-For an exponentially decaying electric field $E(t)=\Theta(t)e^{-t/\tau}$, the spectrum is Lorentian with an angular frequency FWHM of $\frac{2}{\tau}$ as 
-\begin{equation*}
-\left|\int_{0}^{\infty}  e^{-t/\tau} e^{-iwt} \dif t \right|^2 \propto  \frac{1}{1/\tau^2+w^2} .
-\end{equation*}
-Therefore, an Lorentian spectrum with a FWHM of $\Delta E$ corresponds to an lifetime of $\frac{2\hbar}{\Delta E}$.
-
-The application of the Wiener Khinchin theorem then gives $g^1$
-
-On the other hand, for a Lorentzian light source, $<g_1(\tau)>=e^{-|\tau/| \tau_c}$, showing the coherence time  $\tau_c$ with the definition above is the time, after which $g^1$ has decreased to $e^{-1} g^1(0)$.
-
-
-The visibility $V$ as 
- \begin{figure}
-	\centering
-	\includegraphics[width=0.8\linewidth]{images/michelson.pdf}
-	\caption[Schematic of interferometer]{Schematic of interferometer: Light of (a gaussian) light source with finite coherence time is split and interference with a delayed copy is observed. The time averaged intensity measured by an detector changes with the delay time. }
-	\label{fig:michelson}
-\end{figure}
-
-\begin{equation}
-V=\left|g_1\right|
-\end{equation}
-
-Int
--along Glauber/Statistical Optics Goodman
-
-
-
-Intensity in double slit leads to normalized degree of coherence $g_1$
-Visiblity is modulus of $g_1$.
-
-In a double slit setup (\fref{fig:doubleslit}), $E(r,t)=c_1 E_1(t)+c_2E2(t)$ with complex $c_2$ and $c_2$, $\left|c_1\right|\approx\left|c_2\right|$ describing the propagation to the screen. 
-
-
-The electrical field is 
+This can be used for example to describe Young's double slit experiment (\fref{fig:doubleslit}): On the screen at point $\vec{r}$, the electrical field is 
 \begin{equation}
 	E(\vec{r}, t)=\frac{E\left(\vec{r}_{1}, t-R_{1} / c\right)}{R_{1}} e^{i\left[\vec{k}_{1} \cdot\left(\vec{r}-\vec{r}_{1}\right)-\omega t\right]}+\frac{E\left(\vec{r}_{2}, t-R_{2} / c\right)}{R_{2}} e^{i\left[\vec{k}_{2} \cdot\left(\vec{r}-\vec{r}_{2}\right)-\omega t\right]} 
 \end{equation}
-If the distances from $r$ to the two slits are (approximately) equal, $R_{1}\approx R_{2} \approx R$, the intensity at $\vec{r}$ is
+If the distances from $r$ to the two slits are (approximately) equal, $R_{1}\approx R_{2} \approx d$, the intensity at $\vec{r}$ is
 \begin{align*}
-	\left\langle I_{P}\left(\vec{r}, t^{\prime}\right)\right\rangle=\left\langle\left|E\left(\vec{r}_{1}, t\right)\right|^{2}\right\rangle+\left\langle\left|E\left(\vec{r}_{2}, t\right)\right|^{2}\right\rangle \\
-	+\left[\left\langle E^{*}\left(\vec{r}_{1}, t\right) E\left(\vec{r}_{2}, t\right)\right\rangle e^{i\left(\vec{k}_{1}-\vec{k}_{2}\right) \cdot \vec{r}+i \varphi_{0}}+\text{c.c}\right] \\
-	\propto 1+V\left|\gamma_{12}\right| \cos \left[\left(\vec{k}_{1}-\vec{k}_{2}\right) \cdot \vec{r}+\Delta \varphi\right]
+	\left\langle I_{P}\left(\vec{r}, t^{\prime}\right)\right\rangle&=\left\langle\left|E\left(\vec{r}_{1}, t\right)\right|^{2}\right\rangle+\left\langle\left|E\left(\vec{r}_{2}, t\right)\right|^{2}\right\rangle 
+	+\left[\left\langle E^{*}\left(\vec{r}_{1}, t\right) E\left(\vec{r}_{2}, t\right)\right\rangle e^{i\left(\vec{k}_{1}-\vec{k}_{2}\right) \cdot \vec{r}+i \Delta \phi}+\text{c.c}\right] \\
+	& \propto 1+
+	\frac{2 \sqrt{\left< I\left(\vec{r}_{1}, t\right)\right>\left< I\left(\vec{r}_{2}, t\right)\right>}}
+	{\vphantom{2\sqrt{\left<I\left(\vec{r}_{1}\right)\right>}}\left< I\left(\vec{r}_{1}, t\right)\right>+\left< I\left(\vec{r}_{2}, t\right)\right>}	
+	\frac{\vphantom{2\sqrt{\left<I\left(\vec{r}_{1}\right)\right>}}\left< E^{*}\left(\vec{r}_{1}, t\right) E\left(\vec{r}_{2}, t\right)\right>}
+	{\vphantom{2\sqrt{\left<I\left(\vec{r}_{1}\right)\right>}}\sqrt{\left\langle I\left(\vec{r}_{1}, t\right)\right>\left\langle I\left(\vec{r}_{2}, t\right)\right>}}
+	\cos \left[\left(\vec{k}_{1}-\vec{k}_{2}\right) \cdot \vec{r}+\Delta \phi\right]
 \end{align*}
 
 
+and the visibility can be identified as the modulus of $g_1$ \cite{loudon2000,ou2017}.
 
 \begin{figure}
 	\centering
@@ -148,13 +136,13 @@ In the Hanbury Brown Twiss experiment\textbf{(b)} are two indistinguishable two 
 
 
 
-\paragraph{Second order coherence $g_2(t_1,t_2)$}
-The definition of $g_1$ can be extended to the second order by
+\paragraph{Second order coherence $g_2$}
+The definition of $g_1$ can be extended to the second order by considering
 \begin{equation*}
-	g^{(2)}(\vec{r}_1,t_1;\vec{r}_2,t_2= 
+	g^{(2)}(\vec{r}_1,t_1;\vec{r}_2,t_2)= 
 	\frac{\left< E^*(\vec{r}_1,t_1)E^*(\vec{r}_2,t_2)E(\vec{r}_1,t_1)E(\vec{r}_2,t_2) \right>}{\left<\left | E(\vec{r}_1,t_1)\right |^2 \right> \left< \left |E(\vec{r}_2,t_2)\right |^2 \right>}	
 \end{equation*}
-For classical fields normalized correlations of intensities:
+For classical fields, this is equivalent  to normalized correlations of intensities:
 \begin{equation}
 	g^{(2)}(\vec{r}_1,t_1;\vec{r}_2,t_2)= 
 		\frac{\left< I(\vec{r}_1,t_1)I(\vec{r}_2,t_2 \right>}{\left<I(\vec{r}_1,t_1)\right>\left<I(\vec{r}_2,t_2)\right>}	
@@ -164,7 +152,7 @@ For classical fields normalized correlations of intensities:
 
 \paragraph{Van Cittert Zernicke}
 The Van Cittert–Zernike theorem establishes that in the far field, the coherence function of a 
-quasi-monochromatic but spatially incoherent light source is proportional to the 2D Fourier transform intensity distribution of the source. Carter and Wolf introduced a generalization for three dimensional sources, showing that in the case of an completely incoherent source field, the complex degree of coherence in the far field is proportional to the 3D Fourier transform of the source's intensity distribution \cite{rosen1996, goodman2005, carter1981}:
+quasi-monochromatic but spatially incoherent light source is proportional to the 2D Fourier transform intensity distribution of the source. Carter and Wolf introduced a generalization for three dimensional sources (without the need for a small angle approximation), showing that in the case of an completely incoherent source field, the first order coherence in the far field is proportional to the 3D Fourier transform of the source's intensity distribution \cite{rosen1996, goodman2005, carter1981}:
 \begin{equation}
 	g^{(1)}(\vec{r}_1,\vec{r}_2) \propto I_0^{-1} \int_{S} I_s(\vec{r}) e^{ik(R_1-R_2)} \difc \vec{r} \approx I_0^{-1} \int_{S} I_s(\vec{r}) e^{-ik\vec{r}(\vec{r_1}-\vec{r_2})} \difc \vec{r}
 	\label{eq:vcz}
@@ -180,45 +168,12 @@ with the source volume $S$ and intensity distribution $I_s$, total source intens
 %\section{X-Ray Fluorescence}
 
 
-
-\section{Intensity Correlations of X-Ray Fluorescence}
-\paragraph{X-Ray Fluorescence}
- X-ray fluorescence is emitted if atoms are ionised leaving holes in the inner shell, which are subsequently filled by electrons of higher energy levels and the energy difference is emitted as photons (see \fref{fig:levels} for the usual naming convention) \cite{attwood1999}. In the experimental section, iron, copper and gallium are the most relevant atoms considered. The relevant emission energies, the line widths and relative intensities are shown in \fref{tab:elements}.   Roughly, the $K_\alpha$ line widths correspond to coherence times in the 0.4-0.8\,fs range ().
-\begin{figure}[h]
-	\centering
-	\begin{subfigure}[b]{0.35\textwidth}
-		\includegraphics[width=\linewidth]{images/levels.pdf}
-		\caption[Atomic Levels]{Atomic levels and associated X\nobreakdash-Ray energies}
-		\label{fig:levels}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width=\linewidth]{images/crosssectionFe.pdf}
-		\caption[Cross Sections]{X-ray Cross Sections for Iron. Data from xraylib \cite{xraylib}}
-		\label{fig:cross}
-	\end{subfigure}
-\end{figure}
-
-\begin{table}[h]
-	\caption[X-Ray Energies]{X-ray energies and line widths of some relevant elements \cite{xraylib,krause1979,sorum1987}.  }
-	\label{tab:elements}
-	\small
-	\begin{tabular}{l|l|ll|lll|ll}
-		\hline
-		Element & K$_{edge}$                                             & \multicolumn{2}{c}{K${_\alpha 1}$}                                                                           & \multicolumn{3}{c}{K${_\alpha 2}$}                                                                                                                                       & \multicolumn{2}{c}{K${_\beta 1,3}$}                                                                              \\
-		& \begin{tabular}[c]{@{}l@{}}Energy \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}FWHM \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy\\  / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}FWHM \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}rel. \\ Intensity\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy\\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}rel. \\ Intensity\end{tabular} \\ \hline
-		Fe      & 7112                                                   & 6403.8                                                 & 1.61                                                 & 6390.8                                                 & 1.62                                                 & 0.50                                                      & 7058.0                                                & 0.17                                                      \\
-		Cu      & 8979                                                   & 8047.8                                                & 2.11                                                 & 8,027.8                                                & 2.17                                                 & 0.51                                                      & 8905.3                                                & 0.17                                                      \\
-		Ga      & 10367                                                  & 9251.7                                                 & 2.59                                                 & 9224.8                                                 & 2.66                                                 & 0.51                                                      & 10263.9                                               & 0.71                                                      \\
-		As      & 11867                                                  & 10543.7                                                & 3.08                                                 & 10508.0                                                & 3.17                                                 & 0.51                                                      & 11724.3                                               & 0.19                                                      \\ \hline
-	\end{tabular}
-\end{table}
-\FloatBarrier
 \section{Hanbury Brown Twiss}
 Hanbury Brown and Twiss 
 
 The interpretation based on (semi-)classical coherence theory for thermal light sources \cite{baym1997,goodman2000}
 
-If the sources $A$ and $B$ produce spherical electromagnetic waves $E_{A,B}=c_{A,B} e^{i k\left|\vec{r}-\vec{r}_{1,2}\right|+i \phi_{A,B}} /\left|\vec{r}-\vec{r}_{A,B}\right|$ with $\phi_{A,B}$ random but constant phases and ignoring polarisation, the total intensity at detector 1 $I_{1}$ (and similiar $I_{2}$ at detector 2) is
+If the sources $A$ and $B$ produce each spherical electromagnetic waves with random but constant phases $\phi_{A,B}$, $E_{A,B}=c_{A,B} e^{i k\left|\vec{r}-\vec{r}_{1,2}\right|+i \phi_{A,B}} /\left|\vec{r}-\vec{r}_{A,B}\right|$ and ignoring polarization, the total intensity at detector 1 $I_{1}$ (and similar $I_{2}$ at detector 2) is
 \begin{equation}
 	I_{1} =
 	\frac{1}{L^{2}}\left(
@@ -234,7 +189,7 @@ Averaging over many independent realisations of the random phases leads to the a
 	\left\langle I_{1}\right\rangle=\left\langle I_{2}\right\rangle=\frac{1}{L^{2}}\left(\left\langle|c_A|^{2}\right\rangle+\left\langle|c_B|^{2}\right\rangle\right)
 \end{equation}, 
 
-independent of the seperation of the detectors. On the other hand, the average of the product of the intensites is
+independent of the separation of the detectors. On the other hand, the average of the product of the intensities is
 \begin{equation}
 	\left\langle I_{1} I_{2}\right\rangle =
 	\left\langle I_{1}\right\rangle\left\langle I_{2}\right\rangle+\frac{2}{L^{4}}|c_A|^{2}|c_B|^{2} \cos \left(k\left(r_{1 a}-r_{2 a}-r_{1 b}+r_{2 b}\right)\right) 
@@ -249,19 +204,14 @@ For large separation between the sources and detectors $(L \gg R)$, the small an
 \begin{equation}
 	g^2\left(\vec{k_1}-\vec{k_2}\right)-1\propto \cos{\left(\vec{R} \cdot\left(\vec{k}_{2}-\vec{k}_{1}\right)\right)}
 \end{equation} 
-where $\vec{k}_{1,2}=k \vec{r}_{1,2}$ is the wavevector of the light seen in detector $1$/detector $2$.
+where $\vec{k}_{1,2}=k \vec{r}_{1,2}$ is the wavevector of the light seen in detector $1$/detector $2$. As the modulation frequency of the the intensity correlation is depended $R$, the separation of the two sources can be recovered.
 
-Visibility of the speckle pattern
-
-
-The quantum mechanical describtion of the HBT experiment consideres the 
-
-A detailed quantum mechanical treatment considers the mixtures of the probability amplitudes of emission and detection at the two detectors (as the individual paths are indistinguishable), leading what was shown as an equivalent description of the HBT effect for thermal light sources \cite{fano1961,sudarshan1963,glauber2006}, but allows the treatment of non classical light sources such as single photon emitters \cite{mandel1995,classen2017}. This introduces a correction term in $g^2$ of the order of $1/N$ with $N$ the number of emitters, which for the considered cases is negligible.
+A detailed quantum mechanical treatment  considers the mixtures of the probability amplitudes of emission and detection at the two detectors (as the individual paths are indistinguishable), leading what was shown as an equivalent description of the HBT effect for thermal light sources \cite{fano1961,sudarshan1963,glauber2006}, but allows the treatment of non classical light sources such as single photon emitters \cite{mandel1995,classen2017}. This introduces a correction term in $g^2$ of the order of $1/N$ with $N$ the number of emitters, which for the considered cases is negligible.
 
 
 
 \paragraph{Siegert Relation}
-For thermal light with Gaussian statistics, Isserlis' theorem 
+For chaotic light with Gaussian statistics, Isserlis' theorem 
 $\left<ABCD\right>=\left<AB\right>\left<CD\right>+\left<AC\right>\left<BD\right>+\left<AD\right>\left<BC\right>$ can be applied to \fref{eq:g2}, leading  (independently of the spatial configuration of the sources ) to
 \begin{equation}
 	g_2(\vec{r_1},\vec{r_2}) = 1+ |g_1(\vec{r_1},\vec{r_2}) |^2 ,
@@ -271,12 +221,12 @@ For $N$ Single-Photon-Emitters and quantum optical treatment,  a similiar form h
 \begin{equation}
 	g_2(\vec{r_1},\vec{r_2}) = 1+ |g_1(\vec{r_1},\vec{r_2}) |^2 - \frac{2}{N} ,
 \end{equation}
-As, as according to the van Cittert Zernicke theorem, \fref{eq:vcz}, $g_1$ encodes structural information, 
+As, as according to the van Cittert Zernicke theorem (\fref{eq:vcz}), $g_1$ encodes structural information, 
 \begin{equation}
 	g_1(\vec{k_1},\vec{k_2}) \propto \mathscr{F}S(\vec{r}) = S(\vec{q})
 \end{equation}
 the difference of the intensity-intensity correlation from unity is proportional (with a contrast determining constant $\beta$) to the Fourier transform of the arrangement of emitters with $q=\vec{k_1}-\vec{k_2}$ (see \fref{fig:scatteringvectors}).
-This is the basic principle used in IDI to recover spatial information from the intensity correlation.
+This is the basic principle used in IDI to recover three dimensional spatial information from the intensity correlation.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.9\linewidth]{images/scatteringvectors.pdf}
@@ -340,13 +290,9 @@ $\Delta M \lesssim \frac{2 p'_1}{\left({p'_1}^2+2 (p'_1-1) p'_2\right)^2} \left(
 The Signal to Noise characteristics of the method are determined by the noise and the signal:
 The signal strength is determined by $\left|S(q)\right|^2$, which is dependent and the sample, and the contrast of the recorded speckle image. The noise in the measurement will consist of three parts: First, noise inherent to IDI caused by the random distribution of phases, second, the poissonian noise caused by quantized photons, and third, experimental noise \cite{trost2020, goodman2007}. 
 
-\subsection{The Signal..}
-The speckle contrast $\beta$ is governed by the number of independent modes $M$ overlaid in the measurement \cite{goodman2000}.
-\begin{equation}
-\beta =\tfrac{1}{M}
-\end{equation}
-
-If the measurement is performed over a finite amount of time, the number of temporal degrees of freedom is
+\section{Speckle Contrast}
+The speckle contrast $\beta =\tfrac{1}{M}$ is governed by the number of independent modes $M$ overlaid in the measurement \cite{goodman2000}. 
+If the measurement is performed over a finite amount of time, the number of temporal modes is
 \begin{equation}
 M_t=\frac{\left(\int_{-\infty}^{\infty} P(t)\diff t\right)^2}{\int_{-\infty}^{\infty} K(t) \left|\mu(t)\right|^2\diff t}
 \label{eq:modes}
@@ -368,7 +314,6 @@ If the Integration time can be considered as infinite and instead $P(t)$ is a Ga
 	\label{eq:mgauss}
 \end{equation}
 with the complementary error function $\erfc=\frac{2}{\sqrt{\pi}}\int_x^\infty e^{-z^2}\diff z$.
-
 
 Inoue et al. considered $P$ to be the Gaussian excitation pulse convoluted with an exponential decay with lifetime $\tau$ \cite{inoue2019,butz2015},
 \begin{align}
@@ -418,17 +363,15 @@ The experimentally indistinguishable fluorescence energies $K_{\alpha,1}$ and $K
 
 As the used X-ray detectors are polarization insensitive and the X-ray fluorescence is unpolarized, the incoherent field can be separated into two polarization modes with independent random phase, which are pairwise orthogonal with $\vec{k}$ and therefore change slightly for each atom and detector position. For small source dimensions, this change is negligible,  giving $M_P \approx 2$ \cite{classen2019}. 
 
+Path differences longer than the coherence length give additional modes $M_S$, therefore the speckle visibility will be reduced for large samples. This is for example important, if the exciting beam is not perpendicular to the detector (such as in an off-axis setup), as the excitation time difference between different parts of the a thick sample is not compensated for by the difference in flight time to the detector or in a wide angle experiment. In a small angle setup with a detector perpendicular to the beam, fluorescence from different emitters along the sample thickness will arrive at approximately equal time, hence the sample thickness should not introduce additional modes). To illustrate this effect, simulations will be performed in \fref{chap:simulation}.
 
-Path differences longer than the coherence length give additional modes $M_S$, therefor the speckle visibility will be reduced for large samples:
-This is for example important, if the exciting beam is not perpendicular to the detector (such as in an off-axis setup), as the excitation time difference between different parts of the a thick sample is not compensated for by the difference in flight time to the detector or in a wide angle experiment. In a small angle setup with a detector perpendicular to the beam, fluorescence from different emitters along the sample thickness will arrive at approximately equal time, hence the sample thickness should not introduce additional modes). To illustrate this effect, simulations will be performed in \fref{chap:simulation}.
-
-If the speckle pattern is not spatially resolved by the detector because its resolution is to low compared to the change in intensity, undersampling will occur, the measured signal will be spatially averaged giving independent spatial sampling modes $M_D$ \cite{goodman2007}.
+If the speckle pattern is not spatially resolved by the detector because its resolution is too low compared to the change in intensity, undersampling will occur, the measured signal will be spatially averaged giving independent spatial sampling modes $M_D$ \cite{goodman2007}.
 
 As an approximation, the total number of modes can be considered the product of those modes different numbers discussed above, even though in reality, the mode numbers are not completely independent.
 Hence, in \fref{chap:simulation} simulations combining all these effects under different conditions with experimentally feasible  parameters will be performed.
 
 
-\subsection{... and the Noise}
+\paragraph{Estimation of the Noise}
 The variance of a product of (uncorrelated) photon counts following the negative binomial distribution \fref{eq:negbinomialdist} is
 \begin{equation}
 	\Var_{p\cdot p}= \Var_p^2 +2 \mu^2\Var_p	= \mu^4 \frac{2 M + 1}{M^2 + 2}+ \mu^3 \frac{M+1}{M} + \mu^2 \,.
@@ -436,7 +379,7 @@ The variance of a product of (uncorrelated) photon counts following the negative
 Assuming no correlations, this would describe the inherent noise in the measurement. The last term, dominating in the low photon count regime, can be considered as the "Poissonian character of the noise, whereas the other terms, dominating at low photon counts, the phase noise.
 As shown by Trost et. al, this can be used to estimate the inherent noise of an intensity correlation measurement (up to a small term), even though the actual signal will break the assumption of having uncorrelated photon counts\cite{trost2020}.
 
-
+\paragraph{Signal to Noise Ratio}
 Combining the contrast of the speckle pattern, the expectation value of the product of the photon counts, the standard deviation as a quantification of the noise, and the number of independent measurements $N$ over which an average is taken, finally gives 
 \begin{equation}
 SNR\propto  \frac{|S(q)|^2 \mu\sqrt{N}}{M\sqrt{\mu^2 \frac{2 M + 1}{M^2 + 2}+ \mu \frac{M+1}{M} + 1}}
@@ -450,9 +393,37 @@ as an estimation of the SNR, which will be further examined by performing simula
 
 
 
+\section{X-Ray Fluorescence}
+X-ray fluorescence is emitted if atoms are ionised leaving holes in the inner shell, which are subsequently filled by electrons of higher energy levels and the energy difference is emitted as photons (see \fref{fig:levels} for the usual naming convention) . The finite lifetime of the excited states cause a predominantly Lorentzian line shape \cite{attwood1999,van2001}. In the experimental section, iron, copper and gallium atoms are considered - the relevant emission energies, the (experimental) line widths and relative intensities are shown in \fref{tab:elements}.   Roughly, the $K_\alpha$ line widths correspond to coherence times in the 0.4-0.8\,fs range \cite{krause1979}.
 
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.35\textwidth}
+		\includegraphics[width=\linewidth]{images/levels.pdf}
+		\caption[Atomic Levels]{Atomic levels and associated X\nobreakdash-Ray energies}
+		\label{fig:levels}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/crosssectionFe.pdf}
+		\caption[Cross Sections]{X-ray Cross Sections for Iron. Data from xraylib \cite{xraylib}}
+		\label{fig:cross}
+	\end{subfigure}
+\end{figure}
 
-
+\begin{table}
+	\caption[X-Ray Energies]{X-ray energies and line widths of some relevant elements \cite{xraylib,krause1979,sorum1987}.  }
+	\label{tab:elements}
+	\small
+	\begin{tabular}{l|l|ll|lll|ll}
+		\hline
+		Element & K$_{edge}$                                             & \multicolumn{2}{c}{K$_{\alpha 1}$}                                                                           & \multicolumn{3}{c}{K$_{\alpha 2}$}                                                                                                                                       & \multicolumn{2}{c}{K$_{\beta}$}                                                                              \\
+		& \begin{tabular}[c]{@{}l@{}}Energy \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}FWHM \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy\\  / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}FWHM \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}rel. \\ Intensity\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy\\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}rel. \\ Intensity\end{tabular} \\ \hline
+		Fe      & 7112                                                   & 6403.8                                                 & 1.61                                                 & 6390.8                                                 & 1.62                                                 & 0.50                                                      & 7058.0                                                & 0.17                                                      \\
+		Cu      & 8979                                                   & 8047.8                                                & 2.11                                                 & 8,027.8                                                & 2.17                                                 & 0.51                                                      & 8905.3                                                & 0.17                                                      \\
+		Ga      & 10367                                                  & 9251.7                                                 & 2.59                                                 & 9224.8                                                 & 2.66                                                 & 0.51                                                      & 10263.9                                               & 0.18                                                      \\
+		As      & 11867                                                  & 10543.7                                                & 3.08                                                 & 10508.0                                                & 3.17                                                 & 0.51                                                      & 11724.3                                               & 0.19                                                      \\ \hline
+	\end{tabular}
+\end{table}
 
 
 \section{Kossel Lines}
@@ -482,10 +453,10 @@ As each point identified as belonging to a Kossel line has to be part of a conic
  for a reciprocal lattice vector $\vec{q}$ which is an element of the allowed reflections $Q$. 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.25\textwidth}
+	\begin{subfigure}[b]{0.3\textwidth}
 	\includegraphics[width=\linewidth]{images/kossel0.pdf}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.25\textwidth}
+	\begin{subfigure}[b]{0.3\textwidth}
 	\includegraphics[width=\linewidth]{images/kossel.pdf}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.35\textwidth}
