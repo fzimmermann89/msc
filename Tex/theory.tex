@@ -1,23 +1,11 @@
 \chapter{Theory}
-
 \label{chap:theory}
-
-%\cite{goodman2000,goodman2007,agarwal2013,classen2017,cowley1995,born1980,trigg2005,attwood1999,griffiths2005,agarwal2013,classen2017,loudon2000,mandel1995,hanbury1956,glauber2006,baym1997,zernike1938,rosen1996,yabashi2002,singer2013,santra2009,krause1979,trost2020,inoue2019,sorum1987,lajunen04,mpccd,tono2013}
-
-
-
+The main principle of IDI is to use intensity correlations of X-Ray fluorescence. To have a basic understanding of the underlying definitions necessary for both simulations and the experimental application, a (semi-) classical approach to coherence and the experiment of Hanbury-Brown Twiss suffices. 
 
 \paragraph{Stationarity and Ergodicity}
-A process $f(t)$ is wide-sense stationary, if the expectation value $E[f(t)]$ is independent of the time $t$ and $E[f(t_1)f(t_2)]$ depends only on the time difference $\tau=f_1-f_2$. A process, for which the time average and the ensemble average are equal is called ergodic. Stationarity is a necessity for ergodicity.
-
-
+We will first assume all considered fields to be both stationary and egodic. A process $f(t)$ is wide-sense stationary, if the expectation value $E[f(t)]$ is independent of the time $t$ and $E[f(t_1)f(t_2)]$ depends only on the time difference $\tau=f_1-f_2$. A process, for which the time average and the ensemble average are equal is called ergodic. Stationarity is a necessity for ergodicity. Deviations from this assumption will be considered in \fref{sec:specklecontrast}.
 
 \section{Basic Conecepts of Coherence}
-
-
-
-
-
 Spherical waves as solutions wave equation in spherical coordinates,
 \begin{equation}
 	\vec{E}(\vec{r},t)=\vec{E}_0(k,t) \frac{e^{i\vec{r}\vec{k}-iwt}}{R}
@@ -63,21 +51,29 @@ Now \fref{eq:interference} can be written as
 \end{equation}
 and (again for equal intensities) the visibility is $V(\tau)=\left|\gamma(\tau)\right|$ \cite{zernike1938,loudon2000}.
 
-The \textit{coherence time }shall describe at which delay the visibility falls to approximately zero. One possible definition by Mandel based on the complex degree of coherence is
+The \textit{coherence time }shall describe at which delay the visibility falls to approximately zero. One possible definition by Mandel based on the complex degree of coherence,
 \begin{equation}
 \tau_c = \int_{-\infty}^{\infty} \left| \gamma(\tau)\right|^2 \diff \tau 
-\end{equation} and will be used in the following. Other definitions commonly used are equivalent up to a constant factor and lead generally to coherence times of the same order of magnitude \cite{mandel1959,goodman2000}.
+\end{equation} will be used in the following. Other definitions commonly used are equivalent up to a constant factor and lead generally to coherence times of the same order of magnitude \cite{mandel1959,goodman2000}. 
 
-For an exponentially decaying electric field $E(t)=\Theta(t)e^{-t/\tau}$, the spectrum is Lorentian with an angular frequency FWHM of $\frac{2}{\tau}$ as 
-\begin{equation*}
-\left|\int_{0}^{\infty}  e^{-t/\tau} e^{-iwt} \dif t \right|^2 \propto  \frac{1}{1/\tau^2+w^2} .
-\end{equation*}
-Therefore, an Lorentian spectrum with a FWHM of $\Delta E$ corresponds to an lifetime of $\frac{2\hbar}{\Delta E}$ and vice versa.
-The Wiener Khinchin theorem connects the spectrum $F(w)$ with $\gamma$
+Furthermore, the Wiener Khinchin theorem connects the power spectrum $F(w)$ with $\gamma$
 \begin{equation}
 	F(\omega)=\frac{1}{2 \pi} \int_{-\infty}^{\infty} \gamma(\tau) \exp (\mathrm{i} \omega \tau)  \dif \tau
-\end{equation}, leading to
-$<\gamma(\tau)>=e^{-|\tau/| \tau_c}$ and showing that the the coherence time  $\tau_c$ with the definition above is the time, after which $\gamma$ has decreased to $\sfrac{1}{e} $.
+\end{equation}.
+
+As a relevant example, for an exponentially decaying electric field envelope\footnote{Corresponding to an intensity/photon number decay with time constant $\sfrac{\tau}{2}$} $E(t)=\Theta(t)e^{-t/\tau_E}$, the power spectrum is Lorentzian with an angular frequency FWHM of $\Delta \omega=\frac{2}{\tau_E}$,
+\begin{equation*}
+\left|\int_{0}^{\infty}  e^{-t/\tau_E} e^{-iwt} \dif t \right|^2 \propto  \frac{1}{1/\tau_E^2+w^2} .
+\end{equation*}
+and
+\begin{align*}
+\left\langle E(t) E^{*}(t+\tau)\right\rangle
+&=\int_{0}^{\infty} E(t) E^{*}(t+\tau)\diff t
+=\frac{\tau_E}{2}   e^{-\frac{\left| \tau \right| }{\tau_E }}\\
+\left\langle E(t) E^{*}(t)\right\rangle
+&=\frac{\tau_E}{2} 
+\end{align*}
+Hence, $\left<\gamma(\tau)\right>=e^{-|\tau/| \tau_E}$,   and the coherence time as defined is above is $\tau_c=\int_{-\infty}^{\infty} \left| \gamma(\tau)\right|^2 \diff \tau=\tau_E=\sfrac{2\hbar}{\Delta E}$ \cite{goodman2000,pollnau2020}.
 
 
 
@@ -169,11 +165,9 @@ with the source volume $S$ and intensity distribution $I_s$, total source intens
 
 
 \section{Hanbury Brown Twiss}
-Hanbury Brown and Twiss 
+Hanbury-Brown Twiss first used the correlation between the intensities captures by photomultiplier tubes to measure the angular size of stars  \cite{hanbury1956}. The underlying effect can be explained based on (semi-)classical coherence theory for chaotic light sources \cite{baym1997,goodman2000}:
 
-The interpretation based on (semi-)classical coherence theory for thermal light sources \cite{baym1997,goodman2000}
-
-If the sources $A$ and $B$ produce each spherical electromagnetic waves with random but constant phases $\phi_{A,B}$, $E_{A,B}=c_{A,B} e^{i k\left|\vec{r}-\vec{r}_{1,2}\right|+i \phi_{A,B}} /\left|\vec{r}-\vec{r}_{A,B}\right|$ and ignoring polarization, the total intensity at detector 1 $I_{1}$ (and similar $I_{2}$ at detector 2) is
+If the sources $A$ and $B$ (in the original experiment different parts of the observed star) produce each spherical electromagnetic waves with random but constant phases $\phi_{A,B}$, $E_{A,B}=c_{A,B} e^{i k\left|\vec{r}-\vec{r}_{1,2}\right|+i \phi_{A,B}} /\left|\vec{r}-\vec{r}_{A,B}\right|$ and ignoring polarization, the total intensity at detector 1 $I_{1}$ (and similar $I_{2}$ at detector 2) is
 \begin{equation}
 	I_{1} =
 	\frac{1}{L^{2}}\left(
@@ -184,7 +178,7 @@ If the sources $A$ and $B$ produce each spherical electromagnetic waves with ran
 	\right)
 \end{equation}
 with $r_{1 a}$ the distance from source $A$ to detector 1 etc. 
-Averaging over many independent realisations of the random phases leads to the average intensities in the two detectors,
+Averaging over many independent realizations of the random phases leads to the average intensities in the two detectors,
 \begin{equation}
 	\left\langle I_{1}\right\rangle=\left\langle I_{2}\right\rangle=\frac{1}{L^{2}}\left(\left\langle|c_A|^{2}\right\rangle+\left\langle|c_B|^{2}\right\rangle\right)
 \end{equation}, 
@@ -200,13 +194,13 @@ Hence,
 	=1+2 \frac{\left\langle|\alpha|^{2}\right\rangle\left\langle|\beta|^{2}\right\rangle}{\left(\left\langle|\alpha|^{2}\right\rangle+\left\langle|\beta|^{2}\right\rangle\right)^{2}} \cos \left(k\left(r_{1 a}-r_{2 a}-r_{1 b}+r_{2 b}\right)\right)
 \end{equation}
 
-For large separation between the sources and detectors $(L \gg R)$, the small angle approximation can be made and
+For a large enough separation between the sources and detectors $(L \gg R)$, the small angle approximation can be made and
 \begin{equation}
 	g^2\left(\vec{k_1}-\vec{k_2}\right)-1\propto \cos{\left(\vec{R} \cdot\left(\vec{k}_{2}-\vec{k}_{1}\right)\right)}
 \end{equation} 
-where $\vec{k}_{1,2}=k \vec{r}_{1,2}$ is the wavevector of the light seen in detector $1$/detector $2$. As the modulation frequency of the the intensity correlation is depended $R$, the separation of the two sources can be recovered.
+where $\vec{k}_{1,2}=k \vec{r}_{1,2}$ is the wavevector of the light seen in detector $1$/detector $2$. As the modulation frequency of the the intensity correlation is depended $R$, the separation of the two sources (the size of the star) can be recovered.
 
-A detailed quantum mechanical treatment  considers the mixtures of the probability amplitudes of emission and detection at the two detectors (as the individual paths are indistinguishable), leading what was shown as an equivalent description of the HBT effect for thermal light sources \cite{fano1961,sudarshan1963,glauber2006}, but allows the treatment of non classical light sources such as single photon emitters \cite{mandel1995,classen2017}. This introduces a correction term in $g^2$ of the order of $1/N$ with $N$ the number of emitters, which for the considered cases is negligible.
+A more detailed quantum mechanical treatment considers the mixtures of the probability amplitudes of emission and detection at the two detectors (as the individual paths are indistinguishable), leading what was shown as an equivalent description of the HBT effect for thermal light sources \cite{fano1961,sudarshan1963,glauber2006}, but allows the treatment of non classical light sources such as single photon emitters \cite{mandel1995,classen2017}. This introduces a correction term in $g^2$ of the order of $1/N$ with $N$ the number of emitters, which for the considered cases is negligible.
 
 
 
@@ -236,7 +230,7 @@ This is the basic principle used in IDI to recover three dimensional spatial inf
 \end{figure}
 
 \section{Photon Statistics}
-Considering a complex sum of phasors of constant amplitude $A$ and independent uniformly in $(-\pi,\pi)$distributed phases $\phi_k$,
+Considering a complex sum of many phasors (e.g. the superposition of many electrical fields or probability amplitudes) of constant amplitude $A$ and independent uniformly in $(-\pi,\pi)$distributed phases $\phi_k$,
 \begin{align}
 	c=\sum^N_k A e^{i\phi_k}
 \end{align}
@@ -291,6 +285,7 @@ The Signal to Noise characteristics of the method are determined by the noise an
 The signal strength is determined by $\left|S(q)\right|^2$, which is dependent and the sample, and the contrast of the recorded speckle image. The noise in the measurement will consist of three parts: First, noise inherent to IDI caused by the random distribution of phases, second, the poissonian noise caused by quantized photons, and third, experimental noise \cite{trost2020, goodman2007}. 
 
 \section{Speckle Contrast}
+\label{sec:specklecontrast}
 The speckle contrast $\beta =\tfrac{1}{M}$ is governed by the number of independent modes $M$ overlaid in the measurement \cite{goodman2000}. 
 If the measurement is performed over a finite amount of time, the number of temporal modes is
 \begin{equation}
