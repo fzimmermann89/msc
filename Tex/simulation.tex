@@ -1,12 +1,10 @@
 \chapter{Simulations}
 \label{chap:simulation}
-To illustrate the working principle of IDI and to examine the Signal-to-Noise  characteristics, different simulations were performed:
-
+To illustrate the working principle of IDI and to examine the Signal-to-Noise  characteristics, different simulations were performed:\\
 First, it was assumed that the object to be imaged consists of discrete emitters, each emitting monochromatic spherical waves with the same wavelength, but with a randomly chosen phase, and the speckle image on a pixelated detector was simulated by addition of the scalar electric fields and taking the squared magnitude for each pixel. To reduce the influence of this discrete sampling on the simulated speckle patterns, the simulation is performed at XX the resolution and downsampled, such that each data point is the result of 4x4 discrete calculations
 In this configuration, the speckle images of a single particle with randomly positioned emitters inside (approximating a single particle imaging setup), a focal volume filled with randomly positioned (non intersecting) hard spheres consisting of randomly positioned atoms (approximating for example many spherical nano particles imaged simultaneously) as well as a crystalline structure with emitters positioned at within a lattice were simulated. In the first two cases, a small-angle regime was chosen and the reconstruction was performed in 2D and as a 1D radial profile. For the crystalline structure, a realistic lattice constant in the same order of magnitude as the K$\alpha$ wavelength moves the reconstruction out of the small-angle regime and a 3D reconstruction of the reciprocal space was performed.
-Additionally, in these simulations the effect of under-sampling was studied.
-
-Second, to examine the influence of the fluorescence lifetime and pulse width, a time-resolved simulation was performed.
+Additionally, in these simulations the effect of under-sampling was studied.\\
+Secondly, to examine the influence of the fluorescence lifetime and pulse width, a time-resolved simulation was performed.
 The results were compared with the approximation, that the contrast is determined by the product of the different number of modes.
 
 Ultimately, the results of these simulations were used the determine the feasibility of an experimental setup using IDI
@@ -24,8 +22,6 @@ In an infinite coherence time, stationary sources approximation, the simulation 
 
 
 
-
-
 \subsection{Detector Effects}
 \label{sec:chargesharing}
 To simulate the influence of detector dependent charge-sharing and readout noise, an image degradation is performed: After Poisson sampling the simulated speckle image, for each photon an uniform random position within its pixel is chosen as the center of a Gaussian distribution with $\sigma$=0.1, pixel, similar to the size of the point spread function (PSF) for MPCCD detectors \cite{mpccd}.
@@ -37,9 +33,57 @@ The signal within each pixel caused by one photon is given by the integral over 
 \end{equation*}
 with $\sigma$ the standard deviation of the Gaussian in pixels and $\Delta x$, $\Delta y$ the distance of the pixel to the simulated photon center. Afterwards, a Gaussian readout noise is added. The effect of this degradation on the spectrum is illustrated in \fref{fig:degrad}.
 
+\subsection{Autocorrelation}
+The numerator of $g^2$ is the autocorrelation of the recorded intensities $I$ which can be calculated as follows:
+Let $x$ and $y$ describe positions in the image and $z(x,y)$ the distance to the sample, then 
+with $\vec{q}(x,y) = \sfrac{[x y z]}{\sqrt{x ^ 2 + y ^ 2 + z^2(x,y)}}$
+\begin{equation}
+\overline{AC}(\Delta \vec{q}) = 
+\frac{1}{N_p} \sum_{\vec{q}} AC(\vec{q},\vec{q}+\Delta \vec{q})=
+\frac{1}{N_p} \quad \sum^{	\crampedclap{\sfrac{N_x}{2},\sfrac{N_y}{2}}}_{
+	\crampedclap{
+		\begin{subarray}{l}
+		x_1=\shortminus\sfrac{N_x}{2}\\
+		y_1=\shortminus\sfrac{N_y}{2}
+		\end{subarray}
+	}}\quad
+\sum_{\crampedclap{\qquad\qquad\qquad\qquad
+		\begin{subarray}{l}
+			x_2,y_2 \text{ where} \\ \lfloor q(x_1,y_1)-q(x_2,y_2)\rfloor=\lfloor\Delta\vec{q}\rfloor
+		\end{subarray}}}
+	I(x_1,y_1),I(x_2,y_2)
+\end{equation}
+with $N_p$ the total number of pairs of points on the detector $[x_1 y_1],[x_2,y_2]$  fulfilling the condition.
+
+Making use of the (circular) convolution theorem of the discrete Fourier transformation,
+\begin{equation}
+\operatorname{DFT}_N^{-1}\left[\operatorname{DFT}_N x \cdot \operatorname{DFT}_N x\right]_n=\sum_{\ell=0}^{N-1} y_{\ell} \cdot x_{(n-\ell) \bmod N}
+\end{equation}
+which after zero-extending the signals x,y to $2N$ reduces to the regular convolution, the autocorrelation of the image can be written as 
+\begin{equation}
+\sum_{\ell=0}^{N-1} I_{\ell} \cdot I_{(\ell+q) \bmod 2N}=\operatorname{DFT}_{2N}^{-1}\left[\left|\operatorname{DFT}_{2N} {x}\right|^2\right]\equiv \operatorname{AC}(I)
+\label{eq:fftcorrelation}
+\end{equation} 
+as $I\in \Re$ and $I_{n\geq N}$=0, greatly reducing the computational complexity \cite{oppenheim2009}. In wide-angle setups with non constant $q_z$ and changing angle covered by each pixel a resampling of the recorded images to a regular, three dimensional $q$-grid is performed by assigning each pixel of the image its nearest neighbor in the new grid, averaging over all pixels having the same nearest neighbor and placing the averages at these grid positions without any additional interpolation. 
+
+The number of correlation pairs $N_p$ which contribute to the sum in \fref{eq:fftcorrelation} for each $q$ can be found by performing the same operations with a constant image (of the same shape) $M$ of all ones, leading to the numerator of $g^2$ being $\operatorname{AC}(I)/\operatorname{AC}(M)$ \cite{oppenheim2009,butz2015,nion2008}.
+
+\subsection{Normalisation}
+In the definition of the normalized intensity correlation (\fref{eq:g2}), normalization is performed by the product of the expectation values of the intensity at the two locations. As these expectation values are influenced by the sample, the geometry, and experimental imperfections, some considerations how to implement this normalization have to be made for calculating $g^2(\Delta\vec{q})$ from measured or simulated fluorescence speckle patterns. 
+If only a single image is taken, the expectation value for each pixel has to be approximated. This can be done by assuming an equal value for all pixels (and estimating by the mean), which will lead to significant artifacts if, for example, due to geometry outside pixels have a much lower true expectation value than pixels in the center of the recorded image.  
+
+For masked image registration and similiar tasks, the cross correlation is commonly normalized by the following (simplified to the relevant case of the autocorrelation) divisor \cite{padfield2010}:
+\begin{equation}
+\frac{\mathit{corr}(\mathit{mask},\mathit{image}) \mathit{corr}(\mathit{image},\mathit{mask})}{\mathit{corr}(\mathit{mask},\mathit{mask})} \,,
+\end{equation} which would correspond to estimation of the expectation values  y the mean over all pixels that form a pixel pair contributing to the value in the reconstruction at a particular $\Delta q$, giving an slightly different weighting to the pixels than first first calculating $g^2$ normalized by the true expectation values for each pair and afterwards averaging over the pairs.
+If multiple images are taken, under the assumption of ergodicity, the expectation value for each pixel can be approximated by its mean over many images. To account for fluctuations in the exciting FEL pulse and resulting fluctations of the fluorescence intensity, if it can be assumed that the distribution over pixel intensities and FEL intensities are uncorrelated, the photon detection probability of each pixel in each shot can be factorized into the product of the probability to detect a photon in a pixel and to detect a photon in a shot. Thus, the effect of the FEL intensity fluctuations can be suppressed by normalizing each image by the total intensity of the image. This normalization scheme will be used for all reconstructions in this thesis.
+For brevity, a detailed comparison of the different normalization approaches is not shown. Still, the successful reconstructions of the reciprocal space, for both wide and small angle simulations with varying amounts of noise and simulated photon numbers, without any pedestal ($g^2(\infty)\not\approx 1$) or strong artifacts throughout this chapter show that the applied normalization is sufficient.  
 
 
-\paragraph{Photon counting}
+
+
+
+\subsection{Photon counting}
 As the relevant signal for the correlation analysis is the presence of fluorescence photons, but charge sharing and readout noise of the detector as well as the presence of photons caused by air scattering and straylight degrade this signal, different approaches  of preprocessing to reduce this degradation are compared:
 
 \begin{itemize}[nosep]
@@ -76,7 +120,7 @@ The noise thresholding is done with a threshold of three times the standard devi
 		\caption{Center part of the reconstructions}
 		\label{fig:photonreconimg}
 	\end{subfigure}
-\\
+	\\
 	\begin{subfigure}[b]{0.95\textwidth}
 		\includegraphics[width=\linewidth]{images/photonrecon.pdf}
 		\caption{Line profiles}
@@ -108,18 +152,6 @@ To evaluate the different approaches, for a grating with pitch 50\,nm, line widt
 Possible avenues for improvement would be to use a more sophisticated droplet scheme based on error minimization allowing for subpixel resolution, incorporating the scattering photons into the droplet algorithm or using a neural network trained on synthetic images \cite{baumann2018,collaboration2014,schayck2020}
 
 
-\subsection{Normalisation}
-In the definition of the normalized intensity correlation (\fref{eq:g2}), normalization is performed by the product of the expectation values of the intensity at the two locations. As these expectation values are influenced by the sample, the geometry, and experimental imperfections, some considerations how to implement this normalization have to be made for calculating $g^2(\Delta\vec{q})$ from measured or simulated fluorescence speckle patterns. 
-If only a single image is taken, the expectation value for each pixel has to be approximated. This can be done by assuming an equal value for all pixels (and estimating by the mean), which will lead to significant artifacts if, for example, due to geometry outside pixels have a much lower true expectation value than pixels in the center of the recorded image.  
-
-For masked image registration and similiar tasks, the cross correlation is commonly normalized by the following (simplified to the relevant case of the autocorrelation) divisor \cite{padfield2010}:
-\begin{equation}
-\frac{\mathit{corr}(\mathit{mask},\mathit{image}) \mathit{corr}(\mathit{image},\mathit{mask})}{\mathit{corr}(\mathit{mask},\mathit{mask})}
-\end{equation}, which would correspond to estimation of the expectation values  y the mean over all pixels that form a pixel pair contributing to the value in the reconstruction at a particular $\Delta q$, giving an slightly different weighting to the pixels than first first calculating $g^2$ normalized by the true expectation values for each pair and afterwards averaging over the pairs.
-If multiple images are taken, under the assumption of ergodicity, the expectation value for each pixel can be approximated by its mean over many images. To account for fluctuations in the exciting FEL pulse and resulting fluctations of the fluorescence intensity, if it can be assumed that the distribution over pixel intensities and FEL intensities are uncorrelated, the photon detection probability of each pixel in each shot can be factorized into the product of the probability to detect a photon in a pixel and to detect a photon in a shot. Thus, the effect of the FEL intensity fluctuations can be suppressed by normalizing each image by the total intensity of the image. This normalization scheme will be used for all reconstructions in this thesis.
-For brevity, a detailed comparison of the different normalization approaches is not shown. Still, the successful reconstructions of the reciprocal space, for both wide and small angle simulations with varying amounts of noise and simulated photon numbers, without any pedestal ($g^2(\infty)\not\approx 1$) or strong artifacts throughout this chapter show that the applied normalization is sufficient.  
-
-\subsection{Autocorrelation}
 
 \subsection{Accessible Reciprocal Space}
 	\paragraph{Accessible Reciprocal Space}

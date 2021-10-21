@@ -1,11 +1,43 @@
 \chapter{Theory}
 \label{chap:theory}
-The main principle of IDI is to use intensity correlations of X-Ray fluorescence. To have a basic understanding of the underlying definitions necessary for both simulations and the experimental application, a (semi-) classical approach to coherence and the experiment of Hanbury-Brown Twiss suffices. 
+As the main principle of IDI is using intensity correlations of X-ray fluorescence, a basic recapitulation of the underlying definitions used in both simulations and the experimental application as well as (semi-) classical approach to coherence and the experiment of Hanbury-Brown Twiss will be given.
 
-\paragraph{Stationarity and Ergodicity}
-We will first assume all considered fields to be both stationary and egodic. A process $f(t)$ is wide-sense stationary, if the expectation value $E[f(t)]$ is independent of the time $t$ and $E[f(t_1)f(t_2)]$ depends only on the time difference $\tau=f_1-f_2$. A process, for which the time average and the ensemble average are equal is called ergodic. Stationarity is a necessity for ergodicity. Deviations from this assumption will be considered in \fref{sec:specklecontrast}.
+
+\section{X-Ray Fluorescence}
+X-ray fluorescence is emitted if atoms are ionised leaving holes in the inner shells, which are subsequently filled by electrons of higher energy levels while the energy difference is emitted as photons, compared to the non-radiating Auger decay which is more likely for lighter atoms and/or L-shell excitation (see \fref{fig:levels} for the usual naming convention) \cite{santra2009}.  The finite lifetime of the excited states cause a predominantly Lorentzian line shape \cite{attwood1999,van2001}. In the experimental section, iron, copper and gallium atoms are considered - the relevant emission energies, the (experimental) line widths and relative intensities are shown in \fref{tab:elements}.   Roughly, the $K_\alpha$ line widths correspond to coherence times in the 0.4-0.8\,fs range \cite{krause1979}. The cross section for $K$-fluorescence is the highest just above the $K$-absorption edge and, for example for iron, an order of magnitude higher than the coherent cross section (see \fref{fig:cross}).
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.35\textwidth}
+		\includegraphics[width=\linewidth]{images/levels.pdf}
+		\caption[Atomic Levels]{Atomic levels and associated X\nobreakdash-Ray energies}
+		\label{fig:levels}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{images/crosssectionFe.pdf}
+		\caption[Cross Sections]{X-ray Cross Sections for Iron. Data from xraylib \cite{xraylib}}
+		\label{fig:cross}
+	\end{subfigure}
+\end{figure}
+
+\begin{table}
+	\caption[X-Ray Energies]{X-ray energies and line widths of some relevant elements \cite{xraylib,krause1979,sorum1987}.  }
+	\label{tab:elements}
+	\small
+	\begin{tabular}{l|l|ll|lll|ll}
+		\hline
+		Element & K$_{edge}$                                             & \multicolumn{2}{c}{K$_{\alpha 1}$}                                                                           & \multicolumn{3}{c}{K$_{\alpha 2}$}                                                                                                                                       & \multicolumn{2}{c}{K$_{\beta}$}                                                                              \\
+		& \begin{tabular}[c]{@{}l@{}}Energy \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}FWHM \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy\\  / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}FWHM \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}rel. \\ Intensity\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy\\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}rel. \\ Intensity\end{tabular} \\ \hline
+		Fe      & 7112                                                   & 6403.8                                                 & 1.61                                                 & 6390.8                                                 & 1.62                                                 & 0.50                                                      & 7058.0                                                & 0.17                                                      \\
+		Cu      & 8979                                                   & 8047.8                                                & 2.11                                                 & 8,027.8                                                & 2.17                                                 & 0.51                                                      & 8905.3                                                & 0.17                                                      \\
+		Ga      & 10367                                                  & 9251.7                                                 & 2.59                                                 & 9224.8                                                 & 2.66                                                 & 0.51                                                      & 10263.9                                               & 0.18                                                      \\
+		As      & 11867                                                  & 10543.7                                                & 3.08                                                 & 10508.0                                                & 3.17                                                 & 0.51                                                      & 11724.3                                               & 0.19                                                      \\ \hline
+	\end{tabular}
+\end{table}
 
 \section{Basic Conecepts of Coherence}
+In the following, for simplicity, all considered fields are initially assumed to be both stationary and ergodic. A process $f(t)$ is wide-sense stationary, if the expectation value $E[f(t)]$ is independent of the time $t$ and $E[f(t_1)f(t_2)]$ depends only on the time difference $\tau=f_1-f_2$. A process, for which the time average and the ensemble average are equal is called ergodic. Stationarity is a necessity for ergodicity \cite{goodman2000}. Deviations from this assumption will be considered in \fref{sec:specklecontrast}.
+
 Spherical waves as solutions wave equation in spherical coordinates,
 \begin{equation}
 	\vec{E}(\vec{r},t)=\vec{E}_0(k,t) \frac{e^{i\vec{r}\vec{k}-iwt}}{R}
@@ -34,8 +66,8 @@ Defining the contrast of the fringes as the visibility $V$,
 	V=\frac{I_{max}-I_{min}}{I_{max}+I_{min}} ,
 \end{equation} 
 
-results for equal intensities of the the waves in maximum contrast,  $V=\frac{2\sqrt{I*I}}{I+I}I=1$. This case of a fixed phase difference is called coherent.
-If, on the other hand, the phase difference $\Delta \phi$ is not fixed but completly random and therefore averages out in \fref{eq:interference}, the visibility goes to 0 and the waves are regarded as incoherent.
+results for equal intensities of the the waves in maximum contrast,  $V=\frac{2\sqrt{I*I}}{I+I}I=1$. This case of a fixed phase difference is called \textit{coherent}.
+If, on the other hand, the phase difference $\Delta \phi$ is not fixed but completely random and therefore averages out in \fref{eq:interference}, the visibility goes to 0 and the waves are regarded as \textit{incoherent}.
 
 To consider non monochromatic waves, we define the self coherence function $\Gamma$ as 
 \begin{equation}
@@ -280,12 +312,12 @@ $\Delta M \lesssim \frac{2 p'_1}{\left({p'_1}^2+2 (p'_1-1) p'_2\right)^2} \left(
 
 
 \section{Signal to Noise Considerations}
-
+\label{sec:specklecontrast}
 The Signal to Noise characteristics of the method are determined by the noise and the signal:
 The signal strength is determined by $\left|S(q)\right|^2$, which is dependent and the sample, and the contrast of the recorded speckle image. The noise in the measurement will consist of three parts: First, noise inherent to IDI caused by the random distribution of phases, second, the poissonian noise caused by quantized photons, and third, experimental noise \cite{trost2020, goodman2007}. 
 
-\section{Speckle Contrast}
-\label{sec:specklecontrast}
+\paragraph{Speckle Contrast}
+
 The speckle contrast $\beta =\tfrac{1}{M}$ is governed by the number of independent modes $M$ overlaid in the measurement \cite{goodman2000}. 
 If the measurement is performed over a finite amount of time, the number of temporal modes is
 \begin{equation}
@@ -303,7 +335,7 @@ M_{t,\text{rect}} =T \left[\int_{-\infty}^{\infty} \Lambda\left(\frac{t}{T}\righ
 \end{align}
 Considering the case of a long integration time, $T\gg\tau$, this can be approximated as $M\approx\frac{T}{\tau}$. For a short integration time,  $T\ll\tau$, the number of temporal modes $M$ approaches unity.
 
-If the Integration time can be considered as infinite and instead $P(t)$ is a Gaussian excitation pulse with FWHM of $2\sigma\sqrt{2\ln2}$, this leads to
+If the Integration time can be considered as infinite and instead $P(t)$ is a Gaussian excitation pulse with FWHM of $2\sigma\sqrt{2\ln2}$, creating to a non-stationary field, this leads to
 \begin{equation}
 	M_{t,\text{Gauss}}=e^{\frac{4 \sigma ^2}{\tau ^2}} \text{erfc}\left(\frac{2 \sigma }{\tau }\right),
 	\label{eq:mgauss}
@@ -388,37 +420,7 @@ as an estimation of the SNR, which will be further examined by performing simula
 
 
 
-\section{X-Ray Fluorescence}
-X-ray fluorescence is emitted if atoms are ionised leaving holes in the inner shells, which are subsequently filled by electrons of higher energy levels while the energy difference is emitted as photons, compared to the non-radiating Auger decay which is more likely for lighter atoms and/or L-shell excitation (see \fref{fig:levels} for the usual naming convention) \cite{santra2009}.  The finite lifetime of the excited states cause a predominantly Lorentzian line shape \cite{attwood1999,van2001}. In the experimental section, iron, copper and gallium atoms are considered - the relevant emission energies, the (experimental) line widths and relative intensities are shown in \fref{tab:elements}.   Roughly, the $K_\alpha$ line widths correspond to coherence times in the 0.4-0.8\,fs range \cite{krause1979}. The cross section for $K$-fluorescence is the highest just above the $K$-absorption edge and, for example for iron, an order of magnitude higher than the coherent cross section (see \fref{fig:cross}).
 
-\begin{figure}
-	\centering
-	\begin{subfigure}[b]{0.35\textwidth}
-		\includegraphics[width=\linewidth]{images/levels.pdf}
-		\caption[Atomic Levels]{Atomic levels and associated X\nobreakdash-Ray energies}
-		\label{fig:levels}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width=\linewidth]{images/crosssectionFe.pdf}
-		\caption[Cross Sections]{X-ray Cross Sections for Iron. Data from xraylib \cite{xraylib}}
-		\label{fig:cross}
-	\end{subfigure}
-\end{figure}
-
-\begin{table}
-	\caption[X-Ray Energies]{X-ray energies and line widths of some relevant elements \cite{xraylib,krause1979,sorum1987}.  }
-	\label{tab:elements}
-	\small
-	\begin{tabular}{l|l|ll|lll|ll}
-		\hline
-		Element & K$_{edge}$                                             & \multicolumn{2}{c}{K$_{\alpha 1}$}                                                                           & \multicolumn{3}{c}{K$_{\alpha 2}$}                                                                                                                                       & \multicolumn{2}{c}{K$_{\beta}$}                                                                              \\
-		& \begin{tabular}[c]{@{}l@{}}Energy \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}FWHM \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy\\  / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}FWHM \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}rel. \\ Intensity\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy\\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}rel. \\ Intensity\end{tabular} \\ \hline
-		Fe      & 7112                                                   & 6403.8                                                 & 1.61                                                 & 6390.8                                                 & 1.62                                                 & 0.50                                                      & 7058.0                                                & 0.17                                                      \\
-		Cu      & 8979                                                   & 8047.8                                                & 2.11                                                 & 8,027.8                                                & 2.17                                                 & 0.51                                                      & 8905.3                                                & 0.17                                                      \\
-		Ga      & 10367                                                  & 9251.7                                                 & 2.59                                                 & 9224.8                                                 & 2.66                                                 & 0.51                                                      & 10263.9                                               & 0.18                                                      \\
-		As      & 11867                                                  & 10543.7                                                & 3.08                                                 & 10508.0                                                & 3.17                                                 & 0.51                                                      & 11724.3                                               & 0.19                                                      \\ \hline
-	\end{tabular}
-\end{table}
 
 
 \section{Kossel Lines}
