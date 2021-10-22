@@ -41,7 +41,7 @@ In the following, for simplicity, all considered fields are initially assumed to
 Spherical waves as solutions wave equation in spherical coordinates,
 \begin{equation}
 	\vec{E}(\vec{r},t)=\vec{E}_0(k,t) \frac{e^{i\vec{r}\vec{k}-iwt}}{R}
-	\end{equation}
+\end{equation}
 describe the electric field of light propagating isotropically in vacuum. 
 The superposition principle allows the addition of two waves (with the real amplitudes $\vec{A}_{1,2}$ and phases $\phi_{1,2}$)
 \begin{equation}
@@ -53,7 +53,6 @@ The measured intensity with measurement time $T$ will be
 	\stackrel{T\gg1/w}{\propto}
     \left<\left|E(\vec{r},t)\right|^2\right> \,.
 \end{equation}
-
 The superposition of two monochromatic, stationary waves with a fixed phase difference $\Delta \phi$, such as a wave and its time delayed copy (\fref{fig:michelson}) in an interferometer, gives rise to interference fringes
 \begin{align}
 	\left<I(\vec{r},t)\right> & = I_1+I_2+2\left<\Re({E_1(\vec{r},t)}E_2^*(\vec{r},t))\right> \\
@@ -65,9 +64,8 @@ Defining the contrast of the fringes as the visibility $V$,
 \begin{equation}
 	V=\frac{I_{max}-I_{min}}{I_{max}+I_{min}} ,
 \end{equation} 
-
 results for equal intensities of the the waves in maximum contrast,  $V=\frac{2\sqrt{I*I}}{I+I}I=1$. This case of a fixed phase difference is called \textit{coherent}.
-If, on the other hand, the phase difference $\Delta \phi$ is not fixed but completely random and therefore averages out in \fref{eq:interference}, the visibility goes to 0 and the waves are regarded as \textit{incoherent}  \cite{born1980,goodman2000}
+If, on the other hand, the phase difference $\Delta \phi$ is not fixed but completely random and therefore averages out in \fref{eq:interference}, the visibility goes to 0 and the waves are regarded as \textit{incoherent}  \cite{born1980,goodman2000}.
 
 To consider non monochromatic waves, we define the self coherence function $\Gamma$ as 
 \begin{equation}
@@ -75,7 +73,7 @@ To consider non monochromatic waves, we define the self coherence function $\Gam
 \end{equation}
 and its normalized version, the complex degree of (self-)coherence $\gamma$, as
 \begin{equation}
-\gamma(\tau)=\frac{\Gamma(\tau)}{\Gamma(0)} =  \frac{\Gamma(\tau)}{<I>}
+\gamma(\tau)=\frac{\Gamma(\tau)}{\Gamma(0)} =  \frac{\Gamma(\tau)}{<I>} \,.
 \end{equation} 
 Now \fref{eq:interference} can be written as 
 \begin{equation}
@@ -95,17 +93,17 @@ The Wiener Khinchin theorem connects the power spectrum $F(w)$ with $\gamma$ \ci
 
 As a relevant example, for an exponentially decaying electric field envelope\footnote{Corresponding to an intensity/photon number decay with time constant $\sfrac{\tau}{2}$} $E(t)=\Theta(t)e^{-t/\tau_E}$, the power spectrum is Lorentzian with an angular frequency FWHM of $\Delta \omega=\frac{2}{\tau_E}$,
 \begin{equation*}
-\left|\int_{0}^{\infty}  e^{-t/\tau_E} e^{-iwt} \dif t \right|^2 \propto  \frac{1}{1/\tau_E^2+w^2} .
+\left|\int_{0}^{\infty}  e^{-t/\tau_E} e^{-iwt} \dif t \right|^2 \propto  \frac{1}{1/\tau_E^2+w^2} \,,
 \end{equation*}
-and
+and numerator and denominator of the complex deree of coherence are
 \begin{align*}
 \left\langle E(t) E^{*}(t+\tau)\right\rangle
 &=\int_{0}^{\infty} E(t) E^{*}(t+\tau)\diff t
 =\frac{\tau_E}{2}   e^{-\frac{\left| \tau \right| }{\tau_E }}\\
 \left\langle E(t) E^{*}(t)\right\rangle
-&=\frac{\tau_E}{2} 
+&=\frac{\tau_E}{2}  \,.
 \end{align*}
-Hence, $\left<\gamma(\tau)\right>=e^{-|\tau/| \tau_E}$,   and the coherence time as defined is above is $\tau_c=\int_{-\infty}^{\infty} \left| \gamma(\tau)\right|^2 \diff \tau=\tau_E=\sfrac{2\hbar}{\Delta E}$ \cite{goodman2000,pollnau2020}.
+Hence, $\left<\gamma(\tau)\right>=e^{-|\tau/| \tau_E}$,  and the coherence time as defined is above is $\tau_c=\int_{-\infty}^{\infty} \left| \gamma(\tau)\right|^2 \diff \tau=\tau_E=\sfrac{2\hbar}{\Delta E}$ \cite{goodman2000,pollnau2020}.
 
 
 
@@ -186,18 +184,10 @@ quasi-monochromatic but spatially incoherent light source is proportional to the
 	\label{eq:vcz}
 \end{equation}
 with the source volume $S$ and intensity distribution $I_s$, total source intensity $I_0=\int I_s(\vec{r}) \difc \vec{r}$ and distances $R_{1,2}=\left|\vec{r}_{1,2}-\vec{r}\right|$.
-%-Hanbury Brown and Twist
 
 
-%-Single Photon Emitters/2nd Quant description
-%(siehe Referenzen in Schaller/resonance fluorescence)
-%-Fluorescence g2
-%$2 Level with finite Lifetime -> Spectrum of fluorescence
-%\section{X-Ray Fluorescence}
-
-
-\section{Hanbury Brown Twiss}
-Hanbury-Brown Twiss first used the correlation between the intensities captures by photomultiplier tubes to measure the angular size of stars  \cite{hanbury1956}. The underlying effect can be explained based on (semi-)classical coherence theory for chaotic light sources \cite{baym1997,goodman2000}:
+\section{Hanbury-Brown Twiss Experiment}
+Hanbury-Brown and Twiss first used the correlation between the intensities captures by photomultiplier tubes to measure the angular size of stars  \cite{hanbury1956}. The underlying effect can be explained based on (semi-)classical coherence theory for chaotic light sources \cite{baym1997,goodman2000}:
 
 If the sources $A$ and $B$ (in the original experiment different parts of the observed star) produce each spherical electromagnetic waves with random but constant phases $\phi_{A,B}$, $E_{A,B}=c_{A,B} e^{i k\left|\vec{r}-\vec{r}_{1,2}\right|+i \phi_{A,B}} /\left|\vec{r}-\vec{r}_{A,B}\right|$ and ignoring polarization, the total intensity $I_{1}$ at detector 1 (and similar at detector 2) is
 \begin{equation}

@@ -1,6 +1,7 @@
 %%%%%%%%%%%%%   DEFINITIONEN   %%%%%%%%%%%%%%%
 %\pdfminorversion=5 
 \RequirePackage[2020-02-02]{latexrelease}
+\pdfsuppresswarningpagegroup=1
 \documentclass[12pt,a4paper,twoside]{book}
 
 %Packages
@@ -34,7 +35,7 @@
 
 %Druckt den Hinweis "Entwurf" mit Datum auf jede Seite. Zum deaktivieren printwatermark=false setzen
 \usepackage[printwatermark=true]{xwatermark}
-\newwatermark[allpages,textcolor=gray!70,angle=0,xpos=68,ypos=-135,fontsize=14pt,fontfamily=phv]{Entwurf\ -\ \the\day.\the\month.\the\year}
+\newwatermark[allpages,textcolor=gray!70,angle=0,xpos=68,ypos=-135,fontsize=14pt,fontfamily=phv]{Draft\ -\ \the\day.\the\month.\the\year}
 
 %multirow in tabellen
 \usepackage{multirow}
@@ -75,12 +76,13 @@
 
 %abstände
 \usepackage{titlesec}
-\titlespacing\section{0pt}{10pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
-\titlespacing\subsection{0pt}{10pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
-\titlespacing\subsubsection{0pt}{10pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\section{0pt}{12pt plus 8pt minus 4pt}{0pt plus 2pt minus 4pt}
+\titlespacing\subsection{0pt}{10pt plus 8pt minus 4pt}{0pt plus 2pt minus 4pt}
+\titlespacing\subsubsection{0pt}{10pt plus 8pt minus 4pt}{0pt plus 2pt minus 4pt}
+\titlespacing\paragraph{0pt}{4pt plus 2pt minus 2pt}{0pt plus 2pt minus 2pt}
 \titleformat{\chapter}[display]   
 {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{10pt}{\Huge}   
-\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
+\titlespacing*{\chapter}{0pt}{-30pt}{20pt}
 
 \setlength{\parindent}{0mm}
 
@@ -88,12 +90,13 @@
 \renewcommand{\familydefault}{\sfdefault}
 
 %kleiner abstände bei captions
-\setlength{\abovecaptionskip}{10pt plus 3pt minus 2pt}
+\setlength{\abovecaptionskip}{10pt plus 6pt minus 2pt}
 \captionsetup[subfigure]{aboveskip=1pt}
 %kleinere abstände bei gleichungen
-\setlength{\abovedisplayskip}{0pt}
-\setlength{\belowdisplayskip}{0pt}
-
+\setlength{\abovedisplayskip}{-4pt plus 2pt}
+\setlength{\belowdisplayskip}{-4pt plus 2pt}
+\setlength{\abovedisplayshortskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
 %1.5 zeilig
 \usepackage{setspace}
 
@@ -309,7 +312,7 @@
 
 
 %%%%%%%%%%%%%%%%   KAPITEL   %%%%%%%%%%%%%%%%%
-\setlength{\parskip}{3mm}
+\setlength{\parskip}{2mm plus 0mm minus 1mm}
 \pagenumbering{arabic}
 \pagestyle{headings}
 \fancyhf{} 
