@@ -10,7 +10,7 @@ X-ray fluorescence is emitted if atoms are ionised leaving holes in the inner sh
 	\centering
 	\begin{subfigure}[b]{0.35\textwidth}
 		\includegraphics[width=\linewidth]{images/levels.pdf}
-		\caption[Atomic Levels]{Atomic levels and associated X\nobreakdash-Ray energies}
+		\caption[Atomic Levels]{Atomic levels and associated X\nobreakdash-ray energies}
 		\label{fig:levels}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.45\textwidth}
@@ -21,7 +21,7 @@ X-ray fluorescence is emitted if atoms are ionised leaving holes in the inner sh
 \end{figure}
 
 \begin{table}
-	\caption[X-Ray Energies]{X-ray energies and line widths of some relevant elements \cite{xraylib,krause1979,sorum1987}.  }
+	\caption[X-ray Energies]{X-ray energies and line widths of some relevant elements \cite{xraylib,krause1979,sorum1987}.  }
 	\label{tab:elements}
 	\small
 	\begin{tabular}{l|l|ll|lll|ll}
@@ -35,8 +35,8 @@ X-ray fluorescence is emitted if atoms are ionised leaving holes in the inner sh
 	\end{tabular}
 \end{table}
 
-\section{Basic Conecepts of Coherence}
-In the following, for simplicity, all considered fields are initially assumed to be both stationary and ergodic. A process $f(t)$ is wide-sense stationary, if the expectation value $E[f(t)]$ is independent of the time $t$ and $E[f(t_1)f(t_2)]$ depends only on the time difference $\tau=f_1-f_2$. A process, for which the time average and the ensemble average are equal is called ergodic. Stationarity is a necessity for ergodicity \cite{goodman2000}. Deviations from this assumption will be considered in \fref{sec:specklecontrast}.
+\section{Basic Concepts of Coherence}
+In the following, for simplicity, all considered fields are initially assumed to be both stationary and ergodic: A process $f(t)$ is wide-sense stationary, if the expectation value $E[f(t)]$ is independent of the time $t$ and $E[f(t_1)f(t_2)]$ depends only on the time difference $\tau=f_1-f_2$. A process, for which the time average and the ensemble average are equal is called ergodic. Stationarity is a necessity for ergodicity \cite{goodman2000}. It can be shown, that the basic principles hold for non-stationary fields with the main difference being, that all expectation values have to be taken over different realizations \cite{lajunen04}.
 
 Spherical waves as solutions wave equation in spherical coordinates,
 \begin{equation}
@@ -67,7 +67,7 @@ Defining the contrast of the fringes as the visibility $V$,
 \end{equation} 
 
 results for equal intensities of the the waves in maximum contrast,  $V=\frac{2\sqrt{I*I}}{I+I}I=1$. This case of a fixed phase difference is called \textit{coherent}.
-If, on the other hand, the phase difference $\Delta \phi$ is not fixed but completely random and therefore averages out in \fref{eq:interference}, the visibility goes to 0 and the waves are regarded as \textit{incoherent}.
+If, on the other hand, the phase difference $\Delta \phi$ is not fixed but completely random and therefore averages out in \fref{eq:interference}, the visibility goes to 0 and the waves are regarded as \textit{incoherent}  \cite{born1980,goodman2000}
 
 To consider non monochromatic waves, we define the self coherence function $\Gamma$ as 
 \begin{equation}
@@ -88,9 +88,9 @@ The \textit{coherence time }shall describe at which delay the visibility falls t
 \tau_c = \int_{-\infty}^{\infty} \left| \gamma(\tau)\right|^2 \diff \tau 
 \end{equation} will be used in the following. Other definitions commonly used are equivalent up to a constant factor and lead generally to coherence times of the same order of magnitude \cite{mandel1959,goodman2000}. 
 
-Furthermore, the Wiener Khinchin theorem connects the power spectrum $F(w)$ with $\gamma$
+The Wiener Khinchin theorem connects the power spectrum $F(w)$ with $\gamma$ \cite{goodman2000,lajunen04}.
 \begin{equation}
-	F(\omega)=\frac{1}{2 \pi} \int_{-\infty}^{\infty} \gamma(\tau) \exp (\mathrm{i} \omega \tau)  \dif \tau
+	F(\omega)=\frac{1}{2 \pi} \int_{-\infty}^{\infty} \gamma(\tau) \exp (\mathrm{i} \omega \tau)  \dif \tau \,.
 \end{equation}.
 
 As a relevant example, for an exponentially decaying electric field envelope\footnote{Corresponding to an intensity/photon number decay with time constant $\sfrac{\tau}{2}$} $E(t)=\Theta(t)e^{-t/\tau_E}$, the power spectrum is Lorentzian with an angular frequency FWHM of $\Delta \omega=\frac{2}{\tau_E}$,
@@ -112,24 +112,24 @@ Hence, $\left<\gamma(\tau)\right>=e^{-|\tau/| \tau_E}$,   and the coherence time
  \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/michelson.pdf}
-	\caption[Schematic of interferometer]{Schematic of interferometer: Light of (a gaussian) light source with finite coherence time is split and interference with a delayed copy is observed. The time averaged intensity measured by an detector changes with the delay time. }
+	\caption[Schematic of interferometer]{Schematic of interferometer: Light of (a Gaussian) light source with finite coherence time is split and interference with a delayed copy is observed. The time averaged intensity measured by an detector changes with the delay time. }
 	\label{fig:michelson}
 \end{figure}
 
 
-\paragraph{First order coherence $g_1$}
-A generalization of $\gamma$  to different fields  $E_1^*(\vec{r}_1,t_1)$ and $E_2(\vec{r}_2,t_2)$ is the normalized first order correlation function $g_1$ \cite{agarwal2013}
+\paragraph{First order coherence $g^1$}
+A generalization of $\gamma$  to different fields  $E_1^*(\vec{r}_1,t_1)$ and $E_2(\vec{r}_2,t_2)$ is the normalized first order correlation function $g^1$ \cite{agarwal2013}
 \begin{equation}
 	g^{(1)}(\vec{r}_1,t_1;\vec{r}_2,t_2)= \frac
 	{\left< E_1^*(\vec{r}_1,t_1)E_2(\vec{r}_2,t_2) \right>}
-	{\left[ \left<\left | E(\vec{r}_1,t_1)\right |^2 \right> \left< \left |E(\vec{r}_2,t_2)\right |^2 \right>\right]^{1/2}}	
-\end{equation}.
+	{\left[ \left<\left | E(\vec{r}_1,t_1)\right |^2 \right> \left< \left |E(\vec{r}_2,t_2)\right |^2 \right>\right]^{1/2}}	\,.
+\end{equation}
 
 
 
 This can be used for example to describe Young's double slit experiment (\fref{fig:doubleslit}): On the screen at point $\vec{r}$, the electrical field is 
 \begin{equation}
-	E(\vec{r}, t)=\frac{E\left(\vec{r}_{1}, t-R_{1} / c\right)}{R_{1}} e^{i\left[\vec{k}_{1} \cdot\left(\vec{r}-\vec{r}_{1}\right)-\omega t\right]}+\frac{E\left(\vec{r}_{2}, t-R_{2} / c\right)}{R_{2}} e^{i\left[\vec{k}_{2} \cdot\left(\vec{r}-\vec{r}_{2}\right)-\omega t\right]} 
+	E(\vec{r}, t)=\frac{E\left(\vec{r}_{1}, t-R_{1} / c\right)}{R_{1}} e^{i\left[\vec{k}_{1} \cdot\left(\vec{r}-\vec{r}_{1}\right)-\omega t\right]}+\frac{E\left(\vec{r}_{2}, t-R_{2} / c\right)}{R_{2}} e^{i\left[\vec{k}_{2} \cdot\left(\vec{r}-\vec{r}_{2}\right)-\omega t\right]} \,.
 \end{equation}
 If the distances from $r$ to the two slits are (approximately) equal, $R_{1}\approx R_{2} \approx d$, the intensity at $\vec{r}$ is
 \begin{align*}
@@ -144,13 +144,13 @@ If the distances from $r$ to the two slits are (approximately) equal, $R_{1}\app
 \end{align*}
 
 
-and the visibility can be identified as the modulus of $g_1$ \cite{loudon2000,ou2017}.
+and the visibility can be identified as the modulus of $g^1$ \cite{loudon2000,ou2017}.
 
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.53\textwidth}
 	\includegraphics[width=\linewidth]{images/doubleslit.pdf}
-	\caption[Schematic of a double slit]{Schematic of a double slit.}
+	\caption[Schematic of a lit]{Schematic of a double slit.}
 	\label{fig:doubleslit}
 	\end{subfigure}
 \begin{subfigure}[b]{0.41\textwidth}
@@ -164,13 +164,13 @@ In the Hanbury Brown Twiss experiment\textbf{(b)} are two indistinguishable two 
 
 
 
-\paragraph{Second order coherence $g_2$}
-The definition of $g_1$ can be extended to the second order by considering
+\paragraph{Second order coherence $g^2$}
+The definition of $g^1$ can be extended to the second order by considering
 \begin{equation*}
 	g^{(2)}(\vec{r}_1,t_1;\vec{r}_2,t_2)= 
 	\frac{\left< E^*(\vec{r}_1,t_1)E^*(\vec{r}_2,t_2)E(\vec{r}_1,t_1)E(\vec{r}_2,t_2) \right>}{\left<\left | E(\vec{r}_1,t_1)\right |^2 \right> \left< \left |E(\vec{r}_2,t_2)\right |^2 \right>}	
 \end{equation*}
-For classical fields, this is equivalent  to normalized correlations of intensities:
+For classical fields, this is equivalent  to normalized correlations of intensities \cite{goodman2000}:
 \begin{equation}
 	g^{(2)}(\vec{r}_1,t_1;\vec{r}_2,t_2)= 
 		\frac{\left< I(\vec{r}_1,t_1)I(\vec{r}_2,t_2 \right>}{\left<I(\vec{r}_1,t_1)\right>\left<I(\vec{r}_2,t_2)\right>}	
@@ -199,7 +199,7 @@ with the source volume $S$ and intensity distribution $I_s$, total source intens
 \section{Hanbury Brown Twiss}
 Hanbury-Brown Twiss first used the correlation between the intensities captures by photomultiplier tubes to measure the angular size of stars  \cite{hanbury1956}. The underlying effect can be explained based on (semi-)classical coherence theory for chaotic light sources \cite{baym1997,goodman2000}:
 
-If the sources $A$ and $B$ (in the original experiment different parts of the observed star) produce each spherical electromagnetic waves with random but constant phases $\phi_{A,B}$, $E_{A,B}=c_{A,B} e^{i k\left|\vec{r}-\vec{r}_{1,2}\right|+i \phi_{A,B}} /\left|\vec{r}-\vec{r}_{A,B}\right|$ and ignoring polarization, the total intensity at detector 1 $I_{1}$ (and similar $I_{2}$ at detector 2) is
+If the sources $A$ and $B$ (in the original experiment different parts of the observed star) produce each spherical electromagnetic waves with random but constant phases $\phi_{A,B}$, $E_{A,B}=c_{A,B} e^{i k\left|\vec{r}-\vec{r}_{1,2}\right|+i \phi_{A,B}} /\left|\vec{r}-\vec{r}_{A,B}\right|$ and ignoring polarization, the total intensity $I_{1}$ at detector 1 (and similar at detector 2) is
 \begin{equation}
 	I_{1} =
 	\frac{1}{L^{2}}\left(
@@ -240,16 +240,16 @@ A more detailed quantum mechanical treatment considers the mixtures of the proba
 For chaotic light with Gaussian statistics, Isserlis' theorem 
 $\left<ABCD\right>=\left<AB\right>\left<CD\right>+\left<AC\right>\left<BD\right>+\left<AD\right>\left<BC\right>$ can be applied to \fref{eq:g2}, leading  (independently of the spatial configuration of the sources ) to
 \begin{equation}
-	g_2(\vec{r_1},\vec{r_2}) = 1+ |g_1(\vec{r_1},\vec{r_2}) |^2 ,
+	g^2(\vec{r_1},\vec{r_2}) = 1+ |g^1(\vec{r_1},\vec{r_2}) |^2 ,
 \end{equation}
 which is called the Siegert Relation \cite{ou2017}.
 For $N$ Single-Photon-Emitters and quantum optical treatment,  a similiar form holds \cite{classen2017}:
 \begin{equation}
-	g_2(\vec{r_1},\vec{r_2}) = 1+ |g_1(\vec{r_1},\vec{r_2}) |^2 - \frac{2}{N} ,
+	g^2(\vec{r_1},\vec{r_2}) = 1+ |g^1(\vec{r_1},\vec{r_2}) |^2 - \frac{2}{N} ,
 \end{equation}
-As, as according to the van Cittert Zernicke theorem (\fref{eq:vcz}), $g_1$ encodes structural information, 
+As, as according to the van Cittert Zernicke theorem (\fref{eq:vcz}), $g^1$ encodes structural information, 
 \begin{equation}
-	g_1(\vec{k_1},\vec{k_2}) \propto \mathscr{F}S(\vec{r}) = S(\vec{q})
+	g^1(\vec{k_1},\vec{k_2}) \propto \mathscr{F}S(\vec{r}) = S(\vec{q})
 \end{equation}
 the difference of the intensity-intensity correlation from unity is proportional (with a contrast determining constant $\beta$) to the Fourier transform of the arrangement of emitters with $q=\vec{k_1}-\vec{k_2}$ (see \fref{fig:scatteringvectors}).
 This is the basic principle used in IDI to recover three dimensional spatial information from the intensity correlation.
@@ -262,7 +262,7 @@ This is the basic principle used in IDI to recover three dimensional spatial inf
 \end{figure}
 
 \section{Photon Statistics}
-Considering a complex sum of many phasors (e.g. the superposition of many electrical fields or probability amplitudes) of constant amplitude $A$ and independent uniformly in $(-\pi,\pi)$distributed phases $\phi_k$,
+Considering a complex sum of many phasors (e.g. the superposition of many electrical fields or probability amplitudes) of constant amplitude $A$ and independent uniformly in $(-\pi,\pi]$ distributed phases $\phi_k$,
 \begin{align}
 	c=\sum^N_k A e^{i\phi_k}
 \end{align}
@@ -388,7 +388,7 @@ The number of degrees of freedom, $M_{t,\text{Conv}}=\left[\int_{-\infty}^{\inft
 
 The experimentally indistinguishable fluorescence energies $K_{\alpha,1}$ and $K_{\alpha,2}$ (as well as  $K_\beta$ if no filter is used for suppression) give additional independent modes $M_E$ depending on the relative intensity of the lines, with $M_E \lessapprox 2$ for the elements considered in this work (see \fref{tab:elements}).
 
-As the used X-ray detectors are polarization insensitive and the X-ray fluorescence is unpolarized, the incoherent field can be separated into two polarization modes with independent random phase, which are pairwise orthogonal with $\vec{k}$ and therefore change slightly for each atom and detector position. For small source dimensions, this change is negligible,  giving $M_P \approx 2$ \cite{classen2019}. 
+As the used X-ray detectors are polarization insensitive and the X-ray fluorescence is unpolarized, the incoherent field can be separated into two polarization modes with independent random phase, which are pairwise orthogonal with $\vec{k}$ and therefore change slightly for each atom and detector position. For small source dimensions, this change is negligible,  giving constant $M_P \approx 2$ \cite{classen2019}. 
 
 Path differences longer than the coherence length give additional modes $M_S$, therefore the speckle visibility will be reduced for large samples. This is for example important, if the exciting beam is not perpendicular to the detector (such as in an off-axis setup), as the excitation time difference between different parts of the a thick sample is not compensated for by the difference in flight time to the detector or in a wide angle experiment. In a small angle setup with a detector perpendicular to the beam, fluorescence from different emitters along the sample thickness will arrive at approximately equal time, hence the sample thickness should not introduce additional modes). To illustrate this effect, simulations will be performed in \fref{chap:simulation}.
 
@@ -425,7 +425,7 @@ as an estimation of the SNR, which will be further examined by performing simula
 
 \section{Kossel Lines}
 \label{sec:kossel}
-X-Ray radiation  originating from within a single crystal (such as fluorescence) can get Bragg reflected at the lattice planes of the crystal, causing Intensity variation in $90^o-\theta$ around the direction $k_{hkl}$, forming the \textit{Kossel Cones} \cite{cowley1995}. On the spherical detector centered at at the crystal, the points with influenced intensity, the \textit{Kossel lines} (or in electron microscopy more commonly \text{Kikuchi Lines}) would hence lie on circles, for a flat detector on general conic sections (see \fref{fig:kossel} for an illustration).
+X-ray radiation  originating from \textit{within} a single crystal (such as fluorescence) can get Bragg reflected at the lattice planes of the crystal, causing Intensity variation in $90^o-\theta$ around the direction $k_{hkl}$, forming the \textit{Kossel Cones} \cite{cowley1995}. On the spherical detector centered at at the crystal, the points with influenced intensity, the \textit{Kossel lines} (or in electron microscopy more commonly \text{Kikuchi Lines}) would hence lie on circles, for a flat detector on general conic sections (see \fref{fig:kossel} for an illustration).
 
 The visibility of the Kossel lines is governed by the same extinction rules as for the Bragg reflexes-the structure factor $F_{hkl}$ has to be non-zero. For a zinc blende structure (such as GaAs) with atomic scattering factors $f_a$ and $f_b$, the structure factor is
 \begin{align}
