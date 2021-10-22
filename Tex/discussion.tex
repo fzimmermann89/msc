@@ -1,12 +1,24 @@
 \chapter{Discussion}
+The promise of IDI to allow three dimensional, high resolution, element specific imaging of nanoscale samples could not yet be fulfilled by the experimental implementation.
 
-Depending on the PSF of the detectors and sufficiently low photon counts, a photon counting algorithm with subpixel resolution could decrease the effect of mild undersampling \cite{sun2020}.
+ 
+much longer pulse length than the coherence time, leading to lower than optimal contrast
+
+Due to limitations in the placement of the detectors, the undersampling
 
 
-Even though the application of non-uniform FFT (NUFFT) based correlation estimators with sophisticated interpolation kernels, which have  successfully been used in other fields, would require more memory, the reduction in under-sampling by making full use of the smaller $\vec{q}$ spacing at higher detector angles could make it a worthwhile extension of the used 3d reconstruction \cite{laguna1998,yang2008,chang2020}. Another possible avenue for improvement of the implementation might be to only reconstruct relevant parts of the reciprocal space, greatly reducing computational time and memory requirements if using direct correlation estimators instead of FFT based methods (which are not suitable for reconstruction of the whole $\vec{q}$-space due to the higher computational complexity) and thereby making use of the unequal $\vec{q}$ spacing as well.
+The severe detector artifacts reduced the amount of usable data significantly, which, unfortunately, has not been noticed during the experiment. This show the necessity of better continuous online monitoring of the recorded data.
+
+
+The nanoparticle samples had a much less pronounced features according to the SAXS measurements than initially planned. An optimization of the preparation method leading to either higher concentrations of non-aggregating particles or to complete aggregation might lead to stronger features. Also, using liquid injectors might be an option, even though, partially due to the tight focus, short Rayleigh length and therefore difficult to achieve spatial overlap of the beam and sample, this would introduce additional complexity to the experimental setup.
 
 
 
-An avenue for improvement is subpixel resolution of the photon hits and better usage of the varying solid angle of each pixel of the detector to increase the resolution in the reconstruction, as this is currenly limited by the computational work and memory requirements to calulate the correlations at higher resolution.
+
+
+The photon counting applied to the raw images improves fidelity of the focal images. Depending on the PSF of the detectors, and sufficiently low photon counts, more sophisticated droplet schemes based on error minimization allowing for subpixel resolution, incorporating the scattering photons into the droplet algorithm or using a neural network trained on synthetic images could reduce the influence of noise and oversampling \cite{baumann2018,collaboration2014,schayck2020,sun2020}.
+
+Even though the application of non-uniform FFT (NUFFT) based correlation estimators with sophisticated interpolation kernels, which have  successfully been used in other fields, would require more memory, the reduction in under-sampling by making full use of the smaller $\vec{q}$ spacing at higher detector angles could make it a worthwhile extension of the used 3d reconstruction \cite{laguna1998,yang2008,chang2020}. Another possible avenue for improvement of the implementation might be to only reconstruct relevant parts of the reciprocal space, greatly reducing computational time and memory requirements. 
+
 
 
