@@ -60,10 +60,7 @@ The superposition of two monochromatic, stationary waves with a fixed phase diff
 \label{eq:interference}
 \end{align}
 
-Defining the contrast of the fringes as the visibility $V$,
-\begin{equation}
-	V=\frac{I_{max}-I_{min}}{I_{max}+I_{min}} ,
-\end{equation} 
+Defining the contrast of the fringes as the visibility $V=\frac{I_{max}-I_{min}}{I_{max}+I_{min}}$,
 results for equal intensities of the the waves in maximum contrast,  $V=\frac{2\sqrt{I*I}}{I+I}I=1$. This case of a fixed phase difference is called \textit{coherent}.
 If, on the other hand, the phase difference $\Delta \phi$ is not fixed but completely random and therefore averages out in \fref{eq:interference}, the visibility goes to 0 and the waves are regarded as \textit{incoherent}  \cite{born1980,goodman2000}.
 
@@ -75,27 +72,23 @@ and its normalized version, the complex degree of (self-)coherence $\gamma$, as
 \begin{equation}
 \gamma(\tau)=\frac{\Gamma(\tau)}{\Gamma(0)} =  \frac{\Gamma(\tau)}{<I>} \,.
 \end{equation} 
-Now \fref{eq:interference} can be written as 
-\begin{equation}
-	I=I_{1}+I_{2}+2 \sqrt{I_{1} I_{2}} \operatorname{Re}\left[\gamma(\tau)\right]
-\end{equation}
-and (again for equal intensities) the visibility is $V(\tau)=\left|\gamma(\tau)\right|$ \cite{zernike1938,loudon2000}.
+Now \fref{eq:interference} can be written as $I=I_{1}+I_{2}+2 \sqrt{I_{1} I_{2}} \operatorname{Re}\left[\gamma(\tau)\right]$ and (again for equal intensities) the visibility is $V(\tau)=\left|\gamma(\tau)\right|$ \cite{zernike1938,loudon2000}.
 
 The \textit{coherence time }shall describe at which delay the visibility falls to approximately zero. One possible definition by Mandel based on the complex degree of coherence,
 \begin{equation}
 \tau_c = \int_{-\infty}^{\infty} \left| \gamma(\tau)\right|^2 \diff \tau 
 \end{equation} will be used in the following. Other definitions commonly used are equivalent up to a constant factor and lead generally to coherence times of the same order of magnitude \cite{mandel1959,goodman2000}. 
 
-The Wiener Khinchin theorem connects the power spectrum $F(w)$ with $\gamma$ \cite{goodman2000,lajunen04}.
+The Wiener Khinchin theorem connects the power spectrum $F(w)$ with $\gamma$ \cite{goodman2000,lajunen04}
 \begin{equation}
 	F(\omega)=\frac{1}{2 \pi} \int_{-\infty}^{\infty} \gamma(\tau) \exp (\mathrm{i} \omega \tau)  \dif \tau \,.
-\end{equation}.
+\end{equation}
 
 As a relevant example, for an exponentially decaying electric field envelope\footnote{Corresponding to an intensity/photon number decay with time constant $\sfrac{\tau}{2}$} $E(t)=\Theta(t)e^{-t/\tau_E}$, the power spectrum is Lorentzian with an angular frequency FWHM of $\Delta \omega=\frac{2}{\tau_E}$,
 \begin{equation*}
 \left|\int_{0}^{\infty}  e^{-t/\tau_E} e^{-iwt} \dif t \right|^2 \propto  \frac{1}{1/\tau_E^2+w^2} \,,
 \end{equation*}
-and numerator and denominator of the complex deree of coherence are
+and numerator and denominator of the complex degree of coherence are
 \begin{align*}
 \left\langle E(t) E^{*}(t+\tau)\right\rangle
 &=\int_{0}^{\infty} E(t) E^{*}(t+\tau)\diff t
@@ -116,7 +109,7 @@ Hence, $\left<\gamma(\tau)\right>=e^{-|\tau/| \tau_E}$,  and the coherence time 
 
 
 \paragraph{First order coherence $g^1$}
-A generalization of $\gamma$  to different fields  $E_1^*(\vec{r}_1,t_1)$ and $E_2(\vec{r}_2,t_2)$ is the normalized first order correlation function $g^1$ \cite{agarwal2013}
+A generalization of the complex degree of self coherence to different fields  $E_1^*(\vec{r}_1,t_1)$ and $E_2(\vec{r}_2,t_2)$ is the normalized first order correlation function $g^1$ \cite{agarwal2013}
 \begin{equation}
 	g^{(1)}(\vec{r}_1,t_1;\vec{r}_2,t_2)= \frac
 	{\left< E_1^*(\vec{r}_1,t_1)E_2(\vec{r}_2,t_2) \right>}
@@ -129,7 +122,7 @@ This can be used for example to describe Young's double slit experiment (\fref{f
 \begin{equation}
 	E(\vec{r}, t)=\frac{E\left(\vec{r}_{1}, t-R_{1} / c\right)}{R_{1}} e^{i\left[\vec{k}_{1} \cdot\left(\vec{r}-\vec{r}_{1}\right)-\omega t\right]}+\frac{E\left(\vec{r}_{2}, t-R_{2} / c\right)}{R_{2}} e^{i\left[\vec{k}_{2} \cdot\left(\vec{r}-\vec{r}_{2}\right)-\omega t\right]} \,.
 \end{equation}
-If the distances from $r$ to the two slits are (approximately) equal, $R_{1}\approx R_{2} \approx d$, the intensity at $\vec{r}$ is
+If the distances from $\vec{r}$ to the two slits are (approximately) equal, $R_{1}\approx R_{2} \approx d$, the intensity at $\vec{r}$ is
 \begin{align*}
 	\left\langle I_{P}\left(\vec{r}, t^{\prime}\right)\right\rangle&=\left\langle\left|E\left(\vec{r}_{1}, t\right)\right|^{2}\right\rangle+\left\langle\left|E\left(\vec{r}_{2}, t\right)\right|^{2}\right\rangle 
 	+\left[\left\langle E^{*}\left(\vec{r}_{1}, t\right) E\left(\vec{r}_{2}, t\right)\right\rangle e^{i\left(\vec{k}_{1}-\vec{k}_{2}\right) \cdot \vec{r}+i \Delta \phi}+\text{c.c}\right] \\
@@ -166,7 +159,7 @@ In the Hanbury Brown Twiss experiment\textbf{(b)} are two indistinguishable two 
 The definition of $g^1$ can be extended to the second order by considering
 \begin{equation*}
 	g^{(2)}(\vec{r}_1,t_1;\vec{r}_2,t_2)= 
-	\frac{\left< E^*(\vec{r}_1,t_1)E^*(\vec{r}_2,t_2)E(\vec{r}_1,t_1)E(\vec{r}_2,t_2) \right>}{\left<\left | E(\vec{r}_1,t_1)\right |^2 \right> \left< \left |E(\vec{r}_2,t_2)\right |^2 \right>}	
+	\frac{\left< E^*(\vec{r}_1,t_1)E^*(\vec{r}_2,t_2)E(\vec{r}_1,t_1)E(\vec{r}_2,t_2) \right>}{\left<\left | E(\vec{r}_1,t_1)\right |^2 \right> \left< \left |E(\vec{r}_2,t_2)\right |^2 \right>} \,.	
 \end{equation*}
 For classical fields, this is equivalent  to normalized correlations of intensities \cite{goodman2000}:
 \begin{equation}
@@ -189,7 +182,7 @@ with the source volume $S$ and intensity distribution $I_s$, total source intens
 \section{Hanbury-Brown Twiss Experiment}
 Hanbury-Brown and Twiss first used the correlation between the intensities captures by photomultiplier tubes to measure the angular size of stars  \cite{hanbury1956}. The underlying effect can be explained based on (semi-)classical coherence theory for chaotic light sources \cite{baym1997,goodman2000}:
 
-If the sources $A$ and $B$ (in the original experiment different parts of the observed star) produce each spherical electromagnetic waves with random but constant phases $\phi_{A,B}$, $E_{A,B}=c_{A,B} e^{i k\left|\vec{r}-\vec{r}_{1,2}\right|+i \phi_{A,B}} /\left|\vec{r}-\vec{r}_{A,B}\right|$ and ignoring polarization, the total intensity $I_{1}$ at detector 1 (and similar at detector 2) is
+If the sources $A$ and $B$ (in the original experiment different parts of the observed star) produce each spherical electromagnetic waves with random but constant phases $\phi_{A,B}$, such that (ignoring polarization) $E_{A,B}=c_{A,B} e^{i k\left|\vec{r}-\vec{r}_{1,2}\right|+i \phi_{A,B}} /\left|\vec{r}-\vec{r}_{A,B}\right|$, the total intensity $I_{1}$ at detector 1 (and similar at detector 2) is
 \begin{equation}
 	I_{1} =
 	\frac{1}{L^{2}}\left(
@@ -205,7 +198,7 @@ Averaging over many independent realizations of the random phases leads to the a
 	\left\langle I_{1}\right\rangle=\left\langle I_{2}\right\rangle=\frac{1}{L^{2}}\left(\left\langle|c_A|^{2}\right\rangle+\left\langle|c_B|^{2}\right\rangle\right)
 \end{equation}, 
 
-independent of the separation of the detectors. On the other hand, the average of the product of the intensities is
+independent of the separation of the sources. On the other hand, the average of the product of the intensities is
 \begin{equation}
 	\left\langle I_{1} I_{2}\right\rangle =
 	\left\langle I_{1}\right\rangle\left\langle I_{2}\right\rangle+\frac{2}{L^{4}}|c_A|^{2}|c_B|^{2} \cos \left(k\left(r_{1 a}-r_{2 a}-r_{1 b}+r_{2 b}\right)\right) 
@@ -216,11 +209,11 @@ Hence,
 	=1+2 \frac{\left\langle|\alpha|^{2}\right\rangle\left\langle|\beta|^{2}\right\rangle}{\left(\left\langle|\alpha|^{2}\right\rangle+\left\langle|\beta|^{2}\right\rangle\right)^{2}} \cos \left(k\left(r_{1 a}-r_{2 a}-r_{1 b}+r_{2 b}\right)\right)
 \end{equation}
 
-For a large enough separation between the sources and detectors $(L \gg R)$, the small angle approximation can be made and
+For a large enough distance between the sources and detectors $(L \gg R)$, the small angle approximation can be made and
 \begin{equation}
 	g^2\left(\vec{k_1}-\vec{k_2}\right)-1\propto \cos{\left(\vec{R} \cdot\left(\vec{k}_{2}-\vec{k}_{1}\right)\right)}
 \end{equation} 
-where $\vec{k}_{1,2}=k \vec{r}_{1,2}$ is the wavevector of the light seen in detector $1$/detector $2$. As the modulation frequency of the the intensity correlation is depended $R$, the separation of the two sources (the size of the star) can be recovered.
+where $\vec{k}_{1,2}=k \vec{r}_{1,2}$ is the wavevector of the light seen in detector $1$/detector $2$. As the modulation frequency of the the intensity correlation is depended $R$, the separation of the two sources (i.e the size of the star) can be recovered.
 
 A more detailed quantum mechanical treatment considers the mixtures of the probability amplitudes of emission and detection at the two detectors (as the individual paths are indistinguishable), leading what was shown as an equivalent description of the HBT effect for thermal light sources \cite{fano1961,sudarshan1963,glauber2006}, but allows the treatment of non classical light sources such as single photon emitters \cite{mandel1995,classen2017}. This introduces a correction term in $g^2$ of the order of $1/N$ with $N$ the number of emitters, which for the considered cases is negligible.
 
@@ -406,9 +399,6 @@ as an estimation of the SNR, which will be further examined by performing simula
 
 %- SNR
 %will use Peak/stdev bg definition
-
-
-
 
 
 
