@@ -2,7 +2,7 @@
 The promise of IDI to allow three dimensional, high resolution, element specific imaging of nanoscale samples could not yet be fulfilled by the experimental implementation.
 
  
-much longer pulse length than the coherence time, leading to lower than optimal contrast
+much longer pulse length () than the coherence time, leading to lower than optimal contrast
 
 Due to limitations in the placement of the detectors, the undersampling
 
@@ -16,7 +16,7 @@ The nanoparticle samples had a much less pronounced features according to the SA
 
 
 
-The photon counting applied to the raw images improves fidelity of the focal images. Depending on the PSF of the detectors, and sufficiently low photon counts, more sophisticated droplet schemes based on error minimization allowing for subpixel resolution, incorporating the scattering photons into the droplet algorithm or using a neural network trained on synthetic images could reduce the influence of noise and oversampling \cite{baumann2018,collaboration2014,schayck2020,sun2020}.
+The photon counting applied to the raw images improves fidelity of the focal images. Depending on the PSF of the detectors, and sufficiently low photon counts, more sophisticated droplet schemes based on error minimization allowing for subpixel resolution, incorporating the scattering photons into the droplet algorithm or using a neural network trained on synthetic images could reduce the influence of noise and undersampling \cite{baumann2018,collaboration2014,schayck2020,sun2020}.
 
 Even though the application of non-uniform FFT (NUFFT) based correlation estimators with sophisticated interpolation kernels, which have  successfully been used in other fields, would require more memory, the reduction in under-sampling by making full use of the smaller $\vec{q}$ spacing at higher detector angles could make it a worthwhile extension of the used 3d reconstruction \cite{laguna1998,yang2008,chang2020}. Another possible avenue for improvement of the implementation might be to only reconstruct relevant parts of the reciprocal space, greatly reducing computational time and memory requirements. 
 

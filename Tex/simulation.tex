@@ -44,6 +44,7 @@ with $\vec{q}(x,y) = \sfrac{[x y z]}{\sqrt{x ^ 2 + y ^ 2 + z^2(x,y)}}$
 			x_2,y_2 \text{ where} \\ \lfloor q(x_1,y_1)-q(x_2,y_2)\rfloor=\lfloor\Delta\vec{q}\rfloor
 		\end{subarray}}}
 	I(x_1,y_1),I(x_2,y_2)
+	\label{eq:correlation}
 \end{equation}
 with $N_p$ the total number of pairs of points on the detector $[x_1 y_1],[x_2,y_2]$  fulfilling the condition.
 
@@ -60,8 +61,9 @@ as $I\in \Re$ and $I_{n\geq N}$=0, greatly reducing the computational complexity
 
 The number of correlation pairs $N_p$ which contribute to the sum in \fref{eq:fftcorrelation} for each $q$ can be found by performing the same operations with a constant image (of the same shape) $M$ of all ones, leading to the numerator of $g^2$ being $\operatorname{AC}(I)/\operatorname{AC}(M)$ \cite{oppenheim2009,butz2015,nion2008}.
 
-\subsection{Normalisation}
-In the definition $g^2$ (\fref{eq:g2}), normalization is performed by the product of the \textit{expectation values} of the intensities at the two locations. As these expectation values are influenced by the sample, the geometry, and experimental imperfections, some considerations how to implement this normalization have to be made for calculating $g^2(\Delta\vec{q})$ from measured or simulated fluorescence speckle patterns. 
+\subsection{Normalization}
+\label{sec:normal}
+In the definition of $g^2$ (\fref{eq:g2}), normalization is performed by the product of the \textit{expectation values} of the intensities at the two locations. As these expectation values are influenced by the sample, the geometry, and experimental imperfections, some considerations how to implement this normalization have to be made for calculating $g^2(\Delta\vec{q})$ from measured or simulated fluorescence speckle patterns. 
 
 If only a single image is taken, the expectation value for each pixel has to be roughly approximated. This can be done by assuming an equal value for all pixels (and estimating by the mean), which will lead to significant artifacts if, for example, due to the geometry, outside pixels have a much lower true expectation value than pixels in the center of the recorded image.  
 For masked image registration and similar tasks, the cross correlation is commonly normalized by the following (simplified to the relevant case of the autocorrelation) divisor \cite{padfield2010}:
@@ -142,7 +144,7 @@ To evaluate the different approaches, for a grating with pitch 50\,nm, line widt
 
 \subsection{Accessible Reciprocal Space}
 
-	As IDI is based on $g^2(\Delta \vec{q})$, for a set of accessible $q$'s determined by the experimental geometry ($k$, detector size and distance), IDI can give information about $S(\vec{q})$ at higher $\left|\vec{q}\right|$ than a traditional scattering setup increasing the numerical aperture (in a small angle regime up to a factor of two) and could in theory be used to achieve a higher resolution. In practice, for most samples the resolution will be limited by the $q^{-4}$ dependence of $S$ and the SNR, thus only increasing the resolution for samples with strong features at high $q$.
+	As IDI is based on $g^2(\Delta \vec{q})$, for a set of accessible $\vec{q}$ determined by the experimental geometry ($k$, detector size and distance), IDI can give information about $S(\vec{q})$ at higher $\left|\vec{q}\right|$ than a traditional scattering setup, increasing the numerical aperture (in a small angle regime up to a factor of two) and could in theory be used to achieve a higher resolution. In practice, for most samples the resolution will be limited by the (approximate) $q^{-4}$ dependence of the structure factor due to Porod's law and the SNR, thus only increasing the resolution for samples with strong features at high $q$.
 	
 	Compared to CDI, which measures $\vec{q}$ on the Ewald sphere and gives only limited $q_z$ information, IDI with a flat detector can give access to a three dimensional volume in reciprocal space, as shown in \fref{fig:accesibleq} and, with greater $q_z$ coverage the greater the curvature of the Ewald sphere is. This, for example, gives access to multiple Bragg peaks in a single crystal experiment as shown in \fref{fig:accesiblebraggq}. 
 		
@@ -179,7 +181,7 @@ To evaluate the different approaches, for a grating with pitch 50\,nm, line widt
 	\caption{Correlation pairs and noise dependence on $\vec{q}$ } 
 \end{subfigure}\\
 	\end{tabular}
-	\caption[Accessible reciprocal space]{The accessible reciprocal space with an 2048x2048\,pixel (100\,um pixelsize) at 12.5\,cm distance and 9.2\,keV is shown in a) and b). In a), the surface of the Ewald sphere accessible in an diffraction experiment is shown in green for comparison. IDI allows a reconstruction of a three dimensional volume. In b), the position of GaAs Bragg peaks as determined by finding local maxima (>4 standard deviations) in the reconstruction is shown inside this volume. As the accessible $q_z$ is depended on $q_x$/$q_y$ and smaller the larger the latter two, in this setup a precise alignment of the detector with regard to the lattice planes if useful to be able to image the maximal number of peaks. Using a square, centered, planar detector with uniform pixelsize, the number of correlation pairs for resulting in the same $\vec{q}$ depends on $\vec{q}$ as shown in on the left of c) for a $q_z=0$ slice. The noise (calculated as the standard deviation over 100 independent simulations) is therefor also non-uniform, as shown on the right of c).}
+	\caption[Accessible reciprocal space]{The accessible reciprocal space with an 2048x2048\,pixel (100\,um pixelsize) at 12.5\,cm distance and 9.2\,keV is shown in a) and b). In a), the surface of the Ewald sphere accessible in a diffraction experiment is shown in green for comparison. IDI allows a reconstruction of a three dimensional volume. In b), the position of GaAs Bragg peaks as determined by finding local maxima (>4 standard deviations) in the reconstruction is shown inside this volume. As the accessible $q_z$ is depended on $q_x$/$q_y$ and smaller the larger the latter two, in this setup a precise alignment of the detector with regard to the lattice planes if useful to be able to image the maximal number of peaks. Using a square, centered, planar detector with uniform pixelsize, the number of correlation pairs for resulting in the same $\vec{q}$ depends on $\vec{q}$ as shown in on the left of c) for a $q_z=0$ slice. The noise (calculated as the standard deviation over 100 independent simulations) is therefor also non-uniform, as shown on the right of c).}
 	
 \end{figure}
 
