@@ -130,7 +130,10 @@ The samples have been prepared by Ben Reeves at the Stanford Nanofabrication Fac
 \section{Setup of the Experiment}
 The setup used at the experimental station EH5 at SACLA is shown in \fref{fig:setup}. 
 
-The sample is mounted in an XXX angle to the beam on an XXX axis stage to allow scanning of the sample, ensure perpendicularly of the scanning directions to the beam to stay within the Rayleigh length of approx. XXX\,um while also ensuring a parallel alignment of the sample surface to one of the detectors. Overall, two MPCCD detectors are used: A dual detector with two tiles, each 512x1024 pixels perpendicular to the FEL beam in a distance of 1\,m and a Short Working Distance octal detector, consisting of eight 512x1024 tiles, parallel to the sample surface in a distance $d_{octal}$ ranging from XXX to XXX cm. To suppress absorption and more importantly, air scattering, a vacuum pipe with Kapton windows is installed in between the sample and the dual detector
+The FEL provides approximately 10\,fs hard X-ray pulse with $\approx 10^11$ photons at 11\,keV (just above the gallium K-edge and below the arsenic K-edge, see \fref{tab:elements})and 30\,Hz repetition rate \cite{tono2013}. Using the \textit{100\,exa} nano-focusing system and finding the focus spot along the beam direction by optimizing the strength of (non-linear) amplified spontanous emission (ASE) of a copper foil, a focal FWHM of 200\,nm vertical/100\,nm horizontal (as determined by a wirescan) is achieved \cite{yumoto2020,handa2010,yoneda2015}.
+
+
+The sample is mounted in an XXX angle to the beam on an XXX axis stage to allow scanning of the sample, ensure perpendicularly of the scanning directions to the beam to stay within the Rayleigh length (approx. 100\,um horizontal/200\,um vertical) while also ensuring a parallel alignment of the sample surface to one of the detectors. Overall, two MPCCD detectors are used: A dual detector with two tiles, each 512x1024 pixels perpendicular to the FEL beam in a distance of 1\,m and a Short Working Distance octal detector, consisting of eight 512x1024 tiles, parallel to the sample surface in a distance $d_{octal}$ ranging from XXX to XXX cm. To suppress absorption and more importantly, air scattering, a vacuum pipe with Kapton windows is installed in between the sample and the dual detector
 An L-shaped aluminum plate was installed to reduce stray light as well as to allow mounting of the beamstop and filters between sample and detector.
 
 The samples are scanned with a mean step size of 20\,um in horizontal direction (fast scanning direction) and 20\,um in vertical direction.between shots. The step size was chosen based on the crater size visible with an optical microscope of approximately 5-10\,um for the samples and energies used in the experiment.
@@ -146,7 +149,7 @@ To image the focus, 500\,nm iron (Goodfellow), 10\,um iron (Nilaco), 5\,um (Nila
 \paragraph{Imaging Nanoparticles}
 For imaging the prepared iron nanoparticle and reference samples, the vacuum tube in front of the dual detector is partially removed to allow moving the octal detector, which will be the main imaging detector, to $d_\text{octal}\approx$43\,cm. The sample is slightly moved out of focus along the beam direction by 400\,um instead of using any attenuation to increase the number of fluorescence photons. In between the nanoparticle samples, a single 10\,um iron foil measurement using the dual detector is taken to confirm the beam conditions.
 \paragraph{Imaging Crystals}
-For imaging GaAs single crystal samples, the distance between the octal detector and the sample is shortened to $d_\text{octal}\approx$14\,cm (with the vacuum tube between the dual detector and the sample removed). To reduce the amount of non-fluorescence photons  (air scattering, coherent scattering in the sample etc.), as well as gallium K$_\beta$ fluorescence on the detector, a 25\,um zinc filter is installed on the filter holder. The crystal surface is aligned to be parallel to the detector plane, and the scanning direction are aligned to be along the crystal surface within less than 1°. The X-ray beam is attenuated by 0.4\,mm silicon, resulting in 20-30\,uJ pulse energy at the sample for pulse energies at the upstream energy monitors of 400\,uJ \cite{yabashi2015,tono2013}.
+For imaging GaAs single crystal samples, the distance between the octal detector and the sample is shortened to $d_\text{octal}\approx$14\,cm (with the vacuum tube between the dual detector and the sample removed). To reduce the amount of non-fluorescence photons  (air scattering, coherent scattering in the sample etc.), as well as gallium K$_\beta$ fluorescence on the detector, a 25\,um zinc filter is installed on the filter holder. The crystal surface is aligned to be parallel to the detector plane, and the scanning direction are aligned to be along the crystal surface within less than 1°. The X-ray beam is attenuated by 0.4\,mm silicon, resulting in 20-30\,uJ  energy at the sample for pulse energies at the upstream energy monitors of 400\,uJ \cite{yabashi2015,tono2013}.
 
 \section{Data Processing and Analysis}
 As the amount of recorded data is huge, an efficient strategy for filtering on shots, preprocessing the data to eliminate interference and finally reconstruction has to be implemented.
@@ -212,14 +215,15 @@ During the experiment, an unnoticed failure of the electronics of the octal dete
 
 
 \paragraph{Spectra}
-The background subtracted and masked detector images are used to create spectra. On these spectra, a regression with a model consisting of peaks at multiples of the K$_\alpha$, K$_\beta$ and of the excitation energy with an initial FWHM of 500\,eV and intensities following a negative binomial distribution (signal) or Poisson distribution (scattering noise) is performed, minimizing the squared difference the logarithmic values. To roughly approximate the charge sharing, a numerical convolution with a  window of the shape
+The background subtracted and masked detector images are used to create spectra. The differnt samples categorized into a smaller number of groups by the apparent similarity of the spectra/number of signal photons: The foil  data is grouped into three classes, one for copper foils, one for 10um thick iron foils and one for 500\,nm thick foils, the nanoparticle and single crystal data are one class each.
+On these spectra, a regression with a model consisting of peaks at multiples of the K$_\alpha$, K$_\beta$ and of the excitation energy with an initial FWHM of 500\,eV and intensities following a negative binomial distribution (signal) or Poisson distribution (scattering noise) is performed, minimizing the squared difference the logarithmic values. To roughly approximate the charge sharing, a numerical convolution with a  window of the shape
 \begin{equation}
 	w (x)= (1-p)\delta(x)+\rect\left(\frac{x-1/2}{E_{signal}}\right)*\frac{p}{E_{signal}}
 \end{equation}
 is performed, thus smearing the peaks to lower energies with a strength parameter $p$ (initialized as 25\%).
 With this regression, an estimate for the number of modes of the binomial distribution as well as for the mean number of signal and scattering photons is found.
 
-The recorded data is categorized into a smaller number of groups by the apparent similarity of the spectra: The foil data is group into three classes, one for copper foils, one for 10um thick iron foils and one for 500\,nm thick foils.
+
 
 
 \paragraph{Photon counting}
@@ -273,11 +277,11 @@ $\vec{q}$ a reciprocal lattice vector and element of the allowed reflections $Q$
 
 
 \subsection{Reconstruction}
-For the foil data, the small angle approximation is valid and each pixel can be thought of as having the same XXX angle, permitting using the pixelwise correlation as a reconstruction.
+For the foil data, the small angle approximation is valid and each pixel can be thought of covering the the same solid angle, permitting using a pixelwise correlation (after normalization by as described in \fref{sec:normal}) as a reconstruction of $|S(q)|^2$.
 
-For the nanoparticle data, detection angle is higher and therefor the $\delta q$ is lower for pixels further of axis. Therefor, for each pixel the $q$ value is calculated and a radial correlation with the corrected values is performed.
+For the nanoparticle data, the maximum recorded angles are higher and at the limit of the small angle regime, resulting in $\delta q_x,_y$ between neighboring pixels being lower for pixels further of axis. Therefore, for each pixel the $q_x,q_y$ values are calculated and an explicit correlation according to \fref{eq:correlation} is performed.
 
-For the crystal data, a full 3d correlation in $q$ space is performed.
+For the crystal data, a full 3d correlation of the rotation and offset corrected data  performed using the resampled FFT-based approach.
 
 
 \section{Results}
