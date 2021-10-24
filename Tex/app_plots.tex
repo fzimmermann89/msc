@@ -10,18 +10,6 @@
 
 \begin{figure}[h!]
 	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width=\linewidth]{images/spectrum_foil_cu.pdf}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width=\linewidth]{images/spectrum_foil_fe.pdf}
-	\end{subfigure}
-	\caption[Spectra of fluorescence using foil samples ]{Spectra of fluorescence using foil samples (left for copper, right for iron) and best fit of the regression using an approximated charge sharing.}
-	\label{fig:spectrafoil}
-\end{figure}
-
-\begin{figure}[h!]
-	\centering
 	\begin{subfigure}[b]{0.32\textwidth}
 		\includegraphics[width=\linewidth]{images/thresholdsCopperHighNoBeta.pdf}
 	\end{subfigure}
@@ -54,24 +42,38 @@
 		\end{tabular}
 	\end{adjustwidth}
 \end{table}
-\FloatBarrier
+
 
 \begin{figure}
 	\includegraphics[width=\linewidth]{images/foil_photonmodes.pdf}
 	\label{fig:foil_photonmodes}
-	\caption[Effect of discretizing the signal into photons]{Effect on the reconstruction of discretizing the signal into photons: For two foils at focal position,  correlations of the continuous, thresholded values read by the detector as well as  correlations after discretizing into photons are shown. Artifacts caused by charge sharing (for example diagonally neighboring pixels being correlated, visible as a square in the center) and other detector imperfections are greatly reduced by discretizing.}
+	\caption[Effect of discretizing the signal into photons]{Effect on the reconstruction of discretizing the signal into photons: For two foils at focal position,  correlations of the thresholded, continuous energy values as well as correlations after discretizing into photons are shown. Artifacts caused by charge sharing (for example diagonally neighboring pixels being correlated, visible as a square in the center) and other detector imperfections are greatly reduced by discretizing.}
 \end{figure}
 
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\linewidth]{images/spectrum_nano.pdf}
+			\caption {10\,nm NP in PS}
+			\label{fig:spectrum_nano}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\linewidth]{images/spectrum_gaas1.pdf}
+		\caption{GaAs Sample 1}
+		\label{fig:spectrum_gaas}
+	\end{subfigure}
+	\caption[Spectrum on the Detector for Nanoparticle and  GaAs samples]{The histogram of the energies recorded by the octal detector after applying all corrections and filtering in counts per images and pixel per 10\,eV bin  The dashed lines are multiples of the iron/gallium K$_\alpha$ energy, the black lines signify the thresholds for the different numbers of signal photons, the colored band shows the standard deviation over different shots. As the nanoparticle sample produces only $\approx 0.04$ signal photons per shot and image and no filter is used, the scattering peak at 11\,keV is higher than the two-photon fluorescence peak.}
 
+\end{figure}
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/kossel_gaas.png}
-	\caption[Mean image of fluorescence of GaAs after background subtraction with visible Kossel lines ]{Mean images of 5000 shots after background subtraction for sample 1 (left) and sample 2 (right), showing the Kossel lines and some artifacts at the edges.}
+	\caption[Mean image of fluorescence of GaAs after background subtraction with visible Kossel lines ]{Mean images of 5000 shots after background subtraction for sample 1 (left) and sample 2 (right), showing the )(faint) Kossel lines and some artifacts at the edges.}
 	\label{fig:kosselgaasmean}
 \end{figure}
 
-\FloatBarrier
+
 
 \begin{table}[hp!]
 	\caption[Miller Indices considered in Kossel line least squares regression of GaAs sample]{Miller Indices considered in Kossel line least squares regression of GaAs sample 1 (left) and sample 2 (right). Not all possible Kossel lines are visible in the recorded images.}
@@ -130,7 +132,7 @@
 	\bottomrule
 \end{tabular}
 \end{table}
-\FloatBarrier
+
 
 \begin{figure}[hp!]
 	\centering
