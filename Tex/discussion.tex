@@ -21,7 +21,11 @@ The nanoparticle samples had a much less pronounced features according to the SA
 
 The photon counting applied to the raw images improves fidelity of the focal images. Depending on the PSF of the detectors, and sufficiently low photon counts, more sophisticated droplet schemes based on error minimization allowing for subpixel resolution, incorporating the scattering photons into the droplet algorithm or using a neural network trained on synthetic images could reduce the influence of noise and undersampling \cite{baumann2018,collaboration2014,schayck2020,sun2020}.
 
+
+
+
 Even though the application of non-uniform FFT (NUFFT) based correlation estimators with sophisticated interpolation kernels, which have  successfully been used in other fields, would require more memory, the reduction in under-sampling by making full use of the smaller $\vec{q}$ spacing at higher detector angles could make it a worthwhile extension of the used 3d reconstruction \cite{laguna1998,yang2008,chang2020}. Another possible avenue for improvement of the implementation might be to only reconstruct relevant parts of the reciprocal space, greatly reducing computational time and memory requirements. 
 
 
 
+The achieved alignment of the crystaline samples after determination of the mean orientation and translational offset is still worse than the resolution of the reconstruction and the size of the expected Bragg peaks, resulting most likely in a reduction of the signal contrast through averaging of different pixel pairs not belonging to the same true $\vec{q}$. Additionally, the regression has only been performed on the average image, thus variations over the scanning of the sample is not corrected. Mounting of the sample on the window might as well as the damage done during the measurement by the focused beam might have resulted in stress, slight bending of the thin glass stabilizing the crystal sheet and stress in the lattice. Additionally, thermal motion of the gallium will have reduced the contrast.
