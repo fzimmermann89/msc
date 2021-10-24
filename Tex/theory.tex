@@ -4,7 +4,7 @@ As the main principle of IDI is using intensity correlations of X-ray fluorescen
 
 
 \section{X-Ray Fluorescence}
-X-ray fluorescence is emitted if atoms are ionised leaving vacancies in the inner shells, which are subsequently filled by electrons of higher energy levels while the energy difference is emitted as photons  (see \fref{fig:levels} for the usual naming convention), compared to the non-radiating Auger decay which, for K-shell vacancies, is more likely for lighter atoms up to atomic number ~30 \cite{santra2009}.  The finite lifetime of the excited states cause a predominantly Lorentzian line shape \cite{attwood1999,van2001}. In the experimental section, iron, copper and gallium atoms are considered - the relevant emission energies, the (experimental) line widths and relative intensities are shown in \fref{tab:elements}.   Roughly, the $K_\alpha$ line widths correspond to coherence times in the 0.4-0.8\,fs range \cite{krause1979}. The cross section for $K$-fluorescence is the highest just above the $K$-absorption edge and, for example for iron, an order of magnitude higher than the coherent cross section (see \fref{fig:cross}).
+X-ray fluorescence is emitted if atoms are ionised leaving vacancies in the inner shells, which are subsequently filled by electrons of higher energy levels while the energy difference is emitted as photons  (see \fref{fig:levels} for the usual naming convention), compared to the non-radiating Auger decay which, for K-shell vacancies, is more likely for lighter atoms (up to atomic number ~30) \cite{santra2009}.  The finite lifetime of the excited states cause a predominantly Lorentzian line shape \cite{attwood1999,van2001}. In the experimental section, iron, copper and gallium atoms are considered - the relevant emission energies, the (experimental) line widths and relative intensities are shown in \fref{tab:elements}.   Roughly, the $K_\alpha$ line widths correspond to coherence times in the 0.4-0.8\,fs range \cite{krause1979}. The cross section for $K$-fluorescence is the highest just above the $K$-absorption edge and, for example for iron, an order of magnitude higher than the coherent cross section (see \fref{fig:cross}).
 
 \begin{figure}
 	\centering
@@ -36,7 +36,7 @@ X-ray fluorescence is emitted if atoms are ionised leaving vacancies in the inne
 \end{table}
 
 \section{Basic Concepts of Coherence}
-In the following, for simplicity, all considered fields are initially assumed to be both stationary and ergodic: A process $f(t)$ is wide-sense stationary, if the expectation value $E[f(t)]$ is independent of the time $t$ and $E[f(t_1)f(t_2)]$ depends only on the time difference $\tau=f_1-f_2$. A process, for which the time average and the ensemble average are equal is called ergodic. Stationarity is a necessity for ergodicity \cite{goodman2000}. It can be shown, that the basic principles hold for non-stationary fields with the main difference being, that all expectation values have to be taken over different realizations \cite{lajunen04}.
+In the following, for simplicity, all considered fields are initially assumed to be both stationary and ergodic: A process $f(t)$ is wide-sense stationary, if the expectation value $E[f(t)]$ is independent of the time $t$ and $E[f(t_1)f(t_2)]$ depends only on the time difference $\tau=f_1-f_2$. A process, for which the time average and the ensemble average are equal is called ergodic. Stationarity is a necessity for ergodicity \cite{goodman2000}. It can be shown, that the basic principles hold for non-ergodic fields with the main difference being, that all expectation values have to be taken over different realizations  \cite{lajunen04}.
 
 Spherical waves as solutions wave equation in spherical coordinates,
 \begin{equation}
@@ -124,7 +124,7 @@ This can be used for example to describe Young's double slit experiment (\fref{f
 \end{equation}
 If the distances from $\vec{r}$ to the two slits are (approximately) equal, $R_{1}\approx R_{2} \approx d$, the intensity at $\vec{r}$ is
 \begin{align*}
-	\left\langle I_{P}\left(\vec{r}, t^{\prime}\right)\right\rangle&=\left\langle\left|E\left(\vec{r}_{1}, t\right)\right|^{2}\right\rangle+\left\langle\left|E\left(\vec{r}_{2}, t\right)\right|^{2}\right\rangle 
+	\left\langle I\left(\vec{r}, t^{\prime}\right)\right\rangle&=\left\langle\left|E\left(\vec{r}_{1}, t\right)\right|^{2}\right\rangle+\left\langle\left|E\left(\vec{r}_{2}, t\right)\right|^{2}\right\rangle 
 	+\left[\left\langle E^{*}\left(\vec{r}_{1}, t\right) E\left(\vec{r}_{2}, t\right)\right\rangle e^{i\left(\vec{k}_{1}-\vec{k}_{2}\right) \cdot \vec{r}+i \Delta \phi}+\text{c.c}\right] \\
 	& \propto 1+
 	\frac{2 \sqrt{\left< I\left(\vec{r}_{1}, t\right)\right>\left< I\left(\vec{r}_{2}, t\right)\right>}}
@@ -245,11 +245,7 @@ This is the basic principle used in IDI to recover three dimensional spatial inf
 \end{figure}
 
 \section{Photon Statistics}
-Considering a complex sum of many phasors (e.g. the superposition of many electrical fields or probability amplitudes) of constant amplitude $A$ and independent uniformly in $(-\pi,\pi]$ distributed phases $\phi_k$,
-\begin{align}
-	c=\sum^N_k A e^{i\phi_k}
-\end{align}
-for sufficiently large numbers of $N$, the real and imaginary parts
+Considering a complex sum of many phasors (e.g. the superposition of many electrical fields or probability amplitudes) of constant amplitude $A$ and independent uniformly in $(-\pi,\pi]$ distributed phases $\phi_k$, $c=\sum^N_k A e^{i\phi_k}$, for sufficiently large numbers of $N$, the real and imaginary parts
 \begin{align*}
 	r&=\Re c =  A \sum^N_k \cos(\phi_k) &
 	i&= \Im c =A \sum^N_k \sin(\phi_k)
