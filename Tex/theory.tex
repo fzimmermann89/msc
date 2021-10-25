@@ -21,7 +21,7 @@ X-ray fluorescence is emitted if atoms are ionised leaving vacancies in the inne
 \end{figure}
 
 \begin{table}
-	\caption[X-ray Energies]{X-ray energies and line widths of some relevant elements \cite{xraylib,krause1979,sorum1987}.  }
+	\caption[X-ray Energies and Line Widths]{X-ray energies and line widths of some relevant elements \cite{xraylib,krause1979,sorum1987}.  }
 	\label{tab:elements}
 	\small
 	\begin{tabular}{l|l|ll|lll|ll}
@@ -29,7 +29,7 @@ X-ray fluorescence is emitted if atoms are ionised leaving vacancies in the inne
 		Element & K$_{edge}$                                             & \multicolumn{2}{c}{K$_{\alpha 1}$}                                                                           & \multicolumn{3}{c}{K$_{\alpha 2}$}                                                                                                                                       & \multicolumn{2}{c}{K$_{\beta}$}                                                                              \\
 		& \begin{tabular}[c]{@{}l@{}}Energy \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}FWHM \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy\\  / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}FWHM \\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}rel. \\ Intensity\end{tabular} & \begin{tabular}[c]{@{}l@{}}Energy\\ / eV\end{tabular} & \begin{tabular}[c]{@{}l@{}}rel. \\ Intensity\end{tabular} \\ \hline
 		Fe      & 7112                                                   & 6403.8                                                 & 1.61                                                 & 6390.8                                                 & 1.62                                                 & 0.50                                                      & 7058.0                                                & 0.17                                                      \\
-		Cu      & 8979                                                   & 8047.8                                                & 2.11                                                 & 8,027.8                                                & 2.17                                                 & 0.51                                                      & 8905.3                                                & 0.17                                                      \\
+		Cu      & 8979                                                   & 8047.8                                                & 2.11                                                 & 8027.8                                                & 2.17                                                 & 0.51                                                      & 8905.3                                                & 0.17                                                      \\
 		Ga      & 10367                                                  & 9251.7                                                 & 2.59                                                 & 9224.8                                                 & 2.66                                                 & 0.51                                                      & 10263.9                                               & 0.18                                                      \\
 		As      & 11867                                                  & 10543.7                                                & 3.08                                                 & 10508.0                                                & 3.17                                                 & 0.51                                                      & 11724.3                                               & 0.19                                                      \\ \hline
 	\end{tabular}
@@ -103,7 +103,7 @@ Hence, $\left<\gamma(\tau)\right>=e^{-|\tau/| \tau_E}$,  and the coherence time 
  \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/michelson.pdf}
-	\caption[Schematic of interferometer]{Schematic of interferometer: Light of (a Gaussian) light source with finite coherence time is split and interference with a delayed copy is observed. The time averaged intensity measured by an detector changes with the delay time. }
+	\caption[Schematic of an i]{Schematic of an interferometer: Light of (a Gaussian) light source with finite coherence time is split and interference with a delayed copy is observed. The time averaged intensity measured by an detector changes with the delay time. }
 	\label{fig:michelson}
 \end{figure}
 
@@ -149,7 +149,7 @@ and the visibility can be identified as the modulus of $g^1$ \cite{loudon2000,ou
 	\caption{Two photon interference in HBT.}
 	\label{fig:twophoton}
 \end{subfigure}
-\caption[Schematic of double slit and two photon interference in  HBT experiments]{\textbf{(a)} Monochromatic light goes through slits located at $R_1$ and $R_2$. The intensity at a position $r$ on the scree (in distance $d$) is the superposition of both paths.  If the slits are within the lateral coherence area of the source, the visibility of the interference pattern depends on the path length difference in comparison to the coherence time $\tau$.
+\caption[Schematic of a double slit and two photon interference in  HBT experiments]{\textbf{(a)} Monochromatic light goes through slits located at $R_1$ and $R_2$. The intensity at a position $r$ on the scree (in distance $d$) is the superposition of both paths.  If the slits are within the lateral coherence area of the source, the visibility of the interference pattern depends on the path length difference in comparison to the coherence time $\tau$.
 In the Hanbury Brown Twiss experiment\textbf{(b)} are two indistinguishable two photon states, illustrated as dashed and  continuous lines respectively: Either simultaneously a photon from emitter 1 is detected by detector A and from emitter 2 by detector B or from emitter 1 by detector B and from emitter 2 by detector A.}
 \end{figure}
 
@@ -239,7 +239,7 @@ This is the basic principle used in IDI to recover three dimensional spatial inf
 \begin{figure}
 	\centering
 	\includegraphics[width=0.9\linewidth]{images/scatteringvectors.pdf}
-	\caption[Scattering Vectors]{Scattering vector $q$ in CDI (left) and IDI (right). In CDI, $q$ is the momentum transfer between incoming and outgoing wave. In IDI, there is no momentum transfer from the incoming to the outgoing wave. Instead, intensity correlations of different $k_1$, $k_2$ give a momentum transfer $\delta q$ according to the Siegert relation.}
+	\caption[Scattering vectors]{Scattering vector $\vec{q}$ in CDI (left) and IDI (right). In CDI, $q$ is the momentum transfer between incoming and outgoing wave. In IDI, there is no momentum transfer from the incoming to the outgoing wave. Instead, intensity correlations of different $k_1$, $k_2$ give access to the scattering factor at $\Delta\vec{q}$ according to the Siegert relation.}
 	\label{fig:scatteringvectors}
 	
 \end{figure}
@@ -250,11 +250,11 @@ Considering a complex sum of many phasors (e.g. the superposition of many electr
 	r&=\Re c =  A \sum^N_k \cos(\phi_k) &
 	i&= \Im c =A \sum^N_k \sin(\phi_k)
 \end{align*}
-will (by Central Limit Theorem) be Gaussian random variables with zero mean and variance $\sigma^2=\frac{N}{2}A^2$, the probability distribution of the amplitude $a=\sqrt(a^2+i^2)$ will therefor be the Rayleigh distribution
+will (by Central Limit Theorem) be Gaussian random variables with zero mean and variance $\sigma^2=\frac{N}{2}A^2$, the probability distribution of the amplitude $a=\sqrt(a^2+i^2)$ will be a Rayleigh distribution
 \begin{equation}
 	p(a)=\frac{1}{2\pi\sigma^2} a e^{\frac{a^2}{2\sigma^2}}
 \end{equation}
-and  $I=\left|a\right|^2$ will  follow an exponential distribution
+and  $I=\left|a\right|^2$ will follow an exponential distribution
 \begin{equation}
 	\label{eq:expdistr}
 	p(I)=\frac{ e^{-I/\overline{I}}}{\overline{I}}
@@ -297,7 +297,7 @@ The signal strength is determined by $\left|S(q)\right|^2$, which is dependent a
 
 \paragraph{Speckle Contrast}
 
-The speckle contrast $\beta =\tfrac{1}{M}$ is governed by the number of independent modes $M$ overlaid in the measurement \cite{goodman2000}. 
+The speckle contrast $\beta =\sqrt{\tfrac{1}{M}}$ is governed by the number of independent modes $M$ overlaid in the measurement \cite{goodman2000}. 
 If the measurement is performed over a finite amount of time, the number of temporal modes is
 \begin{equation}
 M_t=\frac{\left(\int_{-\infty}^{\infty} P(t)\diff t\right)^2}{\int_{-\infty}^{\infty} K(t) \left|\mu(t)\right|^2\diff t}
@@ -365,7 +365,7 @@ The number of degrees of freedom, $M_{t,\text{Conv}}=\left[\int_{-\infty}^{\inft
 		Photon statistics with different numbers of modes $M$ and equal mean of 0.1\,photons (b): A lower number of modes corresponds the an higher probability of observing multi photon events. The limit of a high number of modes is a Poisson distribution.}
 \end{figure}
 
-The experimentally indistinguishable fluorescence energies $K_{\alpha,1}$ and $K_{\alpha,2}$ (as well as  $K_\beta$ if no filter is used for suppression) give additional independent modes $M_E$ depending on the relative intensity of the lines, with $M_E \lessapprox 2$ for the elements considered in this work (see \fref{tab:elements}).
+Beside these temporal modes, the experimentally indistinguishable fluorescence energies $K_{\alpha,1}$ and $K_{\alpha,2}$ (as well as  $K_\beta$ if no filter is used for suppression) give additional independent spectral modes $M_E$, depending on the relative intensity of the lines, with $M_E \lessapprox 2$ for the elements considered in this work (see \fref{tab:elements}).
 
 As the used X-ray detectors are polarization insensitive and the X-ray fluorescence is unpolarized, the incoherent field can be separated into two polarization modes with independent random phase, which are pairwise orthogonal with $\vec{k}$ and therefore change slightly for each atom and detector position. For small source dimensions, this change is negligible,  giving constant $M_P \approx 2$ \cite{classen2019}. 
 
@@ -373,8 +373,7 @@ Path differences longer than the coherence length give additional modes $M_S$, t
 
 If the speckle pattern is not spatially resolved by the detector because its resolution is too low compared to the change in intensity, undersampling will occur, the measured signal will be spatially averaged giving independent spatial sampling modes $M_D$ \cite{goodman2007}.
 
-As an approximation, the total number of modes can be considered the product of those modes different numbers discussed above, even though in reality, the mode numbers are not completely independent.
-Hence, in \fref{chap:simulation} simulations combining all these effects under different conditions with experimentally feasible  parameters will be performed.
+As an approximation, the total number of modes can be considered the product of those modes different numbers discussed above, even though in reality, the mode numbers are not completely independent. Hence, in \fref{chap:simulation} simulations combining all these effects under different conditions with experimentally feasible  parameters will be performed.
 
 
 \paragraph{Estimation of the Noise}
@@ -382,13 +381,14 @@ The variance of a product of (uncorrelated) photon counts following the negative
 \begin{equation}
 	\Var_{p\cdot p}= \Var_p^2 +2 \mu^2\Var_p	= \mu^4 \frac{2 M + 1}{M^2 + 2}+ \mu^3 \frac{M+1}{M} + \mu^2 \,.
 \end{equation}
-Assuming no correlations, this would describe the inherent noise in the measurement. The last term, dominating in the low photon count regime, can be considered as the "Poissonian character of the noise, whereas the other terms, dominating at low photon counts, the phase noise.
-As shown by Trost et. al, this can be used to estimate the inherent noise of an intensity correlation measurement (up to a small term), even though the actual signal will break the assumption of having uncorrelated photon counts\cite{trost2020}.
+Assuming no correlations, this would describe the inherent noise in the measurement of the fluorescence. The last term, dominating in the low photon count regime, can be considered as the "Poissonian character of the noise, whereas the other terms, dominating at low photon counts, the phase noise.
+As shown by Trost et. al, this can be used to estimate the inherent noise of an intensity correlation measurement, even though the actual signal will break the assumption of having uncorrelated photon counts\cite{trost2020}.
 
 \paragraph{Signal to Noise Ratio}
-Combining the contrast of the speckle pattern, the expectation value of the product of the photon counts, the standard deviation as a quantification of the noise, and the number of independent measurements $N$ over which an average is taken, finally gives 
+Combining the squared contrast of the speckle pattern, the expectation value of the product of the photon counts, the standard deviation as a quantification of the noise, and the number of independent measurements $N$ over which an average is taken, finally gives 
 \begin{equation}
 SNR\propto  \frac{|S(q)|^2 \mu\sqrt{N}}{M\sqrt{\mu^2 \frac{2 M + 1}{M^2 + 2}+ \mu \frac{M+1}{M} + 1}}
+\label{eq:snr}
 \end{equation}
 as an estimation of the SNR, which will be further examined by performing simulations.
 %Which factors influence SNR -lifetime/pulsewidth -polarisation -sampling conditions / undersampling -sample thickness / coherence length -N images -N photons
@@ -401,9 +401,9 @@ as an estimation of the SNR, which will be further examined by performing simula
 
 \section{Kossel Lines}
 \label{sec:kossel}
-X-ray radiation  originating from \textit{within} a single crystal (such as fluorescence) can get Bragg reflected at the lattice planes of the crystal, causing Intensity variation in $90^o-\theta$ around the direction $k_{hkl}$, forming the \textit{Kossel Cones} \cite{cowley1995}. On the spherical detector centered at at the crystal, the points with influenced intensity, the \textit{Kossel lines} (or in electron microscopy more commonly \text{Kikuchi Lines}) would hence lie on circles, for a flat detector on general conic sections (see \fref{fig:kossel} for an illustration).
+X-ray radiation  originating from \textit{within} a single crystal (such as fluorescence) can get Bragg reflected at the lattice planes of the crystal, causing Intensity variation in $90^o-\theta$ around the direction $\vec{k}_{hkl}$ (perpendicular to the planes described by the Laue indices $hkl$), forming the \textit{Kossel Cones} \cite{cowley1995}. On the spherical detector centered at at the crystal, the points with influenced intensity, the \textit{Kossel lines} (or in electron microscopy more commonly \text{Kikuchi Lines}) would hence lie on circles, for a flat detector on general conic sections (see \fref{fig:kossel} for an illustration).
 
-The visibility of the Kossel lines is governed by the same extinction rules as for the Bragg reflexes-the structure factor $F_{hkl}$ has to be non-zero. For a zinc blende structure (such as GaAs) with atomic scattering factors $f_a$ and $f_b$, the structure factor is
+The visibility of the Kossel lines is governed by the same extinction rules as for the Bragg reflexes -- the structure factor $F_{hkl}$ has to be non-zero. For a zinc blende structure (such as GaAs) with atomic scattering factors $f_a$ and $f_b$, the structure factor is
 \begin{align}
 F_{hkl} = \begin{cases}
 0 & \text{if $h$, $k$, $l$ mixed parity}\\
@@ -418,12 +418,12 @@ The fine structure of the intensity variations and whether they increase or decr
 
 The Kossel lines allow to orient the detector with regards to the lattice planes. This can either be done by reprojecting the planar detector onto a sphere by an inverse gnomonic projection and determining circle center and radius, eg. by an Hugh-Transform, or by a fitting conic sections to the lines on the planar detector \cite{morris1968,morawiec2016,faigel2016,herron2018}. As the observable curvature of the Kossel lines on the detector in an IDI setup is small and therefore the circles are difficult to determine, the second method is preferable. 
 
-As each point identified as belonging to a Kossel line has to be part of a conic section of the same plane with each cone originating from the same point, each point $r$ on a line has to fulfill
+As each point identified as belonging to a Kossel line has to be part of a conic section of the same plane with each cone originating from the same point, each point $\vec{r}$ on a line has to fulfill
 
 \begin{equation}
 \frac{\vec{r} \cdot \vec{q}}{\left|\vec{r}\right| \left| \vec{q}\right|} = \frac{\lambda}{2d}
 \end{equation}
- for a reciprocal lattice vector $\vec{q}$ which is an element of the allowed reflections $Q$. 
+ for a reciprocal lattice vector $\vec{q}$ which is an element of the allowed reflections $Q$, wavelength $\lambda$ and lattice spacing $d$.
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.3\textwidth}
