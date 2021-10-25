@@ -76,7 +76,7 @@ To characterize the nanoparticles before the embedding in a polymer, the iron ox
 \end{figure}
 
 SAXS (small angle X-ray scattering) measurements of the prepared nanoparticle polymer foils are performed at the SSRL beamline 1-5. Samples are measured at 12\,keV for at two different spots for 5\,min each and averaged, a subtraction of the polymer matrix background is performed and a size distribution of spherical particles with hard-sphere interaction fitted to the radial profile. The low-q area is dominated by aggregate formation, which cannot be precisely quantified due to stray light and limited measuring range and is accounted for by a Guinier-Porod function, see \fref{fig:saxsps}  and  \fref{fig:saxspmma} \cite{percus1958,feigin1987,Ilavsky2009}.
-The measurements do not show a clear and significant difference between the two polymer matrices. According to the regressions, the aggregates seem to have a radius of gyration of 20-30\,nm (the straylight limits the measurement validity in those small q areas), the Porod parameter $P$ of 2.5-3.8 suggests a dimensionality of the aggregates between 2 and 3 \cite{feigin1987,lili2005}. The radii of the form factor agree within the corresponding margin of error with the values of determined by TEM measurements, the difference between the radius parameters of the structure factors and the form factor is most likely caused by the thin layer of oleic acid ligands between aggregating particles.
+The measurements do not show a clear and significant difference between the two polymer matrices. According to the regressions, the aggregates seem to have a radius of gyration of 20-30\,nm (the straylight limits the measurement validity in those small q areas) in both matrices, the Porod parameter $P$ of 2.5-3.8 suggests a dimensionality of the aggregates between 2 and 3 \cite{feigin1987,lili2005}. The radii of the form factor agree within the corresponding margin of error with the values determined by TEM measurements, the difference between the radius parameters of the structure factors and the form factor is most likely caused by the thin layer of oleic acid ligands between aggregating particles.
 
 
 \begin{figure}[tp]
@@ -109,9 +109,7 @@ The measurements do not show a clear and significant difference between the two 
 	\caption[SAXS profile of iron oxide nanoparticles in  Poly-(EHMA/MMA) matrix]{SAXS profiles of nominal 5\,nm, 10\,nm and 20\,nm iron oxide nanoparticles in Poly-(EHMA/MMA) matrix (left to right).}
 	\label{fig:saxspmma}
 \end{figure}
-
-The SAXS measurements give a reasonably good insight into the expected results of the IDI scheme measurement of the same sample, which will differ due to the iron specificity and the smaller focal volume in the latter.  
-
+\FloatBarrier
 \subsection{GaAs Crystal Films}
 As a crystalline sample GaAs is chosen for its simple fcc structure and large product its lattice constant and the gallium K${_\alpha}$ fluorescence energy, resulting in lower scattering angles necessary to record the Bragg peaks compared to other commonly used single crystals. 
 
@@ -122,7 +120,7 @@ The samples have been prepared by Ben Reeves at the Stanford Nanofabrication Fac
 \begin{figure}[tp]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/gaas_sample.pdf}
-	\caption[GaAs Sample]{Sketch of the GaAs single crystal glued to a fused silica cover slip and Cu-K$\alpha$ XRD measurement of the GaAs (004) reflex, performed by B. Reeves, showing a single crystal. After mounting on the cover slip, the peak is slightly broadened, most likely by an slightly uneven thickness of the glue layer  leading to bending of the thin crystal.}
+	\caption[GaAs sample]{Sketch of the GaAs single crystal glued to a fused silica cover slip and Cu-K$\alpha$ XRD measurement of the GaAs (004) reflex, performed by B. Reeves, showing a single crystal. After mounting on the cover slip, the peak is slightly broadened, most likely by an slightly uneven thickness of the glue layer  leading to bending of the thin crystal.}
 	\label{fig:gaas_sample}
 \end{figure}
 
@@ -130,10 +128,10 @@ The samples have been prepared by Ben Reeves at the Stanford Nanofabrication Fac
 \section{Setup of the Experiment}
 The setup used at the experimental station EH5 at SACLA is shown in \fref{fig:setup}. 
 
-The FEL provides approximately 10\,fs hard X-ray pulse with $\approx 10^11$ photons at 11\,keV (just above the gallium K-edge and below the arsenic K-edge, see \fref{tab:elements})and 30\,Hz repetition rate \cite{tono2013}. Using the \textit{100\,exa} nano-focusing system and finding the focus spot along the beam direction by optimizing the strength of (non-linear) amplified spontanous emission (ASE) of a copper foil, a focal FWHM of 200\,nm vertical/100\,nm horizontal (as determined by a wirescan) is achieved \cite{yumoto2020,handa2010,yoneda2015}.
+The FEL provides approximately 10\,fs long hard X-ray pulse with $\approx 10^{11}$ photons at 11\,keV (just above the gallium K-edge and below the arsenic K-edge, see \fref{tab:elements}) and 30\,Hz repetition rate \cite{tono2013}. Using the \textit{100\,exa} nano-focusing system and finding the focus spot along the beam direction by optimizing the strength of (non-linear) amplified spontanous emission (ASE) of a copper foil, a focal FWHM of 200\,nm vertical/100\,nm horizontal (as determined by a wirescan) is achieved \cite{yumoto2020,handa2010,yoneda2015}.
 
 
-The sample is mounted in a 45° angle to the beam on a stack of two rotational/two translational/two rotational/three translational stage to allow scanning of the sample, to ensure perpendicularly of the scanning directions to the beam to stay within the Rayleigh length (approx. 100\,um horizontal/200\,um vertical) while also ensuring a parallel alignment of the sample surface to one of the detectors. Overall, two MPCCD detectors are used: A dual detector with two tiles, each 512x1024 pixels perpendicular to the FEL beam in a distance of 1\,m and a "Short Working Distance" octal detector, consisting of eight 512x1024 tiles, parallel to the sample surface in a distance $d_{octal}$. To suppress absorption and more importantly, air scattering, a vacuum pipe with Kapton windows is installed in between the sample and the dual detector
+The sample is mounted in a 45° angle to the beam on a stack of two rotational/two translational/two rotational/three translational stage to allow scanning of the sample, to ensure perpendicularly of the scanning directions to the beam to stay within the Rayleigh length (approx. 100\,um horizontal/200\,um vertical) while also ensuring a parallel alignment of the sample surface to one of the detectors. Overall, two MPCCD detectors are used: A dual detector with two tiles, each 512x1024 pixels perpendicular to the FEL beam in a distance of 1\,m and a "Short Working Distance" octal detector, consisting of eight 512x1024 tiles, parallel to the sample surface in a distance $d_{octal}=$14-50\,cm. To suppress absorption and more importantly, air scattering, a vacuum pipe with Kapton windows is installed in between the sample and the dual detector.
 An L-shaped aluminum plate is installed to reduce stray light as well as to allow mounting of the beamstop and filters between sample and the detectors.
 
 The samples are scanned with a mean step size of 20\,um in horizontal direction (fast scanning direction) and 20\,um in vertical direction.between shots. The step size was chosen based on the crater size visible with an optical microscope of approximately 5-10\,um for the samples and energies used in the experiment.
@@ -141,7 +139,7 @@ The samples are scanned with a mean step size of 20\,um in horizontal direction 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.75\linewidth]{images/setup.pdf}
-	\caption[Experimental setup at SACLA]{Experimental setup at SACLA: The sample is mounted on a scanning stage and aligned to stay in focus during the scan and be parallel to the octal MPCCD detector, which is in a distance $d_{octal}$. The angle between incoming FEL and Sample is XXX. Behind the sample, a stray light filter, beamstop and (depending on the sample) a filter foil is installed. The dual detector is mounted $d_{dual}$=1\,m away from the sample in a XXX angle. To reduce air scattering, a vacuum tube is installed in the path from sample to dual.}
+	\caption[Experimental setup at SACLA]{Experimental setup at SACLA: The sample is mounted on a scanning stage and aligned to stay in focus during the scan and be parallel to the octal MPCCD detector, which is in a distance $d_{octal}$. The angle between incoming FEL and Sample is XXX. Behind the sample, a stray light filter, beamstop and (depending on the sample) a filter foil is installed. The dual detector is mounted $d_{dual}$=1\,m away from the sample perpendicular the the FEL beam. To reduce air scattering, a vacuum tube is installed in the path from sample to dual.}
 	\label{fig:setup}
 \end{figure}
 \paragraph{Imaging the Focus}
@@ -165,6 +163,26 @@ As the amount of recorded data is huge, an efficient strategy for filtering on s
 
 
 
+
+
+\paragraph{Preliminary shot filtering}
+A first rough filtering pass on the recorded data is done on the following criteria: Reported beam energy > 250\,uJ, beam energy in the hutch being not more than one standard deviation below the mean energy and the distance on the sample to the closest neighboring shot not being less than one standard deviation of the mean distance to the next neighbor for the sample (to remove shots with stopped, turning or still accelerating scanning motors). Furthermore, the scanning range occupied by the sample is identified by the fluorescence intensity on the octal detector and shots, where the X-ray beam does not hit the sample are removed. The remaining images are used to create spectra and perform photon counting.
+
+ 
+\paragraph{Filtering for Impurities}
+On some of the samples, areas can be identified where the relative fluorescence intensities at different energies change. An example is shown in \fref{fig:xrf}: For a 500\,nm thick iron foil, a spot can be seen where the intensity at 8\,keV is much higher than expected. As this is most likely due to impurities on the sample, those areas are identified and excluded from further analysis.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/xrf.png}
+	\caption[Exemplary relative intensity of the 6 keV and 8 keV photon peak on the detector for different scanning positions on the sample]{Exemplary relative intensity of the 6 keV and 8 keV photon peak on the detector for different scanning positions on the sample. In this iron sample, a localized impurity, most likely copper, is clearly visible and can be masked out .}
+	\label{fig:xrf}
+\end{figure}
+
+\paragraph{Detector masking}
+Masks for both detectors are created based on the standard deviation in dark images not being more than than 4 standard deviations higher than the mean (filtering out more noisy areas), the mean intensity over images taken of a sample not being more than 3 standard deviations lower or higher than the mean as well as the extrema over the shots not being more than 3 standard deviations lower or higher than the mean. The masks are  dilated by 5 pixels, examples are shown in \fref{fig:mask}.
+
 \begin{figure}
 	\centering
 	\begin{subfigure}{0.2\textwidth}
@@ -175,26 +193,8 @@ As the amount of recorded data is huge, an efficient strategy for filtering on s
 		\includegraphics[width=\linewidth]{images/mask_octal.png}
 	\end{subfigure}
 	\caption[Usable detector area]{Usable detector area (gray) of the dual detector for foil samples (left) and the octal detector (right) for NP samples) after signal correction and statistical filtering. Masks are created by considering the intersection of good areas for each run, in order be able to use the mask and therefore number of correlation pairs for samples that will be compared to each other.}	
+	\label{fig:mask}
 \end{figure}
-
-\paragraph{Shot filtering}
-A first rough filtering pass on the recorded data is done on the following criteria: Reported beam energy > 250\,uJ, beam energy in the hutch being not more than one standard deviation below the mean energy and the distance on the sample to the closest neighboring shot not being less than one standard deviation of the mean distance to the next neighbor for the sample (to remove shots with stopped, turning or still accelerating scanning motors). Furthermore, the scanning range occupied by the sample is identified by the fluorescence intensity on the octal detector and shots, where the X-ray beam does not hit the sample are removed.
-
- 
-\paragraph{Filtering for Impurities}
-On some of the samples, areas can be identified where the relative fluorescence intensities at different energies change. An example is shown in \fref{fig:xrf}: For a 500\,nm thick iron foil, a spot can be seen where the intensity at 8\,keV is much higher than expected. As this is most likely due to impurities on the sample, those areas are identified and excluded from further analysis.
-
-Before doing the reconstruction, a final filtering pass is done on the images, keeping only those shots where the reported pulse energy is >450\,uJ and the upstream measured mean photon energy within the pulse is within two standard deviations of the median over all pulses, the ratio of the pulse energy in the experimental hutch to further upstream in the optical hutch is within one standard deviation of the mean and the ratio of the intensity on all 4 edges of the detectors as well as  the total intensity on both detectors to the pulse energy to is not lower than two and not higher than four standard deviations of the mean.  For the last criterion, the total scanning area used is cut into equally sized squares with a side length of 1/100th the horizontal scanning range and the filtering is done for each square. This increases the statistics and is sufficient to remove bad areas on the sample as well as areas where shadowing might have occurred.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/xrf.png}
-	\caption[Exemplary relative intensity of the 6 keV and 8 keV photon peak on the detector for different scanning positions on the sample]{Exemplary relative intensity of the 6 keV and 8 keV photon peak on the detector for different scanning positions on the sample. In this iron sample, a localized impurity, most likely copper, is clearly visible and can be masked out .}
-	\label{fig:xrf}
-\end{figure}
-
-\paragraph{Detector masking}
-Masks for both detectors are created based on the standard deviation in dark images not being more than than 4 standard deviations higher than the mean (filtering out more noisy areas), the mean intensity over images taken of a sample not being more than 3 standard deviations lower or higher than the mean as well as the extrema over the shots not being more than 3 standard deviations lower or higher than the mean. The masks are  dilated by 5 pixels.
 
 \paragraph{Detector Artifacts}
 During the experiment, an unnoticed failure of the electronics of the octal detector has occurred, manifesting as periodic noise on most of the detector tiles at a much higher level than expected (see \fref{fig:octalissue} for an illustration). Not all columns of a tile are affected (in contrast to common-mode effects commonly encountered with different detectors). As the overall affected area of the detector is substantial and the noise leaks through the photon counting scheme by slightly influencing the probability of a pixel being considered a photon hit, causing correlations and therefore artifacts in the reconstruction in one direction, a correction was applied to the affected columns of affected tiles of the detector. For the correction, affected columns are first identified by filtering on the Fourier transform, neighboring effected columns are considered as a block and the medians over those block is calculated and subtracted. This scheme is chosen instead of the more commonly used portwise common modes due to the uneven strength of the artifact (see \fref{fig:app_correction} for a comparison). Using this correction reduces the artifact, but does not completely remove it. As the remaining artifact in the reconstructions is limited to low $q$ compared to the expected positions of the features of the samples and only two orthogonal lines, it can be masked out.
@@ -217,7 +217,7 @@ During the experiment, an unnoticed failure of the electronics of the octal dete
 
 
 \paragraph{Spectra}
-The background subtracted and masked detector images are used to create spectra. The differnt samples categorized into a smaller number of groups by the apparent similarity of the spectra/number of signal photons: The foil  data is grouped into three classes, one for copper foils, one for 10um thick iron foils and one for 500\,nm thick foils, the nanoparticle and single crystal data are one class each.
+The background subtracted and masked detector images are used to create spectra. The differnt samples categorized into a smaller number of groups by the apparent similarity of the spectra/number of signal photons: The foil  data is grouped into three classes, one for copper foils, one for 10\,um thick iron foils and one for 500\,nm thick foils, the nanoparticle and single crystal data are one class each.
 On these spectra, a regression with a model consisting of peaks at multiples of the K$_\alpha$, K$_\beta$ and of the excitation energy with an initial FWHM of 500\,eV and intensities following a negative binomial distribution (signal) or Poisson distribution (scattering noise) is performed, minimizing the squared difference the logarithmic values. To roughly approximate the charge sharing, a numerical convolution with a  window of the shape
 \begin{equation}
 	w (x)= (1-p)\delta(x)+\rect\left(\frac{x-1/2}{E_{signal}}\right)*\frac{p}{E_{signal}}
@@ -230,22 +230,20 @@ With this regression, an estimate for the number of modes of the binomial distri
 
 \paragraph{Photon counting}
 
-The mean number of signal and scattering photons found from the spectra as well as the peak width and the charge sharing point spread function for the detectors are used to find the thresholds for a classification of the pixel values into signal photon numbers for each of the groups as described in \fref{sec:chargesharing} by simulating 1000 images with 4096x4096 pixels with the determined K$_\alpha$, K$_\beta$ and scattering intensities, applying the charge sharing simulation and using the determined FWHM as a (assumed Gaussian) detector noise to estimate the number of signal photons corresponding with the highest probability to each energy bin of 10\,eV. This is done once  considering the K$_\beta$ photons as noise and once as signal, leading the different thresholds.
+The mean number of signal and scattering photons found from the spectra as well as the peak width and the charge sharing point spread function for the detectors are used to find the thresholds for a classification of the pixel values into signal photon numbers for each of the groups as described in \fref{sec:chargesharing} by simulating 1000 images with 4096x4096 pixels with the determined K$_\alpha$, K$_\beta$ and scattering intensities, applying the charge sharing simulation and using the determined FWHM as a (assumed Gaussian) detector noise to estimate the number of signal photons corresponding with the highest probability to each energy bin of 10\,eV. 
+
+
+\paragraph{Final shot filtering}
+Before doing the reconstruction, a final filtering pass is done on the images, keeping only those shots where the reported pulse energy is >450\,uJ, the upstream measured mean photon energy within the pulse is within two standard deviations of the median over all pulses, the ratio of the pulse energy in the experimental hutch to further upstream in the optical hutch is within one standard deviation of the mean and the ratio of the intensity on all 4 edges of the detectors as well as the total intensity on both detectors to the pulse energy to is not lower than two and not higher than four standard deviations of the mean.  For the last criterion, the total scanning area used is cut into equally sized squares with a side length of 1/100th the horizontal scanning range and the filtering is done for all shots within each of those squares. This increases the statistics over a shot-wise filtering and is sufficient to remove remaining bad areas on the sample (such as cracks resulting from previous shots) as well as areas where shadowing of the detector due to the sample holder might have occurred.
 
 
 
 
-
-
-
-
-
-
-XXX
+%XXX
 %As shown in \fref{fig:spectrum}, the background corrected and masked spectrum of the detector shows peaks at multiples of the %fluorescence and excitation energy with a FWHM of .... . 
 
 
-As discussed in \fref{chap:simulation}, the number of fluorescence photons can be estimated...
+%As discussed in \fref{chap:simulation}, the number of fluorescence photons can be estimated...
 
 
 % Raw Data
@@ -283,10 +281,11 @@ For the foil data, the small angle approximation is valid and each pixel can be 
 
 For the nanoparticle data, the maximum recorded angles are higher and at the limit of the small angle regime, resulting in $\delta q_x,_y$ between neighboring pixels being lower for pixels further of axis. Therefore, for each pixel the $q_x,q_y$ values are calculated and an explicit correlation according to \fref{eq:correlation} is performed.
 
-For the crystal data, a full 3d correlation of the rotation and offset corrected data  performed using the resampled FFT-based approach.
+For the crystal data, a full 3d correlation of the rotation and offset corrected data is performed using the resampled FFT-based approach.
 
 
 \section{Results}
+Applying the aforementioned preprocessing and analysis steps to the recorded fluorescence images for all three classes of samples leads to results as follows. 
 \subsection{Imaging the Focus}
 
 The regression of the spectra (\fref{fig:spectrafoil}) results in a mean K$_{\alpha}$ photon count per pixel of 0.004$\pm$0.001 (500\,nm iron foil) to 0.041$\pm$0.001 (20\,um copper foil). The mode number could not be reasonably estimated for the 500\,nm iron sample due to the influence of air scattering and fluorescence stemming from the experimental setup and low number of signal photons. For the other samples, a the regression provides a rough estimate of 15-25. The charge sharing approximation parameter $p$ is found to be 0.43$\pm$0.01, meaning about 40\% of the photon hits are affected. The simplifications of assuming a uniform charge cloud by using a convolution windows with a flat side lobe leads to disagreement between the slightly curved histograms and the flat regressions in the valleys between integer multiples of the single photon energy, which is no longer present in the spectra simulated with a Gaussian charge cloud (see \fref{fig:thresholdsfoil} for an example)
@@ -341,7 +340,7 @@ Nevertheless, for all three foils, the signal amplitude in focal position determ
 		\caption{500\,nm iron foil}
 		\label{fig:fe500nmreco2d}
 	\end{subfigure}
-	\caption[Results Iron Foils]{\textbf{(a)} Results for the 10\,um iron foil placed at the focus as well as outside the focus (along the X-ray beam) and the result obtained by regression on the nominal focus data with fixed true horizontal dimension. This is used to extrapolate the peak amplitude in the masked areas. \textbf{(b)} Results for the 500\,nm Iron foil at focus as well as at two defocused positions. The SNR is low and the signal almost indistinguishable from noise.}
+	\caption[Results iron foils]{\textbf{(a)} Results for the 10\,um iron foil placed at the focus as well as outside the focus (along the X-ray beam) and the result obtained by regression on the nominal focus data with fixed true horizontal dimension. This is used to extrapolate the peak amplitude in the masked areas. \textbf{(b)} Results for the 500\,nm Iron foil at focus as well as at two defocused positions. The SNR is low and the signal almost indistinguishable from noise.}
 	\label{fig:fereco2d}
 \end{figure}
 
@@ -355,8 +354,9 @@ Nevertheless, for all three foils, the signal amplitude in focal position determ
 	\label{fig:energy_binned}
 \end{figure}
 
-
+\FloatBarrier
 \subsection{Imaging Nanoparticles}
+
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.8\textwidth}
@@ -369,19 +369,21 @@ Nevertheless, for all three foils, the signal amplitude in focal position determ
 		\caption{Radial profiles of $g^2$ for different nanoparticle samples.}
 		\label{fig:resnanorad}
 	\end{subfigure}
-	\caption[Results Nanoparticles]{\textbf{(a)} 2d images of the calculated $g^2$ of fluorescence patterns recorded on the octal detector of two nanoparticle-in-copolymer samples with 10\,nm and 20\,nm nominal diameter in comparison to two different baseline samples, (mostly homogeneous in the polymer distributed) iron chloride and the polymer matrix without any added iron. The detector artifacts are almost completely removed in those images. \textbf{(b)} Radial profiles and standard error of the mean of the calculated $g^2$ of two differently sized nanoparticles in the two different polymer matrices. None of the expected features are visible in the reconstruction. }
+	\caption[Results nanoparticles]{\textbf{(a)} 2d images of the calculated $g^2$ of fluorescence patterns recorded on the octal detector of two nanoparticle-in-copolymer samples with 10\,nm and 20\,nm nominal diameter in comparison to two different baseline samples, (mostly homogeneous in the polymer distributed) iron chloride and the polymer matrix without any added iron. The detector artifacts are almost completely removed in those images. \textbf{(b)} Radial profiles and standard error of the mean of the calculated $g^2$ of two differently sized nanoparticles in the two different polymer matrices. None of the expected features are visible in the reconstruction. }
 	\label{fig:resnano}
 \end{figure}
 
-The mean number of counted signal photons per pixel after filtering is $0.03\pm0.01$ for the nanoparticle samples as well as the iron chloride reference sample, the number of images analyzed has been limited to 30,000 for each sample, with the exception of the "10\,nm in PS" sample only having 25,000 usable shots after filtering. At similar signal photon counts on the octal as observed for the foils on the dual detector, the peak in the spectrum at the energy of the FEL beam is more pronounced, leading to difficulties distinguishing higher numbers of photons. Hence, only one and two photon hits are used in photon discretization (see \fref{fig:spectrum_nano} for an example).
+The mean number of counted signal photons per pixel after filtering is $0.03\pm0.01$ for the nanoparticle samples as well as the iron chloride reference sample, the number of images analyzed has been limited to 30,000 for each sample, with the exception of the "10\,nm in PS" sample only having 25,000 usable shots after filtering. At similar signal photon counts on the octal as observed for the foils on the dual detector, the peak in the spectrum at the energy of the FEL beam is more pronounced, leading to difficulties distinguishing higher numbers of photons. Hence, only one and two photon hits are used in the photon discretization (see \fref{fig:spectrum_nano} for an example).
 
 Using a sample with just the polymer, without any added iron (neither nanoparticles nor atomic), the influence of air scattering on the correlations can be examined and in the results of the iron chloride sample (having similar numbers of signal photons), the effect of uncorrected detector artifacts could be seen. Neither seem to causes a strong correlation signal (see \fref{fig:resnano2d}).
 
 In the radially averaged $g^2$ of the four different samples neither a feature corresponding to the distance of aggregated particles (as visible in the SAXS measurements)  nor a minumum at $q\approx4.5/r$, indicative of spherical samples, can be distinguished. The strengh of the noise (as quantified by the standard deviation over the images)
+\FloatBarrier
 \subsection{Imaging Crystals}
+
 After applying the filtering, masking and corrections, the mean photon count considered as signal per pixel is 0.4-0.6 for both samples (a histogram is shown in \fref{fig:spectrum_gaas}), corresponding to $\approx 3*10^7$ photons in $4\pi$ and $\approx$1\% of the gallium atoms inside the focus emitting fluorescence, and $2*10^4$ images per sample can be used for further analysis.
 
-For the determination of the crystal orientation and detector offsets, the regression parameters are initialized with a 5.65\,\AA\, lattice constant, 9.25\,keV energy, 14\,cm detector distance and the result of a 2D cubic fit to the fluorescence background for the values of the x- and y-shifts. The used lines are shown in \fref{fig:kosselgaaslines} and \fref{tab:kosselpeaks}, the results are shown in \fref{tab:kosselfit} as mean over the sets for each sample and maximum deviation from the mean as an error estimation.
+For the determination of the crystal orientation and detector offsets, the regression parameters are initialized with a 5.65\,\AA\, lattice constant, 9.25\,keV energy, 14\,cm detector distance and the result of a 2D cubic fit to the fluorescence background for the values of the x- and y-shifts. The  lines considered are shown in \fref{fig:kosselgaaslines} and listed in \fref{tab:kosselpeaks}. The results are shown in \fref{tab:kosselfit} as mean over the sets for each sample and maximum deviation from the mean as an error estimation. Overall, the alignment is precise up to at most than 0.6° rotation, except for rotation in the plane parallel to the crystal surface (designated "roll"), and 140\,pixel translation.
 
 \begin{figure}
 	\centering
@@ -414,13 +416,12 @@ For the determination of the crystal orientation and detector offsets, the regre
 	\label{tab:kosselfit}
 \end{table}
 
-Using the determined rotation and translation to determine for each pixel the corresponding $\vec{q}$ and performing the reconstruction (averaging over all images left after filtering) results in a volume of 3750\,x\,4032\,x\,500 pixels$^3$ with maximum extent of approx. $\pm$3\,x\,$\pm$3\,x\,0.5 \AA$^{-3}$. The non-trivial shape of the reconstructed volume is influenced by the the placement of the 8 individual tiles of the detector, the applied mask to each tile as well as the overall detector offset and slight rotation.
+Using the determined rotation and translation to determine for each pixel the corresponding $\vec{q}$ and performing the corrected reconstruction (averaging over all images left after filtering) results in a volume of 3750\,x\,4032\,x\,500 pixels$^3$ with maximum extent of approx. $\pm$3\,x\,$\pm$3\,x\,0.5 \AA$^{-3}$. The non-trivial shape of the reconstructed volume is influenced by the the placement of the 8 individual tiles of the detector, the applied mask to each tile as well as the overall detector offset and slight rotation.
 
- In slices in the $q_z=$\,0\,nm$^{-1}$ plane, Bragg peaks with an Laue index $h=0$ should be visible. As the determined detector rotation has an estimated uncertainty of approximately $\pm$0.2° in each direction, maximum intensity projections along 10 $q_z$ slices (up to $q_z\approx$\,0.15\,nm$^{-1}$) are shown to ensure Bragg peaks slightly rotated out the of the plane would still be visible. Marked areas in the overview on the left are shown in detail on the right.  No Bragg peaks are clearly distinguishable in the result. Similar results for the 45$\deg$ rotated second sample are shown in \fref{fig:resgaas2}. The noise level in the regions of interest around the expected Bragg peak positions (estimated from the standard deviation in the reconstructed) is 0.0002$\pm$0.0001.
+ In slices in the $q_z=$\,0\,nm$^{-1}$ plane, Bragg peaks with an Laue index $h=0$ should be visible. As the determined detector rotation has an estimated uncertainty of approximately $\pm$0.2° in each direction, maximum intensity projections along 10 $q_z$ slices (up to $q_z\approx$\,0.15\,nm$^{-1}$) are shown in \fref{fig:resgaas1} to ensure Bragg peaks slightly rotated out the of the plane would still be visible. Marked areas in the overview on the left are shown in detail on the right. The noise level in the regions of interest around the expected Bragg peak positions (estimated from the standard deviation over all pixels in the regions) is 0.0002$\pm$0.0001.  No Bragg peaks are clearly distinguishable, i.e. higher than 4$\sigma$,  in the result. Similar results for the 45° rotated second sample are shown in \fref{fig:resgaas2}. In both results, the noise level increases in areas with fewer pairs of pixels of the masked detector image contributing, areas with less than 100 pairs are masked and not shown.
  
-
- 
-\begin{figure}
+ \begin{figure}
+\begin{subfigure}[b]{\textwidth}
 	\centering
 	\begin{subfigure}[b]{0.55\textwidth}
 		\includegraphics[width=\linewidth]{images/gaas1_overview.pdf}
@@ -428,9 +429,19 @@ Using the determined rotation and translation to determine for each pixel the co
 	\begin{subfigure}[b]{0.4\textwidth}
 		\includegraphics[width=\linewidth]{images/gaas1_zoom.pdf}
 	\end{subfigure}
-	\caption[Results GaAs Sample 1]{Result of the $g^2$ calculation for a GaAs single crystal (GaAs Sample 1). MIP from $q_z$=0\,nm$^{-1}$ to 0.15\,nm$^{-1}$. Marked areas in the overview on the left around expected positions of Bragg peaks are shown in detail on the right (labeled by the corresponding Laue indices). No Bragg peaks are  clearly distinguishable in the result.}
+	\caption[Results GaAs Sample 1]{GaAs sample 1}
 	\label{fig:resgaas1}
-\end{figure}
-
-
-
+\end{subfigure}
+\begin{subfigure}[b]{\textwidth}
+	\centering
+	\begin{subfigure}[b]{0.55\textwidth}
+		\includegraphics[width=\linewidth]{images/gaas2_overview.pdf}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.4\textwidth}
+		\includegraphics[width=\linewidth]{images/gaas2_zoom.pdf}
+	\end{subfigure}
+	\caption[Results GaAs Sample 2]{Gaas sample 2}
+	\label{fig:resgaas2}
+\end{subfigure}
+	\caption[Results GaAs Samples]{Result of the $g^2$  calculation for the GaAs single crystal samples.  MIP from $q_z$=0\,nm$^{-1}$ to 0.3\,nm$^{-1}$. Marked areas in the overview on the left around expected positions of Bragg peaks are shown in detail on the right (labeled by the corresponding Laue indices). The crystal in sample 2 is 45° rotated compared to sample 1, leading to less Bragg positions being inside the reconstructed plane. No Bragg peaks are  clearly distinguishable in the result.}
+ \end{figure}
