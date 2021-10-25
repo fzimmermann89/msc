@@ -7,34 +7,15 @@ Both the GPU-accelerated simulation code and the reconstruction code developed f
 The analysis code implements 2d, 3d and radial correlations for small and wide angle experiments with different normalization approaches as well as library of commonly needed auxiliary functions, such as dark and mask generation for pixel detectors, a new common mode correction with adaptive block sizes, photon counting procedures, different regression tools as well as tools for center finding and similar tasks.
 
 
-
-
-
-
-
-
-\paragraph{Results of the Experiment}
-
-The previously published results for the foil samples could be reproduced.
-By using the presented preparation of nanoparticle samples in polymer matrix, aggregation could not be prevented, resulting in less pronounced features in higher $q$ instead of providing a structure factor similiar to non-interacting spheres as determined by the SAXS measurement. 
-
-
-
 Furthermore, the Kossel line alignment tool with its graphical user interface allows easy analysis of the detector orientation for future experiments with strict alignment margins.
+
+
 
 
 
 \paragraph{Experimental Improvements}
 
-
-
-The posibility to run an IDI setup in parallel with other detectors would allow for a combination of IDI with CDI
-
-Larger detectors
-
-Short pulses
-
-Element specific 
+As previously published results for the foil samples could be reproduced but the proof of high resolution imaging using IDI is still outstanding, further refinements in the experimental design are necessary.
 
 Recently, we performed an experiment using sub-1\,fs pulses at the CXI beamline at the LCLS free electron laser. In this experiment, three major improvements over the SACLA experiment were implemented: First, the shorter pulse length reduces the number of temporal modes and a shot-by-shot high resolution spectrometer allows for better filtering of the x-ray pulses by estimated pulse length and intensity. Second, the data was recorded in forward direction, solving the undersampling issue and reducing the spatial modes. And third, two new, signal optimized samples were chosen: Anodic aluminum oxide (AAO) membranes with regular spaced 20\,nm or 30\,nm wide pores, with are filled with Nickel or Vanadium using atomic layer deposition, creating an array of hexagonal placed 500\,nm long cylinders 60\,nm/100\,nm apart \cite{carina2019}. As the range of the order of the self-organizing pores is smaller than the total area used in the experiment, the simulated reconstruction shows rings (\fref{fig:outlook_aao}). 
 The other sample is will be lithographically produced gratings with two diffferent pitches, 60\,nm  and 80\,nm \cite{mojarad2015}. For these samples, a simulation is shown in \fref{fig:outlook_grating}. Both samples combine the advantages of a single crystal sample (namely intense features) while providing more signal and requiring less accessible reciprocal space. 
