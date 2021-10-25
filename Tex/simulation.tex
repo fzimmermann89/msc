@@ -1,7 +1,7 @@
 \chapter{Simulations}
 \label{chap:simulation}
 To illustrate the working principle of IDI and to examine the Signal-to-Noise characteristics, the results of different simulations will be shown:\\
-First, it is assumed that the object to be imaged consists of discrete emitters, each emitting monochromatic spherical waves with a randomly chosen phase, and the speckle image on a pixelated detector was simulated by the addition of the scalar electric fields, taking the squared magnitude and Poisson sampling in each pixel. To reduce the influence of this discrete sampling on the simulated speckle patterns, the simulation is performed at a higher and downsampled, such that each data point is the result of 4x4 discrete calculations. In this configuration, the speckle images of a single particle with randomly positioned emitters inside (approximating a single particle imaging setup), a focal volume filled with randomly positioned (non intersecting) hard spheres consisting of randomly positioned atoms (approximating, for example, many spherical nanoparticles imaged simultaneously) as well as a crystalline structure with emitters positioned within a lattice are simulated. In the first two cases, a small-angle regime was chosen, and the reconstruction was performed in 2D and as a 1D radial profile. For the crystalline structure, a realistic lattice constant in the same order of magnitude as the K$\alpha$ wavelength moves the reconstruction out of the small-angle regime, and a 3D reconstruction of the reciprocal space is performed. Additionally, in these simulations the effect of under-sampling is studied.\\
+First, it is assumed that the object to be imaged consists of discrete emitters, each emitting monochromatic spherical waves with a randomly chosen phase, and the speckle image on a pixelated detector was simulated by the addition of scalar electric fields with random initial phase propagated to the detector and Poisson sampling in each pixel. In this time independent configuration, the speckle images of a single particle with randomly positioned emitters inside (approximating a single particle imaging setup), a focal volume filled with randomly positioned (non intersecting) hard spheres consisting of randomly positioned atoms (approximating, for example, many spherical nanoparticles imaged simultaneously) as well as a crystalline structure with emitters positioned within a lattice are simulated. In the first two cases, a small-angle regime was chosen, and the reconstruction was performed in 2D and as a 1D radial profile. For the crystalline structure, a realistic lattice constant in the same order of magnitude as the K$\alpha$ wavelength moves the reconstruction out of the small-angle regime, and a 3D reconstruction of the reciprocal space is performed. Additionally, in these simulations the effect of under-sampling is studied.\\
 Secondly, to examine the influence of the finite fluorescence lifetime and pulse width, and the validity of approximating  this influence by the overlay of a discrete number of speckle images according to the estimated number of modes, a time-resolved simulation is performed.
 
 Ultimately, the results of these simulations are used to estimate the parameters for an experimental setup.
@@ -11,7 +11,7 @@ In an infinite coherence time, stationary sources approximation, the simulation 
 \begin{equation}
 E(\vec{r})=\sum_n^N \frac{1}{\left|\vec{r}_n-\vec{r}\right|} e^{i(k_n{\left|\vec{r}_n-\vec{r}\right|}+\phi_n)} \,.
 \end{equation} 
-The simulation of the intensity $I=\left|E\right|^2$ at multiple discrete points $r$ on the simulated detector and Poisson sampling (with mean photon numbers according to the number of simulated excited atoms, distance  and simulated pixelsize), can be performed in parallel using GPU acceleration, resulting in a simple and fast to evaluate model. 
+The simulation of the intensity $I=\left|E\right|^2$ at multiple discrete points $r$ on the simulated detector and Poisson sampling (with mean photon numbers according to the number of simulated excited atoms, distance  and simulated pixelsize), can be performed in parallel using GPU acceleration, resulting in a simple and fast to evaluate model.  To reduce the influence of the discrete sampling on the simulated speckle patterns, the simulation is performed at a higher and downsampled, such that each data point is the result of multiple calculations. 
 
 
 \subsection{Detector Effects}
@@ -151,8 +151,7 @@ To evaluate the different approaches, for a grating with pitch 50\,nm, line widt
 
 \subsection{Detector Size and SNR}
 	
-	To asses the influence of the number of pixels of an detector (and correlation pairs) on the SNR, a simulation for a 1\,um thick Copper foil in an 100\,nm FWHM focus is performed. The detector size was varied from 64x64 to 3072x3072 pixels and always placed at the same distance of 1\,m, keeping the mean photon count per pixel constant. For the SNR calculations, the signal is defined as, the noise as the standard deviation XXX
-	As show in \fref{fig:SNRdetsize}, under these conditions, the SNR is proportional to the square root of the number of pixels of the detector.
+	To asses the influence of the number of pixels of an detector on the SNR, a simulation for a 1\,um thick Copper foil in an 100\,nm FWHM focus is performed. The detector size was varied from 64x64 to 3072x3072 pixels and always placed at the same distance of 1\,m, keeping the mean photon count per pixel constant. The number of correlation averaged over in the reconstruction increases linear with the number of pixels. For the SNR calculations, the signal is defined as peak intensity, the noise as the standard deviation over independent simulations.  As show in \fref{fig:SNRdetsize}, under these conditions, the SNR is proportional to the square root of the number of pixels of the detector. 
 
 
 
@@ -181,7 +180,7 @@ To evaluate the different approaches, for a grating with pitch 50\,nm, line widt
 	\caption{Correlation pairs and noise dependence on $\vec{q}$ } 
 \end{subfigure}\\
 	\end{tabular}
-	\caption[Accessible reciprocal space]{The accessible reciprocal space with an 2048x2048\,pixel (100\,um pixelsize) at 12.5\,cm distance and 9.2\,keV is shown in a) and b). In a), the surface of the Ewald sphere accessible in a diffraction experiment is shown in green for comparison. IDI allows a reconstruction of a three dimensional volume. In b), the position of GaAs Bragg peaks as determined by finding local maxima (>4 standard deviations) in the reconstruction is shown inside this volume. As the accessible $q_z$ is depended on $q_x$/$q_y$ and smaller the larger the latter two, in this setup a precise alignment of the detector with regard to the lattice planes if useful to be able to image the maximal number of peaks. Using a square, centered, planar detector with uniform pixelsize, the number of correlation pairs for resulting in the same $\vec{q}$ depends on $\vec{q}$ as shown in on the left of c) for a $q_z=0$ slice. The noise (calculated as the standard deviation over 100 independent simulations) is therefor also non-uniform, as shown on the right of c).}
+	\caption[Accessible reciprocal space]{The accessible reciprocal space with an 2048x2048\,pixel (100\,um pixelsize) at 12.5\,cm distance and 9.2\,keV is shown in a) and b). In a), the surface of the Ewald sphere accessible in a diffraction experiment is shown in green for comparison. IDI allows a reconstruction of a three dimensional volume. In b), the position of GaAs Bragg peaks as determined by finding local maxima (>4 standard deviations) in the reconstruction is shown inside this volume. As the accessible $q_z$ is depended on $q_x$/$q_y$ and low near the limits of the latter, a precise alignment of the detector with regard to the lattice planes is necessary to be able to image the maximal number of peaks. Using a square, centered, planar detector with uniform pixelsize, the number of correlation pairs for resulting in the same $\vec{q}$ depends on $\vec{q}$ as shown in on the left of c) for a $q_z=0$ slice. The noise (calculated as the standard deviation over 100 independent simulations) is therefore also non-uniform, as shown on the right of c).}
 	
 \end{figure}
 
@@ -191,7 +190,7 @@ To evaluate the different approaches, for a grating with pitch 50\,nm, line widt
 As shown in \fref{fig:SNRNimages} if only considering shot and phase noise (uncorrelated between different  images), the SNR scales with the square root of the number of images.  This can be used to estimate the number of shots necessary to achieve a SNR greater than three to be able to experimentally verify IDI as an imaging method. Systematic noise sources causing correlated noise does not follow this relation and should be minimized, e.g. by masking out affected areas of the detector.
  
 \subsection{Number of Modes}
-To Illustrate the effect of the number of modes on the signal and the SNR, a simulation is performed by averaging the intensity over $M$ realizations of the random phases.  
+To Illustrate the effect of the number of modes on the signal and the SNR, simulations are performed by averaging the intensity over $M$ realizations of the random phases.  In the results of the simulation of a crystall sample, (\fref{fig:modes}) the predicted $1/M$ scaling of the signal can be seen. Furthermore, as expected, in \fref{fig:SNRNimages}, the SNR shows the same scaling.
 
 \begin{figure}
 	\centering
@@ -214,10 +213,10 @@ To Illustrate the effect of the number of modes on the signal and the SNR, a sim
 
 
 A simulation of a cubic single crystal with a simple cubic lattice of varying size (from 20$^3$ to 200$^3$\,atoms) is performed. The lattice constant is chosen as 5.7\,\AA, the fluorescence energy as 8\,keV. The simulated detector has 1024x1024 50\,µm sized pixels and is placed 8\,cm from the  sample. 
-The simulation of the fluorescence patterns is performed with 4x4 oversampling (4096x4096 pixel) and rebinning to the detector size. Only a single coherence mode is simulated. The number of photons emitted by the sample in 4$\pi$ is chosen as equal the number of atoms in the sample. Hence, the mean number of photons per pixel is (especially for small crystal sizes) very small, but at the upper bound of an achievable photon yield in an experiment.
+The simulation of the fluorescence patterns is performed with 4x4 oversampling (4096x4096 pixel) and rebinning to the detector size. Only a single coherence mode is simulated. The number of photons emitted by the sample in 4$\pi$ is chosen as half the number of atoms in the sample. Hence, the mean number of photons per pixel is (especially for small crystal sizes) very small, but at the upper bound of an achievable photon yield in an experiment.
 
-The peak signal-to-noise ratio is calculated by simulating 20-2000 independent images  and taking the mean intensity at the visible Bragg peaks positions as signal and the standard deviations at those positions over the independent simulations as noise, resulting in an estimated of the peak SNR of a single image.
-Due to the low photon numbers, the Poisson noise is dominating the noise characteristic and with an increase in atoms in the focus, the SNR increases linear (as shown in \fref{fig:SNRNatoms}), up to the point where a the peaks are no longer fully sampled and the signal decreases linear with a further increase in the number of atoms in the crystal., resulting in a nearly constant peak SNR.
+The peak signal-to-noise ratio is calculated by simulating 2000 independent images  and taking the mean intensity at the visible Bragg peaks positions as signal and the standard deviations at those positions over the independent simulations as noise, resulting in an estimated of the peak SNR of a single image.
+Due to the low photon numbers, the Poisson noise is dominating the noise characteristic and with an increase in atoms in the focus, the SNR increases linear (as shown in \fref{fig:SNRNatoms}), up to the point where a the peaks are no longer fully sampled and the signal decreases linear with a further increase in the number of atoms in the crystal, resulting in a nearly constant peak SNR.
 If instead of considering the peak value of the reconstruction as signal, the three dimensional integral over the Bragg peak would be considered as signal, the decreasing width of the Bragg peak with increasing size of the crystal would result in a nearly constant SNR under these low photon count conditions. 
 
 This results suggests, that for an experimental verification using Bragg peaks, the excited volume of the crystal should be as large as possible without undersampling - for example choosing a thin single crystal and an appropriately tight focal volume.
@@ -235,7 +234,7 @@ This results suggests, that for an experimental verification using Bragg peaks, 
 		\caption{SNR dependence on detector size}
 		\label{fig:SNRdetsize}
 	\end{subfigure}
-\caption[SNR dependence on crystal size and detector size]{SNR dependence on the crystal size (a): As the crystal size increases, the SNR increases linear (as shown by the linear regression) with the number of atoms in the sample as long as the Bragg peaks is sufficiently sampled (blue points), in undersampling conditions the signal strength decreases linear with the number of atoms resulting in a near constant SNR (right side of the dashed line). The error bars show the standard deviation of the SNR calculated for the 12 visible Bragg peaks. For details on the simulation parameters, see main text}
+\caption[SNR dependence on crystal size and detector size]{SNR dependence on the crystal size (a): As the crystal size increases, the SNR increases linear (as shown by the linear regression) with the number of atoms in the sample as long as the Bragg peaks is sufficiently sampled (blue points), in undersampling conditions the signal strength decreases linear with the number of atoms resulting in a near constant SNR (right side of the dashed line). The error bars show the standard deviation of the SNR calculated for the 12 visible Bragg peaks. For details on the simulation parameters, see main text. The SNR dependence on the detector size (b) shows a linear relationship between the square root of the number of pixels and the SNR.}
 
 \end{figure}
 
@@ -243,7 +242,7 @@ This results suggests, that for an experimental verification using Bragg peaks, 
 %\subsection{Random Orientations}
 %In an atomic resolution IDI experiment using a crystalline sample, there can be random orientations of the sample structure between each different shot if a powder is used as a sample.
 %If a superlattice structure is used, it can be possible to limit the random orientations to orientations within a plane.
-%The random orientations cause randomly oriented Bragg peaks and a significantly lower SNR as shown in \fref{fig:orientation}.  To have the best chance of experimental verification, a sample with static orientations between all shots used in the reconstruction is therefor beneficial.
+%The random orientations cause randomly oriented Bragg peaks and a significantly lower SNR as shown in \fref{fig:orientation}.  To have the best chance of experimental verification, a sample with static orientations between all shots used in the reconstruction is therefore beneficial.
 %For random orientations in a plane and  imaging Bragg peaks of, it is possible to do an angular correlation of each reconstructed image and increase the SNR (as shown in \fref{fig:polarcor}), similar to a method in correlated X-ray scattering \cite{mendez2016}.
 
 
@@ -322,18 +321,13 @@ These simulations show that in high angles, the limited coherence length of the 
 \end{equation}
 
 
- As a thicker sample gives more photons and therefore less Poisson noise, but a higher number of temporal and spatial modes, thus a lower expected lower speckle visibility, a simulation close to experimentally feasible parameters is desirable.
-
-
-
-
-
+ As a thicker sample gives more photons and therefore less Poisson noise, but a higher number of temporal and spatial modes, thus a lower expected lower speckle visibility, a trade-off has to be made.
 
 
 \begin{figure}
 	   \centering
 		\includegraphics[width=0.5\linewidth]{images/tdplot.pdf}
-	\caption[Integration in Time Dependent IDI Simulation]{To illustrate the integration in the time dependent IDI simulation, the (normalized) scalar field at one point of the detector created by 10 emitting atoms with $\tau$=1\,fs and a pulse FWHM of 2\,fs is shown. The solid colors show each atom's field, the line plot the (phase correct) sum. The simplify the calculations, only the time points marked with stars are calculated. To solve the integral \fref{eq:tdint}, it's sufficient to calculated the squared magnitude at those points and to do a piecewise integration from each star-shaped marker the next dot-shaped marker. The color wheel in the top illustrates the phase encoding in the plot.}
+	\caption[Integration in time dependent IDI simulation]{To illustrate the integration in the time dependent IDI simulation, the (normalized) scalar field at one point of the detector created by 10 emitting atoms with $\tau$=1\,fs and a pulse FWHM of 2\,fs is shown. The solid colors show each atom's field, the line plot the (phase correct) sum. The simplify the calculations, only the time points marked with stars are calculated. To solve the integral \fref{eq:tdint}, it's sufficient to calculated the squared magnitude at those points and to do a piecewise integration from each star-shaped marker the next dot-shaped marker. The color wheel in the top illustrates the phase encoding in the plot.}
 	\label{fig:tdplot}
 \end{figure}
 
@@ -365,25 +359,33 @@ These simulations show that in high angles, the limited coherence length of the 
 		\caption{Speckle strength for different sample thicknesses and angles}
 		\label{fig:thickness}
 	\end{subfigure}	
-	\caption[Speckle Strength and Signal Visibility in Time Dependent Simulation]{ In \textbf{(a)} the strength of the simulated speckle pattern for different pulse length and decay times $\tau$ of a spherical object (radius 10\,nm) is compared with the theoretical dependence on the ratio of pulse length and $\tau$, showing good agreement. 
+	\caption[Speckle strength and signal visibility in time dependent simulation]{ In \textbf{(a)} the strength of the simulated speckle pattern for different pulse length and decay times $\tau$ of a spherical object (radius 10\,nm) is compared with the theoretical dependence on the ratio of pulse length and $\tau$, showing good agreement. 
 	In \textbf{(b)} exemplary radial profiles of the reconstruction from 50 of those patterns are shown for one fixed $\tau$. Those reconstructions are used to determine the signal visibility as quantification of the  dependence of the signal strength on the pulse width in \textbf{(c)}. For long pulses, the reciprocal dependence on the pulse length is visible.
 	In \textbf{(d)}  the influence of sample thickness $t$ on the speckle strength under different angles is show (using the mean of 5 independent simulations and the standard deviation as errors). The dashed lines are the approximation $s(t,\alpha)=\frac{s(t\rightarrow0\text{um}, \alpha= 0)}{1+\left(1-\cos{\alpha}\right)\sfrac{t}{2.35\text{um}}}$. For small angles, the sample thickness does not influence the speckle strength.}
 \end{figure}
 
 %$y=c/\left(1+(\sfrac{{4})\right)$
 
-
+\clearpage
 \section{Summary and Discussion of the Implications for an Experiment}
 
 The insights about the influence of different numbers of spherical samples inside the focus will guide the preparation of nanoparticle samples: By depositing the nanoparticles in a polymer matrix at a concentration that is on the one hand high enough to make use of the gain in signal photons but on the other hand low enough not to lose contrast in the form factor.
 
 
+The simulation of different samples and realistic conditions allows to estimate the number of images necessary for a successful IDI measurement: The result of a simulation for a thick 5\,um Copper foil, rotated 45° with respect to the beam (200\,nm focus FWHM, 10\,fs pulse FWHM), emitting only at a single energy line and polarisation, measured with a detector with 50\,um pixel size (charge sharing $\sigma$=5\,um) placed in a distance of 1\,m perpendicular to the beam is shown in \fref{fig:simfoil}. Even though the under-sampling in the horizontal direction causes a significant reduction in signal strength, 50 images suffice in the simulation to get an acceptable SNR (>3), leading to the estimation that, even with the additional reduction in contrast due to multiple emission lines and polarization (combined a factor <4), less than 1000 images would suffice for a replication of the previously published results \cite{nakumura2020}.
 
-The time-dependent simulation of different samples and realistic conditions allows to estimate the number of images necessary for a successful IDI measurement: The result of a full simulation for a thick 5\,um Copper foil, rotated 45° with respect to the beam (200\,nm focus FWHM, 10\,fs pulse FWHM), measured with a detector with 50\,um pixel size (charge sharing $\sigma$=5\,um) placed in a distance of 1\,m perpendicular to the beam is shown in \fref{fig:simfoil}. Even though the under-sampling in the horizontal direction causes a significant reduction in signal strength, ~100 images suffice in the simulation to get an acceptable SNR to clearly see the focal size, leading to the estimation that even with additional noise sources not included in the simulation, less than 1000 images would suffice for a replication of the previously published results \cite{nakumura2020}.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\linewidth]{images/sim_foil5umCu_shared.pdf}
+	\caption[Simulation of a metal foil with similar parameters as used in the experiment]{Simulation result for a metal foil placed in a 200\,nm focus viewed perpendicular to the incoming FEL beam. No correction for charge sharing is applied. The center pixel is masked, as $g^2(0)-1\approx 
+		\frac{1}{M}+\frac{1}{\mu}$ is dominated by the mean count and does 
+		not carry spatial information.}
+	\label{fig:simfoil}
+\end{figure}
 
 The agreement between the time-dependent simulation with the approximation of the number of modes overlaid in the measurement allows to simplify the simulation of samples with many excited atoms (>$10^6$) and long pulse lengths, as the time-independent simulation is, despite the applied optimizations, still much faster to perform.
 
-The most relevant implications for imaging single crystals are: First, there is a trade-off between the number of signal photons, undersampling, and loss of speckle contrast due to the path length difference caused by the sample thickness, suggesting to use few micrometer thick samples. Second, the orientation of the detector with regards to the sample has to be aligned reliably, as the reconstructed reciprocal volume is large compared to the size of the expected Bragg peaks, and additionally, the coverage in $q_z$ direction is finite (and depends on the detector position, size and masks applied) - bad alignment could therefor lead to fewer potential Bragg positions being inside the reconstructed reciprocal space than optimal. For GaAs single crystals and a centered octal-MPCCD detector as available at SACLA, the sample-detector distance has to be 12-15\,cm and the alignment can be off by at most 1°.
+The most relevant implications for imaging crystals are: First, it is beneficial to use a single crystal compared to a powder to allow averaging over many shots with Bragg peaks at the same positions and there is a trade-off between the number of signal photons, undersampling, and loss of speckle contrast due to the path length difference caused by the sample thickness, suggesting to use few micrometer thick samples and a tight focus of a few hundred nanometers FWHM. Second, the orientation of the detector with regards to the sample has to be aligned reliably, as the reconstructed reciprocal volume is large compared to the size of the expected Bragg peaks, and additionally, the coverage in $q_z$ direction is finite (and depends on the detector position, size and masks applied) -- bad alignment could therefore lead to fewer potential Bragg positions being inside the reconstructed reciprocal space than optimal. For GaAs single crystals and a centered octal-MPCCD detector as available at SACLA, the sample-detector distance has to be 12-15\,cm and the alignment can be off by at most 1°. For crystals with larger distances in reciprocal space between the Bragg peaks (smaller lattice constant or different extinction rules), the distances would have to be closer accordingly, resulting in a smaller FOV for the same detector, and thus may limit the SNR due to undersampling.
 
 According to the comparison of the different photon-counting methods, discretizing the recorded detector values by finding appropriate thresholds for the different numbers of signal photons reduces detector effects and should be used to analyze experimental data. Nevertheless, directly neighboring pixels may still be influenced, and their calculated correlations should not be considered trustworthy for determining the structure factor.
 
@@ -391,13 +393,5 @@ According to the comparison of the different photon-counting methods, discretizi
 
 
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.5\linewidth]{images/sim_foil5umCu_shared.pdf}
 
-	\caption[Simulation of a metal foil with similar parameters as used in the experiment]{Simulation result for a metal foil placed in a 200\,nm focus viewed perpendicular to the incoming FEL beam. No correction for charge sharing is applied. The center pixel is masked, as $g^2(0)-1\approx 
-		\frac{1}{M}+\frac{1}{\mu}$ is dominated by the mean count and does 
-		not carry spatial information.}
-	\label{fig:simfoil}
-\end{figure}
 
