@@ -54,11 +54,12 @@ The measured intensity with measurement time $T$ will be
     \left<\left|E(\vec{r},t)\right|^2\right> \,.
 \end{equation}
 The superposition of two monochromatic, stationary waves with a fixed phase difference $\Delta \phi$, such as a wave and its time delayed copy (\fref{fig:michelson}) in an interferometer, gives rise to interference fringes
-\begin{align}
+\begin{align*}
 	\left<I(\vec{r},t)\right> & = I_1+I_2+2\left<\Re({E_1(\vec{r},t)}E_2^*(\vec{r},t))\right> \\
 	& = I_1+I_2+2\sqrt{I_1I_2}\cos\left((\vec{k_1}-\vec{k_2})\vec{r}+\Delta \phi\right) 
+	\numberthis
 \label{eq:interference}
-\end{align}
+\end{align*}
 
 Defining the contrast of the fringes as the visibility $V=\frac{I_{max}-I_{min}}{I_{max}+I_{min}}$,
 results for equal intensities of the the waves in maximum contrast,  $V=\frac{2\sqrt{I*I}}{I+I}I=1$. This case of a fixed phase difference is called \textit{coherent}.
@@ -85,9 +86,9 @@ The Wiener Khinchin theorem connects the power spectrum $F(w)$ with $\gamma$ \ci
 \end{equation}
 
 As a relevant example, for an exponentially decaying electric field envelope\footnote{Corresponding to an intensity/photon number decay with time constant $\sfrac{\tau}{2}$} $E(t)=\Theta(t)e^{-t/\tau_E}$, the power spectrum is Lorentzian with an angular frequency FWHM of $\Delta \omega=\frac{2}{\tau_E}$,
-\begin{equation*}
+\begin{equation}
 \left|\int_{0}^{\infty}  e^{-t/\tau_E} e^{-iwt} \dif t \right|^2 \propto  \frac{1}{1/\tau_E^2+w^2} \,,
-\end{equation*}
+\end{equation}
 and numerator and denominator of the complex degree of coherence are
 \begin{align*}
 \left\langle E(t) E^{*}(t+\tau)\right\rangle
@@ -95,6 +96,7 @@ and numerator and denominator of the complex degree of coherence are
 =\frac{\tau_E}{2}   e^{-\frac{\left| \tau \right| }{\tau_E }}\\
 \left\langle E(t) E^{*}(t)\right\rangle
 &=\frac{\tau_E}{2}  \,.
+\numberthis
 \end{align*}
 Hence, $\left<\gamma(\tau)\right>=e^{-|\tau/| \tau_E}$,  and the coherence time as defined is above is $\tau_c=\int_{-\infty}^{\infty} \left| \gamma(\tau)\right|^2 \diff \tau=\tau_E=\sfrac{2\hbar}{\Delta E}$ \cite{goodman2000,pollnau2020}.
 
@@ -103,7 +105,7 @@ Hence, $\left<\gamma(\tau)\right>=e^{-|\tau/| \tau_E}$,  and the coherence time 
  \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/michelson.pdf}
-	\caption[Schematic of an i]{Schematic of an interferometer: Light of (a Gaussian) light source with finite coherence time is split and interference with a delayed copy is observed. The time averaged intensity measured by an detector changes with the delay time. }
+	\caption[Schematic of an interferometer]{Schematic of an interferometer: Light of (a Gaussian) light source with finite coherence time is split and interference with a delayed copy is observed. The time averaged intensity measured by an detector changes with the delay time. }
 	\label{fig:michelson}
 \end{figure}
 
@@ -124,7 +126,7 @@ This can be used for example to describe Young's double slit experiment (\fref{f
 \end{equation}
 If the distances from $\vec{r}$ to the two slits are (approximately) equal, $R_{1}\approx R_{2} \approx d$, the intensity at $\vec{r}$ is
 \begin{align*}
-	\left\langle I\left(\vec{r}, t^{\prime}\right)\right\rangle&=\left\langle\left|E\left(\vec{r}_{1}, t\right)\right|^{2}\right\rangle+\left\langle\left|E\left(\vec{r}_{2}, t\right)\right|^{2}\right\rangle 
+	&\left\langle I\left(\vec{r}, t^{\prime}\right)\right\rangle=\left\langle\left|E\left(\vec{r}_{1}, t\right)\right|^{2}\right\rangle+\left\langle\left|E\left(\vec{r}_{2}, t\right)\right|^{2}\right\rangle 
 	+\left[\left\langle E^{*}\left(\vec{r}_{1}, t\right) E\left(\vec{r}_{2}, t\right)\right\rangle e^{i\left(\vec{k}_{1}-\vec{k}_{2}\right) \cdot \vec{r}+i \Delta \phi}+\text{c.c}\right] \\
 	& \propto 1+
 	\frac{2 \sqrt{\left< I\left(\vec{r}_{1}, t\right)\right>\left< I\left(\vec{r}_{2}, t\right)\right>}}
@@ -132,6 +134,7 @@ If the distances from $\vec{r}$ to the two slits are (approximately) equal, $R_{
 	\frac{\vphantom{2\sqrt{\left<I\left(\vec{r}_{1}\right)\right>}}\left< E^{*}\left(\vec{r}_{1}, t\right) E\left(\vec{r}_{2}, t\right)\right>}
 	{\vphantom{2\sqrt{\left<I\left(\vec{r}_{1}\right)\right>}}\sqrt{\left\langle I\left(\vec{r}_{1}, t\right)\right>\left\langle I\left(\vec{r}_{2}, t\right)\right>}}
 	\cos \left[\left(\vec{k}_{1}-\vec{k}_{2}\right) \cdot \vec{r}+\Delta \phi\right]
+	\numberthis
 \end{align*}
 
 
@@ -157,10 +160,10 @@ In the Hanbury Brown Twiss experiment\textbf{(b)} are two indistinguishable two 
 
 \paragraph{Second order coherence $g^2$}
 The definition of $g^1$ can be extended to the second order by considering
-\begin{equation*}
+\begin{equation}
 	g^{(2)}(\vec{r}_1,t_1;\vec{r}_2,t_2)= 
 	\frac{\left< E^*(\vec{r}_1,t_1)E^*(\vec{r}_2,t_2)E(\vec{r}_1,t_1)E(\vec{r}_2,t_2) \right>}{\left<\left | E(\vec{r}_1,t_1)\right |^2 \right> \left< \left |E(\vec{r}_2,t_2)\right |^2 \right>} \,.	
-\end{equation*}
+\end{equation}
 For classical fields, this is equivalent  to normalized correlations of intensities \cite{goodman2000}:
 \begin{equation}
 	g^{(2)}(\vec{r}_1,t_1;\vec{r}_2,t_2)= 
@@ -215,26 +218,22 @@ For a large enough distance between the sources and detectors $(L \gg R)$, the s
 \end{equation} 
 where $\vec{k}_{1,2}=k \vec{r}_{1,2}$ is the wavevector of the light seen in detector $1$/detector $2$. As the modulation frequency of the the intensity correlation is depended $R$, the separation of the two sources (i.e the size of the star) can be recovered.
 
-A more detailed quantum mechanical treatment considers the mixtures of the probability amplitudes of emission and detection at the two detectors (as the individual paths are indistinguishable), leading what was shown as an equivalent description of the HBT effect for thermal light sources \cite{fano1961,sudarshan1963,glauber2006}, but allows the treatment of non classical light sources such as single photon emitters \cite{mandel1995,classen2017}. This introduces a correction term in $g^2$ of the order of $1/N$ with $N$ the number of emitters, which for the considered cases is negligible.
-
-
+\section{Incoherent Diffractive Imaging}
+Based on the HBT experiment, a simplified explanation of Incoherent Diffractive Imaging (IDI) can easily be made for thermal light sources in a classical view  by application of the Siegert relation.
 
 \paragraph{Siegert Relation}
 For chaotic light with Gaussian statistics, Isserlis' theorem 
-$\left<ABCD\right>=\left<AB\right>\left<CD\right>+\left<AC\right>\left<BD\right>+\left<AD\right>\left<BC\right>$ can be applied to \fref{eq:g2}, leading  (independently of the spatial configuration of the sources ) to
+$\left<ABCD\right>=\left<AB\right>\left<CD\right>+\left<AC\right>\left<BD\right>+\left<AD\right>\left<BC\right>$ can be used to factorize \fref{eq:g2}, leading (independently of the spatial configuration of the sources) to
 \begin{equation}
 	g^2(\vec{r_1},\vec{r_2}) = 1+ |g^1(\vec{r_1},\vec{r_2}) |^2 ,
 \end{equation}
-which is called the Siegert Relation \cite{ou2017}.
-For $N$ Single-Photon-Emitters and quantum optical treatment,  a similiar form holds \cite{classen2017}:
-\begin{equation}
-	g^2(\vec{r_1},\vec{r_2}) = 1+ |g^1(\vec{r_1},\vec{r_2}) |^2 - \frac{2}{N} ,
-\end{equation}
+which is known as the Siegert Relation \cite{ou2017}. 
+
 As, as according to the van Cittert Zernicke theorem (\fref{eq:vcz}), $g^1$ encodes structural information, 
 \begin{equation}
 	g^1(\vec{k_1},\vec{k_2}) \propto \mathscr{F}S(\vec{r}) = S(\vec{q})
 \end{equation}
-the difference of the intensity-intensity correlation from unity is proportional (with a contrast determining constant $\beta$) to the Fourier transform of the arrangement of emitters with $q=\vec{k_1}-\vec{k_2}$ (see \fref{fig:scatteringvectors}).
+the difference of the intensity-intensity correlation from unity is proportional (with a contrast determining constant $\beta^2$) to the Fourier transform of the arrangement of emitters with $q=\vec{k_1}-\vec{k_2}$ (see \fref{fig:scatteringvectors}).
 This is the basic principle used in IDI to recover three dimensional spatial information from the intensity correlation.
 \begin{figure}
 	\centering
@@ -244,11 +243,21 @@ This is the basic principle used in IDI to recover three dimensional spatial inf
 	
 \end{figure}
 
-\section{Photon Statistics}
+
+A more detailed quantum mechanical treatment considers the mixtures of the probability amplitudes of emission and detection at the two detectors (as the individual paths are indistinguishable), leading what was shown as an equivalent description of the HBT effect for thermal light sources \cite{fano1961,sudarshan1963,glauber2006}, but allows the treatment of non classical light sources such as single photon emitters \cite{mandel1995,classen2017}. This introduces a correction term to the equivalent of the Sieger of the order of $1/N$ with $N$ the number of emitters,
+\begin{equation}
+	g^2(\vec{r_1},\vec{r_2}) = 1+ |g^1(\vec{r_1},\vec{r_2}) |^2 - \frac{2}{N} ,
+\end{equation}
+which for the considered cases of many fluorescence emitting atoms is negligible.
+
+
+\section{Photon Statistics in Speckle Patterns}
+Before continuing with investigation of IDI, some general semi-classical statistical aspects of speckle patterns are useful.
 Considering a complex sum of many phasors (e.g. the superposition of many electrical fields or probability amplitudes) of constant amplitude $A$ and independent uniformly in $(-\pi,\pi]$ distributed phases $\phi_k$, $c=\sum^N_k A e^{i\phi_k}$, for sufficiently large numbers of $N$, the real and imaginary parts
 \begin{align*}
 	r&=\Re c =  A \sum^N_k \cos(\phi_k) &
 	i&= \Im c =A \sum^N_k \sin(\phi_k)
+	\numberthis
 \end{align*}
 will (by Central Limit Theorem) be Gaussian random variables with zero mean and variance $\sigma^2=\frac{N}{2}A^2$, the probability distribution of the amplitude $a=\sqrt(a^2+i^2)$ will be a Rayleigh distribution
 \begin{equation}
@@ -289,29 +298,27 @@ as an estimation for the number of modes.
 If $p(1)$ and $p(2)$ are estimated as $p'_1$ and $p'_2$ based on the frequency in experimental observations, the uncertainty of the mode estimate can be estimated as 
 $\Delta M \lesssim \frac{2 p'_1}{\left({p'_1}^2+2 (p'_1-1) p'_2\right)^2} \left(\Delta p'_1 (2-p'_1) p'_2+\Delta p'_2 (1-p'_1) p'_1\right)$.
 
-
 \section{Signal to Noise Considerations}
 \label{sec:specklecontrast}
-The Signal to Noise characteristics of the method are determined by the noise and the signal:
-The signal strength is determined by $\left|S(q)\right|^2$, which is dependent and the sample, and the contrast of the recorded speckle image. The noise in the measurement will consist of three parts: First, noise inherent to IDI caused by the random distribution of phases, second, the poissonian noise caused by quantized photons, and third, experimental noise \cite{trost2020, goodman2007}. 
+The Signal to Noise characteristics of IDI are determined by the signal strength and the noise:
+The signal strength is determined by $\left|S(q)\right|^2$, which is dependent and the sample, and the contrast of the recorded speckle image. The noise in the measurement will consist of three parts: First, noise inherent to IDI caused by the random distribution of phases, second, the Poissonian shot noise caused by quantized photons, and third, systematic experimental noise \cite{trost2020, goodman2007}. 
 
 \paragraph{Speckle Contrast}
-
-The speckle contrast $\beta =\sqrt{\tfrac{1}{M}}$ is governed by the number of independent modes $M$ overlaid in the measurement \cite{goodman2000}. 
+The speckle contrast $\beta =\sqrt{\tfrac{1}{M}}$ is governed by the number of independent modes $M$ overlaid in the measurement (in the quantum mechanical interpretation, these correspond to different, distinguishable non-interfering N-photon states) \cite{goodman2000,ou2017,classen2019}.
 If the measurement is performed over a finite amount of time, the number of temporal modes is
 \begin{equation}
 M_t=\frac{\left(\int_{-\infty}^{\infty} P(t)\diff t\right)^2}{\int_{-\infty}^{\infty} K(t) \left|\mu(t)\right|^2\diff t}
 \label{eq:modes}
 \end{equation}
 with $P(t)$ the integration window weighting function and $K(t)$ its autocorrelation \cite{goodman2007}. If the integration windows is set by the integration time $T$ of the detector, $P(t)$ is a rectangular function with the width $T$ and
-\begin{align}
-M_{t,\text{rect}} =T \left[\int_{-\infty}^{\infty} \Lambda\left(\frac{t}{T}\right) \left|\mu(t)\right|^2 \diff t \right]^{-1} .\\
+\begin{align*}
+M_{t,\text{rect}} =T \left[\int_{-\infty}^{\infty} \Lambda\left(\frac{t}{T}\right) \left|\mu(t)\right|^2 \diff t \right]^{-1}. \numberthis \\
 \text{with  }\Lambda(x) = \begin{cases} 
  1-\left|x\right|& \textit{if }|x|<1\\
 0 & \textit{otherwise}\\ 
 \end{cases}
 \label{eq:modesapprox}
-\end{align}
+\end{align*}
 Considering the case of a long integration time, $T\gg\tau$, this can be approximated as $M\approx\frac{T}{\tau}$. For a short integration time,  $T\ll\tau$, the number of temporal modes $M$ approaches unity.
 
 If the Integration time can be considered as infinite and instead $P(t)$ is a Gaussian excitation pulse with FWHM of $2\sigma\sqrt{2\ln2}$, creating to a non-stationary field, this leads to
@@ -319,7 +326,7 @@ If the Integration time can be considered as infinite and instead $P(t)$ is a Ga
 	M_{t,\text{Gauss}}=e^{\frac{4 \sigma ^2}{\tau ^2}} \text{erfc}\left(\frac{2 \sigma }{\tau }\right),
 	\label{eq:mgauss}
 \end{equation}
-with the complementary error function $\erfc=\frac{2}{\sqrt{\pi}}\int_x^\infty e^{-z^2}\diff z$.
+with the complementary error function $\erfc=\frac{2}{\sqrt{\pi}}\int_x^\infty e^{-z^2}\diff z$. 
 
 Inoue et al. considered $P$ to be the Gaussian excitation pulse convoluted with an exponential decay with lifetime $\tau$ \cite{inoue2019,butz2015},
 \begin{align}
@@ -329,10 +336,10 @@ e^{-\frac{(t-t^{\prime})^2}{2\sigma^2}}\diff t^{\prime}
 \erfc\left[
 \frac{\sigma}{\sqrt{2}\tau}
 -\frac{t}{\sqrt{2}\sigma}
-	\right] ,
+	\right] .
 	\label{eq:pfull}
 	\end{align}
-	An approximation can be made if the pulse length is long in comparison to the coherence time, simplifying the auto-correlation of $P$ to
+An approximation can be made if the pulse length is long in comparison to the coherence time, simplifying the auto-correlation of $P$ to
 \begin{align}
 K(t)&=\int_{-\infty}^\infty \frac{1}{4
 	\tau ^2}e^{-\frac{t^2}{2 \sigma ^2}-\frac{(t+t')^2}{2 \sigma ^2}}
@@ -373,16 +380,16 @@ Path differences longer than the coherence length give additional modes $M_S$, t
 
 If the speckle pattern is not spatially resolved by the detector because its resolution is too low compared to the change in intensity, undersampling will occur, the measured signal will be spatially averaged giving independent spatial sampling modes $M_D$ \cite{goodman2007}.
 
-As an approximation, the total number of modes can be considered the product of those modes different numbers discussed above, even though in reality, the mode numbers are not completely independent. Hence, in \fref{chap:simulation} simulations combining all these effects under different conditions with experimentally feasible  parameters will be performed.
+Even though the number of from the different effects discussed above are not completely independent, as an approximation and upper bound on the reduction in contrast, the total number of modes can be taken as the product of their upper bounds. 
 
 
 \paragraph{Estimation of the Noise}
-The variance of a product of (uncorrelated) photon counts following the negative binomial distribution \fref{eq:negbinomialdist} is
+The variance of a product of (uncorrelated) photon counts following the negative binomial distribution of \fref{eq:negbinomialdist} is
 \begin{equation}
 	\Var_{p\cdot p}= \Var_p^2 +2 \mu^2\Var_p	= \mu^4 \frac{2 M + 1}{M^2 + 2}+ \mu^3 \frac{M+1}{M} + \mu^2 \,.
 \end{equation}
-Assuming no correlations, this would describe the inherent noise in the measurement of the fluorescence. The last term, dominating in the low photon count regime, can be considered as the "Poissonian character of the noise, whereas the other terms, dominating at low photon counts, the phase noise.
-As shown by Trost et. al, this can be used to estimate the inherent noise of an intensity correlation measurement, even though the actual signal will break the assumption of having uncorrelated photon counts\cite{trost2020}.
+Assuming no correlations, this would describe the inherent noise in the measurement of the fluorescence. The last term, dominating in the low photon count regime, can be considered as the "Poissonian" character of the noise, whereas the other terms, dominating at high photon counts, the phase noise.
+As shown by Trost et. al, this can be used to estimate the inherent noise of an intensity correlation measurement, even though the actual signal will break the assumption of having uncorrelated photon counts \cite{trost2020}.
 
 \paragraph{Signal to Noise Ratio}
 Combining the squared contrast of the speckle pattern, the expectation value of the product of the photon counts, the standard deviation as a quantification of the noise, and the number of independent measurements $N$ over which an average is taken, finally gives 
@@ -390,7 +397,7 @@ Combining the squared contrast of the speckle pattern, the expectation value of 
 SNR\propto  \frac{|S(q)|^2 \mu\sqrt{N}}{M\sqrt{\mu^2 \frac{2 M + 1}{M^2 + 2}+ \mu \frac{M+1}{M} + 1}}
 \label{eq:snr}
 \end{equation}
-as an estimation of the SNR, which will be further examined by performing simulations.
+as an estimation of the Signal to Noise Ratio(SNR), which will be further examined by performing simulations in \fref{chap:simulation}.
 %Which factors influence SNR -lifetime/pulsewidth -polarisation -sampling conditions / undersampling -sample thickness / coherence length -N images -N photons
 
 %- SNR
@@ -401,9 +408,9 @@ as an estimation of the SNR, which will be further examined by performing simula
 
 \section{Kossel Lines}
 \label{sec:kossel}
-X-ray radiation  originating from \textit{within} a single crystal (such as fluorescence) can get Bragg reflected at the lattice planes of the crystal, causing Intensity variation in $90^o-\theta$ around the direction $\vec{k}_{hkl}$ (perpendicular to the planes described by the Laue indices $hkl$), forming the \textit{Kossel Cones} \cite{cowley1995}. On the spherical detector centered at at the crystal, the points with influenced intensity, the \textit{Kossel lines} (or in electron microscopy more commonly \text{Kikuchi Lines}) would hence lie on circles, for a flat detector on general conic sections (see \fref{fig:kossel} for an illustration).
+X-ray radiation  originating from \textit{within} a single crystal (such as fluorescence) can get Bragg reflected at the lattice planes of the crystal, causing intensity variations in $90^o-\theta_{hkl}$ around the direction $\vec{k}_{hkl}$ (perpendicular to the planes described by the Laue indices $hkl$), with $\theta_{hkl}$ the corresponding Bragg angle, forming the \textit{Kossel Cones} \cite{cowley1995}. On the spherical detector centered at at the crystal, the points with influenced intensity, the \textit{Kossel lines} (or, as they are more commonly called in electron microscopy, \text{Kikuchi lines}) would hence lie on circles, for a flat detector on general conic sections (see \fref{fig:kossel} for an illustration).
 
-The visibility of the Kossel lines is governed by the same extinction rules as for the Bragg reflexes -- the structure factor $F_{hkl}$ has to be non-zero. For a zinc blende structure (such as GaAs) with atomic scattering factors $f_a$ and $f_b$, the structure factor is
+The visibility of the Kossel lines is governed by the same extinction rules as for the Bragg reflexes -- the structure factor $F_{hkl}$ has to be non-zero \cite{cowley1995}. For a zinc blende structure (such as GaAs) with atomic scattering factors $f_a$ and $f_b$, the structure factor is
 \begin{align}
 F_{hkl} = \begin{cases}
 0 & \text{if $h$, $k$, $l$ mixed parity}\\
@@ -412,11 +419,9 @@ F_{hkl} = \begin{cases}
 4(f_a-f_b) & \text{if same parity and $h+k+l = 4 N+2$,}
 \end{cases}
 \end{align}
-resulting in strong Kossel lines if $h+k+l=4N$ \cite{reimer2013}.
+resulting in strong Kossel lines if $h+k+l=4N$ with integer $N$  \cite{reimer2013}.
 
 The fine structure of the intensity variations and whether they increase or decrease the intensity over the non-scattered fluorescence background depends furthermore on the viewing direction along the cone in relation to the orientation and crystal surface \cite{faigel2016}. If the fine structure cannot be resolved by the detector and only the presence, overall shape and position of the lines is considered, no distinction between these different cases has to be explicitly made.
-
-The Kossel lines allow to orient the detector with regards to the lattice planes. This can either be done by reprojecting the planar detector onto a sphere by an inverse gnomonic projection and determining circle center and radius, eg. by an Hugh-Transform, or by a fitting conic sections to the lines on the planar detector \cite{morris1968,morawiec2016,faigel2016,herron2018}. As the observable curvature of the Kossel lines on the detector in an IDI setup is small and therefore the circles are difficult to determine, the second method is preferable. 
 
 As each point identified as belonging to a Kossel line has to be part of a conic section of the same plane with each cone originating from the same point, each point $\vec{r}$ on a line has to fulfill
 
