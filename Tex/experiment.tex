@@ -4,11 +4,12 @@ Using the knowledge gained by the simulation, an experiment at the beamline 3 of
 In this chapter, the sample preparation and characterization by small angle scattering at the SSRL synchrotron, electron microscopy and X-ray diffraction performed at the SLAC National Accelerator,  Laboratory (US), the experimental setup at SACLA (Japan), the methods of data analysis and the results will be presented and finally discussed.
 
 \section{Sample Preparation and Characterization}
-As a nanoparticle sample, spherical iron oxide nanoparticles were chosen for their commercial availability in high quality. To improve the number of detected fluorescence photons per FEL shot, a preparation allowing (statistically) multiple particles inside the focus was chosen. This greatly reduced the possibility of having shots without any particles inside the focus as well.
-
+As a nanoparticle sample, spherical iron oxide  (magnetite) nanoparticles were chosen for their commercial availability in high quality. As a sample delivery method, deposition in polymer matrices was chosen to simplify finding the spatial overlap between the FEL beam and the sample (compared to for example injectors) and to require little changes in the setup to switch between the metal foils and the nanoparticle sample. 
 Galliumarsnide (GaAS) was chosen as a crystalline sample for its comparatively simple structure and large product its lattice constant and the gallium K${_\alpha}$ fluorescence energy, resulting in lower scattering angles necessary to record the Bragg peaks compared to other commonly used single crystals. 
 
 \subsection{Magnetite Nanoparticle in Polymer Samples}
+To allow (statistically) multiple particles inside the focus to improve the number of detected fluorescence photons per FEL shot and greatly reduced the possibility of having shots without any particles inside the focus as well, the following preparation was developed:
+
 Magnetite nanoparticles coated with oleic acid and dispersed in toluene are bought from NN-Labs (nominal diameters 5\,nm, 10\,nm and 20\,nm), inhibited methylmethacrylate (MMA) and etyhlhexylmethacrylate (EHMA)  (both Sigma Aldrich) were filtered using a prefilled column to remove the inhibitor,  2,2-azo-bis-isobutyrylnitrile (AIBN, Sigma Aldrich) was used as thermally activated radical initiator as received. Polystyrene (Sigma Aldrich, MW ~192k) and ferric chloride (97\%, Sigma Aldrich) was used as received. As solvents, methanol, toluene and chloroform were used.
 \paragraph{Nanoparticles in Polystyrene Matrix} 
 The nanoparticles were precipitated with methanol, centrifuged and redispersed in chloroform at a concentration of 25\,mg/ml (with the weight of nanoparticles including the weight of the oleic acid capping). Polystyrene was dissolved in chloroform at a concentration of 250\,mg/ml and different volumes of the nanoparticle solution were added to account for the different iron contents to 5\,ml of the polystyrene solution (see \fref{tab:samplePS}). After ensuring dispersion by strong sonication, fractions of 200\,ul the solution were carefully dropped onto slowly spinning (100\,rpm for 5\,min) glass cover slips (20\,mm x 20\,mm). After drying, the approximately 200\,um thick films were removed from the glass slides.
@@ -51,7 +52,7 @@ As a control sample, the polymerization was performed without any nanoparticles 
 		\hline
 	\end{tabular}
 \end{table}
-
+%XXX TODO: LOOK THROUGH LOG TO FIND FINAL NUIMBERS USED XXX
 \paragraph{Nanoparticle Sample Characterisation}
 To characterize the nanoparticles before the embedding in a polymer, the iron oxide nanoparticles as received were diluted with toluene, deposited on a silicon nitride membrane and imaged using a FEI Tecnai microscope  (see \fref{fig:tem}).  For each of the three nominal sizes, 3 different areas on the membrane were analyzed using ImageJ, resulting in mean radii of 8.3$\pm$1.7\,nm (nominal "20\,nm" diameter) 4.1$\pm$0.8 \,nm	("10\,nm" diameter) 3.1$\pm$0.6\,nm ("5\,nm"). In the TEM images, the effect of the oleic acid ligands used to stabilize the nanoparticle dispersion can be seen as the inter-particle distance.
 
@@ -114,11 +115,10 @@ The measurements do not show a clear and significant difference between the two 
 	\caption[SAXS profile of iron oxide nanoparticles in  Poly-(EHMA/MMA) matrix]{SAXS profiles of nominal 5\,nm, 10\,nm and 20\,nm iron oxide nanoparticles in Poly-(EHMA/MMA) matrix (left to right).}
 	\label{fig:saxspmma}
 \end{figure}
-\FloatBarrier
 \subsection{Galliumarsenide Crystal Films}
 The samples were prepared by Ben Reeves at the Stanford Nanofabrication Facility.
 Using MOCVD, 50\,nm GaAs, 400\,nm AlGaAs as an etch stop and finally a 5\,um GaAs film were grown on an epi-ready (100)±0.1° GaAs substrate. The specimen was cut into 12\,mm\,x\,15\,mm pieces, each glued to an approx. 100\,um thick fused silica cover slip with the 5\,um film layer facing towards the silica. The substrate and the AlGaAs layer were selectively etched away via C6H8O7:H2O2 and HF:H2O wet etches, respectively. This left 5\,um thin GaAs films glued onto the the silica slides (see \fref{fig:gaas_sample}). 
- A X-ray diffraction $\omega$-scan with copper K$\alpha$ (PANAlytical X’Pert Pro) is used to measure the FWHM width of the (004) GaAs Bragg peak after mounting on the silica slides as 0.004°, indicative of high quality single crystals. 
+A X-ray diffraction $\omega$-scan with copper K$\alpha$ (PANAlytical X’Pert Pro) shows the FWHM width of the (004) GaAs Bragg peak after mounting on the silica slides as 0.004°, indicative of high quality single crystals. 
 
 
 
@@ -126,10 +126,10 @@ Using MOCVD, 50\,nm GaAs, 400\,nm AlGaAs as an etch stop and finally a 5\,um GaA
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/gaas_sample.pdf}
 	\caption[GaAs sample]{Sketch of the GaAs single crystal glued to a fused silica cover slip and Cu-K$\alpha$ XRD measurement of the GaAs (004) reflex, performed by B. Reeves, showing a single crystal. After mounting on the cover slip, the peak is slightly broadened, most likely by an slightly uneven thickness of the glue layer  leading to bending of the thin crystal.}
-	\label{fig:gaas_sample}
+	\label{fig:gaas_sample}x`
 \end{figure}
 
-
+\FloatBarrier
 \section{Setup of the Experiment}
 The setup used at the experimental station EH5 at SACLA is shown in \fref{fig:setup}. 
 
@@ -276,7 +276,7 @@ Applying the aforementioned preprocessing and analysis steps to the recorded flu
 
 The regression of the spectra (\fref{fig:spectrafoil}) resulted in a mean K$_{\alpha}$ photon count per pixel of 0.004$\pm$0.001 (500\,nm iron foil) to 0.041$\pm$0.001 (20\,um copper foil). The mode number could not be reasonably estimated for the 500\,nm iron sample due to the influence of air scattering and fluorescence stemming from the experimental setup and low number of signal photons. For the other samples, the regression provided estimates in the range of 15-25 modes. The charge sharing approximation parameter $p$ was found to be 0.43$\pm$0.01, meaning about 40\% of the photon hits are affected. The simplifications of assuming a uniform charge cloud by using a convolution windows with a flat side lobe lead to disagreement between the slightly curved histograms and the flat regressions in the valleys between integer multiples of the single photon energy, which is no longer present in the spectra simulated with a Gaussian charge cloud (see \fref{fig:thresholdsfoil}) for an example.
 
-The reconstructions were performed once without discretization and only applying a threshold of 1500\,eV and once with discretization into photons using the thresholds found in the simulation of the spectra.
+The reconstructions were performed once without discretization and only applying a threshold of 1500\,eV and once with discretization into photons using the thresholds found in the simulation of the spectra. Without discretization strong artifacts were visible in the reconstruction, which were mostly reduced by the applied photon counting (see \fref{fig:foil_photonmodes} for a comparison).
 
 \begin{figure}
 	\centering
@@ -293,19 +293,20 @@ The reconstructions were performed once without discretization and only applying
 
 The excited volume can in the horizontal direction be approximated as a rectangular function with a width of $\sqrt{2}$-times the thickness of the foil used, due to the 45° angle, if the (horizontal) FWHM of the focus is much smaller than the thickness of the foil and ignoring absorption.  In the vertical direction, the volume is limited by the (vertical) FWHM of the focus and can be (roughly) approximated to be Gaussian. 
 In the small angle approximation, the reconstruction is the magnitude squared of the 2D Fourier transform of the volume. As the magnitude squared of the Fourier transform of a Gaussian with FWHM $f$ is another Gaussian with FWHM $\frac{4\sqrt{2}\log{2}}{f}$ and of a rectangular function\footnote{If the foil were thicker, the absorption length $a$ could not be ignored and the more complicated $\left|\mathscr{F}\left(e^{-\frac{x}{a}} \Pi \left(\frac{x}{w}\right)\right)\right|^2 \propto \frac{\cosh \left(\frac{w}{a}\right)-\cos (q w)}{a^2 q^2+1}$
-	could be used instead.} with width $w$ is proportional to $\sinc^2{\left(\frac{q w}{2}\right)}$, a 2D least-squares regression of the product of those functions is performed on the reconstructed image to estimate the focal FWHM \cite{butz2015}. As the horizontal direction is under sampled, the horizontal profile will not be resolved in the reconstruction. To account for the binning in the reconstruction, the function used for the regression is sampled at 25x the resolution in both directions and averaged (corresponding to a convolution with an rectangular sampling kernel), reducing the effect of under sampling on the values determined by the regression. Furthermore, a rotation parameter is introduced to account for slight misalignment of the detector.
+could be used instead.} with width $w$ is proportional to $\sinc^2{\left(\frac{q w}{2}\right)}$, a 2D least-squares regression of the product of those functions is performed on the reconstructed image to estimate the focal FWHM \cite{butz2015}. As the horizontal direction is under sampled, the horizontal profile will not be resolved in the reconstruction. To account for the binning in the reconstruction, the function used for the regression is sampled at 25x the resolution in both directions and averaged (corresponding to a convolution with an rectangular sampling kernel), reducing the effect of under sampling on the values determined by the regression. Furthermore, a rotation parameter is introduced to account for slight misalignment of the detector.
 
 For a 5\,um Copper foil placed at three different positions, at the nominal focus and two positions further upstream, results of the auto-correlation reconstruction are shown in \fref{fig:Cu5umreco2d}.
-The regression allows an estimation of the focal width in vertical direction at nominal focus of (240$\pm$20)\,nm and while defocused by 250\,um of (380$\pm$40)\, nm (the stated errors only include regression uncertainty). In \fref{fig:fereco2d} the results for 10\,um and 500\,nm iron foils as well as an example of the result of the regression is shown. As the 5\,um and 10\,um foils suffer from severe undersampling along the horizontal direction, the results for the 500\,nm iron foil (\fref{fig:fe500nmreco2d}) should be considered: Even though the correlations is just barley visible, due to the much lower number of photons from such a thin sample and therefore lower SNR for the same number of images used, the result shows a broader peak in the horizontal direction.
-Nevertheless, for all three foils, the signal amplitude in focal position determined by the regression is 0.004$\pm$0.001 with no significant difference between the samples.
+The regression allows an estimation of the focal width in vertical direction at nominal focus of (240$\pm$20)\,nm and while defocused by 250\,um of (380$\pm$40)\, nm (the stated errors only include regression uncertainty). In \fref{fig:fereco2d} the results for 10\,um and 500\,nm iron foils as well as an example of the result of the regression is shown. As the 5\,um and 10\,um foils suffer from severe undersampling along the horizontal direction, only for the 500\,nm iron foil (\fref{fig:fe500nmreco2d}) a regression of the width in this axis can be performed. The regression estimates the width of the emitting volume in focal position as (500$\pm$250)\,nm in the horizontal direction, agreeing with the expected value of (500*$\sqrt{2}$\,nm.
+
+Nevertheless, for all three foils in focal position the signal amplitude can be extrapolated by the regression as 0.004$\pm$0.001 with no significant difference between the samples.
+The noise levels as estimated by the standard deviation over pixels outside the feature containing region of interest are  0.00013 for the copper foil, 0.0002 for the iron 10\,um foil, and 0.002 for the iron 500\,nm foil. The mean over the regions of interests of standard errors of the mean over the different shots used in the reconstruction are equal to these as well.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.9\linewidth]{images/Cu5um_reco2d.pdf}
-	\caption[Results copper foil]{Results of the $g^2-1$ calculation for the 5\,um copper foil placed at the focus as well as at two positions outside the focus (along the X-ray beam) }
+	\caption[Results copper foil]{Results of the $g^2-1$ calculation for the 5\,um copper foil placed at the focus as well as at two positions outside the focus (along the X-ray beam). As the focal width increases due to the defocusing, its extent in the reconstructed reciprocal space decreases until at -500\,um defocus it can no longer be reconstructed. The narrow extent in horizontal direction in reciprocal spaces causes undersampling and contrast reduction. }
 	\label{fig:Cu5umreco2d}
 \end{figure}
-
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.9\textwidth}
@@ -318,13 +319,9 @@ Nevertheless, for all three foils, the signal amplitude in focal position determ
 		\caption{500\,nm iron foil}
 		\label{fig:fe500nmreco2d}
 	\end{subfigure}
-	\caption[Results iron foils]{\textbf{(a)} $g^2-1$ results for the 10\,um iron foil placed at the focus as well as outside the focus (along the X-ray beam) and the result obtained by regression on the nominal focus data with fixed true horizontal dimension. This is used to extrapolate the peak amplitude in the masked areas. \textbf{(b)} $g^2-1$ results for the 500\,nm Iron foil at focus as well as at two defocused positions. The SNR is low and the signal almost indistinguishable from noise.}
+	\caption[Results iron foils]{\textbf{(a)} $g^2-1$ results for the 10\,um iron foil placed at the focus as well as outside the focus (along the X-ray beam) and the result obtained by regression on the nominal focus data with fixed true horizontal dimension. This is used to extrapolate the peak amplitude in the masked areas. \textbf{(b)} $g^2-1$ results for the 500\,nm Iron foil at focus as well as at two defocused positions. The SNR is low and the signal almost indistinguishable from noise, but the horizontal extent in reciprocal space is as expected larger. Due to the low SNR no reliable regression of the focal size can be performed}
 	\label{fig:fereco2d}
 \end{figure}
-
-
-
-
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth]{images/energy_binned.pdf}
@@ -332,7 +329,6 @@ Nevertheless, for all three foils, the signal amplitude in focal position determ
 	\label{fig:energy_binned}
 \end{figure}
 
-\FloatBarrier
 \subsection{Imaging Nanoparticles}
 
 \begin{figure}
@@ -342,20 +338,25 @@ Nevertheless, for all three foils, the signal amplitude in focal position determ
 		\caption{Calculated $g^2$ images of for two nanoparticle samples and two reference samples.}
 		\label{fig:resnano2d}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.8\textwidth}
-		\includegraphics[width=\linewidth]{images/resultnano.pdf}
-		\caption{Radial profiles of $g^2$ for different nanoparticle samples.}
-		\label{fig:resnanorad}
+	\begin{subfigure}[b]{\textwidth}
+		\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\linewidth]{images/nano.pdf}
+		\end{subfigure}
+		\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\linewidth]{images/nano_loglog.pdf}
 	\end{subfigure}
-	\caption[Results nanoparticles]{\textbf{(a)} 2d images of the calculated $g^2$ of fluorescence patterns recorded on the octal detector of two nanoparticle-in-copolymer samples with 10\,nm and 20\,nm nominal diameter in comparison to two different baseline samples, (mostly homogeneous in the polymer distributed) iron chloride and the polymer matrix without any added iron. The detector artifacts are almost completely removed in those images. \textbf{(b)} Radial profiles and standard error of the mean of the calculated $g^2$ of two differently sized nanoparticles in the two different polymer matrices. None of the expected features are visible in the reconstruction. }
+			\caption{Radial profiles of $g^2$ for different nanoparticle samples.}
+			\end{subfigure}
+	\label{fig:resnanorad}
+	\caption[Results nanoparticles]{\textbf{(a)} 2d images of the calculated $g^2$ of fluorescence patterns recorded on the octal detector of two nanoparticle-in-copolymer samples with 10\,nm and 20\,nm nominal diameter in comparison to two different baseline samples, (mostly homogeneous in the polymer distributed) iron chloride and the polymer matrix without any added iron. The detector artifacts are almost completely removed in those images. \textbf{(b)} Radial profiles of the calculated $g^2$ of two differently sized nanoparticles in the two different polymer matrices after applying a linear Savitzky-Golay filter (window 3 pixel $\overset{\scriptscriptstyle\wedge}{=}$ 0.02\,nm$^{-1}$). The color bands denote the standard error of the radial mean. None of the expected features are clearly visible in the reconstruction. }
 	\label{fig:resnano}
 \end{figure}
 
 The mean number of counted signal photons per pixel after filtering is $0.03\pm0.01$ for the nanoparticle samples as well as the iron chloride reference sample, the number of images analyzed has been limited to 30,000 for each sample, with the exception of the "10\,nm in PS" sample only having 25,000 usable shots after filtering. At similar signal photon counts on the octal as observed for the foils on the dual detector, the peak in the spectrum at the energy of the FEL beam is more pronounced, leading to difficulties distinguishing higher numbers of photons. Hence, only one and two photon hits are used in the photon discretization (see \fref{fig:spectrum_nano} for an example).
 
-Using a sample with just the polymer, without any added iron (neither nanoparticles nor atomic), the influence of air scattering on the correlations can be examined and in the results of the iron chloride sample (having similar numbers of signal photons), the effect of uncorrected detector artifacts could be seen. Neither seem to causes a strong correlation signal (see \fref{fig:resnano2d}).
+Using a sample with just the polymer, without any added iron (neither nanoparticles nor atomic), the influence of air scattering on the correlations can be examined and in the results of the iron chloride sample (having similar numbers of signal photons), the effect of uncorrected detector artifacts could be seen. Neither seem to causes a strong correlation signal (see \fref{fig:resnano2d}). The strength of the noise as quantified by the standard deviation over pixels outside the center area of the 2d-reconstruction of the samples is (1.4$\pm$0.1)10$^{-4}$.
 
-In the radially averaged $g^2$ of the four different samples neither a feature corresponding to the distance of aggregated particles (as visible in the SAXS measurements)  nor a minumum at $q\approx4.5/r$, indicative of spherical samples, can be distinguished. The strengh of the noise (as quantified by the standard deviation over the images)
+In the radially averaged $g^2$ of the four different samples neither a feature corresponding to the distance of aggregated particles (as visible in the SAXS measurements)  nor a minimum at $q\approx4.5/r$, indicative of spherical samples, can be distinguished. 
 \FloatBarrier
 \subsection{Imaging Crystals}
 
