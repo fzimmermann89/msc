@@ -4,7 +4,7 @@ As the main principle of IDI is using intensity correlations of X-ray fluorescen
 
 
 \section{X-Ray Fluorescence}
-X-ray fluorescence is emitted if atoms are ionised leaving vacancies in the inner shells, which are subsequently filled by electrons of higher energy levels while the energy difference is emitted as photons  (see \fref{fig:levels} for the usual naming convention), compared to the non-radiating Auger decay which, for K-shell vacancies, is more likely for lighter atoms (up to atomic number ~30) \cite{santra2009}.  The finite lifetime of the excited states cause a predominantly Lorentzian line shape \cite{attwood1999,van2001}. In the experimental section, iron, copper and gallium atoms are considered - the relevant emission energies, the (experimental) line widths and relative intensities are shown in \fref{tab:elements}.   Roughly, the $K_\alpha$ line widths correspond to coherence times in the 0.4-0.8\,fs range \cite{krause1979}. The cross section for $K$-fluorescence is the highest just above the $K$-absorption edge and, for example for iron, an order of magnitude higher than the coherent cross section (see \fref{fig:cross}).
+X-ray fluorescence is emitted if atoms are ionised leaving vacancies in the inner shells, which are subsequently filled by electrons of higher energy levels while the energy difference is emitted as photons  (see \fref{fig:levels} for the usual naming convention), compared to the non-radiating Auger decay which, for K-shell vacancies, is more likely for lighter atoms (up to atomic number ~30) \cite{santra2009}.  The finite lifetime of the excited states cause a predominantly Lorentzian line shape \cite{attwood1999,van2001}. In the experimental section, iron, copper and gallium atoms are considered - the relevant emission energies, the experimental line widths and relative intensities are shown in \fref{tab:elements}.   Roughly, the $K_\alpha$ line widths correspond to coherence times in the 0.4-0.8\,fs range \cite{krause1979}. The cross section for $K$-fluorescence is the highest just above the $K$-absorption edge and, for example for iron, an order of magnitude higher than the coherent cross section (see \fref{fig:cross}).
 
 \begin{figure}
 	\centering
@@ -73,19 +73,16 @@ and its normalized version, the complex degree of (self-)coherence $\gamma$, as
 \begin{equation}
 \gamma(\tau)=\frac{\Gamma(\tau)}{\Gamma(0)} =  \frac{\Gamma(\tau)}{<I>} \,.
 \end{equation} 
-Now \fref{eq:interference} can be written as $I=I_{1}+I_{2}+2 \sqrt{I_{1} I_{2}} \operatorname{Re}\left[\gamma(\tau)\right]$ and (again for equal intensities) the visibility is $V(\tau)=\left|\gamma(\tau)\right|$ \cite{zernike1938,loudon2000}.
+Now \fref{eq:interference} can be written as $I=I_{1}+I_{2}+2 \sqrt{I_{1} I_{2}} \operatorname{Re}\left[\gamma(\tau)\right]$ and (again for equal intensities) the visibility is $V(\tau)=\left|\gamma(\tau)\right|$ \cite{zernike1938,loudon2000}. As the Wiener Khinchin theorem connects the power spectrum $F(w)$ with $\gamma$,
+\begin{equation}
+	F(\omega)=\frac{1}{2 \pi} \int_{-\infty}^{\infty} \gamma(\tau) \exp (\mathrm{i} \omega \tau)  \dif \tau \,,
+\end{equation}
+the visibility is a function of the fourier transformed spectrum \cite{lajunen04}.
 
 The \textit{coherence time }shall describe at which delay the visibility falls to approximately zero. One possible definition by Mandel based on the complex degree of coherence,
 \begin{equation}
 \tau_c = \int_{-\infty}^{\infty} \left| \gamma(\tau)\right|^2 \diff \tau 
-\end{equation} will be used in the following. Other definitions commonly used are equivalent up to a constant factor and lead generally to coherence times of the same order of magnitude \cite{mandel1959,goodman2000}. 
-
-The Wiener Khinchin theorem connects the power spectrum $F(w)$ with $\gamma$ \cite{goodman2000,lajunen04}
-\begin{equation}
-	F(\omega)=\frac{1}{2 \pi} \int_{-\infty}^{\infty} \gamma(\tau) \exp (\mathrm{i} \omega \tau)  \dif \tau \,.
-\end{equation}
-
-As a relevant example, for an exponentially decaying electric field envelope\footnote{Corresponding to an intensity/photon number decay with time constant $\sfrac{\tau}{2}$} $E(t)=\Theta(t)e^{-t/\tau_E}$, the power spectrum is Lorentzian with an angular frequency FWHM of $\Delta \omega=\frac{2}{\tau_E}$,
+\end{equation} will be used in the following. Other definitions commonly used are equivalent up to a constant factor and lead generally to coherence times of the same order of magnitude \cite{mandel1959,goodman2000}. As a relevant example for inner shell fluorescence, for an exponentially decaying electric field envelope\footnote{Corresponding to an intensity/photon number decay with time constant $\sfrac{\tau}{2}$} $E(t)=\Theta(t)e^{-t/\tau_E}$, the power spectrum is Lorentzian with an angular frequency FWHM of $\Delta \omega=\frac{2}{\tau_E}$,
 \begin{equation}
 \left|\int_{0}^{\infty}  e^{-t/\tau_E} e^{-iwt} \dif t \right|^2 \propto  \frac{1}{1/\tau_E^2+w^2} \,,
 \end{equation}
@@ -98,14 +95,14 @@ and numerator and denominator of the complex degree of coherence are
 &=\frac{\tau_E}{2}  \,.
 \numberthis
 \end{align*}
-Hence, $\left<\gamma(\tau)\right>=e^{-|\tau/| \tau_E}$,  and the coherence time as defined is above is $\tau_c=\int_{-\infty}^{\infty} \left| \gamma(\tau)\right|^2 \diff \tau=\tau_E=\sfrac{2\hbar}{\Delta E}$ \cite{goodman2000,pollnau2020}.
+Hence, $\left<\gamma(\tau)\right>=e^{-|\tau/| \tau_E}$,  and the coherence time as defined is above is accordingly $\tau_c=\int_{-\infty}^{\infty} \left| \gamma(\tau)\right|^2 \diff \tau=\tau_E=\sfrac{2\hbar}{\Delta E}$ \cite{goodman2000,pollnau2020}.
 
 
 
  \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/michelson.pdf}
-	\caption[Schematic of an interferometer]{Schematic of an interferometer: Light of (a Gaussian) light source with finite coherence time is split and interference with a delayed copy is observed. The time averaged intensity measured by an detector changes with the delay time. }
+	\caption[Schematic of an interferometer]{Schematic of an interferometer: Light of a Gaussian light source with finite coherence time is split and interference with a delayed copy is observed. The time averaged intensity measured by an detector changes with the delay time. }
 	\label{fig:michelson}
 \end{figure}
 
@@ -138,8 +135,7 @@ If the distances from $\vec{r}$ to the two slits are (approximately) equal, $R_{
 \end{align*}
 
 
-and the visibility can be identified as the modulus of $g^1$ \cite{loudon2000,ou2017}.
-
+and the visibility can be identified as the modulus of $g^1$ \cite{loudon2000,ou2017}. 
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.53\textwidth}
@@ -152,7 +148,7 @@ and the visibility can be identified as the modulus of $g^1$ \cite{loudon2000,ou
 	\caption{Two photon interference in HBT.}
 	\label{fig:twophoton}
 \end{subfigure}
-\caption[Schematic of a double slit and two photon interference in  HBT experiments]{\textbf{(a)} Monochromatic light goes through slits located at $R_1$ and $R_2$. The intensity at a position $r$ on the scree (in distance $d$) is the superposition of both paths.  If the slits are within the lateral coherence area of the source, the visibility of the interference pattern depends on the path length difference in comparison to the coherence time $\tau$.
+\caption[Schematic of a double slit and two photon interference in  HBT experiments]{\textbf{(a)} Monochromatic light goes through slits located at $R_1$ and $R_2$. The intensity at a position $r$ on the screen in distance $d$ is the superposition of both paths.  If the slits are within the lateral coherence area of the source, the visibility of the interference pattern depends on the path length difference in comparison to the coherence time $\tau$.
 In the Hanbury Brown Twiss experiment\textbf{(b)} are two indistinguishable two photon states, illustrated as dashed and  continuous lines respectively: Either simultaneously a photon from emitter 1 is detected by detector A and from emitter 2 by detector B or from emitter 1 by detector B and from emitter 2 by detector A.}
 \end{figure}
 
@@ -174,7 +170,7 @@ For classical fields, this is equivalent  to normalized correlations of intensit
 
 \paragraph{Van Cittert–Zernike}
 The Van Cittert–Zernike theorem establishes that in the far field, the coherence function of a 
-quasi-monochromatic but spatially incoherent light source is proportional to the 2D Fourier transform intensity distribution of the source. Carter and Wolf introduced a generalization for three dimensional sources (without the need for a small angle approximation), showing that in the case of an completely incoherent source field, the first order coherence in the far field is proportional to the 3D Fourier transform of the source's intensity distribution \cite{rosen1996, goodman2005, carter1981}:
+quasi-monochromatic but spatially incoherent light source is proportional to the 2D Fourier transform intensity distribution of the source. Carter and Wolf introduced a generalization for three dimensional sources without the need for a small angle approximation, showing that in the case of an completely incoherent source field, the first order coherence in the far field is proportional to the 3D Fourier transform of the source's intensity distribution \cite{rosen1996, goodman2005, carter1981}:
 \begin{equation}
 	g^{(1)}(\vec{r}_1,\vec{r}_2) \propto I_0^{-1} \int_{S} I_s(\vec{r}) e^{ik(R_1-R_2)} \difc \vec{r} \approx I_0^{-1} \int_{S} I_s(\vec{r}) e^{-ik\vec{r}(\vec{r_1}-\vec{r_2})} \difc \vec{r}
 	\label{eq:vcz}
@@ -183,9 +179,9 @@ with the source volume $S$ and intensity distribution $I_s$, total source intens
 
 
 \section{Hanbury-Brown Twiss Experiment}
-Hanbury-Brown and Twiss first used the correlation between the intensities captures by photomultiplier tubes to measure the angular size of stars  \cite{hanbury1956}. The underlying effect can be explained based on (semi-)classical coherence theory for chaotic light sources \cite{baym1997,goodman2000}:
+Hanbury-Brown and Twiss first used the correlation between the intensities captures by photomultiplier tubes to measure the angular size of stars  \cite{hanbury1956}. The underlying effect can be explained based on semi-classical coherence theory for chaotic light sources \cite{baym1997,goodman2000}:
 
-If the sources $A$ and $B$ (in the original experiment different parts of the observed star) produce each spherical electromagnetic waves with random but constant phases $\phi_{A,B}$, such that (ignoring polarization) $E_{A,B}=c_{A,B} e^{i k\left|\vec{r}-\vec{r}_{1,2}\right|+i \phi_{A,B}} /\left|\vec{r}-\vec{r}_{A,B}\right|$, the total intensity $I_{1}$ at detector 1 (and similar at detector 2) is
+If the sources $A$ and $B$ (in the original experiment different parts of the observed star) produce each spherical electromagnetic waves with random but constant phases $\phi_{A,B}$, such that (ignoring polarization) $E_{A,B}=c_{A,B} e^{i k\left|\vec{r}-\vec{r}_{1,2}\right|+i \phi_{A,B}} /\left|\vec{r}-\vec{r}_{A,B}\right|$, the total intensity $I_{1}$ at detector 1 is
 \begin{equation}
 	I_{1} =
 	\frac{1}{L^{2}}\left(
@@ -195,7 +191,7 @@ If the sources $A$ and $B$ (in the original experiment different parts of the ob
 	+c_A     c_B^{*} e^{-i\left(k\left(r_{1 b}-r_{1 a}\right)+\phi_{B}-\phi_{A}\right)}
 	\right)
 \end{equation}
-with $r_{1 a}$ the distance from source $A$ to detector 1 etc. 
+with $r_{1 a}$ the distance from source $A$ to detector 1 etc. and similar at detector 2.
 Averaging over many independent realizations of the random phases leads to the average intensities in the two detectors,
 \begin{equation}
 	\left\langle I_{1}\right\rangle=\left\langle I_{2}\right\rangle=\frac{1}{L^{2}}\left(\left\langle|c_A|^{2}\right\rangle+\left\langle|c_B|^{2}\right\rangle\right)
@@ -216,8 +212,8 @@ For a large enough distance between the sources and detectors $(L \gg R)$, the s
 \begin{equation}
 	g^2\left(\vec{k_1}-\vec{k_2}\right)-1\propto \cos{\left(\vec{R} \cdot\left(\vec{k}_{2}-\vec{k}_{1}\right)\right)}
 \end{equation} 
-where $\vec{k}_{1,2}=k \vec{r}_{1,2}$ is the wave vector of the light seen in detector $1$/detector $2$. As the modulation frequency of the the intensity correlation is depended $R$, the separation of the two sources (i.e the size of the star) can be recovered.
-\clearpage
+where $\vec{k}_{1,2}=k \vec{r}_{1,2}$ is the wave vector of the light seen in detector $1$/detector $2$. As the modulation frequency of the the intensity correlation is depended $R$, the separation of the two sources, i.e the size of the star, can be recovered.
+
 \section{Incoherent Diffractive Imaging}
 Based on the HBT experiment, a simplified explanation of Incoherent Diffractive Imaging can easily be made for thermal light sources in a classical view by application of the Siegert relation.
 
@@ -244,7 +240,7 @@ This is the basic principle used in IDI to recover three dimensional spatial inf
 \end{figure}
 
 
-A more detailed quantum mechanical treatment considers the mixtures of the probability amplitudes of emission and detection at the two detectors (as the individual paths are indistinguishable), leading what was shown as an equivalent description of the HBT effect for thermal light sources \cite{fano1961,sudarshan1963,glauber2006}, but allows the treatment of non classical light sources such as single photon emitters \cite{mandel1995,classen2017}. This introduces a correction term to the equivalent of the Sieger of the order of $1/N$ with $N$ the number of emitters,
+A more detailed quantum mechanical treatment considers the mixtures of the probability amplitudes of emission and detection at the two detectors as the individual paths are indistinguishable, leading what was shown as an equivalent description of the HBT effect for thermal light sources \cite{fano1961,sudarshan1963,glauber2006}, but allows the treatment of non classical light sources such as single photon emitters \cite{mandel1995,classen2017}. This introduces a correction term to the equivalent of the Sieger of the order of $1/N$ with $N$ the number of emitters,
 \begin{equation}
 	g^2(\vec{r_1},\vec{r_2}) = 1+ |g^1(\vec{r_1},\vec{r_2}) |^2 - \frac{2}{N} ,
 \end{equation}
@@ -384,7 +380,7 @@ Even though the number of from the different effects discussed above are not com
 
 
 \paragraph{Estimation of the Noise}
-The variance of a product of (uncorrelated) photon counts following the negative binomial distribution of \fref{eq:negbinomialdist} is
+The variance of a product of uncorrelated photon counts following the negative binomial distribution of \fref{eq:negbinomialdist} is
 \begin{equation}
 	\Var_{p\cdot p}= \Var_p^2 +2 \mu^2\Var_p	= \mu^4 \frac{2 M + 1}{M^2 + 2}+ \mu^3 \frac{M+1}{M} + \mu^2 \,.
 \end{equation}
@@ -408,7 +404,7 @@ as an estimation of the Signal to Noise Ratio(SNR), which will be further examin
 
 \section{Kossel Lines}
 \label{sec:kossel}
-X-ray radiation  originating from \textit{within} a single crystal (such as fluorescence) can get Bragg reflected at the lattice planes of the crystal, causing intensity variations in $90^o-\theta_{hkl}$ around the direction $\vec{k}_{hkl}$ (perpendicular to the planes described by the Laue indices $hkl$), with $\theta_{hkl}$ the corresponding Bragg angle, forming the \textit{Kossel Cones} \cite{cowley1995}. On the spherical detector centered at at the crystal, the points with influenced intensity, the \textit{Kossel lines} (or, as they are more commonly called in electron microscopy, \text{Kikuchi lines}) would hence lie on circles, for a flat detector on general conic sections (see \fref{fig:kossel} for an illustration).
+X-ray radiation  originating from \textit{within} a single crystal, i.e fluorescence, can get Bragg reflected at the lattice planes of the crystal, causing intensity variations in $90^o-\theta_{hkl}$ around the direction $\vec{k}_{hkl}$ (perpendicular to the planes described by the Laue indices $hkl$), with $\theta_{hkl}$ the corresponding Bragg angle, forming the \textit{Kossel Cones} \cite{cowley1995}. On the spherical detector centered at at the crystal, the points with influenced intensity, the \textit{Kossel lines} (or, as they are more commonly called in electron microscopy, \text{Kikuchi lines}) would hence lie on circles, for a flat detector on general conic sections (see \fref{fig:kossel} for an illustration).
 
 The visibility of the Kossel lines is governed by the same extinction rules as for the Bragg reflexes -- the structure factor $F_{hkl}$ has to be non-zero \cite{cowley1995}. For a zinc blende structure (such as GaAs) with atomic scattering factors $f_a$ and $f_b$, the structure factor is
 \begin{align}
