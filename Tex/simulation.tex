@@ -187,41 +187,31 @@ To evaluate the different approaches, for a grating with pitch 50\,nm, line widt
 
 	As IDI is based on $g^2(\Delta \vec{q})$, for a set of accessible $\vec{q}$ determined by the experimental geometry ($k$, detector size and distance), IDI can give information about $S(\vec{q})$ at higher $\left|\vec{q}\right|$ than a traditional scattering setup, increasing the numerical aperture, in a small angle regime up to a factor of two. With a flat detector, compared  IDI can give access to a three dimensional volume in reciprocal space, as shown in \fref{fig:accesibleq} and, with greater $q_z$ coverage the greater the curvature of the Ewald sphere is. This, for example, gives access to multiple Bragg peaks in a single crystal experiment. 
 	 as shown in the simulation in \fref{fig:accesiblebraggq}, but leads to non trivial shape of the accessible volume. 
-	 
-\subsection{Comparison of Normalization Techniques}
-Different Normalization schemes were evaluated on line profiles through the respective reconstruction of a simulated grating. The shot intensity was drawn from a normal distribution with unit mean and 0.3 standard deviation, the pixel intensity was by two sinusoidal functions of coprime frequency, resulting in a standard deviation of the normalized sensitivity of 0.3. The results are shown in \fref{fig:norm_comp}.
-The normalization by both the pulse intensity and pixel sensitivity as estimated from the means along pixels and shots, respectively, can supress both influences sufficiently.
-\subsection{Parameters Influencing the Signal and Noise Characteristics}
-\paragraph{Detector Size}
-	
-	To asses the influence of the number of pixels of an detector on the SNR, a simulation for a 1\,um thick Copper foil in an 100\,nm FWHM focus was performed. The detector size was varied from 64x64 to 3072x3072 pixels and always placed at the same distance of 1\,m, keeping the mean photon count per pixel constant. The number of correlation averaged over in the reconstruction increases linear with the number of pixels. For the SNR calculations, the signal is defined as peak intensity, the noise as the standard deviation over independent simulations.  As show in \fref{fig:SNRdetsize}, under these conditions, the SNR is proportional to the square root of the number of pixels of the detector. 
-
-
 
 \begin{figure}
 	\centering
 	\begin{tabular}[t]{cc}
 		\begin{tabular}{c}
-		\smallskip
-		\begin{subfigure}[t]{0.42\textwidth}
-			\centering
-			\includegraphics[width=0.9\textwidth]{images/accessibleq2.png}
-			\caption{Accessible reciprocal space compared to CDI }
-			\label{fig:accesibleq}
-		\end{subfigure}\\
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-			\includegraphics[width=0.9\textwidth]{images/accessibleq.png}
-			\caption{Accessible reciprocal space with Bragg peaks}
-			\label{fig:accesiblebraggq}
-		\end{subfigure}
-	\end{tabular}
+			\smallskip
+			\begin{subfigure}[t]{0.42\textwidth}
+				\centering
+				\includegraphics[width=0.9\textwidth]{images/accessibleq2.png}
+				\caption{Accessible reciprocal space compared to CDI }
+				\label{fig:accesibleq}
+			\end{subfigure}\\
+			\begin{subfigure}[t]{0.4\textwidth}
+				\centering
+				\includegraphics[width=0.9\textwidth]{images/accessibleq.png}
+				\caption{Accessible reciprocal space with Bragg peaks}
+				\label{fig:accesiblebraggq}
+			\end{subfigure}
+		\end{tabular}
 		& 
-	\begin{subfigure}{0.52\textwidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/pairsnoise.pdf}
-	\caption{Correlation pairs and noise dependence on $\vec{q}$ } 
-\end{subfigure}\\
+		\begin{subfigure}{0.52\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{images/pairsnoise.pdf}
+			\caption{Correlation pairs and noise dependence on $\vec{q}$ } 
+		\end{subfigure}\\
 	\end{tabular}
 	\caption[Accessible reciprocal space]{The accessible reciprocal space with an 2048x2048\,pixel (100\,um pixelsize) at 12.5\,cm distance and 9.2\,keV is shown in a) and b). In a), the surface of the Ewald sphere accessible in a diffraction experiment is shown in green for comparison. IDI allows a reconstruction of a three dimensional volume. In b), the position of GaAs Bragg peaks as determined by finding local maxima (>4 standard deviations) in the reconstruction is shown inside this volume. As the accessible $q_z$ is depended on $q_x$/$q_y$ and low near the limits of the latter, a precise alignment of the detector with regard to the lattice planes is necessary to be able to image the maximal number of peaks. Using a square, centered, planar detector with uniform pixelsize, the number of correlation pairs for resulting in the same $\vec{q}$ depends on $\vec{q}$ as shown in on the left of c) for a $q_z=0$ slice. The noise (calculated as the standard deviation over 100 independent simulations) is therefore also non-uniform, as shown on the right of c).}
 	
@@ -233,6 +223,18 @@ The normalization by both the pulse intensity and pixel sensitivity as estimated
 	\caption[Comparison of Normalization Techniques]{Comparison of different normalization schemes for a simulated grating with 30\% standard deviation in the shot intensity and 30\% standard deviation in the pixel sensitivity. The normalization by both the pixel mean and the shot mean reduces most artifacts and results in a negligible offset.}
 	\label{fig:norm_com[]}
 \end{figure}
+
+\subsection{Comparison of Normalization Techniques}
+Different Normalization schemes were evaluated on line profiles through the respective reconstruction of a simulated grating. The shot intensity was drawn from a normal distribution with unit mean and 0.3 standard deviation, the pixel intensity was by two sinusoidal functions of coprime frequency, resulting in a standard deviation of the normalized sensitivity of 0.3 and an arbitrary striped binary mask was applied. The mean photon count in each of the 1024 x 8 pixel was simulated as 0.5 and 150 shots were used. The results are shown in \fref{fig:norm_comp}.
+Separate normalization of each shot according to \fref{eq:normshot}  followed by averaging removed the influence of the correlation between shots, but an oscillation due to the pixel sensitivity changes is visible, whereas pixel normalization removes this artifacts but leaves an offset. The normalization by both the pulse intensity and pixel sensitivity as estimated from the means along pixels and shots, respectively, can suppress both variations sufficiently. This normalization will be used in all following simulations under different conditions. No major artifacts are visible in the results throughout this chapter, further underlying the sufficiency of this approach.
+
+\subsection{Parameters Influencing the Signal and Noise Characteristics}
+\paragraph{Detector Size}
+	
+	To asses the influence of the number of pixels of an detector on the SNR, a simulation for a 1\,um thick Copper foil in an 100\,nm FWHM focus was performed. The detector size was varied from 64x64 to 3072x3072 pixels and always placed at the same distance of 1\,m, keeping the mean photon count per pixel constant. The number of correlation averaged over in the reconstruction increases linear with the number of pixels. For the SNR calculations, the signal is defined as peak intensity, the noise as the standard deviation over independent simulations.  As show in \fref{fig:SNRdetsize}, under these conditions, the SNR is proportional to the square root of the number of pixels of the detector. 
+
+
+
 
 \paragraph{Number of Images}
 As shown in \fref{fig:SNRNimages} if only considering shot and phase noise (uncorrelated between different  images), the SNR scales with the square root of the number of images.  This can be used to estimate the number of shots necessary to achieve a SNR greater than three to be able to experimentally verify IDI as an imaging method. Systematic noise sources causing correlated noise does not follow this relation and should be minimized, e.g. by masking out affected areas of the detector.
