@@ -189,7 +189,8 @@ To evaluate the different approaches, for a grating with pitch 50\,nm, line widt
 	 as shown in the simulation in \fref{fig:accesiblebraggq}, but leads to non trivial shape of the accessible volume. 
 	 
 \subsection{Comparison of Normalization Techniques}
-
+Different Normalization schemes were evaluated on line profiles through the respective reconstruction of a simulated grating. The shot intensity was drawn from a normal distribution with unit mean and 0.3 standard deviation, the pixel intensity was by two sinusoidal functions of coprime frequency, resulting in a standard deviation of the normalized sensitivity of 0.3. The results are shown in \fref{fig:norm_comp}.
+The normalization by both the pulse intensity and pixel sensitivity as estimated from the means along pixels and shots, respectively, can supress both influences sufficiently.
 \subsection{Parameters Influencing the Signal and Noise Characteristics}
 \paragraph{Detector Size}
 	
@@ -226,7 +227,12 @@ To evaluate the different approaches, for a grating with pitch 50\,nm, line widt
 	
 \end{figure}
 
-
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/normalisation_comp.pdf}
+	\caption[Comparison of Normalization Techniques]{Comparison of different normalization schemes for a simulated grating with 30\% standard deviation in the shot intensity and 30\% standard deviation in the pixel sensitivity. The normalization by both the pixel mean and the shot mean reduces most artifacts and results in a negligible offset.}
+	\label{fig:norm_com[]}
+\end{figure}
 
 \paragraph{Number of Images}
 As shown in \fref{fig:SNRNimages} if only considering shot and phase noise (uncorrelated between different  images), the SNR scales with the square root of the number of images.  This can be used to estimate the number of shots necessary to achieve a SNR greater than three to be able to experimentally verify IDI as an imaging method. Systematic noise sources causing correlated noise does not follow this relation and should be minimized, e.g. by masking out affected areas of the detector.
