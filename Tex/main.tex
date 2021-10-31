@@ -30,6 +30,25 @@
 \usepackage{placeins} %[section]  damit Abbildungen und Tabellen  in ihre Section bleiben
 \usepackage{blindtext} %Einfügen von Blindtext über \blindtext
 \usepackage{siunitx} %Einstellungen für Dezimaltrennzeichen und Definitionen in siunitx.cfg
+
+\newcommand\textmicrometer{~{\textmu}m}
+\newcommand\micrometer{%
+	\ifmmode\textnormal{\textmicrometer}%
+	\else\textmicrometer%
+\fi}
+
+\newcommand\textmicroliter{~{\textmu}l}
+\newcommand\microliter{%
+	\ifmmode\textnormal{\textmicroliter}%
+	\else\textmicroliter%
+\fi}
+
+\newcommand\textmicrojoule{~{\textmu}J}
+\newcommand\microjoule{%
+	\ifmmode\textnormal{\textmicrojoule}%
+	\else\textmicrojoule%
+\fi}
+
 \usepackage[autostyle=true,german=quotes]{csquotes} %Verwendung von Anführungszeichen über \enquote{Text}
 \usepackage[toc]{appendix} %um eine Titelseite "Anhang" vor dem eigentlichen Anhang einfügen zu können
 
@@ -117,7 +136,7 @@
 }%
 \newcommand*{\fancyrefalgolabelprefix}{algo}
 \frefformat{plain}{\fancyrefalgolabelprefix}{%
-	algorithm \fancyrefdefaultspacing#1%
+	algorithm\fancyrefdefaultspacing#1%
 }%
 %gleichungen ohne klammer referenzieren
 \frefformat{plain}{\fancyrefeqlabelprefix}{%
@@ -293,7 +312,7 @@
 	\acro{CDI}{Coherent Diffractive Imaging}
 	\acro{IDI}{Incoherent Diffractive Imaging}
 	\acro{FEL}{Free-electron Laser}
-	\acro{HBT}{Hanbury-Brown Twiss}
+	\acro{HBT}{Hanbury Brown and Twiss}
 	\acro{NP}{Nano particle}
 	\acro{PS}{Polystyrene}
 	\acro{MMA}{Methylmethacrylate}
@@ -305,6 +324,11 @@
 	\acro{FWHM}{Full width at half maximum}
 	\acro{TEM} {Transmission electron microscopy}
 	\acro{SAXS}{Small angle X-ray scattering}
+	\acro{FFT}{Fast Fourier transform}
+	\acro{SLAC}{SLAC National Accelerator Laboratory}
+	\acro{LCLS}{Linac Coherent Light Source}
+	\acro{SACLA}{SPring-8 Angstrom Compact free electron Laser}
+	\acro{SSRL}{Stanford Synchrotron Radiation Lightsource}
 \end{acronym}
 
 \endgroup

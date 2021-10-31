@@ -2,23 +2,23 @@
 \label{chap:simulation}
 
 
-To illustrate the working principle of IDI, to confirm the validity of the analysis code that will be used on the experimental data, and to examine the Signal-to-Noise characteristics, simulations were performed.
-In this chapter, first, the methods developed to perform the simulation of the speckle pattern and the reconstruction of the structure factor by calculation of $g^2$ are briefly presented before the results for different experimental conditions and parameters are shown. Ultimately, the results of these simulations are used to estimate the parameters for an experimental setup.
+Simulations were performed to illustrate the working principle of IDI, to confirm the validity of the analysis code that will be used on the experimental data, and to illustrate the Signal-to-Noise characteristics. 
+In this chapter, the methods developed to perform the simulation of the speckle pattern, and the reconstruction of the structure factor by calculation of $g^2$ are briefly presented before the results for different experimental conditions and parameters are shown. Ultimately, the results of these simulations are used to estimate the parameters for an experimental setup.
 
 \section{Time Independent Simulations}
-If it is assumed that the object to be imaged consists of discrete emitters, each emitting with an emission probability according the to the local intensity of the exciting X-ray and the fluorescence yield a monochromatic spherical waves with a randomly chosen phase, the simulation of the speckle pattern can be performed time independently as superposition of scalar electrical fields.  The complex summation of $N$ fields with phases $\phi_n$ from  emitted from $r_n$ chosen randomly out of all possible atom positions inside the focal volume according to the emission probability,
+If it is assumed that the object to be imaged consists of discrete emitters, each emitting, with an emission probability according to the local intensity of the exciting X-ray and the fluorescence yield, a monochromatic spherical waves with a randomly chosen phase, the simulation of the speckle pattern can be performed time independently as a superposition of scalar electrical fields.  The complex summation of $N$ fields with phases $\phi_n$ from  emitted from $r_n$ chosen randomly out of all possible atom positions inside the focal volume according to the emission probability,
 \begin{equation}
-E(\vec{r})=\sum_n^N \frac{1}{\left|\vec{r}_n-\vec{r}\right|} e^{i(k_n{\left|\vec{r}_n-\vec{r}\right|}+\phi_n)} \,,
+	E(\vec{r})=\sum_n^N \frac{1}{\left|\vec{r}_n-\vec{r}\right|} e^{i(k_n{\left|\vec{r}_n-\vec{r}\right|}+\phi_n)} \,,
 \end{equation}
-gives simulation of the intensity $I=\left|E\right|^2$ at multiple discrete points $r$ on the  detector in this infinite coherence time, stationary sources approximation.  To reduce the influence of the discrete sampling, the simulation is performed at a higher resolution and downsampled by averaging, such that each data point is the average result of multiple calculations. The reduction of speckle contrast by the independent modes in the measurement will be approximated by averaging over different independent calculations (allowing for discrete mode numbers). Poisson sampling the averaged intensity then yields the simulated speckle patterns to be used in the reconstruction. 
-The calculation is performed in parallel using GPU acceleration, resulting in a simple and fast to evaluate model. 
+allows the simulation of the intensity $I=\left|E\right|^2$ at multiple discrete points $r$ on the detector in this infinite coherence time, stationary sources approximation.  The simulation can be performed at a higher resolution and downsampled by averaging to reduce the influence of the discrete sampling. The reduction of speckle contrast by the independent modes in the measurement will be approximated by averaging different independent calculations allowing for discrete mode numbers. Poisson sampling the averaged intensity then yields the simulated speckle patterns to be used in the reconstruction. 
+The calculation is performed in parallel using GPU acceleration, resulting in a simple model fast to calculate.
 
 \section{Time Dependent Simulations}
 \label{sec:timedependend}
-The Lorentzian character of the fluorescence resulting in a finite coherence time as well as the pulse duration can be introduced by performing the simulations in the time domain.
-Each of the $N$ atoms is assigned an emitting time $t_{n}$ out of a random distribution according to the cycle-averaged intensity of the excitation pulse at its position. Starting from this emitting time, the atom emits a quasi-monochromatic field with exponential decaying envelope with a decay time chosen to match the fluorescence lifetime.
-For each discrete pixel on the simulated detector, for each atom the distance $d_n$, the arrival time $t'_n=t_n+d_n/c$ of each atom's initial radiance, and its time independent complex field $E_n=\frac{1}{d} e^{ikd_n+\phi_n}$ with initial random phase $\phi$ is calculated.
-The time dependent field for a single emission center frequency $w_0$ is the summation over the decaying field of all atoms,
+The Lorentzian character of the fluorescence resulting in a finite coherence time, as well as the pulse duration, can be introduced by performing the simulations in the time domain.
+Each of the $N$ atoms is assigned an emitting time $t_{n}$ out of a random distribution according to the cycle-averaged intensity of the excitation pulse at its position. Starting from this emitting time, the atom emits a quasi-monochromatic field with an exponentially decaying envelope with a decay time chosen to match the fluorescence lifetime.
+For each discrete pixel on the simulated detector and 	for each atom the distance $d_n$, the arrival time $t'_n=t_n+d_n/c$ of each atom's initial radiance, and its time independent complex field $E_n=\frac{1}{d} e^{ikd_n+\phi_n}$ with initial random phase $\phi$ is calculated.
+The time-dependent field for a single emission center frequency $w_0$ is the summation over the decaying field of all atoms,
 \begin{equation}
 	E(t)=\sum_{n=1}^N  E_n \Theta(t'_n  - t)  e^{-(t-t'_n )/\tau} e^{-iw_0 t}
 	\label{eq:tdsum}
@@ -28,84 +28,85 @@ and the simulated intensity the time integral over the magnitude squared of the 
 	I=\int_0^\infty \left| E(t) \right|^2.
 	\label{eq:tdint}
 \end{equation}
-To efficiently solve this integral for each detector pixel, it can be split into N parts with a constant number atoms which radiations have already arrived, and each of those parts can be solved analytically . For this, first all atoms are sorted by the arrival time at the pixel. At each arrival time $t'_n$, the sum in \fref{eq:tdsum} gets a new term and the field (dropping the overall phase) is calculated as
+To efficiently solve this integral for each detector pixel, it can be split into N parts with a constant number atoms which radiations have already arrived, and each of those parts can be solved analytically . For this, first all atoms are sorted by the arrival time at the pixel. At each arrival time $t'_n$, the sum in \fref{eq:tdsum} gets a new term and the field is calculated as
 \begin{equation}
-	E'(t_n)=E'(t_{n-1})*e^{\sfrac{t_{n-1}-t_n}{\tau}}+E'_n
+	E'(t_n)=E'(t_{n-1})*e^{\sfrac{t_{n-1}-t_n}{\tau}}+E'_n \,,
 \end{equation}
-This can be done with a parallel inclusive scan (as shown in the appendix in \fref{algo:td}), giving the supports for the integral, as show in \fref{fig:tdplot}, which can now be solved as
+where $E'$ denotes $E$ after dropping the overall phase. This can be done with a parallel inclusive scan (as shown in the appendix in \fref{algo:td}), giving the supports for the integral, as show in \fref{fig:tdplot}, which can now be solved as
 \begin{align*}
 	I&=\int_0^\infty \left| E(t) \right|^2 = \sum_{n=1}^{N-1} \int_0^{t_{n+1}-t_n} \left|E(t_n)\right|^2 e^{-2t/\tau} \dif t +\int_0^\infty \left| E(t_N)\right|^2 e^{-2t/\tau} \dif t \\
 	&=  \frac{\tau}{2}  \left|E(t_N)\right|^2 -  \frac{\tau}{2}\sum_{n=1}^{N-1} \left|E(t_n)\right|^2 (e^{-2 (t_{n+1}-t_n)/\tau} -1 ) 
 	\numberthis
 \end{align*}
-The described procedure is efficient in regards of discrete time steps that need to be calculated and can easily be run on a GPU, enabling the simulation of many emitters and long pulse duration, but still more complex than the time independent simulation.
+The described procedure is efficient in regards of discrete time steps that need to be calculated and can easily be run on a GPU, enabling the simulation of many emitters and long pulse duration. However, it still requires significantly more computations than the time independent simulation.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\linewidth]{images/tdplot.pdf}
-	\caption[Integration in time dependent IDI simulation]{To illustrate the integration in the time dependent IDI simulation, the (normalized) scalar field at one point of the detector created by 10 emitting atoms with $\tau$=1\,fs and a pulse FWHM of 2\,fs is shown. For illustration purposes, the variations due to the center frequency are omitted. The solid colors show each atom's field envelope, the line plot the phase correct sum. The simplify the calculations, only the time points marked with stars are calculated. To solve the integral \fref{eq:tdint}, it's sufficient to calculated the squared magnitude at those points and to do a piecewise integration from each star-shaped marker the next dot-shaped marker. The color wheel in the top illustrates the phase encoding in the plot.}
+	\caption[Integration in time0dependent IDI simulation]{To illustrate the integration in the time-dependent IDI simulation, the (normalized) scalar field at one point of the detector created by ten emitting atoms with $\tau$=1\,fs and a pulse FWHM of 2\,fs is shown. For illustration purposes, the variations due to the center frequency are omitted. The solid colors show each atom's field envelope, the line plot the phase correct sum. It is sufficient to calculate the squared magnitude at the points marked with stars and to do a piecewise integration from each star-shaped marker the next dot-shaped marker to solve the integral \fref{eq:tdint}. The color wheel at the top right illustrates the phase encoding in the plot.}
 	\label{fig:tdplot}
 \end{figure}
 
 \section{Detector Effects}
 \label{sec:chargesharing}
-As real pixelated X-ray detectors suffer from charge-sharing between neighboring pixels due to the spatial extend of the charge cloud created by the photons as well as readout noise, an image degradation can be performed to account for these effects: After Poisson sampling the simulated speckle image, for each photon a uniform random position within its pixel is chosen as the center of a Gaussian distribution with $\sigma$=0.1, pixel, similar to the size of the point spread function (PSF) for MPCCD detectors \cite{mpccd}.
+As real pixelated X-ray detectors suffer from charge-sharing between neighboring pixels due to the spatial extent of the charge cloud created by the photons as well as from readout noise, an image degradation can be performed to account for these effects in the simulation: After Poisson sampling the simulated speckle image, for each photon a uniform random position within its pixel is chosen as the center of a Gaussian distribution with a  standard deviation $\sigma$=0.1, pixel, similar to the size of the point spread function (PSF) for MPCCD detectors \cite{mpccd}.
 The signal within each pixel caused by one photon is given by the integral over the Gaussian,
 \begin{equation*}
 	I(\Delta x,\Delta y)=\frac{1}{4} \left(\text{erf}\left(\frac{\sfrac{1}{2}-\Delta x}{\sqrt{2}
 		\sigma}\right)+\text{erf}\left(\frac{\sfrac{1}{2}+\Delta x}{\sqrt{2} \sigma}\right)\right) \left(\text{erf}\left(\frac{\sfrac{1}{2}-\Delta y}{\sqrt{2}
 		\sigma}\right)+\text{erf}\left(\frac{\sfrac{1}{2}+\Delta y}{\sqrt{2} \sigma}\right)\right)
 \end{equation*}
-with $\sigma$ the standard deviation of the Gaussian in pixels and $\Delta x$, $\Delta y$ the distance of the pixel to the drawn photon center. Afterwards, a Gaussian readout noise is added. The effect of this degradation on the spectrum is illustrated in \fref{fig:degrad}.
+ where $\Delta x$, $\Delta y$ denote the distance of the pixel to the sampled photon center. Afterwards, a Gaussian readout noise is added. The effect of this degradation on the spectrum is illustrated in \fref{fig:degrad}.
 
 \section{Reconstruction of the Structure Factor}
-In the approximation given by \fref{eq:idi}, the normalized intensity correlation $g^2(\Delta q)-1$ has to be calculated to recover the structure factor from the simulated fluorescence speckle patterns. The task can be split up into two logical units, the calculation of the autocorrelation as well as the application of a sufficient normalization.
+In the approximation introduced  in \fref{sec:idi}, the normalized intensity correlation $g^2(\Delta q)-1$ has to be calculated to recover the structure factor from the simulated fluorescence speckle patterns. The task can be split up into two logical units, the calculation of the autocorrelation and the application of a sufficient normalization.
 
 \subsection{Calculation of the Autocorrelation}
 The numerator of $g^2$ is the autocorrelation of the recorded intensities $I$ which can be calculated as follows:
 Let $x$ and $y$ describe positions in the image and $z(x,y)$ the distance to the sample, then 
-with $\vec{q}(x,y) = \sfrac{[x y z]}{\sqrt{x ^ 2 + y ^ 2 + z^2(x,y)}}$
+with $\vec{q}(x,y) = \sfrac{[x y z]}{\sqrt{x ^ 2 + y ^ 2 + z^2(x,y)}}$  the correlation averaged over all respective pairs is
 \begin{equation}
-\overline{AC}(\Delta \vec{q}) = 
-\frac{1}{N_p} \sum_{\vec{q}} AC(\vec{q},\vec{q}+\Delta \vec{q})=
-\frac{1}{N_p} \quad \sum^{	\crampedclap{\sfrac{N_x}{2},\sfrac{N_y}{2}}}_{
-	\crampedclap{
-		\begin{subarray}{l}
-		x_1=\shortminus\sfrac{N_x}{2}\\
-		y_1=\shortminus\sfrac{N_y}{2}
-		\end{subarray}
+	\overline{AC}(\Delta \vec{q}) = 
+	\frac{1}{N_p} \sum_{\vec{q}} AC(\vec{q},\vec{q}+\Delta \vec{q})=
+	\frac{1}{N_p} \quad \sum^{	\crampedclap{\sfrac{N_x}{2},\sfrac{N_y}{2}}}_{
+		\crampedclap{
+			\begin{subarray}{l}
+				x_1=\shortminus\sfrac{N_x}{2}\\
+				y_1=\shortminus\sfrac{N_y}{2}
+			\end{subarray}
 	}}\quad
-\sum_{\crampedclap{\qquad\qquad\qquad\qquad
-		\begin{subarray}{l}
-			x_2,y_2 \text{ where} \\ \lfloor q(x_1,y_1)-q(x_2,y_2)\rfloor=\lfloor\Delta\vec{q}\rfloor
-		\end{subarray}}}
-	I(x_1,y_1),I(x_2,y_2)
+	\sum_{\crampedclap{\qquad\qquad\qquad\qquad
+			\begin{subarray}{l}
+				x_2,y_2 \text{ where} \\ \lfloor q(x_1,y_1)-q(x_2,y_2)\rfloor=\lfloor\Delta\vec{q}\rfloor
+	\end{subarray}}}
+	I(x_1,y_1),I(x_2,y_2) \,,
 	\label{eq:correlation}
 \end{equation}
-with $N_p$ the total number of pairs of points on the detector $[x_1 y_1],[x_2,y_2]$  fulfilling the condition. As a complete evaluation using this direct evaluation scales with $O(N^2)$ in the number of pixels, is only useful if only a limited $\vec{q}$ range is of interest and a more efficient method should be used for a full reconstruction.
+with $N_p$ the total number of pairs of points on the detector $[x_1 y_1],[x_2,y_2]$  fulfilling the condition. As a complete evaluation using this direct evaluation scales with $O(N^2)$ in the number of pixels, it is only useful if only a limited $\vec{q}$ range is of interest, and a more efficient method should be used for a full reconstruction.
 
 Making use of the (circular) convolution theorem of the discrete Fourier transformation,
 \begin{equation}
-\operatorname{DFT}_N^{-1}\left[\operatorname{DFT}_N x \cdot \operatorname{DFT}_N x\right]_n=\sum_{\ell=0}^{N-1} y_{\ell} \cdot x_{(n-\ell) \bmod N}
+	\operatorname{DFT}_N^{-1}\left[\operatorname{DFT}_N x \cdot \operatorname{DFT}_N x\right]_n=\sum_{\ell=0}^{N-1} y_{\ell} \cdot x_{(n-\ell) \bmod N}
 \end{equation}
-which after zero-extending the signals x,y to $2N$ reduces to the regular convolution, the autocorrelation of the image can be written as 
+which after zero-extending the signal in x, y from length $N$ to $2N$ reduces to the regular convolution, the autocorrelation of the image can be written as 
 \begin{equation}
-\sum_{\ell=0}^{N-1} I_{\ell} \cdot I_{(\ell+q) \bmod 2N}=\operatorname{DFT}_{2N}^{-1}\left[\left|\operatorname{DFT}_{2N} {x}\right|^2\right]\equiv \operatorname{AC}(I)
-\label{eq:fftcorrelation}
+	\sum_{\ell=0}^{N-1} I_{\ell} \cdot I_{(\ell+q) \bmod 2N}=\operatorname{DFT}_{2N}^{-1}\left[\left|\operatorname{DFT}_{2N} {x}\right|^2\right]\equiv \operatorname{AC}(I)
+	\label{eq:fftcorrelation}
 \end{equation} 
-as $I\in \Re$ and $I_{n\geq N}$=0, allowing the use of fast Fourier transform algorithms and greatly reducing the computational complexity \cite{oppenheim2009}.  In wide-angle setups with non constant $q_z$ and changing angle covered by each pixel a resampling of the recorded images to a regular, three dimensional $q$-grid is performed by assigning each pixel of the image its nearest neighbor in the new grid, averaging over all pixels having the same nearest neighbor and placing the averages at these grid positions without any additional interpolation. 
+as $I\in \Re$ and $I_{n\geq N}$=0, allowing the use of fast Fourier transform (FFT) algorithms and greatly reducing the computational complexity \cite{oppenheim2009}.  In wide-angle setups with non constant $q_z$ and changing angle covered by each pixel a resampling of the recorded images to a regular, three dimensional $q$-grid is performed by assigning each pixel of the image its nearest neighbor in the new grid, averaging over all pixels having the same nearest neighbor and placing the averages at these grid positions without any additional interpolation. 
 
-The number of correlation pairs $N_p$ which contribute to the sum in \fref{eq:fftcorrelation} for each $q$ can be found by performing the same operations with a constant image (of the same shape) $M$ of all ones, leading to the numerator of $g^2$ being $\operatorname{AC}(I)/\operatorname{AC}(M)$ \cite{oppenheim2009,butz2015,nion2008}.
+The number of correlation pairs $N_p$ contributing to the sum in \fref{eq:fftcorrelation} for each $\vec{q}$ can be found by performing the same operations with a constant image (of the same shape) $M$ of all ones, leading to the numerator of $g^2$ being $\operatorname{AC}(I)/\operatorname{AC}(M)$ \cite{oppenheim2009,butz2015,nion2008}.
 
 \subsection{Normalization of the Intensity Correlation}
 \label{sec:normal}
-In the definition of $g^2$ (\fref{eq:g2}), normalization is performed by the product of the \textit{expectation values} of the intensities at the two locations. As these expectation values are influenced by the sample, the geometry, and experimental imperfections, some considerations how to implement this normalization have to be made for calculating $g^2(\Delta\vec{q})$ from measured or simulated fluorescence speckle patterns. 
+In the definition of $g^2$ (\fref{eq:g2}), normalization is performed by the product of the \textit{expectation values} of the intensities at the two locations. As these expectation values are influenced by the sample, the geometry, and experimental imperfections, some considerations on how to implement this normalization have to be made for calculating $g^2(\Delta\vec{q})$ from measured or simulated fluorescence speckle patterns. 
 
 If only a single image is taken, the expectation value for each pixel has to be roughly approximated. This can be done by assuming an equal value for all pixels (and estimating by the mean), which will lead to significant artifacts if, for example, due to the geometry, outside pixels have a much lower true expectation value than pixels in the center of the recorded image.  
 For masked image registration and similar tasks, the cross correlation is commonly normalized by the following (simplified to the relevant case of the autocorrelation) divisor \cite{padfield2010}:
 \begin{equation}
-\frac{\mathit{corr}(\mathit{mask},\mathit{image}) \mathit{corr}(\mathit{image},\mathit{mask})}{\mathit{corr}(\mathit{mask},\mathit{mask})} \,,
-\end{equation} which would correspond to estimation of the expectation values  by the mean over all pixels that form pixel pairs contributing to the value in the reconstruction at a particular $\Delta \vec{q}$, giving an slightly different weighting to the pixels than first first calculating $g^2$ normalized by the true expectation values for each pair and afterwards averaging over the pairs would give.
+	\frac{\mathit{corr}(\mathit{mask},\mathit{image}) \mathit{corr}(\mathit{image},\mathit{mask})}{\mathit{corr}(\mathit{mask},\mathit{mask})} \,,
+	\label{eq:normshot}
+\end{equation} which would correspond to estimation of the expectation values by the mean over all pixels that form pixel pairs contributing to the value in the reconstruction at a particular $\Delta \vec{q}$, giving a slightly different weighting to the pixels than first calculating $g^2$ normalized by the actual expectation values for each pair and afterward averaging over the pairs would give.
 
 If multiple images are recorded or simulated, the expectation value for each pixel can be approximated by its mean over many realizations, i.e. images. To account for fluctuations in the exciting FEL pulse and resulting fluctuations of the fluorescence intensity, under the assumption that the distribution over pixel intensities and FEL intensities are uncorrelated, the expectation value of photon detection probability of each pixel in each shot can be factorized into the product of the probability to detect a photon in a particular pixel and the probability to detect a photon in a shot. Thus, the effect of the FEL intensity fluctuations can be suppressed by normalizing each image by the total intensity, and the uneven probabilities for different pixels by normalizing each pixel by its mean over all images. 
 
@@ -121,11 +122,11 @@ Using the time independent simulation, different simple photon counting methods 
 As the relevant signal for the correlation analysis is the presence of fluorescence photons, but charge sharing and readout noise of the detector as well as the presence of photons caused by air scattering and straylight degrade this signal, different approaches of preprocessing to reduce this degradation were compared:
 
 \begin{itemize}[nosep]
-	\item Using the raw signal
+	\item Using the raw signal.
 	\item Using the raw signal after applying a noise threshold.
-	\item Discretization by closest possible combination of signal and scattering photons for each pixel
-	\item Discretization by maximum likelihood
-	\item Using a droplet algorithm
+	\item Discretization by closest possible combination of signal and scattering photons for each pixel.
+	\item Discretization by maximum likelihood.
+	\item Using a droplet algorithm.
 \end{itemize}
 
 Considering possible combinations of signal and scattering photons by finding  $nE_{fluorescence}+mE_{excitation}$ with integer $n$, $m$ closest to the observed value and only using the signal photon number $n$ for the correlation may reduce the influence of scattering as well as charge sharing, but does not account for the different probabilities of signal and scattering photons. If the detector noise level, the point spread function due to charge sharing as well as the distribution of signal and scattering is known or can be estimated, a Bayesian classifier can be trained on synthetic data, which returns for each observed value on the detector the number of signal photons with the highest probability causing this value (\fref{fig:probs}) and the associated decision boundaries. Depending on the apriori probabilities and the detector characteristics, this maximum likelihood solution can differ from the closest combination. The noise thresholding was done with a threshold of three times the standard deviation of the detector noise. For comparison, the PSANA Photon algorithm, a droplet algorithm considering only the signal photons was used \cite{psana}.
@@ -143,7 +144,7 @@ Considering possible combinations of signal and scattering photons by finding  $
 		\label{fig:probs}
 	\end{subfigure}
 	
-	\caption[Histogram, probabilities and decision boundaries for the photon number under the influence of charge sharing and noise]{For a Poisson distributed signal with mean 0.01 photons/pixel, a Poisson distributed scattering with mean 0.001 photons/pixel and an photon energy of 1.3 times the energy of a signal photon, a charge sharing PSF with $\sigma$ 0.1 pixel and a Gaussian noise with $\sigma$ 0.05 photons, the simulated histogram is shown on the left. Detector noise, charge sharing scattering photons degrade the histogram. The probabilities of an observed energy being caused by a certain number of signal photons is shown on the right, the dashed lines mark the decision boundaries for discrete signal photons of an Bayesian classifier.} 
+	\caption[Histogram, probabilities and decision boundaries for the photon number under the influence of charge sharing and noise]{For a Poisson distributed signal with mean 0.01 photons/pixel, a Poisson distributed straylight with mean 0.001 photons/pixel and an photon energy of 1.3 times the energy of a signal photon, a charge sharing PSF with $\sigma$ 0.1 pixel and a Gaussian noise with $\sigma$ 0.05 photons, the simulated histogram is shown on the left. Detector noise, charge sharing scattering photons degrade the histogram. The probabilities of an observed energy being caused by a certain number of signal photons is shown on the right, the dashed lines mark the decision boundaries for discrete signal photons of an Bayesian classifier.} 
 \end{figure}
 
 
@@ -181,7 +182,7 @@ Considering possible combinations of signal and scattering photons by finding  $
 	\end{adjustwidth}
 \end{table}
 
-To evaluate the different approaches, for a grating with pitch 50\,nm, line width 20\,nm and 100\,nm thickness in a 400\,nm (FWHM) focus, resulting in $10^7$ excited atoms emitting at 10\,keV and a 1024x1024 pixel detector with 50\,um pixel size in 50\,cm distance, independent, 2000 florescence images were simulated. Three different cases were considered: With high signal ($10^5 $photons/image), low signal ($10^4$ photons/image), both having $10^3$ photons at 13\,keV as scattering noise and 500\,ev (gaussian) detector noise as a "high noise" case  with 2.5\,times the scattering and 2\,times the detector noise  ($10^4$ signal photons/image). Charge sharing was in all cases simulated with $\sigma$=5\,um.  For each photon counting approach, normalized intensity correlations were calculated and compared to a reconstruction without noise or charge sharing as ground truth. For the first two cases, the center part of the correlation is show in \fref{fig:photonreconimg}, line profiles through the center and the first maximum for all cases are shown in \fref{fig:photonrecon}. In the different reconstructions, two effects are visible: In comparison with the ground truth, without any correction $g^2$ for low $q$ is overestimated due to the correlation of neighboring pixels by charge sharing and underestimated for the first maximum (see \fref{tab:photonrecon} for detailed values). This effect was slightly reduced by thresholding, and greatly reduced by rounding to the closest combination as well as by the maximum likelihood classification. The PSANA droplet algorithm resulted in an incorrect negative correlation between neighboring pixels and reduced correlation at the first maximum.
+To evaluate the different approaches, for a grating with pitch 50\,nm, line width 20\,nm and 100\,nm thickness in a 400\,nm (FWHM) focus, resulting in $10^7$ excited atoms emitting at 10\,keV and a 1024x1024 pixel detector with 50\,\micrometer pixel size in 50\,cm distance 2000 fluorescence speckle images were simulated. Three different cases were considered: 1) \textit{High Signal}  with $10^5 $ signal photons/image, 2) \textit{Low Signal} with $10^4$ signal photons/image, both having $10^3$ photons at 13\,keV as scattering noise and 500\,eV Gaussian detector noise;  3)  \textit{High Noise} with 2.5\,times the scattering and 2\,times the detector noise  and $10^4$ signal photons/image. Charge sharing was in all cases simulated with $\sigma$=5\,\micrometer.  For each photon counting approach, normalized intensity correlations were calculated and compared to a reconstruction without noise or charge sharing as ground truth. For the first two cases, the center part of the correlation is shown in \fref{fig:photonreconimg}, line profiles through the center, and the first maximum for all cases are shown in \fref{fig:photonrecon}. In the different reconstructions, two effects are visible: In comparison with the ground truth, without any correction $g^2$ for low $q$ is overestimated due to the correlation of neighboring pixels by charge sharing and underestimated for the first maximum (see \fref{tab:photonrecon} for detailed values). This effect was slightly reduced by thresholding, and greatly reduced by rounding to the closest combination as well as by the maximum likelihood classification. The PSANA droplet algorithm resulted in an incorrect negative correlation between neighboring pixels and reduced correlation at the first maximum.
 
 \subsection{Accessible Reciprocal Space}
 
@@ -211,27 +212,29 @@ To evaluate the different approaches, for a grating with pitch 50\,nm, line widt
 			\centering
 			\includegraphics[width=\linewidth]{images/pairsnoise.pdf}
 			\caption{Correlation pairs and noise dependence on $\vec{q}$ } 
+			\label{fig:pairnoise}
 		\end{subfigure}\\
 	\end{tabular}
-	\caption[Accessible reciprocal space]{The accessible reciprocal space with an 2048x2048\,pixel (100\,um pixelsize) at 12.5\,cm distance and 9.2\,keV is shown in a) and b). In a), the surface of the Ewald sphere accessible in a diffraction experiment is shown in green for comparison. IDI allows a reconstruction of a three dimensional volume. In b), the position of GaAs Bragg peaks as determined by finding local maxima (>4 standard deviations) in the reconstruction is shown inside this volume. As the accessible $q_z$ is depended on $q_x$/$q_y$ and low near the limits of the latter, a precise alignment of the detector with regard to the lattice planes is necessary to be able to image the maximal number of peaks. Using a square, centered, planar detector with uniform pixelsize, the number of correlation pairs for resulting in the same $\vec{q}$ depends on $\vec{q}$ as shown in on the left of c) for a $q_z=0$ slice. The noise (calculated as the standard deviation over 100 independent simulations) is therefore also non-uniform, as shown on the right of c).}
+	\caption[Accessible reciprocal space]{The accessible reciprocal space with an 2048x2048\,pixel (100\,\micrometer pixelsize) at 12.5\,cm distance and 9.2\,keV is shown in a) and b). In a), the surface of the Ewald sphere accessible in a diffraction experiment is shown in green for comparison. IDI allows a reconstruction of a three dimensional volume. In b), the position of GaAs Bragg peaks as determined by finding local maxima (>4 standard deviations) in the reconstruction is shown inside this volume. As the accessible $q_z$ is depended on $q_x$/$q_y$ and low near the limits of the latter, a precise alignment of the detector with regard to the lattice planes is necessary to be able to image the maximal number of peaks. Using a square, centered, planar detector with uniform pixelsize, the number of correlation pairs for resulting in the same $\vec{q}$ depends on $\vec{q}$ as shown in on the left of c) for a $q_z=0$ slice. The noise (calculated as the standard deviation over 100 independent simulations) is therefore also non-uniform, as shown on the right of c).}
 	
 \end{figure}
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\textwidth]{images/normalisation_comp.pdf}
-	\caption[Comparison of Normalization Techniques]{Comparison of different normalization schemes for a simulated grating with 30\% standard deviation in the shot intensity and 30\% standard deviation in the pixel sensitivity. The normalization by both the pixel mean and the shot mean reduces most artifacts and results in a negligible offset.}
-	\label{fig:norm_com[]}
+	\includegraphics[width=0.85\textwidth]{images/normalisation_comp.pdf}
+	\caption[Comparison of Normalization Techniques]{Comparison of different normalization schemes for a simulated grating with 30\% of the mean as standard deviation in the shot intensity and 30\% standard deviation in the pixel sensitivity. The normalization by both the pixel mean and the shot mean reduces most artifacts and results in a negligible offset.}
+	\label{fig:norm_com}
 \end{figure}
 
 \subsection{Comparison of Normalization Techniques}
-Different Normalization schemes were evaluated on line profiles through the respective reconstruction of a simulated grating. The shot intensity was drawn from a normal distribution with unit mean and 0.3 standard deviation, the pixel intensity was by two sinusoidal functions of coprime frequency, resulting in a standard deviation of the normalized sensitivity of 0.3 and an arbitrary striped binary mask was applied. The mean photon count in each of the 1024 x 8 pixel was simulated as 0.5 and 150 shots were used. The results are shown in \fref{fig:norm_comp}.
-Separate normalization of each shot according to \fref{eq:normshot}  followed by averaging removed the influence of the correlation between shots, but an oscillation due to the pixel sensitivity changes is visible, whereas pixel normalization removes this artifacts but leaves an offset. The normalization by both the pulse intensity and pixel sensitivity as estimated from the means along pixels and shots, respectively, can suppress both variations sufficiently. This normalization will be used in all following simulations under different conditions. No major artifacts are visible in the results throughout this chapter, further underlying the sufficiency of this approach.
+Different normalization schemes were evaluated on line profiles through the respective reconstruction of a simulated grating. The relative shot intensity was drawn from a normal distribution with unit mean and 0.3 standard deviation, the pixel sensitivity was modeled by two sinusoidal functions of coprime frequency, resulting in a standard deviation of the normalized sensitivity of 0.3, and a binary mask with 10\,pixel wide stripes was applied. The mean photon count in each of the 512 x 8 pixels was simulated as 0.5, and 150 shots were used each time. The results are shown in \fref{fig:norm_com}.
+Separate normalization of each shot according to \fref{eq:normshot}  followed by averaging removed the influence of the correlation between shots, but an oscillation due to the pixel sensitivity changes is visible, whereas pixel normalization removes these artifacts but leaves an offset. The normalization by both the pulse intensity and pixel sensitivity as estimated from the means over pixels and shots, respectively, can suppress both variations sufficiently. This normalization will be used in all following simulations under different conditions. No major artifacts are visible in the results throughout this chapter, further underlying the sufficiency of this approach.
 
 \subsection{Parameters Influencing the Signal and Noise Characteristics}
 \paragraph{Detector Size}
 	
-	To asses the influence of the number of pixels of an detector on the SNR, a simulation for a 1\,um thick Copper foil in an 100\,nm FWHM focus was performed. The detector size was varied from 64x64 to 3072x3072 pixels and always placed at the same distance of 1\,m, keeping the mean photon count per pixel constant. The number of correlation averaged over in the reconstruction increases linear with the number of pixels. For the SNR calculations, the signal is defined as peak intensity, the noise as the standard deviation over independent simulations.  As show in \fref{fig:SNRdetsize}, under these conditions, the SNR is proportional to the square root of the number of pixels of the detector. 
+To assess the influence of the number of pixels of a detector on the SNR, a simulation for a 1\,\micrometer thick Copper foil in an 100\,nm FWHM focus was performed. The detector size was varied from 64x64 to 3072x3072 pixels and always placed at the same distance of 1\,m, keeping the mean photon count per pixel constant. The number of correlation averaged over in the reconstruction increases linear with the number of pixels. For the SNR calculations, the signal is defined as peak intensity, the noise as the standard deviation over independent simulations.  As shown in \fref{fig:SNRdetsize}, under these conditions, the SNR is proportional to the square root of the number of pixels of the detector. 
+Outside to center area of the reconstruction, the number of different pixel pairs resulting in the same $\Delta{q}$ varies. In a small angle setup, the number of pairs resulting from a finite detector decrease linear in the distance from the center of the reconstruction. In a wide angle setup, i.e. for a crystal sample, the varying solid angle covered by each pixel results in a non trivial dependence of the number of pairs and hence of the SNR on $\Delta{q}$ as shown in \fref{fig:pairnoise}.
 
 
 
@@ -240,7 +243,7 @@ Separate normalization of each shot according to \fref{eq:normshot}  followed by
 As shown in \fref{fig:SNRNimages} if only considering shot and phase noise (uncorrelated between different  images), the SNR scales with the square root of the number of images.  This can be used to estimate the number of shots necessary to achieve a SNR greater than three to be able to experimentally verify IDI as an imaging method. Systematic noise sources causing correlated noise does not follow this relation and should be minimized, e.g. by masking out affected areas of the detector.
  
 \paragraph{Number of Modes}
-To Illustrate the effect of the number of modes on the signal and the SNR, simulations were performed by averaging the intensity over $M$ realizations of the random phases.  In the results of the simulation of a crystall sample, (\fref{fig:modes}) the predicted $1/M$ scaling of the signal can be seen. Furthermore, as expected, in \fref{fig:SNRNimages}, the SNR shows the same scaling.
+To Illustrate the effect of the number of modes on the signal and the SNR, simulations were performed by averaging the intensity over $M$ realizations of the random phases.  In the results of the simulation of a crystall sample, (\fref{fig:modes}) the predicted $1/M$ scaling of the signal can be seen. Furthermore, as expected, in \fref{fig:SNRNimages} the SNR shows the same scaling.
 
 \begin{figure}
 	\centering
@@ -256,13 +259,13 @@ To Illustrate the effect of the number of modes on the signal and the SNR, simul
 	\label{fig:SNRNimages}
 \end{subfigure}
 \caption[SNR dependence on the number of modes and images]{For a simulated crystal
-	(sc-structure, 200x200x500 atoms, 5\,\AA\,lattice constant, 2048x2048 detector with 100\,um pixelsize at 50\,cm, $10^4$ photons/image on the detector, 10\,keV) dependence of the signal (height of the peak) on the number of simulated modes shows approximately an $1/M$ relation.  The inset shows individual line profiles through a Bragg peak in the reconstruction. In (b), for a simulated Nickel grating (80\,nm pitch, 40\,nm thickness in a 200\,nm focus, 1024x1024 detector, 70\,cm) the dependence of the SNR on the number of images averaged over and modes fits the $\sqrt{N}/M$ relation, which is indicated by dashed lines.}
+	(sc-structure, 200x200x500 atoms, 5\,\AA\,lattice constant, 2048x2048 detector with 100\,\micrometer pixelsize at 50\,cm, $10^4$ photons/image on the detector, 10\,keV) dependence of the signal (height of the peak) on the number of simulated modes shows approximately an $1/M$ relation.  The inset shows individual line profiles through a Bragg peak in the reconstruction. In (b), for a simulated Nickel grating (80\,nm pitch, 40\,nm thickness in a 200\,nm focus, 1024x1024 detector, 70\,cm) the dependence of the SNR on the number of images averaged over and modes fits the $\sqrt{N}/M$ relation, which is indicated by dashed lines.}
 \end{figure}
 
 \paragraph{Undersampling and  Sample Size}
 
 
-A simulation of a cubic single crystal with a simple cubic lattice of varying size from 20$^3$ to 200$^3$\,atoms was performed. The lattice constant is chosen as 5.7\,\AA, the fluorescence energy as 8\,keV. The simulated detector has 1024x1024 50\,µm sized pixels and is placed 8\,cm from the  sample. The simulation of the fluorescence patterns was performed with 4x4 oversampling (4096x4096 pixel) and rebinning to the detector size. Only a single coherence mode was simulated. The number of photons emitted by the sample in 4$\pi$ was chosen as half the number of atoms in the sample. Hence, the mean number of photons per pixel is especially for small crystal sizes very small, but at the upper bound of an achievable photon yield in an experiment.
+A simulation of a cubic single crystal with a simple cubic lattice of varying size from 20$^3$ to 200$^3$\,atoms was performed. The lattice constant is chosen as 5.7\,\AA, the fluorescence energy as 8\,keV. The simulated detector has 1024x1024 50\,µm sized pixels and is placed 8\,cm from the  sample. The simulation of the fluorescence patterns was performed with 4x4 oversampling and rebinning to the detector size. Only a single coherence mode was simulated. The number of photons emitted by the sample in 4$\pi$ was chosen as half the number of atoms in the sample. Hence, the mean number of photons per pixel is especially for small crystal sizes very small, but at the upper bound of an achievable photon yield in an experiment.
 
 The peak signal-to-noise ratio was calculated by simulating 2000 independent images  and taking the mean intensity at the visible Bragg peaks positions as signal and the standard deviations at those positions over the independent simulations as noise, resulting in an estimated of the peak SNR of a single image.
 Due to the low photon numbers, the Poisson noise is dominating the noise characteristic and with an increase in atoms in the focus, the SNR increases linear (as shown in \fref{fig:SNRNatoms}), up to the point where a the peaks are no longer fully sampled and the signal decreases linear with a further increase in the number of atoms in the crystal, resulting in a nearly constant peak SNR.
@@ -283,7 +286,7 @@ If instead of considering the peak value of the reconstruction as signal, the th
 		\caption{SNR dependence on detector size}
 		\label{fig:SNRdetsize}
 	\end{subfigure}
-\caption[SNR dependence on crystal size and detector size]{SNR dependence on the crystal size (a): As the crystal size increases, the SNR increases linear (as shown by the linear regression) with the number of atoms in the sample as long as the Bragg peaks is sufficiently sampled (blue points), in undersampling conditions the signal strength decreases linear with the number of atoms resulting in a near constant SNR (right side of the dashed line). The error bars show the standard deviation of the SNR calculated for the 12 visible Bragg peaks. For details on the simulation parameters, see main text. The SNR dependence on the detector size (b) shows a linear relationship between the square root of the number of pixels and the SNR.}
+\caption[SNR dependence on crystal size and detector size]{SNR dependence on the crystal size (a): As the crystal size increases, the SNR increases linear (as shown by the linear regression) with the number of atoms in the sample as long as the Bragg peaks is sufficiently sampled (blue points), in undersampling conditions the signal strength decreases linear with the number of atoms resulting in a near constant SNR (right side of the dashed line). The error bars show the standard deviation of the SNR calculated for the 12 visible Bragg peaks. For details on the simulation parameters, see main text. The SNR dependence on the detector size for a simulated foil sample (b) shows a linear relationship between the square root of the number of pixels and the SNR.}
 
 \end{figure}
 
@@ -299,42 +302,46 @@ If instead of considering the peak value of the reconstruction as signal, the th
 
 \paragraph{Multiple Samples}
 
-A simulation with varying number of spheres placed randomly inside the focal volume while ensuring a minimum distance between neighboring spheres with no other interaction was performed to decide if measuring the fluorescence of more than one nanoparticle in one shot is advantageous.
-The minimum distance was chosen according to the typical size of nanoparticle capping agents; the number of spheres increases up to a simulated Poisson sphere distribution (see appendix \fref{algo:bridson} for details) as densest random placement of particles, leading to 25\% of the volume filled by possible emitters.
-Three factors determine the structure factor of these samples: The structure factor of the focus, the structure factor of points following the poison sphere distribution  and the structure factor of a single sphere (see \fref{fig:multisphere1} and \fref{fig:multisphere3}). 
-For spheres with 20\, nm radius, a spacing layer of 5\,nm around each sphere, with  50000 excited atoms per sphere on average, a focus of 200\,nm FWHM, the fluorescence on a 1024x1024 pixel (pixelsize 100\,um) detector placed 30\,cm was simulated. In this geometry, assuming constant distance to the sample for each detector pixel, approximately 1\% of the emitted photons reach the detector.  For each number of spheres, 5000 images were used for a radial reconstruction using the direct method (see \fref{fig:multisphere2}).
+A simulation with a varying number of spheres placed randomly inside the focal volume while ensuring a minimum distance between neighboring spheres with no other interaction was performed to decide if measuring the fluorescence of more than one nanoparticle in one shot is advantageous.
+The minimum distance was chosen according to the typical size of nanoparticle capping agents; the number of spheres was increased up to a simulated Poisson sphere distribution (see appendix \fref{algo:bridson} for details) as densest random placement of particles, leading to 25\% of the volume filled by possible emitters.
+Three factors determine the structure factor of these samples: The structure factor of the focus, the structure factor of points following the poison sphere distribution, and the structure factor of a single sphere (see \fref{fig:multisphere1} and \fref{fig:multisphere3}). 
+For spheres with 20\, nm radius, a spacing layer of 5\,nm around each sphere, with  50000 excited atoms per sphere on average, a focus of 200\,nm FWHM, the fluorescence on a 1024x1024 pixel (pixel size 100\,\micrometer) detector placed 30\,cm was simulated. In this geometry, assuming constant distance to the sample for each detector pixel, approximately 1\% of the emitted photons reach the detector.  For each number of spheres, 5000 images were used for a radial reconstruction using the direct method (see \fref{fig:multisphere2}).
 As the number of photons emitted by each sphere was kept constant, opposing effects occur:  With an increasing number of particles, more are photons are emitted, and the Poisson noise is reduced, but the signal strength in low scattering angles decreases as the structure factor changes from a single sphere to a hard-sphere model and the influence of the focal volume and the distribution of the spheres on the structure factor increases, 
 
-In the case of 16 randomly positioned spheres, the mean distance to the nearest neighbor in the simulation is approx. three times the diameter. Compared to a single sample the noise as measured by the standard error in the reconstruction is reduced by a factor of 10. At the same time, the signal signal strength at the first maximum decreases by a factor of only 3, leading to an overall gain in SNR.  The dense random packing, with mean nearest simulated neighbor distance of 1.4 times the diameter, reduces the noise further by an additional factor of 5 but also reduces the signal by a factor of 10. Hence, the medium dense sample show the best SNR in this simulation.
+In the case of 16 randomly positioned spheres, the mean distance to the nearest neighbor in the simulation is approximatly three times the diameter. Compared to a single sample, the noise as measured by the standard error in the reconstruction is reduced by a factor of 10. At the same time, the  signal strength at the first maximum decreases by a factor of only 3, leading to an overall gain in SNR.  The dense random packing, with a mean nearest simulated neighbor distance of 1.4 times the diameter, reduces the noise further by an additional factor of 5, but  reduces the signal by a factor of 10. Hence, the medium-dense sample shows the best SNR in this simulation.
  
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.32\textwidth}
+	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/multisphere1.pdf}
-		\caption{Structure Factors\\$ $}
+		\caption{Structure Factors}
 		\label{fig:multisphere1}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.32\textwidth}
+	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/multisphere3.pdf}
 		\caption{Structure Factor of Multiple Spheres}
 		\label{fig:multisphere3}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.32\textwidth}
+	\end{subfigure}\\
+
+	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/multisphere2.pdf}
-		\caption{IDI Reconstruction \\ $ $}
+		\caption{IDI Reconstruction}
 		\label{fig:multisphere2}
 	\end{subfigure}
-\caption[Structure factors and reconstructions for multiple spherical samples]{Structure factors of a sphere with 20\,nm radius, a 200\,nm Gaussian focus and a random distribution of points at least 50\,nm apart (a), the structure factor of different numbers of hard 20\,nm radius spheres with an additional 5\,nm separating layer on each sphere inside the focal volume (b), and the result of an IDI simulation assuming iron fluorescence, a mean of $5*10^4$ excited atoms per sphere, a 1024x1024 pixel (100\,um pixelsize) detector in a distance of 30\,cm (resulting in approximately 1\% of the emitted photons being captured), and using 5000 images (c). The shaded area is the standard error of the mean over images, the markers show the discrete $q$ steps in the reconstruction.}
+	\begin{subfigure}[b]{0.45\textwidth}
+		$ $
+	\end{subfigure}
+\caption[Structure factors and reconstructions for multiple spherical samples]{Structure factors of a sphere with 20\,nm radius, a 200\,nm Gaussian focus and a random distribution of points at least 50\,nm apart (a), the structure factor of different numbers of hard 20\,nm radius spheres with an additional 5\,nm separating layer on each sphere inside the focal volume (b), and the result of an IDI simulation assuming iron fluorescence, a mean of $5\cdot10^4$ excited atoms per sphere, a 1024x1024 pixel (100\,\micrometer pixelsize) detector in a distance of 30\,cm (resulting in approximately 1\% of the emitted photons being captured), and using 5000 images (c). The shaded area is the standard error of the mean over images, the markers show the discrete $q$ steps in the reconstruction.}
 
 \end{figure}
 
 
 \paragraph{Influence of the Pulse Length}
-For a sphere with 10\,nm radius consisting of $2*10^5$ atoms emitting 6.4\,keV fluorescence captured by an 256x256@50\,um detector in 20\,cm distance, the speckle contrast (calculated as the standard deviation of the speckle pattern over the mean) of a series of time dependent simulations with different decay times $\tau$ of the emission and different FWHM of the exciting Gaussian pulse are shown in \fref{fig:pulsedecay}.  These follow the $1/\sqrt{erfcx(2\sigma/\tau})$ relation as predicted by the estimation of the number of modes in \fref{sec:specklecontrast}.  For each simulation, a reconstruction was performed, resulting in radial profiles as shown for one $\tau$ in \fref{fig:tdpshere}.  The visibility of the reconstructions (\fref{fig:tdpshere_visrecons}) shows for long pulses a reciprocal relationship.
+For a sphere with 10\,nm radius consisting of $2*10^5$ atoms emitting 6.4\,keV fluorescence captured by an 256x256@50\,\micrometer detector in 20\,cm distance, the speckle contrast (calculated as the standard deviation of the speckle pattern over the mean) of a series of time dependent simulations with different decay times $\tau$ of the emission and different FWHM of an exciting Gaussian pulse are shown in \fref{fig:pulsedecay}.  These follow the $1/\sqrt{\erfcx(2\sigma/\tau})$ relation as predicted by the estimation of the number of modes in \fref{sec:specklecontrast}.  For each simulation, a reconstruction was performed, resulting in radial profiles as shown for one $\tau$ in \fref{fig:tdpshere}.  The visibility of the reconstructions (\fref{fig:tdpshere_visrecons}) shows for long pulses a reciprocal relationship.
 
 \paragraph{Influence of the Sample Thickness}
-To investigate the influence of the sample thickness, the speckle constrast in a simulation is shown in \fref{fig:thickness}. In this simulation, a constant number ($10^6$) of 8\,keV emitters were placed inside a 200\,nm x 200\,nm (FWHM) Gaussian volume with varying thickness.  The axis of varying thickness was always set perpendicular to the detector such that the viewing angle $\alpha$ does not change the overall volume in which the emitters were placed, ensuring a constant speckle size. Therefore, the change in SNR is only influenced by the finite coherence time $\tau$=1\,fs, the 1\,fs FWHM Gaussian from which the emission times were sampled and the path-length differences, not by a change of the sampling conditions. The 64x64 pixel (pixelsize 100\,um) detector was simulated to be placed in 1\,m distance. The simulation was performed with 2x oversampling and rebinning in both directions.  
-The results show, that in high angles, the limited coherence length of the fluorescence reduces the speckle SNR for thick samples in the simulation, whereas in small angles, the sample thickness does not influence the SNR. In the 0° limit, the position of an emitter along this the beam axis does not change the arrival time of its contribution to the speckle pattern at the detector, as the path length difference $\Delta$ caused by the sample thickness $t$ is (with the transversal distance between the sample and detector $z$ and the lateral distance $x$).
+To investigate the influence of the sample thickness, the speckle constrast in a simulation is shown in \fref{fig:thickness}. In this simulation, a constant number ($10^6$) of 8\,keV emitters were placed inside a 200\,nm x 200\,nm (FWHM) Gaussian volume with varying thickness.  The axis of varying thickness was always set perpendicular to the detector such that the viewing angle $\alpha$ does not change the overall volume in which the emitters were placed, ensuring a constant speckle size. Therefore, the change in SNR is only influenced by the finite coherence time $\tau$=1\,fs, the 1\,fs FWHM Gaussian from which the emission times were sampled and the path-length differences, not by a change of the sampling conditions. The 64x64 pixel (pixelsize 100\,\micrometer) detector was simulated to be placed in 1\,m distance. The simulation was performed with 2x oversampling and rebinning in both directions.  
+The results show, that in high angles, the limited coherence length of the fluorescence reduces the speckle SNR for thick samples in the simulation, whereas in small angles, the sample thickness does not influence the SNR. In the 0° limit, the position of an emitter along this the beam axis does not change the arrival time of its contribution to the speckle pattern at the detector, as the path length difference $\Delta$ caused by the sample thickness $t$ is (with the transversal distance between the sample and detector $z$ and the lateral distance $x$):
 \begin{equation}
 	\Delta=z+\sqrt{z^2+x^2}-\sqrt{(z+t)^2+x^2} \approx(1-\cos (\alpha)) t=\frac{k^2}{\left|\vec{q}\right|^2}t \,.
 \end{equation}
@@ -371,9 +378,9 @@ The results show, that in high angles, the limited coherence length of the fluor
 	In \textbf{(b)} exemplary radial profiles of the reconstruction from 50 of those patterns are shown for one fixed $\tau$. Those reconstructions are used to determine the signal visibility as quantification of the  dependence of the signal strength on the pulse width in \textbf{(c)}. For long pulses, the reciprocal dependence on the pulse length is visible.
 	In \textbf{(d)}  the influence of sample thickness $t$ on the speckle strength under different angles is show (using the mean of 5 independent simulations and the standard deviation as errors). The dashed lines are the approximation $s(t,\alpha)=\frac{s(t\rightarrow0\text{um}, \alpha= 0)}{1+\left(1-\cos{\alpha}\right)\sfrac{t}{2.35\text{um}}}$. For small angles, the sample thickness does not influence the speckle strength.}
 \end{figure}
-\clearpage
+
 \subsection{Simulation of a Focus Measurement}
-A simulation was performed under similar conditions as will be used later on for the measurement of the focal width at SACLA:  A 5\,um thick copper foil, rotated 45° with respect to the beam (200\,nm focus FWHM, 10\,fs pulse FWHM), but (due to computational constraints) only emitting at a single energy line and polarisation, measured with a detector with 50\,um pixel size (charge sharing $\sigma$=5\,um) placed in a distance of 1\,m perpendicular to the beam. The result of the reconstruction is shown in \fref{fig:simfoil}. 
+A simulation was performed under similar conditions as will be used later on for the measurement of the focal width at SACLA:  A 5\,\micrometer thick copper foil, rotated 45° with respect to the beam (200\,nm focus FWHM, 10\,fs pulse FWHM), but (due to computational constraints) only emitting at a single energy line and polarisation, measured with a detector with 50\,\micrometer pixel size (charge sharing $\sigma$=5\,\micrometer) placed in a distance of 1\,m perpendicular to the beam. The result of the reconstruction is shown in \fref{fig:simfoil}. 
 
 In this simulation, approximately 50 images suffice to achieve an SNR (with the signal measured at 2 pixels of center in the vertical direction and the noise quantified by the standard deviation over the pixels outside the region potentially showing a signal) of $\approx$3.
 
@@ -387,9 +394,8 @@ In this simulation, approximately 50 images suffice to achieve an SNR (with the 
 \end{figure}
 
 %$y=c/\left(1+(\sfrac{{4})\right)$
-
 \section{Discussion and Implications for an Experiment}
-The overall agreement of the simulation results with the theoretical prediction for the cases considered increase the trust in both. The agreement between the time-dependent simulation with the approximation of the number of modes overlaid in the measurement allows to simplify the simulation of samples with many excited atoms (>$10^6$) and long pulse lengths, as the time-independent simulation is, despite the applied optimizations, still much faster to perform.
+The overall agreement of the simulation results with the theoretical prediction for the cases considered increase the trust in both. The agreement between the time-dependent simulation with the approximation of the number of modes overlaid in the measurement allows to simplify the simulation of samples with many excited atoms (>$10^6$) and long pulse lengths, as the time-independent simulation is, despite the applied optimizations, still much faster to perform. 
 
 The scaling of the SNR with square root of the number of pixels in the performed simulation should not lead to the general conclusion that all pixel pairs pixels leading the to same $\Delta $ are independent measurement. First, depending on the geometry, the same pixels might be part of more than one of these pairs. In the small angle regime this leads to a constant reduction of the truly independent measurements that can be extracted from a single image. Second, the actual signal to be recovered creates non trivial correlations between the different pixel pairs. But the results suffices to stress the importance of having a large detector as well as a sufficient way to perform the analysis on large images.
 
@@ -398,12 +404,10 @@ The most relevant implications for imaging crystals are: First, it is beneficial
 
 The insights about the influence of different numbers of spherical samples inside the focus guides the preparation of nanoparticle samples: By depositing the nanoparticles in a polymer matrix at a concentration that is on the one hand high enough to make use of the gain in signal photons but on the other hand low enough not to lose contrast in the form factor. While in the performed simulation the single particle was always in the center of the focus, this would not be the case in an experiment with a tight focus, further stressing the advantages of having multiple sample inside the focal volume.
 
+The dependence of the SNR on the pulse length stresses the need for ultra short pulses. A limitation of the performed simulation is the assumed to be Gaussian pulse shape. This assumption is, in general, for FELs using self-amplified spontaneous emission not valid, but may serve as a simplified model for ultra short pulses \cite{inoue2019}. Furthermore, it was shown that measuring in forward direction is beneficial to the speckle contrast, even though these simulations suffer from the same limitation.  In an experimental design, scattering and straylight will limit the practicality of a measurement in forward direction.
 
 According to the comparison of the different photon-counting methods, discretizing the recorded detector values by finding appropriate thresholds for the different numbers of signal photons reduces detector effects and should be used to analyze experimental data. Commonly used clustering algorithms such as the PSANA photon counting algorithm can by itself influence the calculated correlation. This influence can be reduced by using only pixel-wise methods. Nevertheless, directly neighboring pixels may still be influenced, and their calculated correlations should not be considered trustworthy for determining the structure factor.
 
 
 The performed simulation capturing most of the experimental parameters and extrapolating using the scaling laws shown, allows to estimate the number of images necessary for a successful IDI measurement of the focal width: Even though the under-sampling in the horizontal direction causes a significant reduction in signal strength, 50 images suffice in the simulation to get an acceptable SNR, leading to the estimation that, even with the additional reduction in contrast due to multiple emission lines and polarization (combined a factor <4), less than 1000 images would suffice for a replication of the previously published results \cite{nakumura2020}.
-
-
-
 
