@@ -73,7 +73,7 @@ and its normalized version, the complex degree of (self-)coherence $\gamma$, as
 \begin{equation}
 \gamma(\tau)=\frac{\Gamma(\tau)}{\Gamma(0)} =  \frac{\Gamma(\tau)}{\left<I(t)\right>} \,.
 \end{equation} 
-Now \fref{eq:interference} can be written as $I=I_{1}+I_{2}+2 \sqrt{I_{1} I_{2}} \operatorname{Re}\left[\gamma(\tau)\right]$ and (again for equal intensities) the visibility is $V(\tau)=\left|\gamma(\tau)\right|$ \cite{zernike1938,loudon2000}. As the Wiener-Khinchin theorem connects the power spectrum $F(w)$ with $\gamma$,
+Now \fref{eq:interference} can be written as $I=I_{1}+I_{2}+2 \sqrt{I_{1} I_{2}} \Re\left[\gamma(\tau)\right]$ and (again for equal intensities) the visibility is $V(\tau)=\left|\gamma(\tau)\right|$ \cite{zernike1938,loudon2000}. As the Wiener-Khinchin theorem connects the power spectrum $F(w)$ with $\gamma$,
 \begin{equation}
 	F(\omega)=\frac{1}{2 \pi} \int_{-\infty}^{\infty} \gamma(\tau) \exp (\mathrm{i} \omega \tau)  \dif \tau \,,
 \end{equation}
@@ -98,14 +98,12 @@ and numerator and denominator of the complex degree of coherence are
 Hence, $\left<\gamma(\tau)\right>=e^{-|\tau/| \tau_E}$,  and the coherence time as defined is above is accordingly $\tau_c=\int_{-\infty}^{\infty} \left| \gamma(\tau)\right|^2 \diff \tau=\tau_E=\sfrac{2\hbar}{\Delta E}$ \cite{goodman2000,pollnau2020}.
 
 
-
  \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/michelson.pdf}
 	\caption[Schematic of an interferometer]{Schematic of an interferometer: Light of a Gaussian light source with finite coherence time is split and interference with a delayed copy is observed. The time averaged intensity measured by an detector changes with the delay time. }
 	\label{fig:michelson}
 \end{figure}
-
 
 \paragraph{First order coherence $g^1$}
 A generalization of the complex degree of self coherence to different fields  $E_1^*(\vec{r}_1,t_1)$ and $E_2(\vec{r}_2,t_2)$ is the normalized first order correlation function $g^1$ \cite{agarwal2013}
@@ -114,8 +112,6 @@ A generalization of the complex degree of self coherence to different fields  $E
 	{\left< E_1^*(\vec{r}_1,t_1)E_2(\vec{r}_2,t_2) \right>}
 	{\left[ \left<\left | E(\vec{r}_1,t_1)\right |^2 \right> \left< \left |E(\vec{r}_2,t_2)\right |^2 \right>\right]^{1/2}}	\,.
 \end{equation}
-
-
 
 This can be used, for example, to describe Young's double slit experiment (\fref{fig:doubleslit}): On the screen at point $\vec{r}$, the electrical field is 
 \begin{equation}
@@ -202,10 +198,10 @@ independent of the separation of the sources. On the other hand, the average of 
 	\left\langle I_{1} I_{2}\right\rangle =
 	\left\langle I_{1}\right\rangle\left\langle I_{2}\right\rangle+\frac{2}{L^{4}}|c_A|^{2}|c_B|^{2} \cos \left(k\left(r_{1 a}-r_{2 a}-r_{1 b}+r_{2 b}\right)\right) \,.
 \end{equation}
-Hence,
+Hence combining these to the normalized correlation results in
 \begin{equation}
 	\frac{\left\langle I_{1} I_{2}\right\rangle}{\left\langle I_{1}\right\rangle\left\langle I_{2}\right\rangle}
-	=1+2 \frac{\left\langle|\alpha|^{2}\right\rangle\left\langle|\beta|^{2}\right\rangle}{\left(\left\langle|\alpha|^{2}\right\rangle+\left\langle|\beta|^{2}\right\rangle\right)^{2}} \cos \left(k\left(r_{1 a}-r_{2 a}-r_{1 b}+r_{2 b}\right)\right)
+	=1+2 \frac{\left\langle|\alpha|^{2}\right\rangle\left\langle|\beta|^{2}\right\rangle}{\left(\left\langle|\alpha|^{2}\right\rangle+\left\langle|\beta|^{2}\right\rangle\right)^{2}} \cos \left(k\left(r_{1 a}-r_{2 a}-r_{1 b}+r_{2 b}\right)\right) \,.
 \end{equation}
 
 For a large enough distance between the sources and detectors $(L \gg R)$, the small angle approximation can be used, yielding
@@ -385,7 +381,7 @@ The variance of a product of uncorrelated photon counts following the negative b
 \begin{equation}
 	\Var_{p\cdot p}= \Var_p^2 +2 \mu^2\Var_p	= \mu^4 \frac{2 M + 1}{M^2 + 2}+ \mu^3 \frac{M+1}{M} + \mu^2 \,.
 \end{equation}
-Assuming no correlations, this would describe the inherent noise in the measurement of the fluorescence. The last term, dominating in the low photon count regime, can be considered as the "Poissonian" character of the noise, whereas the other terms, dominating at high photon counts, the phase noise.
+Assuming no correlations, this would describe the inherent noise in the measurement of the fluorescence. The last term, dominating in the low photon count regime, can be considered as the Poissonian character of the noise, whereas the other terms, dominating at high photon counts, the phase noise.
 As shown by Trost et. al, this can be used to estimate the inherent noise of an intensity correlation measurement, even though the actual signal will break the assumption of having uncorrelated photon counts \cite{trost2020}.
 
 \paragraph{Signal to Noise Ratio}

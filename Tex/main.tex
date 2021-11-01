@@ -2,7 +2,7 @@
 %\pdfminorversion=5 
 \RequirePackage[2020-02-02]{latexrelease}
 \pdfsuppresswarningpagegroup=1
-\documentclass[12pt,a4paper,twoside]{book}
+\documentclass[12pt,a4paper,oneside]{book}
 
 %Packages
 \usepackage[utf8]{inputenc}
@@ -31,29 +31,15 @@
 \usepackage{blindtext} %Einfügen von Blindtext über \blindtext
 \usepackage{siunitx} %Einstellungen für Dezimaltrennzeichen und Definitionen in siunitx.cfg
 
-\newcommand\textmicrometer{~{\textmu}m}
-\newcommand\micrometer{%
-	\ifmmode\textnormal{\textmicrometer}%
-	\else\textmicrometer%
-\fi}
 
-\newcommand\textmicroliter{~{\textmu}l}
-\newcommand\microliter{%
-	\ifmmode\textnormal{\textmicroliter}%
-	\else\textmicroliter%
-\fi}
 
-\newcommand\textmicrojoule{~{\textmu}J}
-\newcommand\microjoule{%
-	\ifmmode\textnormal{\textmicrojoule}%
-	\else\textmicrojoule%
-\fi}
+\usepackage[autostyle]{csquotes} %anfuerungszeichen
+\MakeOuterQuote{"}
 
-\usepackage[autostyle=true,german=quotes]{csquotes} %Verwendung von Anführungszeichen über \enquote{Text}
 \usepackage[toc]{appendix} %um eine Titelseite "Anhang" vor dem eigentlichen Anhang einfügen zu können
 
 %Druckt den Hinweis "Entwurf" mit Datum auf jede Seite. Zum deaktivieren printwatermark=false setzen
-\usepackage[printwatermark=true]{xwatermark}
+\usepackage[printwatermark=false]{xwatermark}
 \newwatermark[allpages,textcolor=gray!70,angle=0,xpos=68,ypos=-135,fontsize=14pt,fontfamily=phv]{Draft\ -\ \the\day.\the\month.\the\year}
 
 %multirow in tabellen
@@ -101,7 +87,7 @@
 %\titlespacing\paragraph{0pt}{4pt plus 2pt minus 2pt}{0pt plus 2pt minus 2pt}
 \titleformat{\chapter}[display]   
 {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{10pt}{\Huge}   
-\titlespacing*{\chapter}{0pt}{-20pt}{20pt}
+\titlespacing*{\chapter}{0pt}{-30pt}{20pt}
 
 \setlength{\parindent}{0mm}
 
@@ -336,7 +322,7 @@
 
 
 %%%%%%%%%%%%%%%%   KAPITEL   %%%%%%%%%%%%%%%%%
-\setlength{\parskip}{2mm plus 0mm minus 1mm}
+\setlength{\parskip}{1mm plus 0.25mm minus 0.25mm}
 \pagenumbering{arabic}
 \pagestyle{headings}
 \fancyhf{} 
@@ -345,7 +331,7 @@
 \fancyhead[RO]{\sc\nouppercase\rightmark} 
 \fancyhead[LE]{\sc\nouppercase\leftmark}
 \cfoot{\thepage}
-\setlength{\headheight}{14.5pt}
+\setlength{\headheight}{15pt}
 \onehalfspacing
 
 \include{introduction}
