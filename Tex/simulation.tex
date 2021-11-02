@@ -20,26 +20,26 @@ Each of the $N$ atoms is assigned an emitting time $t_{n}$ out of a random distr
 For each discrete pixel on the simulated detector and 	for each atom the distance $d_n$, the arrival time $t'_n=t_n+d_n/c$ of each atom's initial radiance, and its time independent complex field $E_n=\frac{1}{d} e^{ikd_n+\phi_n}$ with initial random phase $\phi$ is calculated.
 The time-dependent field for a single emission center frequency $w_0$ is the summation over the decaying field of all atoms,
 \begin{equation}
-	E(t)=\sum_{n=1}^N  E_n \Theta(t'_n  - t)  e^{-(t-t'_n )/\tau} e^{-iw_0 t}
+	E(t)=\sum_{n=1}^N  E_n \Theta(t-t'_n)  e^{-(t-t'_n )/\tau} e^{-iw_0 t}
 	\label{eq:tdsum}
 \end{equation}
 and the simulated intensity the time integral over the magnitude squared of the E-field,
 \begin{equation}
-	I=\int_0^\infty \left| E(t) \right|^2.
+	I=\int_0^\infty \left| E(t) \right|^2. \diff t
 	\label{eq:tdint}
 \end{equation}
 To efficiently solve this integral for each detector pixel, it can be split into N parts with a constant number atoms which radiations have already arrived, and each of those parts can be solved analytically . For this, first all atoms are sorted by the arrival time at the pixel. At each arrival time $t'_n$, the sum in \fref{eq:tdsum} gets a new term and the field is calculated as
 \begin{equation}
-	E'(t_n)=E'(t_{n-1})*e^{\sfrac{t_{n-1}-t_n}{\tau}}+E'_n \,,
+	E'(t_n)=E'(t_{n-1}) e^{\frac{t_{n-1}-t_n}{\tau}}+E'_n (t_n) \,,
 \end{equation}
 where $E'$ denotes $E$ after dropping the overall phase. This can be done with a parallel inclusive scan (as shown in the appendix in \fref{algo:td}), giving the supports for the integral, as show in \fref{fig:tdplot}, which can now be solved as
 \begin{align*}
-	I&=\int_0^\infty \left| E(t) \right|^2 = \sum_{n=1}^{N-1} \int_0^{t_{n+1}-t_n} \left|E(t_n)\right|^2 e^{-2t/\tau} \dif t +\int_0^\infty \left| E(t_N)\right|^2 e^{-2t/\tau} \dif t \\
+	I&=\int_0^\infty \left| E(t) \right|^2 \diff t= \sum_{n=1}^{N-1} \int_0^{t_{n+1}-t_n} \left|E(t_n)\right|^2 e^{-2t/\tau} \dif t +\int_0^\infty \left| E(t_N)\right|^2 e^{-2t/\tau} \dif t \\
 	&=  \frac{\tau}{2}  \left|E(t_N)\right|^2 -  \frac{\tau}{2}\sum_{n=1}^{N-1} \left|E(t_n)\right|^2 (e^{-2 (t_{n+1}-t_n)/\tau} -1 ) 
 	\numberthis
 \end{align*}
 The described procedure is efficient in regards of discrete time steps that need to be calculated and can easily be run on a GPU, enabling the simulation of many emitters and long pulse duration. However, it still requires significantly more computations than the time independent simulation.
-
+\clearpage
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\linewidth]{images/tdplot.pdf}
@@ -67,7 +67,7 @@ Let $x$ and $y$ describe positions in the image and $z(x,y)$ the distance to the
 with $\vec{q}(x,y) = \sfrac{[x y z]}{\sqrt{x ^ 2 + y ^ 2 + z^2(x,y)}}$  the correlation averaged over all respective pairs is
 \begin{equation}
 	\overline{AC}(\Delta \vec{q}) = 
-	\frac{1}{N_p} \sum_{\vec{q}} AC(\vec{q},\vec{q}+\Delta \vec{q})=
+	%\frac{1}{N_p} \sum_{\vec{q}} AC(\vec{q},\vec{q}+\Delta \vec{q})=
 	\frac{1}{N_p} \quad \sum^{	\crampedclap{\sfrac{N_x}{2},\sfrac{N_y}{2}}}_{
 		\crampedclap{
 			\begin{subarray}{l}
@@ -86,7 +86,7 @@ with $N_p$ the total number of pairs of points on the detector $[x_1 y_1],[x_2,y
 
 Making use of the (circular) convolution theorem of the discrete Fourier transformation,
 \begin{equation}
-	\operatorname{DFT}_N^{-1}\left[\operatorname{DFT}_N x \cdot \operatorname{DFT}_N x\right]_n=\sum_{\ell=0}^{N-1} y_{\ell} \cdot x_{(n-\ell) \bmod N}
+	\operatorname{DFT}_N^{-1}\left[\operatorname{DFT}_N x \cdot \operatorname{DFT}_N y\right]_n=\sum_{\ell=0}^{N-1} y_{\ell} \cdot x_{(n-\ell) \bmod N} \,,
 \end{equation}
 which after zero-extending the signal in x, y from length $N$ to $2N$ reduces to the regular convolution, the autocorrelation of the image can be written as 
 \begin{equation}
@@ -106,8 +106,7 @@ For masked image registration and similar tasks, the cross correlation is common
 \begin{equation}
 	\frac{\mathit{corr}(\mathit{mask},\mathit{image}) \mathit{corr}(\mathit{image},\mathit{mask})}{\mathit{corr}(\mathit{mask},\mathit{mask})} \,,
 	\label{eq:normshot}
-\end{equation} which would correspond to estimation of the expectation values by the mean over all pixels that form pixel pairs contributing to the value in the reconstruction at a particular $\Delta \vec{q}$, giving a slightly different weighting to the pixels than first calculating $g^2$ normalized by the actual expectation values for each pair and afterward averaging over the pairs would give.
-
+\end{equation} This would correspond to estimation of the expectation values by the mean over all pixels that form pixel pairs contributing to the value in the reconstruction at a particular $\Delta \vec{q}$
 If multiple images are recorded or simulated, the expectation value for each pixel can be approximated by its mean over many realizations, i.e. images. To account for fluctuations in the exciting FEL pulse and resulting fluctuations of the fluorescence intensity, under the assumption that the distribution over pixel intensities and FEL intensities are uncorrelated, the expectation value of photon detection probability of each pixel in each shot can be factorized into the product of the probability to detect a photon in a particular pixel and the probability to detect a photon in a shot. Thus, the effect of the FEL intensity fluctuations can be suppressed by normalizing each image by the total intensity, and the uneven probabilities for different pixels by normalizing each pixel by its mean over all images. 
 
 
