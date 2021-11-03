@@ -25,7 +25,7 @@ The time-dependent field for a single emission center frequency $w_0$ is the sum
 \end{equation}
 and the simulated intensity the time integral over the magnitude squared of the E-field,
 \begin{equation}
-	I=\int_0^\infty \left| E(t) \right|^2. \diff t
+	I=\int_0^\infty \left| E(t) \right|^2 \diff t \,.
 	\label{eq:tdint}
 \end{equation}
 To efficiently solve this integral for each detector pixel, it can be split into N parts with a constant number atoms which radiations have already arrived, and each of those parts can be solved analytically . For this, first all atoms are sorted by the arrival time at the pixel. At each arrival time $t'_n$, the sum in \fref{eq:tdsum} gets a new term and the field is calculated as
@@ -42,7 +42,7 @@ The described procedure is efficient in regards of discrete time steps that need
 \clearpage
 \begin{figure}
 	\centering
-	\includegraphics[width=0.5\linewidth]{images/tdplot.pdf}
+	\includegraphics[width=0.6\linewidth]{images/tdplot.pdf}
 	\caption[Integration in time0dependent IDI simulation]{To illustrate the integration in the time-dependent IDI simulation, the (normalized) scalar field at one point of the detector created by ten emitting atoms with $\tau$=1\,fs and a pulse FWHM of 2\,fs is shown. For illustration purposes, the variations due to the center frequency are omitted. The solid colors show each atom's field envelope, the line plot the phase correct sum. It is sufficient to calculate the squared magnitude at the points marked with stars and to do a piecewise integration from each star-shaped marker the next dot-shaped marker to solve the integral \fref{eq:tdint}. The color wheel at the top right illustrates the phase encoding in the plot.}
 	\label{fig:tdplot}
 \end{figure}
@@ -62,6 +62,7 @@ The signal within each pixel caused by one photon is given by the integral over 
 In the approximation introduced  in \fref{sec:idi}, the normalized intensity correlation $g^2(\Delta q)-1$ has to be calculated to recover the structure factor from the simulated fluorescence speckle patterns. The task can be split up into two logical units, the calculation of the autocorrelation and the application of a sufficient normalization.
 
 \subsection{Calculation of the Autocorrelation}
+\label{sec:corr}
 The numerator of $g^2$ is the autocorrelation of the recorded intensities $I$ which can be calculated as follows:
 Let $x$ and $y$ describe positions in the image and $z(x,y)$ the distance to the sample, then 
 with $\vec{q}(x,y) = \sfrac{[x y z]}{\sqrt{x ^ 2 + y ^ 2 + z^2(x,y)}}$  the correlation averaged over all respective pairs is
@@ -84,7 +85,7 @@ with $\vec{q}(x,y) = \sfrac{[x y z]}{\sqrt{x ^ 2 + y ^ 2 + z^2(x,y)}}$  the corr
 \end{equation}
 with $N_p$ the total number of pairs of points on the detector $[x_1 y_1],[x_2,y_2]$  fulfilling the condition. As a complete evaluation using this direct evaluation scales with $O(N^2)$ in the number of pixels, it is only useful if only a limited $\vec{q}$ range is of interest, and a more efficient method should be used for a full reconstruction.
 
-Making use of the (circular) convolution theorem of the discrete Fourier transformation,
+Making use of the circular convolution theorem of the discrete Fourier transformation,
 \begin{equation}
 	\operatorname{DFT}_N^{-1}\left[\operatorname{DFT}_N x \cdot \operatorname{DFT}_N y\right]_n=\sum_{\ell=0}^{N-1} y_{\ell} \cdot x_{(n-\ell) \bmod N} \,,
 \end{equation}
@@ -101,7 +102,7 @@ The number of correlation pairs $N_p$ contributing to the sum in \fref{eq:fftcor
 \label{sec:normal}
 In the definition of $g^2$ (\fref{eq:g2}), normalization is performed by the product of the \textit{expectation values} of the intensities at the two locations. As these expectation values are influenced by the sample, the geometry, and experimental imperfections, some considerations on how to implement this normalization have to be made for calculating $g^2(\Delta\vec{q})$ from measured or simulated fluorescence speckle patterns. 
 
-If only a single image is taken, the expectation value for each pixel has to be roughly approximated. This can be done by assuming an equal value for all pixels (and estimating by the mean), which will lead to significant artifacts if, for example, due to the geometry, outside pixels have a much lower true expectation value than pixels in the center of the recorded image.  
+If only a single image is taken, the expectation value for each pixel has to be roughly approximated. This can be done by assuming an equal value for all pixels and estimating by the mean, which will lead to significant artifacts if, for example, due to the geometry, outside pixels have a much lower true expectation value than pixels in the center of the recorded image.  
 For masked image registration and similar tasks, the cross correlation is commonly normalized by the following (simplified to the relevant case of the autocorrelation) divisor \cite{padfield2010}:
 \begin{equation}
 	\frac{\mathit{corr}(\mathit{mask},\mathit{image}) \mathit{corr}(\mathit{image},\mathit{mask})}{\mathit{corr}(\mathit{mask},\mathit{mask})} \,,
@@ -133,30 +134,31 @@ Considering possible combinations of signal and scattering photons by finding  $
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
+	\begin{subfigure}[b]{0.49\textwidth}
 		\includegraphics[width=\linewidth]{images/sharing.pdf}
 		\caption{True histogram and degradation}
 		\label{fig:degrad}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.45\textwidth}
+	\begin{subfigure}[b]{0.49\textwidth}
 		\includegraphics[width=\linewidth]{images/probs.pdf}
 		\caption{Probabilities and decision boundaries}
 		\label{fig:probs}
 	\end{subfigure}
 	
-	\caption[Histogram, probabilities and decision boundaries for the photon number under the influence of charge sharing and noise]{For a Poisson distributed signal with mean 0.01 photons/pixel, a Poisson distributed straylight with mean 0.001 photons/pixel and an photon energy of 1.3 times the energy of a signal photon, a charge sharing PSF with $\sigma$ 0.1 pixel and a Gaussian noise with $\sigma$ 0.05 photons, the simulated histogram is shown on the left. Detector noise, charge sharing scattering photons degrade the histogram. The probabilities of an observed energy being caused by a certain number of signal photons is shown on the right, the dashed lines mark the decision boundaries for discrete signal photons of an Bayesian classifier.} 
+	\caption[Histogram, probabilities and decision boundaries for the photon number under the influence of charge sharing and noise]{A simulated spectrum of a Poisson distributed signal with mean 0.01 photons/pixel,is shown on the left.  The simulation includes Poisson distributed straylight with mean 0.001 photons/pixel and an photon energy of 1.3 times the energy of a signal photon, as well as a charge sharing PSF with $\sigma$ 0.1 pixel and a Gaussian noise with $\sigma$ 0.05 photons. Detector noise, charge sharing scattering photons degrade the histogram. The probabilities of an observed energy being caused by a certain number of signal photons is shown on the right. The dashed lines mark the decision boundaries for discrete signal photons of a Bayesian classifier.} 
 \end{figure}
 
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.85\textwidth}
+	\hspace{0.05\textwidth}
+	\begin{subfigure}[b]{0.9\textwidth}
 		\includegraphics[width=\linewidth]{images/photonreconimg.pdf}	
 		\caption{Center part of the reconstructions}
 		\label{fig:photonreconimg}
 	\end{subfigure}
 	\\
-	\begin{subfigure}[b]{0.95\textwidth}
+	\begin{subfigure}[b]{0.98\textwidth}
 		\includegraphics[width=\linewidth]{images/photonrecon.pdf}
 		\caption{Line profiles}
 		\label{fig:photonrecon}
@@ -196,13 +198,13 @@ To evaluate the different approaches, for a grating with pitch 50\,nm, line widt
 			\smallskip
 			\begin{subfigure}[t]{0.42\textwidth}
 				\centering
-				\includegraphics[width=0.9\textwidth]{images/accessibleq2.png}
+				\includegraphics[width=\textwidth]{images/accessibleq2.png}
 				\caption{Accessible reciprocal space compared to CDI }
 				\label{fig:accesibleq}
 			\end{subfigure}\\
 			\begin{subfigure}[t]{0.4\textwidth}
 				\centering
-				\includegraphics[width=0.9\textwidth]{images/accessibleq.png}
+				\includegraphics[width=\textwidth]{images/accessibleq.png}
 				\caption{Accessible reciprocal space with Bragg peaks}
 				\label{fig:accesiblebraggq}
 			\end{subfigure}
@@ -221,7 +223,7 @@ To evaluate the different approaches, for a grating with pitch 50\,nm, line widt
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.85\textwidth]{images/normalisation_comp.pdf}
+	\includegraphics[width=0.95\textwidth]{images/normalisation_comp.pdf}
 	\caption[Comparison of Normalization Techniques]{Comparison of different normalization schemes for a simulated grating with 30\% of the mean as standard deviation in the shot intensity and 30\% standard deviation in the pixel sensitivity. The normalization by both the pixel mean and the shot mean reduces most artifacts and results in a negligible offset.}
 	\label{fig:norm_com}
 \end{figure}
@@ -240,26 +242,27 @@ Outside to center area of the reconstruction, the number of different pixel pair
 
 
 \paragraph{Number of Images}
-As shown in \fref{fig:SNRNimages} if only considering shot and phase noise (uncorrelated between different  images), the SNR scales with the square root of the number of images.  This can be used to estimate the number of shots necessary to achieve a SNR greater than three to be able to experimentally verify IDI as an imaging method. Systematic noise sources causing correlated noise does not follow this relation and should be minimized, e.g. by masking out affected areas of the detector.
+As shown in \fref{fig:SNRNimages} if only considering shot and phase noise, uncorrelated between different  images, the SNR scales with the square root of the number of images.  This can be used to estimate the number of shots necessary to achieve a SNR greater than three to be able to experimentally verify IDI as an imaging method. Systematic noise sources causing correlated noise does not follow this relation and should be minimized, e.g. by masking out affected areas of the detector.
  
 \paragraph{Number of Modes}
 To Illustrate the effect of the number of modes on the signal and the SNR, simulations were performed by averaging the intensity over $M$ realizations of the random phases.  In the results of the simulation of a crystall sample, (\fref{fig:modes}) the predicted $1/M$ scaling of the signal can be seen. Furthermore, as expected, in \fref{fig:SNRNimages} the SNR shows the same scaling.
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
+	\begin{subfigure}[b]{0.48\textwidth}
 		\includegraphics[width=\linewidth]{images/modes_signal.pdf}
 		\caption{Signal dependence on the number of modes\\ ${}$}
 		\label{fig:modes}
 	\end{subfigure}
-	\hspace{0.02\textwidth}
-	\begin{subfigure}[b]{0.45\textwidth}
+	%\hspace{0.02\textwidth}
+	\begin{subfigure}[b]{0.48\textwidth}
 	\includegraphics[width=\linewidth]{images/SNRNimagesgrating.pdf}
 	\caption{SNR dependence on the number of modes and images}
 	\label{fig:SNRNimages}
 \end{subfigure}
-\caption[SNR dependence on the number of modes and images]{For a simulated crystal
-	(sc-structure, 200x200x500 atoms, 5\,\AA\,lattice constant, 2048x2048 detector with 100\,\textmu m pixelsize at 50\,cm, $10^4$ photons/image on the detector, 10\,keV) dependence of the signal (height of the peak) on the number of simulated modes shows approximately an $1/M$ relation.  The inset shows individual line profiles through a Bragg peak in the reconstruction. In (b), for a simulated Nickel grating (80\,nm pitch, 40\,nm thickness in a 200\,nm focus, 1024x1024 detector, 70\,cm) the dependence of the SNR on the number of images averaged over and modes fits the $\sqrt{N}/M$ relation, which is indicated by dashed lines.}
+\caption[SNR dependence on the number of modes and images]{
+	\textbf{(a)} The signal (height of the peak) approximately inverse proportional to the number of simulated modes for a simulated crystal
+	(sc-structure, 200x200x500 atoms, 5\,\AA\,lattice constant, 2048x2048 detector with 100\,\textmu m pixelsize at 50\,cm, $10^4$ photons/image on the detector, 10\,keV). The inset shows individual line profiles through a Bragg peak in the reconstruction. \textbf{(b)} For a simulated Nickel grating (80\,nm pitch, 40\,nm thickness in a 200\,nm focus, 1024x1024 detector, 70\,cm) the dependence of the SNR on the number of images averaged over and modes fits the $\sqrt{N}/M$ relation, which is indicated by dashed lines.}
 \end{figure}
 
 \paragraph{Undersampling and  Sample Size}
@@ -268,20 +271,20 @@ To Illustrate the effect of the number of modes on the signal and the SNR, simul
 A simulation of a cubic single crystal with a simple cubic lattice of varying size from 20$^3$ to 200$^3$\,atoms was performed. The lattice constant is chosen as 5.7\,\AA, the fluorescence energy as 8\,keV. The simulated detector has 1024x1024 50\,µm sized pixels and is placed 8\,cm from the  sample. The simulation of the fluorescence patterns was performed with 4x4 oversampling and rebinning to the detector size. Only a single coherence mode was simulated. The number of photons emitted by the sample in 4$\pi$ was chosen as half the number of atoms in the sample. Hence, the mean number of photons per pixel is especially for small crystal sizes very small, but at the upper bound of an achievable photon yield in an experiment.
 
 The peak signal-to-noise ratio was calculated by simulating 2000 independent images  and taking the mean intensity at the visible Bragg peaks positions as signal and the standard deviations at those positions over the independent simulations as noise, resulting in an estimated of the peak SNR of a single image.
-Due to the low photon numbers, the Poisson noise is dominating the noise characteristic and with an increase in atoms in the focus, the SNR increases linear (as shown in \fref{fig:SNRNatoms}), up to the point where a the peaks are no longer fully sampled and the signal decreases linear with a further increase in the number of atoms in the crystal, resulting in a nearly constant peak SNR.
+Due to the low photon numbers, the Poisson noise is dominating the noise characteristic and with an increase in atoms in the focus, the SNR increases linear (as shown in \fref{fig:SNRNatoms}), up to the point where the Bragg peaks are no longer fully sampled and the signal decreases linear with a further increase in the number of atoms in the crystal, resulting in a nearly constant peak SNR.
 If instead of considering the peak value of the reconstruction as signal, the three dimensional integral over the Bragg peak would be considered as signal, the decreasing width of the Bragg peak with increasing size of the crystal would result in a nearly constant SNR under these low photon count conditions. 
 
 
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
+	\begin{subfigure}[b]{0.48\textwidth}
 		\includegraphics[width=\linewidth]{images/SNRNatoms.pdf}
 		\caption{ SNR dependence on crystal size}
 		\label{fig:SNRNatoms}
 	\end{subfigure}
-	\hspace{0.02\textwidth}
-	\begin{subfigure}[b]{0.45\textwidth}
+	%\hspace{0.02\textwidth}
+	\begin{subfigure}[b]{0.48\textwidth}
 		\includegraphics[width=\linewidth]{images/detsize.pdf}
 		\caption{SNR dependence on detector size}
 		\label{fig:SNRdetsize}
@@ -314,7 +317,7 @@ In the case of 16 randomly positioned spheres, the mean distance to the nearest 
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\linewidth]{images/multisphere1.pdf}
-		\caption{Structure Factors}
+		\caption{Individual Structure Factors}
 		\label{fig:multisphere1}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.45\textwidth}
@@ -350,26 +353,26 @@ The results show, that in high angles, the limited coherence length of the fluor
 
 \begin{figure}
 \centering
-	\begin{subfigure}[b]{0.45\textwidth}
+	\begin{subfigure}[b]{0.48\textwidth}
 		\includegraphics[width=\linewidth]{images/timedependent_1.pdf}
 		\caption{Speckle Contrast for different pulse FWHM and decay times $\tau$}
 		\label{fig:pulsedecay}
 	\end{subfigure}
-	\hspace{0.1cm}
-	\begin{subfigure}[b]{0.45\textwidth}
+	%\hspace{0.1cm}
+	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{images/tdsphere.pdf}
 		\caption{Reconstructed radial profiles at different pulse FWHM and fixed $\tau = 0.1$\,fs}
 		\label{fig:tdpshere}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.45\textwidth}
+	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{images/timedependent_2.pdf}
 		\caption{Visibility of the reconstruction for different pulse FWHM and decay times $\tau$}
 		\label{fig:tdpshere_visrecons}
 	\end{subfigure}
 	\hspace{0.1cm}
-	\begin{subfigure}[b]{0.45\textwidth}
+	\begin{subfigure}[b]{0.48\textwidth}
 		\includegraphics[width=\linewidth]{images/thickness.pdf}
 		\caption{Speckle Contrast for different sample thicknesses and angles}
 		\label{fig:thickness}

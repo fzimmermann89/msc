@@ -101,7 +101,7 @@ Hence, $\left<\gamma(\tau)\right>=e^{-|\tau/| \tau_E}$,  and the coherence time 
  \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/michelson.pdf}
-	\caption[Schematic of an interferometer]{Schematic of an interferometer: Light of a Gaussian light source with finite coherence time is split and interference with a delayed copy is observed. The time averaged intensity measured by an detector changes with the delay time. }
+	\caption[Schematic of an interferometer]{Schematic of an interferometer: Light with finite coherence time and Gaussian spectrum is split and interference with a delayed copy is observed. The time averaged intensity measured by an detector changes with the delay time. }
 	\label{fig:michelson}
 \end{figure}
 
@@ -187,7 +187,7 @@ If two sources $A$ and $B$ (in the original experiment different parts of the ob
 	+c_A     c_B^{*} e^{-i\left(k\left(r_{1 b}-r_{1 a}\right)+\phi_{B}-\phi_{A}\right)}
 	\right)
 \end{equation}
-with $r_{1 a}$ the distance from source $A$ to detector 1 etc., and analogously for detector 2.
+with $r_{1 a}$ the distance from source $A$ to detector 1, etc., and analogously for detector 2.
 Averaging over many independent realizations of the random phases leads to the average intensities in the two detectors,
 \begin{equation}
 	\left\langle I_{1}\right\rangle=\left\langle I_{2}\right\rangle=\frac{1}{L^{2}}\left(\left\langle|c_A|^{2}\right\rangle+\left\langle|c_B|^{2}\right\rangle\right) \,,
@@ -347,22 +347,19 @@ The number of degrees of freedom, $M_{t,\text{Conv}}=\left[\int_{-\infty}^{\inft
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.48\textwidth}
+	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{images/temporalmodes.pdf}
 		\caption{Temporal Modes}
 		\label{fig:theorymodes}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.48\textwidth}
+	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
     	\includegraphics[width=\linewidth]{images/modes_stat.pdf}
 		\caption{Photon Statistics}
 		\label{fig:stat}	
 		\end{subfigure}
-	\caption[Temporal Modes and Photons statistics]{Temporal Modes for a Lorentzian Spectrum and Gaussian excitation (a): In the limit of longer excitation pulses, the number of modes increases linear with the pulse duration, $M\approx \frac{\text{FWHM}}{\tau_c} \sqrt{\frac{\pi} {2 \ln{2}}}$. 
-		Additionally, the results of applying the mode estimation   (\fref{eq:modesp1p2}) to simulated fluorescence images as described in \fref{sec:timedependend} is shown (see there for more details on the simulation).
-		
-		Photon statistics with different numbers of modes $M$ and equal mean of 0.1\,photons (b): A lower number of modes corresponds the an higher probability of observing multi photon events. The limit of a high number of modes is a Poisson distribution.}
+	\caption[Temporal Modes and Photons statistics]{\textbf{(a)} Temporal modes for a Lorentzian spectrum and Gaussian excitation as described in the main text. In the limit of longer excitation pulses, the number of modes increases linear with the pulse duration, $M\approx \frac{\text{FWHM}}{\tau_c} \sqrt{\frac{\pi} {2 \ln{2}}}$.  Additionally, the results of applying the mode estimation   (\fref{eq:modesp1p2}) to simulated fluorescence images as described in \fref{sec:timedependend} is shown (see there for more details on the simulation). \textbf{(b)} Photon statistics with different numbers of modes $M$ and equal mean of 0.1\,photons. A lower number of modes corresponds the an higher probability of observing multi photon events. The limit of a high number of modes is a Poisson distribution.}
 \end{figure}
 
 Beside these temporal modes, the experimentally indistinguishable fluorescence energies $K_{\alpha,1}$ and $K_{\alpha,2}$ (as well as  $K_\beta$ if no filter is used for suppression) give additional independent spectral modes $M_E$, depending on the relative intensity of the lines, with $M_E \lessapprox 2$ for the elements considered in this work (see \fref{tab:elements}).
@@ -401,7 +398,7 @@ as an estimation of the Signal to Noise Ratio (SNR), which will be further exami
 
 \section{Kossel Lines}
 \label{sec:kossel}
-X-ray radiation  originating from \textit{within} a single crystal, i.e. fluorescence, can get Bragg reflected at the lattice planes of the crystal, causing intensity variations in $90^o-\theta_{hkl}$ around the direction $\vec{k}_{hkl}$ (perpendicular to the planes described by the Laue indices $hkl$), with $\theta_{hkl}$ the corresponding Bragg angle, forming the \textit{Kossel Cones} \cite{cowley1995}. On the spherical detector centered at at the crystal, the points with influenced intensity, the \textit{Kossel lines} (or, as they are more commonly called in electron microscopy, \text{Kikuchi lines}) would hence lie on circles, for a flat detector on general conic sections (see \fref{fig:kossel} for an illustration).
+X-ray radiation  originating from \textit{within} a single crystal, i.e. fluorescence, can be Bragg reflected at the lattice planes of the crystal, causing intensity variations in $90^o-\theta_{hkl}$ around the direction perpendicular to the planes described by the Laue indices $hkl$, $\vec{k}_{hkl}$, with $\theta_{hkl}$ the corresponding Bragg angle, forming the \textit{Kossel Cones} \cite{cowley1995}. On the spherical detector centered at at the crystal, the points with influenced intensity, the \textit{Kossel lines} (or, as they are more commonly called in electron microscopy, \text{Kikuchi lines}) would hence lie on circles, for a flat detector on general conic sections (see \fref{fig:kossel} for an illustration).
 
 The visibility of the Kossel lines is governed by the same extinction rules as for the Bragg reflexes -- the structure factor $F_{hkl}$ has to be non-zero \cite{cowley1995}. For a zinc blende structure (such as GaAs) with atomic scattering factors $f_a$ and $f_b$, the structure factor is
 \begin{align}
