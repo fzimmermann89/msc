@@ -242,7 +242,7 @@ In the following, the classical description of the fields will allow for better 
 \caption[Main concept of IDI]{In IDI, an  X-ray pulse is used to excite fluorescence inside the sample. The resulting speckle pattern is recorded on a integrating pixelated detector. Similar to the intensity correlations in the HBT experiment, the spatial correlation of pixels within the recorded speckle pattern is calculated. The need for fast detectors to resolve the fluctuating speckle pattern is replaced by the ultra-short excitation. Within each shot, only a finite number of random realizations of the speckle pattern is recorded. Therefore, the speckle pattern has contrast. To increase statistics in a few photon measurement, the average of the intensity correlations of many shots is taken.}
 \label{fig:idi}
 \end{figure}
- The main idea leading from Hanbury Brown and Twiss's intensity correlations to IDI is replacing the need for detectors measuring the intensity fluctuations much faster than the variation of the random phases by using ultra-short pulses for fluorescence excitation.  Each excitation then only creates finite realizations of the random phases, thus a speckle pattern. The basic setup used is shown in \fref{fig:idi}.
+ The main idea leading from Hanbury Brown and Twiss's intensity correlations to IDI is solving the need for detectors measuring the intensity fluctuations much faster than the variation of the random phases by using ultra-short pulses for fluorescence excitation.  Each excitation then only creates finite realizations of the random phases, thus a speckle pattern. The basic setup used is shown in \fref{fig:idi}.
 A simplified explanation of IDI's ability to extract spatial information from these patterns can easily be made for chaotic light sources in a classical view by application of the Siegert relation.
 
 \paragraph{Siegert Relation}
@@ -254,11 +254,11 @@ $\left<ABCD\right>=\left<AB\right>\left<CD\right>+\left<AC\right>\left<BD\right>
 \end{equation}
 This relation of the first and second order correlation function is known as the \textit{Siegert Relation} \cite{ou2017}. 
 
-As, as according to the van Cittert–Zernike theorem (\fref{eq:vcz}), $g^1$ encodes structural information, 
+As $g^1$ encodes structural information according to the van Cittert–Zernike theorem (\fref{eq:vcz}),
 \begin{equation}
 	g^1(\vec{k_1},\vec{k_2}) \propto \mathscr{F}S(\vec{r}) = S(\vec{q}) \,,
 \end{equation}
-the difference of the intensity-intensity correlation from unity is proportional  to the Fourier transform of the arrangement of emitters with $\vec{q}=\vec{k_1}-\vec{k_2}$ (see \fref{fig:scatteringvectors} for the definition of the involved vectors). 
+the difference of the intensity-intensity correlation from unity is proportional to the squared magnitude of the Fourier transform of the arrangement of emitters with $\vec{q}=\vec{k_1}-\vec{k_2}$ (see \fref{fig:scatteringvectors} for the definition of the involved vectors). 
 This is the basic principle used in IDI to recover three-dimensional spatial information from the intensity correlation.
 \begin{figure}
 	\centering
@@ -339,8 +339,6 @@ where $P(t)$ is the integration window weighting function and $K(t)$ its autocor
 \begin{align*}
 	M_{t,\text{rect}} =T \left[\int_{-\infty}^{\infty} \Lambda\left(\frac{t}{T}\right) \left|\gamma(t)\right|^2 \diff t \right]^{-1} \,, \numberthis \\
 	\label{eq:modesapprox}
-\end{align*}
-\begin{align*}
 \text{with  }\Lambda(x) = \begin{cases} 
  1-\left|x\right|& \textit{if }|x|<1\\
 0 & \textit{otherwise}\\  
