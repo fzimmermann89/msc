@@ -2,7 +2,7 @@
 %\pdfminorversion=5 
 \RequirePackage[2020-02-02]{latexrelease}
 \pdfsuppresswarningpagegroup=1
-\documentclass[12pt,a4paper,oneside]{book}
+\documentclass[12pt,a4paper,twoside]{book}
 
 %Packages
 \usepackage[utf8]{inputenc}
@@ -17,7 +17,7 @@
 \usepackage{xfrac}
 \usepackage{graphicx}
 \usepackage{xcolor}
-\usepackage[textwidth=155mm,bottom=30mm,top=25mm,headsep=8mm,bindingoffset=8mm]{geometry}
+\usepackage[textwidth=160mm,bottom=25mm,top=25mm,headsep=8mm,bindingoffset=10mm]{geometry}
 \usepackage{listings}
 \usepackage{fancybox}
 \usepackage[small,bf]{caption} %Schönere Beschriftungen für Abbildungen und Tabellen
@@ -81,7 +81,7 @@
 
 %abstände
 \usepackage{titlesec}
-\titlespacing\section{0pt}{12pt plus 8pt minus 4pt}{0pt plus 2pt minus 4pt}
+\titlespacing\section{0pt}{10pt plus 8pt minus 4pt}{0pt plus 2pt minus 4pt}
 \titlespacing\subsection{0pt}{10pt plus 8pt minus 4pt}{0pt plus 2pt minus 4pt}
 \titlespacing\subsubsection{0pt}{10pt plus 8pt minus 4pt}{0pt plus 2pt minus 4pt}
 %\titlespacing\paragraph{0pt}{4pt plus 2pt minus 2pt}{0pt plus 2pt minus 2pt}
@@ -98,10 +98,10 @@
 \setlength{\abovecaptionskip}{10pt plus 6pt minus 2pt}
 \captionsetup[subfigure]{aboveskip=1pt}
 %kleinere abstände bei gleichungen
-\setlength{\abovedisplayskip}{-6pt plus 4pt}
-\setlength{\belowdisplayskip}{-6pt plus 4pt}
-\setlength{\abovedisplayshortskip}{-6pt plus 4pt}
-\setlength{\belowdisplayshortskip}{-6pt plus 4pt}
+\setlength{\abovedisplayskip}{-6pt plus 5pt}
+\setlength{\belowdisplayskip}{-6pt plus 5pt}
+\setlength{\abovedisplayshortskip}{-6pt plus 5pt}
+\setlength{\belowdisplayshortskip}{-6pt plus 5pt}
 %1.5 zeilig
 \usepackage{setspace}
 
@@ -220,7 +220,7 @@
 
 
 %hyperref
-\usepackage[bookmarksdepth=subsection]{hyperref} %pdf-Inhaltsverzeichnis und pdf-Links
+\usepackage[bookmarksdepth=subsection,pdfa]{hyperref} %pdf-Inhaltsverzeichnis und pdf-Links
 \hypersetup{
 	pdfborder={0 0 0}, 
 	bookmarksnumbered=true,
@@ -314,9 +314,10 @@
 	\acro{FFT}{Fast Fourier transform}
 	\acro{SLAC}{SLAC National Accelerator Laboratory}
 	\acro{LCLS}{Linac Coherent Light Source}
-	\acro{SACLA}{SPring-8 Angstrom Compact free-electron Laser}
+	\acro{SACLA}{SPring-8 Angstrom Compact Free-Electron Laser}
 	\acro{SSRL}{Stanford Synchrotron Radiation Lightsource}
 \end{acronym}
+
 
 \endgroup
 \cleardoublepage
